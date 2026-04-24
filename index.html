@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memori 🌿</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div id="langScreen">
+          <h2 style="margin-bottom: 20px">Choose Language</h2>
+          <div class="lang-grid">
+            <button onclick="setLanguage('uk')">🇺🇦 Українська</button>
+            <button onclick="setLanguage('en')">🇬🇧 English</button>
+            <button onclick="setLanguage('pl')">🇵🇱 Polski</button>
+            <button onclick="setLanguage('de')">🇩🇪 Deutsch</button>
+            <button onclick="setLanguage('fr')">🇫🇷 Français</button>
+            <button onclick="setLanguage('es')">🇪🇸 Español</button>
+          </div>
+        </div>
+
+        <div id="roleScreen" style="display: none">
+          <h1 class="trans-title">Memori 🌿</h1>
+          <p id="roleInstruct">Хто буде навчатися?</p>
+          <div class="role-grid">
+            <button class="role-btn" onclick="selectRole('child')">
+              <img
+                src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=100&h=100"
+                alt="Child"
+              />
+              <span id="role-child">Дитина</span>
+            </button>
+            <button class="role-btn" onclick="selectRole('teen')">
+              <img
+                src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=100&h=100"
+                alt="Teen"
+              />
+              <span id="role-teen">Підліток</span>
+            </button>
+            <button class="role-btn" onclick="selectRole('adult')">
+              <img
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&h=100"
+                alt="Adult"
+              />
+              <span id="role-adult">Дорослий</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="inputScreen" style="display: none">
+          <h1 id="welcomeTitle">Memori 🌿</h1>
+          <p id="roleSubtitle"></p>
+
+          <div class="input-group">
+            <label id="inputLabel">Вставте текст сюди:</label>
+            <textarea id="userText" placeholder="Введіть текст..."></textarea>
+          </div>
+
+          <div class="input-group">
+            <label id="daysLabel">За скільки днів треба вивчити?</label>
+            <select id="studyDays">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="5">5</option>
+              <option value="7">7</option>
+            </select>
+          </div>
+
+          <button onclick="startLearning()" id="startBtn">Почати</button>
+        </div>
+
+        <div id="learningScreen" style="display: none">
+          <div class="progress-bar">
+            <div id="progressFill" class="progress-fill"></div>
+          </div>
+          <h2 id="stepLabel" style="color: #76ba99; font-size: 0.9rem"></h2>
+          <div
+            id="textDisplay"
+            style="
+              font-size: 1.4rem;
+              margin: 25px 0;
+              min-height: 80px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-weight: 500;
+            "
+          ></div>
+
+          <div id="methodChoice" style="display: none; margin-bottom: 20px">
+            <p style="font-size: 0.8rem; color: #888" id="methodText">
+              Спосіб повторення:
+            </p>
+            <div class="button-grid">
+              <button class="btn-small" onclick="selectMethod('mind')">
+                🧠 <span id="m-mind">В умі</span>
+              </button>
+              <button class="btn-small" onclick="selectMethod('write')">
+                ✍️ <span id="m-write">Письмо</span>
+              </button>
+              <button class="btn-small" onclick="selectMethod('audio')">
+                🎤 <span id="m-audio">Аудіо</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="writeArea" style="display: none; margin-bottom: 20px">
+            <textarea id="practiceText" style="height: 80px"></textarea>
+          </div>
+
+          <div
+            id="audioArea"
+            style="
+              display: none;
+              margin-bottom: 20px;
+              font-size: 0.8rem;
+              color: #666;
+            "
+          >
+            <div style="font-size: 2rem">🎤</div>
+            <span id="audioNote">Запиши себе</span>
+          </div>
+
+          <div
+            id="resultMessage"
+            style="margin-bottom: 15px; font-weight: bold; min-height: 20px"
+          ></div>
+          <button onclick="nextBlock()" id="nextBtn">Далі</button>
+        </div>
+
+        <div id="restScreen" style="display: none">
+          <div id="restCanvas"></div>
+          <h2 id="restTitle">Відпочинок</h2>
+          <p id="restSubtitle">Мозок відпочиває...</p>
+          <div
+            id="timer"
+            style="
+              font-size: 2.5rem;
+              font-weight: bold;
+              margin: 20px 0;
+              color: #76ba99;
+            "
+          >
+            00:10
+          </div>
+          <button
+            id="resumeBtn"
+            onclick="resumeLearning()"
+            style="display: none"
+          >
+            Продовжити
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

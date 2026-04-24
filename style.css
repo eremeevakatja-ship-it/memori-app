@@ -1,0 +1,66 @@
+:root { --primary: #76ba99; --bg: #f8f9fa; --card-bg: #ffffff; --text: #2d3436; }
+@media (prefers-color-scheme: dark) { :root { --bg: #1a1a1a; --card-bg: #2d2d2d; --text: #f5f5f5; } }
+
+body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; display: flex; justify-content: center; padding-top: 40px; }
+.container { width: 90%; max-width: 450px; }
+.card { background: var(--card-bg); padding: 30px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; overflow: hidden; position: relative; }
+
+.lang-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 20px; }
+.lang-grid button { background: #f0f2f5; color: #000; border: 1px solid #ddd; padding: 14px; border-radius: 12px; font-weight: 500; cursor: pointer; transition: 0.3s; width: 100%; }
+.lang-grid button:hover { background: var(--primary); color: white; }
+
+.role-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
+.role-btn { display: flex; align-items: center; background: #f0f2f5; border: 1px solid #ddd; border-radius: 16px; padding: 10px 20px; cursor: pointer; transition: 0.3s; width: 100%; }
+.role-btn img { width: 50px; height: 50px; border-radius: 12px; margin-right: 15px; object-fit: cover; pointer-events: none; }
+.role-btn span { font-size: 1.1rem; font-weight: 600; color: #000 !important; pointer-events: none; }
+
+textarea, select { width: 100%; border-radius: 12px; border: 1px solid #ddd; padding: 12px; font-size: 1rem; box-sizing: border-box; resize: none; margin-top: 10px; font-family: inherit; }
+textarea { height: 120px; }
+button { background: var(--primary); color: white; border: none; padding: 16px; width: 100%; border-radius: 12px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 10px; position: relative; z-index: 2; }
+
+.button-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.btn-small { background: #f0f0f0; color: #333; font-size: 0.7rem; padding: 10px 2px; height: auto; border: 1px solid #ddd; margin-top: 0; }
+
+/* КОДОВАНИЙ ВІДПОЧИНОК */
+#restCanvas {
+    width: 100%;
+    height: 180px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+}
+
+#restCanvas::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: rgba(118, 186, 153, 0.2);
+    border-radius: 50%;
+    top: -50px;
+    left: -50px;
+    animation: pulseRest 8s infinite ease-in-out;
+}
+
+#restCanvas::before {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: rgba(118, 186, 153, 0.3);
+    border-radius: 50%;
+    bottom: -30px;
+    right: -30px;
+    animation: pulseRest 6s infinite ease-in-out reverse;
+}
+
+@keyframes pulseRest {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.2); opacity: 0.5; }
+}
+
+.progress-bar { width: 100%; height: 6px; background: #eee; border-radius: 3px; margin-bottom: 20px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.4s ease; }
+.input-group { text-align: left; margin: 15px 0; }
