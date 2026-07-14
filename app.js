@@ -165,6 +165,9 @@ const translations = {
         wv_auto_translate: '🌐 Запропонувати переклад', wv_translating: 'Перекладаю…',
         wv_translate_failed: 'Не вдалося перекласти деякі слова', wv_translate_offline: 'Немає інтернету — перевірте з\'єднання',
         wv_alt_translation: 'Інший варіант перекладу', wv_no_alt: 'Інших варіантів немає — введіть свій переклад',
+        wv_hint_cycle: '— спробувати інший варіант перекладу',
+        wv_alt_info_title: 'Слово має кілька значень?',
+        wv_alt_info_body: 'Багато слів мають кілька значень або перекладаються по-різному залежно від контексту. Натисніть 🔁 біля будь-якої пари стільки разів, скільки потрібно — кожен клік підставляє інший варіант перекладу цього слова. Якщо жоден варіант не підійшов — просто натисніть на саму пару і впишіть переклад вручну.',
         wv_alt_wrapped: 'Це всі варіанти — можна ввести свій, якщо жоден не підійшов',
         wt_title: 'Назвіть тему', wt_placeholder: 'Наприклад: Тварини',
         wt_auto: '✨ Підібрати автоматично', wt_save: 'Зберегти →',
@@ -292,6 +295,9 @@ const translations = {
         wv_auto_translate: '🌐 Suggest translation', wv_translating: 'Translating…',
         wv_translate_failed: 'Could not translate some words', wv_translate_offline: 'No internet — check your connection',
         wv_alt_translation: 'Alternative translation', wv_no_alt: 'No other options — type your own translation',
+        wv_hint_cycle: '— try another translation option',
+        wv_alt_info_title: 'Does this word have several meanings?',
+        wv_alt_info_body: 'Many words have several meanings or are translated differently depending on context. Tap 🔁 next to any pair as many times as you need — each tap swaps in another translation for that word. If none of them fit, just tap the pair itself and type your own translation.',
         wv_alt_wrapped: 'That\'s all the options — type your own if none fit',
         wt_title: 'Name this topic', wt_placeholder: 'e.g. Animals',
         wt_auto: '✨ Suggest automatically', wt_save: 'Save →',
@@ -419,6 +425,9 @@ const translations = {
         wv_auto_translate: '🌐 Zaproponuj tłumaczenie', wv_translating: 'Tłumaczę…',
         wv_translate_failed: 'Nie udało się przetłumaczyć niektórych słów', wv_translate_offline: 'Brak internetu — sprawdź połączenie',
         wv_alt_translation: 'Inny wariant tłumaczenia', wv_no_alt: 'Brak innych opcji — wpisz własne tłumaczenie',
+        wv_hint_cycle: '— spróbuj innego wariantu tłumaczenia',
+        wv_alt_info_title: 'To słowo ma kilka znaczeń?',
+        wv_alt_info_body: 'Wiele słów ma kilka znaczeń albo tłumaczy się różnie w zależności od kontekstu. Dotknij 🔁 przy dowolnej parze tyle razy, ile potrzeba — każde dotknięcie podstawia inny wariant tłumaczenia. Jeśli żaden nie pasuje — po prostu dotknij pary i wpisz tłumaczenie ręcznie.',
         wv_alt_wrapped: 'To wszystkie opcje — możesz wpisać własne, jeśli żadna nie pasuje',
         wt_title: 'Nazwij temat', wt_placeholder: 'np. Zwierzęta',
         wt_auto: '✨ Zasugeruj automatycznie', wt_save: 'Zapisz →',
@@ -546,6 +555,9 @@ const translations = {
         wv_auto_translate: '🌐 Übersetzung vorschlagen', wv_translating: 'Übersetze…',
         wv_translate_failed: 'Einige Wörter konnten nicht übersetzt werden', wv_translate_offline: 'Kein Internet — Verbindung prüfen',
         wv_alt_translation: 'Andere Übersetzung', wv_no_alt: 'Keine weiteren Optionen — eigene Übersetzung eingeben',
+        wv_hint_cycle: '— eine andere Übersetzung ausprobieren',
+        wv_alt_info_title: 'Hat dieses Wort mehrere Bedeutungen?',
+        wv_alt_info_body: 'Viele Wörter haben mehrere Bedeutungen oder werden je nach Kontext unterschiedlich übersetzt. Tippe so oft wie nötig auf 🔁 neben einem Paar — jedes Tippen setzt eine andere Übersetzung ein. Passt keine davon, tippe einfach auf das Paar und gib deine eigene Übersetzung ein.',
         wv_alt_wrapped: 'Das sind alle Optionen — gib deine eigene ein, wenn keine passt',
         wt_title: 'Thema benennen', wt_placeholder: 'z.B. Tiere',
         wt_auto: '✨ Automatisch vorschlagen', wt_save: 'Speichern →',
@@ -673,6 +685,9 @@ const translations = {
         wv_auto_translate: '🌐 Suggérer une traduction', wv_translating: 'Traduction…',
         wv_translate_failed: 'Certains mots n\'ont pas pu être traduits', wv_translate_offline: 'Pas d\'internet — vérifiez la connexion',
         wv_alt_translation: 'Autre traduction', wv_no_alt: 'Pas d\'autres options — saisissez votre propre traduction',
+        wv_hint_cycle: '— essayer une autre traduction',
+        wv_alt_info_title: 'Ce mot a plusieurs sens ?',
+        wv_alt_info_body: 'Beaucoup de mots ont plusieurs sens ou se traduisent différemment selon le contexte. Appuyez sur 🔁 à côté d\'une paire autant de fois que nécessaire — chaque appui propose une autre traduction. Si aucune ne convient, appuyez simplement sur la paire et saisissez votre propre traduction.',
         wv_alt_wrapped: 'Ce sont toutes les options — saisissez la vôtre si aucune ne convient',
         wt_title: 'Nommer le thème', wt_placeholder: 'ex. Animaux',
         wt_auto: '✨ Suggérer automatiquement', wt_save: 'Enregistrer →',
@@ -800,6 +815,9 @@ const translations = {
         wv_auto_translate: '🌐 Sugerir traducción', wv_translating: 'Traduciendo…',
         wv_translate_failed: 'No se pudieron traducir algunas palabras', wv_translate_offline: 'Sin internet — comprueba la conexión',
         wv_alt_translation: 'Otra traducción', wv_no_alt: 'No hay más opciones — escribe tu propia traducción',
+        wv_hint_cycle: '— probar otra opción de traducción',
+        wv_alt_info_title: '¿Esta palabra tiene varios significados?',
+        wv_alt_info_body: 'Muchas palabras tienen varios significados o se traducen de forma distinta según el contexto. Toca 🔁 junto a cualquier par tantas veces como necesites — cada toque muestra otra traducción de esa palabra. Si ninguna encaja, simplemente toca el par y escribe tu propia traducción.',
         wv_alt_wrapped: 'Estas son todas las opciones — escribe la tuya si ninguna encaja',
         wt_title: 'Nombrar el tema', wt_placeholder: 'p.ej. Animales',
         wt_auto: '✨ Sugerir automáticamente', wt_save: 'Guardar →',
@@ -3244,6 +3262,7 @@ function showWordVerifyScreen() {
     document.getElementById('wvBackLabel').innerText = t.back_lang || 'Назад';
     document.getElementById('wvTitleEl').innerText = t.wv_title || 'Перевірте список';
     document.getElementById('wvHintEl').innerText = t.wv_hint || 'Натисніть на пару щоб відредагувати';
+    document.getElementById('wvHint2Text').innerText = t.wv_hint_cycle || '— спробувати інший варіант перекладу';
     document.getElementById('wvAddBtn').innerText = t.wv_add || '+ Додати слово';
     document.getElementById('wvNextBtn').innerText = t.wv_confirm || 'Все вірно →';
     document.getElementById('wvValidation').style.display = 'none';
@@ -3384,9 +3403,13 @@ async function cycleTranslation(index) {
     const chip = document.getElementById('wchip-' + index);
     const cycleBtn = chip ? chip.querySelector('.chip-cycle-btn') : null;
 
-    if (!altTransCache[key]) {
+    // Не кешуємо порожній результат назавжди — [] є truthy, тож без .length-перевірки
+    // одна тимчасова мережева невдача назавжди "замикала" слово на "варіантів немає".
+    if (!altTransCache[key] || !altTransCache[key].length) {
         if (cycleBtn) cycleBtn.classList.add('chip-cycle-loading');
-        altTransCache[key] = await fetchTranslationAlternatives(pair.word, wordLangFrom, wordLangTo);
+        let list = await fetchTranslationAlternatives(pair.word, wordLangFrom, wordLangTo);
+        if (!list.length) list = await fetchTranslationAlternatives(pair.word, wordLangFrom, wordLangTo); // один ретрай на випадок тимчасового збою
+        altTransCache[key] = list;
         altTransIndex[key] = -1;
         if (cycleBtn) cycleBtn.classList.remove('chip-cycle-loading');
     }

@@ -11,7 +11,7 @@
     <meta name="apple-mobile-web-app-title" content="Memori" />
     <link rel="apple-touch-icon" href="icon.svg" />
     <link rel="icon" href="icon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="style.css?v=56" />
+    <link rel="stylesheet" href="style.css?v=57" />
   </head>
   <body>
     <div class="container">
@@ -534,6 +534,10 @@
           </div>
           <h2 id="wvTitleEl" class="setup-title">Перевірте список</h2>
           <p id="wvHintEl" class="wv-hint">Натисніть на пару щоб відредагувати</p>
+          <p id="wvHint2El" class="wv-hint wv-hint-cycle">
+            🔁 <span id="wvHint2Text">— спробувати інший варіант перекладу</span>
+            <button onclick="openInfoPopup(translations[currentLang].wv_alt_info_title, translations[currentLang].wv_alt_info_body)" class="btn-info" id="wvAltInfoBtn" type="button">ⓘ</button>
+          </p>
           <button onclick="autoTranslateMissing()" class="btn-auto-translate" id="wvAutoTranslateBtn" style="display:none;">🌐 Запропонувати переклад</button>
           <div id="wordChipsContainer" class="word-chips-container"></div>
           <button onclick="addWordPairBtn()" class="btn-add-pair" id="wvAddBtn">+ Додати слово</button>
@@ -576,7 +580,7 @@
       </div>
     </div>
 
-    <script src="app.js?v=56"></script>
+    <script src="app.js?v=58"></script>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});

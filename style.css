@@ -1879,6 +1879,15 @@ body[data-theme="dark"] .word-input-textarea {
   margin: -8px 0 14px;
   text-align: left;
 }
+.wv-hint-cycle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: -10px 0 14px;
+  color: var(--primary);
+  font-weight: 600;
+}
+.wv-hint-cycle .btn-info { margin-left: 2px; }
 .word-chips-container {
   display: flex;
   flex-direction: column;
