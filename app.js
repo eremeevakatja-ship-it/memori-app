@@ -149,6 +149,8 @@ const translations = {
         blocksize_info_body: 'Порція — шматок тексту, який ти вчиш за один раз.\nМаленька (5 слів) — легше, більше кроків. Для вірша або дітей.\nВелика (15 слів) — менше кроків, але складніше.',
         time_info_title: 'Скільки є часу?',
         time_info_body: 'Якщо часу мало — додаток сам зупиниться і скаже: «На сьогодні досить».\nЗавтра продовжиш з того місця де зупинився.',
+        wt_time_info_title: 'Скільки є часу?',
+        wt_time_info_body: 'Кількість вправ підбирається під ваш час — менше часу, менше вправ за сесію. Типи вправ (аудіо, письмо, диктант тощо) залежать від обраного рівня, а не від часу. «Без обмежень» — повна тренувальна сесія з усіма типами вправ для вашого рівня.',
         bigReviewLabel: 'ВСЕ РАЗОМ (1–{n} блоки)',
         bigReviewHint: 'Прочитайте весь текст. Потім відтворіть з самого початку 🔁',
         w_mode_link: 'Вчити слова та фрази',
@@ -279,6 +281,8 @@ const translations = {
         blocksize_info_body: "A portion is a chunk of text you memorise at once.\nSmall (5 words) — easier, more steps. Good for poems or kids.\nLarge (15 words) — fewer steps, but harder to memorise.",
         time_info_title: 'How much time do you have?',
         time_info_body: "If time is short — the app will stop and say: 'That's enough for today'.\nTomorrow you continue from where you left off.",
+        wt_time_info_title: 'How much time do you have?',
+        wt_time_info_body: "The number of exercises is sized to your time — less time, fewer exercises this session. Exercise types (audio, spelling, dictation, etc.) depend on your chosen level, not on time. 'No limit' gives a full training session with every type unlocked for your level.",
         bigReviewLabel: 'FULL RECALL (1–{n} blocks)',
         bigReviewHint: 'Read all the text. Then reproduce from the very beginning 🔁',
         w_mode_link: 'Learn words & phrases',
@@ -409,6 +413,8 @@ const translations = {
         blocksize_info_body: "Porcja to fragment tekstu, który uczysz się za jednym razem.\nMała (5 słów) — łatwiej, więcej kroków. Dobra do wiersza lub dla dzieci.\nDuża (15 słów) — mniej kroków, ale trudniej zapamiętać.",
         time_info_title: 'Ile masz czasu?',
         time_info_body: "Jeśli czasu jest mało — aplikacja zatrzyma się i powie: «Na dziś wystarczy».\nJutro kontynuujesz od miejsca, gdzie skończyłeś.",
+        wt_time_info_title: 'Ile masz czasu?',
+        wt_time_info_body: 'Liczba ćwiczeń jest dopasowana do czasu — mniej czasu, mniej ćwiczeń w tej sesji. Typy ćwiczeń (audio, pisanie, dyktando itd.) zależą od wybranego poziomu, nie od czasu. „Bez ograniczeń” to pełna sesja ze wszystkimi typami odblokowanymi dla twojego poziomu.',
         bigReviewLabel: 'CAŁOŚĆ (1–{n} bloki)',
         bigReviewHint: 'Przeczytaj cały tekst. Potem odtwórz od samego początku 🔁',
         w_mode_link: 'Ucz się słów i fraz',
@@ -539,6 +545,8 @@ const translations = {
         blocksize_info_body: "Eine Portion ist ein Textstück, das Sie auf einmal lernen.\nKlein (5 Wörter) — leichter, mehr Schritte. Gut für Gedichte oder Kinder.\nGroß (15 Wörter) — weniger Schritte, aber schwerer zu merken.",
         time_info_title: 'Wie viel Zeit haben Sie?',
         time_info_body: "Wenig Zeit — die App stoppt und sagt: «Für heute reicht es».\nMorgen machen Sie weiter, wo Sie aufgehört haben.",
+        wt_time_info_title: 'Wie viel Zeit haben Sie?',
+        wt_time_info_body: 'Die Anzahl der Übungen richtet sich nach Ihrer Zeit — weniger Zeit, weniger Übungen in dieser Sitzung. Übungstypen (Audio, Schreiben, Diktat usw.) hängen vom gewählten Level ab, nicht von der Zeit. „Ohne Limit" gibt eine vollständige Sitzung mit allen für Ihr Level freigeschalteten Typen.',
         bigReviewLabel: 'ALLES (1–{n} Blöcke)',
         bigReviewHint: 'Lesen Sie den ganzen Text. Dann reproduzieren Sie von Anfang an 🔁',
         w_mode_link: 'Wörter & Phrasen lernen',
@@ -669,6 +677,8 @@ const translations = {
         blocksize_info_body: "Une portion est un morceau de texte à mémoriser en une fois.\nPetite (5 mots) — plus facile, plus d'étapes. Pour poèmes ou enfants.\nGrande (15 mots) — moins d'étapes, mais plus difficile.",
         time_info_title: 'Combien de temps avez-vous ?',
         time_info_body: "Peu de temps — l'appli s'arrête et dit : «C'est assez pour aujourd'hui».\nDemain vous reprenez là où vous vous êtes arrêté.",
+        wt_time_info_title: 'Combien de temps avez-vous ?',
+        wt_time_info_body: "Le nombre d'exercices s'adapte à votre temps — moins de temps, moins d'exercices pour cette session. Les types d'exercices (audio, orthographe, dictée, etc.) dépendent du niveau choisi, pas du temps. « Sans limite » donne une session complète avec tous les types débloqués pour votre niveau.",
         bigReviewLabel: 'TOUT (1–{n} blocs)',
         bigReviewHint: 'Lisez tout le texte. Puis reproduisez depuis le début 🔁',
         w_mode_link: 'Apprendre des mots et phrases',
@@ -799,6 +809,8 @@ const translations = {
         blocksize_info_body: "Una porción es un trozo de texto que memorizas de una vez.\nPequeña (5 palabras) — más fácil, más pasos. Para poemas o niños.\nGrande (15 palabras) — menos pasos, pero más difícil.",
         time_info_title: '¿Cuánto tiempo tienes?',
         time_info_body: "Poco tiempo — la app se detiene y dice: «Por hoy es suficiente».\nMañana continúas desde donde lo dejaste.",
+        wt_time_info_title: '¿Cuánto tiempo tienes?',
+        wt_time_info_body: 'El número de ejercicios se ajusta a tu tiempo — menos tiempo, menos ejercicios en esta sesión. Los tipos de ejercicio (audio, ortografía, dictado, etc.) dependen del nivel elegido, no del tiempo. "Sin límite" da una sesión completa con todos los tipos desbloqueados para tu nivel.',
         bigReviewLabel: 'TODO (1–{n} bloques)',
         bigReviewHint: 'Lee todo el texto. Luego reproduce desde el principio 🔁',
         w_mode_link: 'Aprender palabras y frases',
@@ -3123,7 +3135,35 @@ function showWordLevelScreen() {
     document.getElementById('wlevBackLabel').innerText = t.back_lang || 'Назад';
     document.getElementById('wlevTitleEl').innerText = t.wlev_title || 'Твій рівень?';
     document.getElementById('wlevNextBtn').innerText = t.wl_next || 'Далі →';
+    document.getElementById('wordTimeLabel').innerText = t.timeLabel;
+    const wordTimeInfoBtn = document.getElementById('wordTimeInfoBtn');
+    if (wordTimeInfoBtn) wordTimeInfoBtn.onclick = () => openInfoPopup(
+        t.wt_time_info_title || t.time_info_title,
+        t.wt_time_info_body || t.time_info_body
+    );
     renderWordLevels();
+    renderWordTimeOptions();
+}
+
+// Скільки часу є зараз на тренування слів — визначає РОЗМІР черги вправ
+// (не рівень: рівень лише обирає складніші типи, час — скільки їх буде).
+let wordSessionTime = Infinity;
+function renderWordTimeOptions() {
+    const t = translations[currentLang];
+    const container = document.getElementById('wordTimeCards');
+    if (!container) return;
+    container.innerHTML = '';
+    t.timeOptions.forEach(opt => {
+        const card = document.createElement('button');
+        card.className = 'time-card' + (opt.value === wordSessionTime ? ' active' : '');
+        card.innerText = opt.label;
+        card.addEventListener('click', () => {
+            wordSessionTime = opt.value;
+            container.querySelectorAll('.time-card').forEach(c => c.classList.remove('active'));
+            card.classList.add('active');
+        });
+        container.appendChild(card);
+    });
 }
 
 function renderWordLevels() {
@@ -3643,7 +3683,7 @@ function startWordTraining(set) {
         return;
     }
     wtSet = set;
-    wtQueue = buildWtQueue(valid, set.level || 1);
+    wtQueue = buildWtQueue(valid, set.level || 1, wordSessionTime);
     wtIndex = 0;
     wtCorrect = 0;
     wtCurrentAudioPair = null;
@@ -3654,27 +3694,44 @@ function startWordTraining(set) {
     renderWtExercise();
 }
 
-// Рівень НЕ змінює кількість повторів (завжди 2 раунди на слово) —
-// він лише обирає складніші типи вправ. Помилки повертають слово в чергу
-// (requeueWtExercise), тож фактична кількість повторів росте від помилок,
-// а не від самооцінки рівня.
-function buildWtQueue(pairs, level) {
+// Рівень визначає СКЛАДНІСТЬ (які типи вправ розблоковані — кумулятивно,
+// як у мовних додатках: вищий рівень має доступ до всіх типів нижчих +
+// свій), а РОЗМІР черги визначає обраний ЧАС (як і в Text Mode), а не
+// рівень. Так аудіо/письмо/диктант не "зникають" на нижчих рівнях —
+// вони просто рідше трапляються, бо на менший час влазить менше раундів.
+// "Без обмежень" = один повний прохід по всіх розблокованих типах.
+const WT_SEC_PER_EXERCISE = 20; // грубий орієнтир: recognition швидше, typed — довше, в середньому
+
+function buildWtQueue(pairs, level, timeMinutes = Infinity) {
     const rnd = arr => [...arr].sort(() => Math.random() - 0.5);
     const hasSpeech = 'speechSynthesis' in window;
 
-    const TYPES_BY_LEVEL = {
-        1: ['w2t', 't2w'],                                   // впізнавання в обидва боки
-        2: ['t2w', hasSpeech ? 'audio' : 'w2t'],              // + прослухати
-        3: [hasSpeech ? 'audio' : 'w2t', 'spell'],            // + написати слово
-        4: ['spell', hasSpeech ? 'dictation' : 't2w'],        // + диктант (найважче)
+    const LEVEL_POOL = {
+        1: ['w2t', 't2w'],
+        2: ['w2t', 't2w', hasSpeech ? 'audio' : null],
+        3: ['w2t', 't2w', hasSpeech ? 'audio' : null, 'spell'],
+        4: ['w2t', 't2w', hasSpeech ? 'audio' : null, 'spell', hasSpeech ? 'dictation' : null],
     };
-    const roundTypes = TYPES_BY_LEVEL[level] || TYPES_BY_LEVEL[1];
+    const pool = (LEVEL_POOL[level] || LEVEL_POOL[1]).filter(Boolean);
 
     const q = [];
-    roundTypes.forEach(type => {
-        rnd(pairs).forEach(p => q.push({ pair: p, type }));
-    });
-    return q;
+    if (timeMinutes === Infinity) {
+        // Повний прохід — по одному раунду кожного розблокованого типу
+        pool.forEach(type => rnd(pairs).forEach(p => q.push({ pair: p, type })));
+        return q;
+    }
+
+    const target = Math.max(pairs.length, Math.round(timeMinutes * 60 / WT_SEC_PER_EXERCISE));
+    // Раунд-робін по пулу типів (перемішуючи пари в кожному раунді заново),
+    // поки не назбираємо потрібну кількість — так усі типи встигають
+    // з'явитись навіть у короткій сесії, а не тільки перший за списком.
+    while (q.length < target) {
+        for (const type of pool) {
+            rnd(pairs).forEach(p => q.push({ pair: p, type }));
+            if (q.length >= target) break;
+        }
+    }
+    return q.slice(0, target);
 }
 
 // Помилка → слово повертається в чергу трохи пізніше (не одразу наступною),

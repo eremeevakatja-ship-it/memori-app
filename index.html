@@ -505,6 +505,15 @@
           </div>
           <h2 id="wlevTitleEl" class="setup-title">Твій рівень?</h2>
           <div id="wordLevelCards" class="word-level-list"></div>
+
+          <div class="setup-section">
+            <div class="setup-section-header">
+              <label id="wordTimeLabel">Скільки є часу?</label>
+              <button class="btn-info" id="wordTimeInfoBtn">ⓘ</button>
+            </div>
+            <div class="time-cards" id="wordTimeCards"></div>
+          </div>
+
           <button onclick="showWordInputScreen()" class="btn-start-main" id="wlevNextBtn">Далі →</button>
         </div>
 
@@ -580,7 +589,7 @@
       </div>
     </div>
 
-    <script src="app.js?v=58"></script>
+    <script src="app.js?v=59"></script>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});
