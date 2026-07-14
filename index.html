@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memori</title>
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#40916c" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Memori" />
+    <link rel="apple-touch-icon" href="icon.svg" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="style.css?v=56" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+
+        <!-- Language Screen -->
+        <div id="langScreen">
+          <div class="logo-block">
+            <svg class="logo-svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+            <span class="logo-text">Memori</span>
+          </div>
+          <p class="lang-hint">Choose your language</p>
+          <div class="lang-vertical-list">
+            <button onclick="setLanguage('uk')">
+              <img src="https://flagcdn.com/24x18/ua.png" class="flag-img" alt="UA" loading="lazy" width="24" height="18"> Українська
+            </button>
+            <button onclick="setLanguage('en')">
+              <img src="https://flagcdn.com/24x18/gb.png" class="flag-img" alt="GB" loading="lazy" width="24" height="18"> English
+            </button>
+            <button onclick="setLanguage('pl')">
+              <img src="https://flagcdn.com/24x18/pl.png" class="flag-img" alt="PL" loading="lazy" width="24" height="18"> Polski
+            </button>
+            <button onclick="setLanguage('de')">
+              <img src="https://flagcdn.com/24x18/de.png" class="flag-img" alt="DE" loading="lazy" width="24" height="18"> Deutsch
+            </button>
+            <button onclick="setLanguage('fr')">
+              <img src="https://flagcdn.com/24x18/fr.png" class="flag-img" alt="FR" loading="lazy" width="24" height="18"> Français
+            </button>
+            <button onclick="setLanguage('es')">
+              <img src="https://flagcdn.com/24x18/es.png" class="flag-img" alt="ES" loading="lazy" width="24" height="18"> Español
+            </button>
+          </div>
+          <div class="lang-theme-row">
+            <div class="lang-theme-toggle">
+              <button class="lang-theme-btn active" data-theme="light" onclick="selectTheme('light',this)">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+              </button>
+              <button class="lang-theme-btn" data-theme="dark" onclick="selectTheme('dark',this)">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mode Screen -->
+        <div id="modeScreen" style="display:none">
+          <div class="input-topbar">
+            <button onclick="goBackToLang()" class="btn-back">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <span id="modeBackLabel">Мова</span>
+            </button>
+          </div>
+          <p id="modeTitleEl" class="mode-screen-title">Що хочемо вчити?</p>
+          <div class="mode-cards">
+            <button class="mode-card" onclick="selectMode('text')">
+              <div class="mode-card-icon mode-card-icon-text">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+              </div>
+              <div class="mode-card-body">
+                <div class="mode-card-label" id="modeTextLabel">Текст</div>
+                <div class="mode-card-desc" id="modeTextDesc">Вірш, монолог, виступ, презентація</div>
+              </div>
+              <svg class="mode-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+            <button class="mode-card" onclick="selectMode('words')">
+              <div class="mode-card-icon mode-card-icon-words">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+              </div>
+              <div class="mode-card-body">
+                <div class="mode-card-label" id="modeWordsLabel">Слова та Фрази</div>
+                <div class="mode-card-desc" id="modeWordsDesc">Нова лексика, переклади, словник</div>
+              </div>
+              <svg class="mode-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Input Screen -->
+        <div id="inputScreen" style="display: none">
+          <div class="input-topbar">
+            <button onclick="showModeScreen()" class="btn-back">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <span id="backBtnLabel">Мова</span>
+            </button>
+            <button onclick="openProfile()" class="btn-profile-nav" id="profileNavBtn">
+              <img id="profileNavAvatar" class="profile-nav-avatar" style="display:none;" alt="">
+              <svg id="profileNavIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </button>
+          </div>
+          <div class="logo-block">
+            <svg class="logo-svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+            <h1 class="logo-text" style="font-size:1.6rem;">Memori</h1>
+          </div>
+          <p id="roleSubtitle" class="role-subtitle"></p>
+          <div id="statsBar" class="stats-bar" style="display:none;">
+            <div class="stat-chip">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="#f97316" stroke="none"><path d="M12 2c0 0-5 4.5-5 9a5 5 0 0 0 10 0c0-4.5-5-9-5-9zm-1 12.5c-1.5 0-2.5-1-2.5-2.5s2.5-5 2.5-5 2.5 3.5 2.5 5-1 2.5-2.5 2.5z"/></svg>
+              <span id="statStreakVal" class="stat-val"></span>
+              <small id="statStreakLbl" class="stat-lbl"></small>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-chip">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+              <span id="statBlocksVal" class="stat-val"></span>
+              <small id="statBlocksLbl" class="stat-lbl"></small>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-chip">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span id="statTimeVal" class="stat-val"></span>
+              <small id="statTimeLbl" class="stat-lbl"></small>
+            </div>
+          </div>
+          <div id="resumeBanner" style="display:none;" class="resume-banner">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <div class="resume-banner-body">
+              <span id="resumeBannerText"></span>
+              <div class="resume-banner-actions">
+                <button id="resumeSessionBtn" onclick="resumeSession()" class="btn-resume-continue"></button>
+                <button id="clearSessionBtn" onclick="clearSession()" class="btn-resume-clear"></button>
+              </div>
+            </div>
+          </div>
+          <div id="validationMsg" class="validation-msg" style="display:none;"></div>
+          <div class="input-group">
+            <div class="input-label-row">
+              <label id="inputLabel">Вставте текст:</label>
+              <div class="ocr-controls">
+                <select id="ocrLang" class="ocr-lang-select" title="Мова тексту">
+                  <option value="ukr">🇺🇦</option>
+                  <option value="eng">🇬🇧</option>
+                  <option value="pol">🇵🇱</option>
+                  <option value="deu">🇩🇪</option>
+                  <option value="fra">🇫🇷</option>
+                  <option value="spa">🇪🇸</option>
+                </select>
+                <button type="button" id="ocrBtn" onclick="triggerOCR()" class="btn-ocr">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+                  <span id="ocrBtnLabel">Файл</span>
+                </button>
+                <button type="button" id="saveToPlannedBtn" onclick="saveToLibrary()" class="btn-save-planned" title="">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="textarea-wrap">
+              <textarea id="userText" placeholder="Введіть текст..." oninput="clearValidation()"></textarea>
+              <div id="ocrOverlay" class="ocr-overlay" style="display:none;">
+                <div class="ocr-spinner"></div>
+                <p id="ocrStatus"></p>
+                <div class="ocr-bar"><div id="ocrFill" class="ocr-fill"></div></div>
+              </div>
+            </div>
+            <input type="file" id="ocrInput" accept="image/*,.pdf,.txt,.docx" style="display:none" onchange="handleOCRFile(this)">
+          </div>
+          <button onclick="goToSetup()" id="nextToSetupBtn">Далі →</button>
+        </div>
+
+        <!-- Setup Screen -->
+        <div id="setupScreen" style="display: none">
+          <div class="input-topbar">
+            <button onclick="goBackToInput()" class="btn-back">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <span id="setupBackLabel">Назад</span>
+            </button>
+          </div>
+          <h2 id="setupTitle" class="setup-title">Як будемо вчити?</h2>
+
+          <div class="setup-section">
+            <div class="setup-section-header">
+              <label id="daysLabel">До коли треба знати?</label>
+              <button class="btn-info" id="daysInfoBtn">ⓘ</button>
+            </div>
+            <select id="studyDays"></select>
+          </div>
+
+          <div class="setup-section">
+            <div class="setup-section-header">
+              <label id="accuracyLabel">Що рахується за правильно?</label>
+              <button class="btn-info" id="accuracyInfoBtn">ⓘ</button>
+            </div>
+            <div class="accuracy-cards" id="accuracyCards"></div>
+          </div>
+
+          <div class="setup-section">
+            <div class="setup-section-header">
+              <label id="blockSizeLabel">Порція тексту</label>
+              <button class="btn-info" id="blockSizeInfoBtn">ⓘ</button>
+            </div>
+            <div class="time-cards" id="blockSizeCards"></div>
+          </div>
+
+          <div class="setup-section">
+            <div class="setup-section-header">
+              <label id="timeLabel">Скільки є часу?</label>
+              <button class="btn-info" id="timeInfoBtn">ⓘ</button>
+            </div>
+            <div class="time-cards" id="timeCards"></div>
+          </div>
+
+          <button onclick="startLearning()" id="setupStartBtn" class="btn-start-main">Почати</button>
+        </div>
+
+        <!-- Learning Screen -->
+        <div id="learningScreen" style="display: none">
+          <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+          <div class="step-row">
+            <div id="stepLabel" class="step-badge"></div>
+            <div class="font-controls">
+              <button onclick="changeFontSize(-1)" class="btn-font" aria-label="Зменшити шрифт">A−</button>
+              <button onclick="changeFontSize(1)" class="btn-font" aria-label="Збільшити шрифт">A+</button>
+            </div>
+          </div>
+          <div id="textDisplay" class="text-display"></div>
+          <div id="instructionHint" class="instruction-hint" style="display:none;">
+            Прочитайте 2 рази, повторіть що пам'ятаєте,<br/>прочитайте ще раз і йдіть далі
+          </div>
+          <div id="methodChoice" style="display:none;margin-bottom:20px;">
+            <div class="button-grid">
+              <button class="btn-small" onclick="selectMethod('mind', this)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/></svg>
+                <span id="m-mind">В умі</span>
+              </button>
+              <button class="btn-small" onclick="selectMethod('write', this)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                <span id="m-write">Письмо</span>
+              </button>
+              <button class="btn-small" onclick="selectMethod('audio', this)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+                <span id="m-audio">Аудіо</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Mind card -->
+          <div id="mindCard" style="display:none;" class="mind-card">
+            <h3 id="mindCardTitle" class="mind-title"></h3>
+            <p id="mindCardBody" class="mind-body"></p>
+            <pre id="mindHintDisplay" class="mind-hint-display" style="display:none;"></pre>
+            <div class="mind-btn-row">
+              <button id="mindHintBtn" onclick="showMindHint()" class="btn-hint"></button>
+              <button id="mindReadyBtn" onclick="onMindReady()" class="btn-mind-ready"></button>
+            </div>
+          </div>
+
+          <!-- Writing area -->
+          <div id="writingArea" style="display:none; margin-bottom:16px;">
+            <textarea id="writingInput" rows="4" class="writing-textarea"></textarea>
+            <div id="hintDisplay" class="hint-display" style="display:none;">
+              <span class="hint-label"></span>
+              <span class="hint-word"></span>
+            </div>
+            <div class="write-btn-row">
+              <button id="hintBtn" onclick="showHint()" class="btn-hint"></button>
+              <button id="writeCheckBtn" onclick="checkWriting()" disabled class="btn-check" style="opacity:0.5;"></button>
+            </div>
+          </div>
+
+          <!-- Audio card -->
+          <div id="audioCard" style="display:none;" class="audio-card">
+            <div id="audioWave" class="audio-wave">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+              <div class="wave-bars">
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+              </div>
+            </div>
+            <p id="audioStatus" class="audio-status"></p>
+            <p id="audioRepeatText" class="audio-repeat-text" style="display:none;"></p>
+            <div id="audioActions" style="display:none;" class="audio-actions">
+              <div class="audio-method-row">
+                <button id="audioRecordBtn" onclick="startVoiceRecord()" class="btn-audio-method">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+                  <span id="audioBtnRecord"></span>
+                </button>
+                <button id="audioSilentBtn" onclick="onAudioSilent()" class="btn-audio-method btn-audio-ghost">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/></svg>
+                  <span id="audioBtnSilent"></span>
+                </button>
+              </div>
+              <button id="audioAgainBtn" onclick="speakAgain()" class="btn-speak-again"></button>
+            </div>
+            <!-- Speed row -->
+            <div id="audioSpeedRow" class="audio-speed-row"></div>
+            <!-- Mic recording indicator -->
+            <div id="micRecording" style="display:none;" class="mic-recording">
+              <div class="mic-pulse-wrap">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+              </div>
+              <p id="micStatus" class="audio-status"></p>
+            </div>
+          </div>
+
+          <!-- Writing result -->
+          <div id="writingResult" style="display:none; margin-bottom:16px;">
+            <div id="writeScoreLine" class="write-score-line"></div>
+            <div id="writeMotivation" class="write-motivation" style="display:none;"></div>
+            <div id="writeHighlight" class="write-highlight"></div>
+            <button id="writeNextBtn" onclick="writingNext()" class="btn-next-writing"></button>
+          </div>
+
+          <button onclick="nextBlock()" id="nextBtn">Далі</button>
+        </div>
+
+        <!-- Rest Screen -->
+        <div id="restScreen" style="display: none">
+          <div id="restCanvas"></div>
+          <div id="restDurInline" class="time-cards rest-dur-inline"></div>
+          <h2 id="restTitle" class="rest-title"></h2>
+          <p id="restSubtitle" class="rest-subtitle"></p>
+          <div class="rest-timer-row">
+            <div id="timer" class="timer-display">00:10</div>
+            <button id="restPauseBtn" onclick="toggleRestPause()" class="btn-rest-pause" aria-label="Pause">⏸</button>
+          </div>
+          <p id="restMotiv" class="rest-motiv"></p>
+          <button id="resumeBtn" onclick="resumeLearning()" style="display:none;"></button>
+        </div>
+
+        <!-- Session Pause Screen -->
+        <div id="sessionPauseScreen" style="display:none; flex-direction:column; align-items:center; padding:32px 20px; min-height:300px; justify-content:center; animation:fadeIn 0.4s ease;">
+          <div class="pause-icon-wrap">
+            <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" x2="6" y1="2" y2="4"/><line x1="10" x2="10" y1="2" y2="4"/><line x1="14" x2="14" y1="2" y2="4"/></svg>
+          </div>
+          <h2 id="pauseTitle" style="font-size:22px; font-weight:bold; margin-bottom:12px; text-align:center;"></h2>
+          <p id="pauseBody" style="font-size:0.9rem; text-align:center; margin-bottom:24px; line-height:1.6; color:#888;"></p>
+          <button onclick="pauseContinue()" id="pauseContinueBtn" class="btn-pause-continue"></button>
+          <button onclick="pauseFinish()" id="pauseFinishBtn" class="btn-ghost"></button>
+        </div>
+
+        <!-- Final Screen -->
+        <div id="finalScreen" style="display:none;flex-direction:column;align-items:center;padding:32px 20px;min-height:300px;justify-content:center;animation:fadeIn 0.4s ease;">
+          <div id="finalIcon" class="final-icon-wrap"></div>
+          <h2 id="finalTitle" style="font-size:26px;font-weight:bold;margin-bottom:20px;text-align:center;"></h2>
+          <div class="final-stats">
+            <div id="finalBlocks" class="final-stat-main"></div>
+            <div id="finalTime" class="final-stat-sub"></div>
+          </div>
+          <button onclick="shareResult()" id="finalShareBtn" class="btn-final-share" style="display:none;"></button>
+          <button onclick="restartLearning()" id="finalRestartBtn" class="btn-final-main"></button>
+          <button onclick="goHome()" id="finalHomeBtn" class="btn-ghost"></button>
+          <div id="notifPrompt" style="display:none;width:100%;" class="notif-prompt">
+            <p id="notifPromptText"></p>
+            <div class="notif-time-row">
+              <button type="button" onclick="enableReminder(9)" class="notif-time-btn">9:00</button>
+              <button type="button" onclick="enableReminder(18)" class="notif-time-btn">18:00</button>
+              <button type="button" onclick="enableReminder(20)" class="notif-time-btn">20:00</button>
+            </div>
+            <button type="button" onclick="dismissReminderPrompt()" class="notif-dismiss-btn" id="notifDismissBtn"></button>
+          </div>
+        </div>
+
+        <!-- Profile Screen -->
+        <div id="profileScreen" style="display:none;" class="profile-screen">
+          <div class="profile-header">
+            <button onclick="closeProfile()" class="btn-back">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <span id="profileBackLabel">Назад</span>
+            </button>
+          </div>
+
+          <!-- Hero: avatar + name -->
+          <div class="profile-hero">
+            <div class="profile-avatar-wrap" onclick="triggerAvatarUpload()">
+              <img id="profileAvatarImg" class="profile-avatar-img" style="display:none;" alt="">
+              <div id="profileAvatarPlaceholder" class="profile-avatar-placeholder">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div class="profile-avatar-cam">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+              </div>
+            </div>
+            <input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="handleAvatarUpload(this)">
+            <div class="profile-name-wrap">
+              <span id="profileNameDisplay" class="profile-name-display" onclick="startEditName()"></span>
+              <input id="profileNameInput" class="profile-name-input" type="text" maxlength="40" style="display:none;"
+                     onblur="saveProfileName()" onkeydown="if(event.key==='Enter')this.blur()">
+            </div>
+            <p id="profileHeroStats" class="profile-hero-stats"></p>
+          </div>
+
+          <div class="profile-tabs">
+            <button class="profile-tab active" onclick="selectProfileTab('progress',this)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              <span id="ptab-progress-lbl">В роботі</span>
+            </button>
+            <button class="profile-tab" onclick="selectProfileTab('learned',this)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span id="ptab-learned-lbl">Вивчено</span>
+            </button>
+            <button class="profile-tab" onclick="selectProfileTab('planned',this)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+              <span id="ptab-planned-lbl">Плани</span>
+            </button>
+          </div>
+          <div id="profileContent" class="profile-content"></div>
+        </div>
+
+        <!-- Word Training Screen -->
+        <div id="wordTrainingScreen" style="display:none">
+          <div class="progress-bar"><div id="wtProgressFill" class="progress-fill"></div></div>
+          <div class="wt-header">
+            <span id="wtCounter" class="wt-counter">1 / 10</span>
+            <span id="wtTypeBadge" class="wt-type-badge" style="display:none"></span>
+            <button onclick="wtFinish()" class="btn-wt-finish" id="wtFinishBtn" title="Завершити">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              <span id="wtFinishLabel">Завершити</span>
+            </button>
+          </div>
+          <div id="wtQuestion" class="wt-question"></div>
+          <div id="wtAudioWrap" style="display:none" class="wt-audio-wrap">
+            <button onclick="wtPlayAudio()" id="wtListenBtn" class="btn-wt-audio">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+              Прослухати
+            </button>
+            <div class="wt-speed-row">
+              <button class="wt-speed-btn" data-rate="0.5"  onclick="wtSetSpeed(0.5)">0.5×</button>
+              <button class="wt-speed-btn" data-rate="0.75" onclick="wtSetSpeed(0.75)">0.75×</button>
+              <button class="wt-speed-btn wt-speed-active" data-rate="1"    onclick="wtSetSpeed(1)">1×</button>
+              <button class="wt-speed-btn" data-rate="1.25" onclick="wtSetSpeed(1.25)">1.25×</button>
+            </div>
+          </div>
+          <div id="wtChoices" class="wt-choices"></div>
+
+          <!-- Typing area (spell / dictation) -->
+          <div id="wtTypeArea" style="display:none" class="wt-type-area">
+            <div class="wt-type-wrap">
+              <input id="wtTypeInput" type="text" class="wt-type-input"
+                     autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"
+                     onkeydown="if(event.key==='Enter' && !this.disabled) wtCheckTyped()">
+              <button id="wtCheckBtn" onclick="wtCheckTyped()" class="btn-wt-check">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+            </div>
+            <button id="wtHintBtn" onclick="wtShowHint()" class="btn-wt-hint">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              <span id="wtHintLabel">Підказка</span>
+            </button>
+          </div>
+
+          <div id="wtFeedback" class="wt-feedback" style="display:none"></div>
+          <button id="wtNextBtn" onclick="wtNext()" class="btn-start-main" style="display:none">Далі →</button>
+          <div class="wt-bottom-row">
+            <button id="wtBackBtn" onclick="wtGoBack()" class="btn-wt-back" style="display:none">←</button>
+            <button id="wtSkipWordBtn" onclick="wtSkipWord()" class="btn-wt-skip-word"></button>
+          </div>
+        </div>
+
+        <!-- Word Results Screen -->
+        <div id="wordResultsScreen" style="display:none;flex-direction:column;align-items:center;padding:36px 20px;min-height:320px;justify-content:center;animation:fadeIn 0.4s ease;">
+          <h2 id="wrTitle" style="font-size:1.5rem;font-weight:800;margin-bottom:20px;text-align:center;"></h2>
+          <div id="wrFraction" class="wr-fraction"></div>
+          <div id="wrPct" class="wr-pct"></div>
+          <div id="wrSetName" class="wr-set-name"></div>
+          <button onclick="wtRestart()" id="wrRestartBtn" class="btn-final-main" style="width:100%;margin-bottom:10px;"></button>
+          <button onclick="wtGoHome()" id="wrHomeBtn" class="btn-ghost"></button>
+        </div>
+
+        <!-- === WORDS MODE SCREENS === -->
+
+        <!-- Word: Language Pair -->
+        <div id="wordLangScreen" style="display:none">
+          <div class="input-topbar">
+            <button onclick="showModeScreen()" class="btn-back">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <span id="wlBackLabel">Назад</span>
+            </button>
+          </div>
+          <h2 id="wlTitleEl" class="setup-title">Мовна пара</h2>
+          <div class="wl-section">
+            <label id="wlLearningLabel" class="wl-label">Яку мову вчимо?</label>
+            <select id="wordLangFromSelect" class="word-lang-select"></select>
+          </div>
+          <div class="wl-section">
+            <label id="wlNativeLabel" class="wl-label">Моя рідна мова</label>
+            <select id="wordLangToSelect" class="word-lang-select"></select>
+          </div>
+          <div id="wlSameError" class="validation-msg" style="display:none;"></div>
+          <button onclick="goWordLangNext()" class="btn-start-main" id="wlNextBtn">Далі →</button>
+        </div>
+
+        <!-- Word: Level -->
+        <div id="wordLevelScreen" style="display:none">
+          <div class="input-topbar">
+            <button onclick="showScreen('wordLangScreen')" class="btn-back">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <span id="wlevBackLabel">Назад</span>
+            </button>
+          </div>
+          <h2 id="wlevTitleEl" class="setup-title">Твій рівень?</h2>
+          <div id="wordLevelCards" class="word-level-list"></div>
+          <button onclick="showWordInputScreen()" class="btn-start-main" id="wlevNextBtn">Далі →</button>
+        </div>
+
+        <!-- Word: Input -->
+        <div id="wordInputScreen" style="display:none">
+          <div class="input-topbar">
+            <button onclick="showWordLevelScreen()" class="btn-back">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <span id="wiBackLabel">Назад</span>
+            </button>
+          </div>
+          <h2 id="wiTitleEl" class="setup-title">Додайте слова</h2>
+          <p id="wiHintEl" class="wi-hint">Кожне слово з нового рядка. Формат: слово — переклад</p>
+          <div id="wiValidation" class="validation-msg" style="display:none;"></div>
+          <textarea id="wordInputTextarea" class="word-input-textarea" rows="8"
+                    oninput="clearWordValidation()"></textarea>
+          <button onclick="goWordInputNext()" class="btn-start-main" id="wiNextBtn">Далі →</button>
+        </div>
+
+        <!-- Word: Verify -->
+        <div id="wordVerifyScreen" style="display:none">
+          <div class="input-topbar">
+            <button onclick="showScreen('wordInputScreen')" class="btn-back">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <span id="wvBackLabel">Назад</span>
+            </button>
+          </div>
+          <h2 id="wvTitleEl" class="setup-title">Перевірте список</h2>
+          <p id="wvHintEl" class="wv-hint">Натисніть на пару щоб відредагувати</p>
+          <button onclick="autoTranslateMissing()" class="btn-auto-translate" id="wvAutoTranslateBtn" style="display:none;">🌐 Запропонувати переклад</button>
+          <div id="wordChipsContainer" class="word-chips-container"></div>
+          <button onclick="addWordPairBtn()" class="btn-add-pair" id="wvAddBtn">+ Додати слово</button>
+          <div id="wvValidation" class="validation-msg" style="display:none;"></div>
+          <button onclick="goWordVerifyNext()" class="btn-start-main" id="wvNextBtn">Все вірно →</button>
+        </div>
+
+        <!-- Word: Topic -->
+        <div id="wordTopicScreen" style="display:none">
+          <div class="input-topbar">
+            <button onclick="showWordVerifyScreen()" class="btn-back">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <span id="wtBackLabel">Назад</span>
+            </button>
+          </div>
+          <h2 id="wtTitleEl" class="setup-title">Назвіть тему</h2>
+          <input type="text" id="wordTopicInput" class="word-topic-input"
+                 maxlength="50" onkeydown="if(event.key==='Enter') saveWordSetAndStart()">
+          <button onclick="autoSuggestTopic()" class="btn-ghost btn-topic-auto" id="wtAutoBtn">✨ Підібрати автоматично</button>
+          <button onclick="saveWordSetAndStart()" class="btn-start-main" id="wtSaveBtn">Зберегти →</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Theme toggle FAB — visible on every screen -->
+    <button id="themeToggleFab" onclick="toggleTheme()" class="theme-toggle-fab">
+      <svg id="themeIconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+      <svg id="themeIconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+    </button>
+
+    <!-- Info Popup (bottom sheet) -->
+    <div id="infoPopup" class="info-popup-overlay" style="display:none;" onclick="closeInfoPopup(event)">
+      <div class="info-popup-sheet">
+        <div class="info-popup-header">
+          <span id="infoPopupTitle" class="info-popup-title"></span>
+          <button onclick="closeInfoPopup()" class="info-popup-close">✕</button>
+        </div>
+        <p id="infoPopupBody" class="info-popup-body"></p>
+      </div>
+    </div>
+
+    <script src="app.js?v=56"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      }
+    </script>
+  </body>
+</html>
