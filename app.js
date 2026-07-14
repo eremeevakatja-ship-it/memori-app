@@ -178,9 +178,12 @@ const translations = {
         wt_listen_prompt: 'Прослухайте та оберіть слово', wt_listen_btn: 'Прослухати',
         wt_correct: '✓ Правильно!', wt_wrong: 'Упс, спробуйте ще раз',
         wt_save: 'Зберегти', wt_skip: 'Пропустити', wt_finish: 'Завершити',
-        wt_type_spell: '✏️ Напиши', wt_type_dictation: '🎧 Диктант',
+        wt_type_spell: '✏️ Напиши', wt_type_dictation: '🎧 Диктант', wt_type_sentence: '📝 Речення',
         wt_spell_prompt: 'Напишіть слово мовою навчання',
         wt_dictation_prompt: 'Прослухайте та напишіть слово',
+        wt_sentence_prompt: 'Впишіть пропущене слово',
+        wt_sentence_no_examples: 'Для цих слів поки немає прикладів речень',
+        wt_preparing: 'Готую вправи…',
         wt_check: 'Перевірити', wt_type_placeholder: 'Введіть відповідь...', wt_hint: 'Підказка',
         wt_wrong_answer_was: 'Правильно:',
         wt_result_perfect: '🌟 Ідеально!', wt_result_great: '🎉 Чудово!',
@@ -310,9 +313,12 @@ const translations = {
         wt_listen_prompt: 'Listen and choose the word', wt_listen_btn: 'Listen',
         wt_correct: '✓ Correct!', wt_wrong: 'Oops, try again',
         wt_save: 'Save word', wt_skip: 'Skip', wt_finish: 'Finish',
-        wt_type_spell: '✏️ Spell it', wt_type_dictation: '🎧 Dictation',
+        wt_type_spell: '✏️ Spell it', wt_type_dictation: '🎧 Dictation', wt_type_sentence: '📝 Sentence',
         wt_spell_prompt: 'Write the word in the learning language',
         wt_dictation_prompt: 'Listen and write the word',
+        wt_sentence_prompt: 'Fill in the missing word',
+        wt_sentence_no_examples: 'No example sentences yet for these words',
+        wt_preparing: 'Preparing exercises…',
         wt_check: 'Check', wt_type_placeholder: 'Type your answer...', wt_hint: 'Hint',
         wt_wrong_answer_was: 'Correct:',
         wt_result_perfect: '🌟 Perfect!', wt_result_great: '🎉 Great!',
@@ -442,8 +448,11 @@ const translations = {
         wt_listen_prompt: 'Posłuchaj i wybierz słowo', wt_listen_btn: 'Posłuchaj',
         wt_correct: '✓ Dobrze!', wt_wrong: 'Ups, spróbuj jeszcze raz',
         wt_save: 'Zapisz słowo', wt_skip: 'Pomiń', wt_finish: 'Zakończ',
-        wt_type_spell: '✏️ Napisz', wt_type_dictation: '🎧 Dyktando',
+        wt_type_spell: '✏️ Napisz', wt_type_dictation: '🎧 Dyktando', wt_type_sentence: '📝 Zdanie',
         wt_spell_prompt: 'Napisz słowo w języku docelowym',
+        wt_sentence_prompt: 'Uzupełnij brakujące słowo',
+        wt_sentence_no_examples: 'Brak jeszcze przykładowych zdań dla tych słów',
+        wt_preparing: 'Przygotowuję ćwiczenia…',
         wt_dictation_prompt: 'Posłuchaj i napisz słowo',
         wt_check: 'Sprawdź', wt_type_placeholder: 'Wpisz odpowiedź...', wt_hint: 'Podpowiedź',
         wt_wrong_answer_was: 'Poprawnie:',
@@ -574,8 +583,11 @@ const translations = {
         wt_listen_prompt: 'Hör zu und wähle das Wort', wt_listen_btn: 'Anhören',
         wt_correct: '✓ Richtig!', wt_wrong: 'Ups, versuch es nochmal',
         wt_save: 'Wort merken', wt_skip: 'Überspringen', wt_finish: 'Beenden',
-        wt_type_spell: '✏️ Schreiben', wt_type_dictation: '🎧 Diktat',
+        wt_type_spell: '✏️ Schreiben', wt_type_dictation: '🎧 Diktat', wt_type_sentence: '📝 Satz',
         wt_spell_prompt: 'Schreibe das Wort in der Lernsprache',
+        wt_sentence_prompt: 'Fülle das fehlende Wort aus',
+        wt_sentence_no_examples: 'Für diese Wörter gibt es noch keine Beispielsätze',
+        wt_preparing: 'Übungen werden vorbereitet…',
         wt_dictation_prompt: 'Höre zu und schreibe das Wort',
         wt_check: 'Prüfen', wt_type_placeholder: 'Antwort eingeben...', wt_hint: 'Hinweis',
         wt_wrong_answer_was: 'Richtig:',
@@ -706,8 +718,11 @@ const translations = {
         wt_listen_prompt: 'Écoutez et choisissez le mot', wt_listen_btn: 'Écouter',
         wt_correct: '✓ Correct !', wt_wrong: 'Oups, réessaie',
         wt_save: 'Garder le mot', wt_skip: 'Ignorer', wt_finish: 'Terminer',
-        wt_type_spell: '✏️ Écrire', wt_type_dictation: '🎧 Dictée',
+        wt_type_spell: '✏️ Écrire', wt_type_dictation: '🎧 Dictée', wt_type_sentence: '📝 Phrase',
         wt_spell_prompt: 'Écrivez le mot dans la langue cible',
+        wt_sentence_prompt: 'Complétez le mot manquant',
+        wt_sentence_no_examples: 'Pas encore de phrases d\'exemple pour ces mots',
+        wt_preparing: 'Préparation des exercices…',
         wt_dictation_prompt: 'Écoutez et écrivez le mot',
         wt_check: 'Vérifier', wt_type_placeholder: 'Tapez votre réponse...', wt_hint: 'Indice',
         wt_wrong_answer_was: 'Correct :',
@@ -838,8 +853,11 @@ const translations = {
         wt_listen_prompt: 'Escucha y elige la palabra', wt_listen_btn: 'Escuchar',
         wt_correct: '✓ ¡Correcto!', wt_wrong: 'Ups, inténtalo de nuevo',
         wt_save: 'Guardar palabra', wt_skip: 'Omitir', wt_finish: 'Terminar',
-        wt_type_spell: '✏️ Escribir', wt_type_dictation: '🎧 Dictado',
+        wt_type_spell: '✏️ Escribir', wt_type_dictation: '🎧 Dictado', wt_type_sentence: '📝 Frase',
         wt_spell_prompt: 'Escribe la palabra en el idioma que aprendes',
+        wt_sentence_prompt: 'Completa la palabra que falta',
+        wt_sentence_no_examples: 'Todavía no hay frases de ejemplo para estas palabras',
+        wt_preparing: 'Preparando ejercicios…',
         wt_dictation_prompt: 'Escucha y escribe la palabra',
         wt_check: 'Comprobar', wt_type_placeholder: 'Escribe tu respuesta...', wt_hint: 'Pista',
         wt_wrong_answer_was: 'Correcto:',
@@ -3674,7 +3692,7 @@ const WT_TTS_LANG = {
     ja: 'ja-JP', zh: 'zh-CN', ko: 'ko-KR', ar: 'ar-SA',
 };
 
-function startWordTraining(set) {
+async function startWordTraining(set) {
     const t = translations[currentLang];
     const valid = (set.pairs || []).filter(p => p.word && p.translation);
     if (!valid.length) {
@@ -3683,15 +3701,88 @@ function startWordTraining(set) {
         return;
     }
     wtSet = set;
-    wtQueue = buildWtQueue(valid, set.level || 1, wordSessionTime);
-    wtIndex = 0;
-    wtCorrect = 0;
-    wtCurrentAudioPair = null;
     wordLangFrom = set.langFrom || 'en';
     wordLangTo   = set.langTo   || 'uk';
     wordLevel    = set.level    || 1;
+
+    // Рівень 3+ розблоковує тип "Речення" — приклади треба підтягнути
+    // заздалегідь (мережевий запит на пару), інакше чергу нема з чого будувати.
+    if (wordLevel >= 3) {
+        showScreen('wordTrainingScreen');
+        showWtLoading(t.wt_preparing || 'Готую вправи…');
+        await prefetchSentenceExamples(valid);
+        hideWtLoading();
+    }
+
+    wtQueue = buildWtQueue(valid, wordLevel, wordSessionTime);
+    wtIndex = 0;
+    wtCorrect = 0;
+    wtCurrentAudioPair = null;
     showScreen('wordTrainingScreen');
     renderWtExercise();
+}
+
+function showWtLoading(text) {
+    const overlay = document.getElementById('wtLoadingOverlay');
+    if (!overlay) return;
+    document.getElementById('wtLoadingStatus').innerText = text;
+    overlay.style.display = 'flex';
+}
+function hideWtLoading() {
+    const overlay = document.getElementById('wtLoadingOverlay');
+    if (overlay) overlay.style.display = 'none';
+}
+
+// ===== FILL-IN-THE-SENTENCE (тип "sentence") =====
+// Приклади речень з бідірекційного словника Google (dt=ex) — одномовні,
+// слово в них обгорнуте в <b>...</b>. Покриття нерівномірне: добре для
+// en/de/fr/es, майже відсутнє для uk/pl та для фраз з кількох слів —
+// тому тип доступний лише для пар, де реально знайшлись приклади.
+let wtSentenceExamples = {}; // `${lang}|${word}` -> string[] (з <b>) або [] якщо перевірено й нема
+
+async function fetchExampleSentences(word, lang) {
+    try {
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${encodeURIComponent(lang)}&tl=${encodeURIComponent(lang)}&dt=ex&q=${encodeURIComponent(word)}`;
+        const res = await fetch(url);
+        if (!res.ok) return [];
+        const data = await res.json();
+        const raw = data?.[13]?.[0] || [];
+        return raw.map(e => e[0]).filter(Boolean);
+    } catch {
+        return [];
+    }
+}
+
+async function prefetchSentenceExamples(pairs) {
+    await Promise.all(pairs.map(async p => {
+        const key = `${wordLangFrom}|${p.word.trim().toLowerCase()}`;
+        if (wtSentenceExamples[key]) return; // вже маємо (напр. повторний запуск того ж сету)
+        wtSentenceExamples[key] = await fetchExampleSentences(p.word, wordLangFrom);
+    }));
+}
+
+function hasSentenceExamples(pair) {
+    const key = `${wordLangFrom}|${pair.word.trim().toLowerCase()}`;
+    return !!(wtSentenceExamples[key] && wtSentenceExamples[key].length);
+}
+
+// Груба евристика складності: сортуємо за довжиною (слів) і беремо
+// коротше речення для рівня 3, довше/складніше — для рівня 4.
+// Це НЕ справжня CEFR-оцінка складності, лише орієнтир на довжину.
+function pickSentenceForLevel(examples, level) {
+    if (!examples.length) return null;
+    const sorted = [...examples].sort((a, b) => a.split(/\s+/).length - b.split(/\s+/).length);
+    if (sorted.length === 1) return sorted[0];
+    const frac = level >= 4 ? 0.75 : 0.15;
+    const idx = Math.min(sorted.length - 1, Math.round(frac * (sorted.length - 1)));
+    return sorted[idx];
+}
+
+// Приходить рядок з <b>слово</b> — прибираємо тег разом зі словом і
+// замінюємо на пропуск, решту тексту екрануємо (зовнішні дані з API).
+function blankOutSentence(sentenceWithTag) {
+    const parts = sentenceWithTag.split(/<b>.*?<\/b>/i);
+    return parts.map(escHtml).join('<span class="wt-sentence-blank">_____</span>');
 }
 
 // Рівень визначає СКЛАДНІСТЬ (які типи вправ розблоковані — кумулятивно,
@@ -3709,15 +3800,19 @@ function buildWtQueue(pairs, level, timeMinutes = Infinity) {
     const LEVEL_POOL = {
         1: ['w2t', 't2w'],
         2: ['w2t', 't2w', hasSpeech ? 'audio' : null],
-        3: ['w2t', 't2w', hasSpeech ? 'audio' : null, 'spell'],
-        4: ['w2t', 't2w', hasSpeech ? 'audio' : null, 'spell', hasSpeech ? 'dictation' : null],
+        3: ['w2t', 't2w', hasSpeech ? 'audio' : null, 'spell', 'sentence'],
+        4: ['w2t', 't2w', hasSpeech ? 'audio' : null, 'spell', hasSpeech ? 'dictation' : null, 'sentence'],
     };
     const pool = (LEVEL_POOL[level] || LEVEL_POOL[1]).filter(Boolean);
+
+    // "sentence" доступний лише для пар з реально знайденими прикладами —
+    // фільтруємо саме цей тип по конкретному раунду пар, інші типи без змін.
+    const pairsForType = (type, list) => type === 'sentence' ? list.filter(hasSentenceExamples) : list;
 
     const q = [];
     if (timeMinutes === Infinity) {
         // Повний прохід — по одному раунду кожного розблокованого типу
-        pool.forEach(type => rnd(pairs).forEach(p => q.push({ pair: p, type })));
+        pool.forEach(type => pairsForType(type, rnd(pairs)).forEach(p => q.push({ pair: p, type })));
         return q;
     }
 
@@ -3725,9 +3820,13 @@ function buildWtQueue(pairs, level, timeMinutes = Infinity) {
     // Раунд-робін по пулу типів (перемішуючи пари в кожному раунді заново),
     // поки не назбираємо потрібну кількість — так усі типи встигають
     // з'явитись навіть у короткій сесії, а не тільки перший за списком.
-    while (q.length < target) {
+    let stalled = false;
+    while (q.length < target && !stalled) {
+        stalled = true;
         for (const type of pool) {
-            rnd(pairs).forEach(p => q.push({ pair: p, type }));
+            const list = pairsForType(type, rnd(pairs));
+            if (list.length) stalled = false;
+            list.forEach(p => q.push({ pair: p, type }));
             if (q.length >= target) break;
         }
     }
@@ -3768,6 +3867,7 @@ function renderWtExercise() {
         audio: t.wt_type_audio || '🔊 Аудіо',
         spell: t.wt_type_spell || '✏️ Напиши',
         dictation: t.wt_type_dictation || '🎧 Диктант',
+        sentence: t.wt_type_sentence || '📝 Речення',
     };
     document.getElementById('wtTypeBadge').innerText = badges[type] || type;
 
@@ -3784,7 +3884,7 @@ function renderWtExercise() {
     const choicesEl = document.getElementById('wtChoices');
     const typeArea = document.getElementById('wtTypeArea');
 
-    const isTyping = (type === 'spell' || type === 'dictation');
+    const isTyping = (type === 'spell' || type === 'dictation' || type === 'sentence');
 
     if (isTyping) {
         // Hide multiple-choice, show typing area
@@ -3816,6 +3916,18 @@ function renderWtExercise() {
         if (type === 'spell') {
             // Show translation → user types the word
             qEl.innerText = pair.translation;
+            wtCurrentAudioPair = null;
+        } else if (type === 'sentence') {
+            // Речення з пропуском замість цільового слова + переклад як підказка
+            const key = `${wordLangFrom}|${pair.word.trim().toLowerCase()}`;
+            const examples = wtSentenceExamples[key] || [];
+            const sentence = pickSentenceForLevel(examples, wordLevel);
+            const prompt = escHtml(t.wt_sentence_prompt || 'Впишіть пропущене слово');
+            qEl.innerHTML = sentence
+                ? `<div class="wt-sentence-prompt">${prompt}</div>
+                   <div class="wt-sentence-text">${blankOutSentence(sentence)}</div>
+                   <div class="wt-sentence-hint">= ${escHtml(pair.translation)}</div>`
+                : escHtml(t.wt_sentence_no_examples || 'Для цих слів поки немає прикладів речень');
             wtCurrentAudioPair = null;
         } else {
             // dictation: show prompt, auto-play audio, user types the word
