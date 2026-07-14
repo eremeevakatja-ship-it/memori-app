@@ -670,14 +670,19 @@ body[data-theme="dark"] .btn-rest-pause { border-color: #818cf8; color: #818cf8;
 }
 .btn-ghost {
   background: transparent;
-  border: none;
+  border: 1.5px solid var(--border);
   color: var(--primary);
   font-size: 0.9rem;
+  font-weight: 700;
   cursor: pointer;
-  padding: 8px;
+  padding: 11px 20px;
   margin-top: 4px;
+  border-radius: var(--btn-radius);
   width: auto;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
 }
+.btn-ghost:hover { background: var(--primary-soft); border-color: var(--primary); }
+.btn-ghost:active { transform: scale(0.98); }
 
 /* ===== FINAL SCREEN ===== */
 .final-icon-wrap { margin-bottom: 12px; }
@@ -1133,7 +1138,8 @@ body[data-theme="dark"] .timer-display { color: #818cf8; }
 body[data-theme="dark"] .final-stats { background: rgba(255,255,255,0.05); }
 body[data-theme="dark"] .final-stat-main { color: #e2e8f0; }
 body[data-theme="dark"] .final-stat-sub { color: #64748b; }
-body[data-theme="dark"] .btn-ghost { color: #818cf8; }
+body[data-theme="dark"] .btn-ghost { color: #818cf8; border-color: #2d3748; }
+body[data-theme="dark"] .btn-ghost:hover { background: rgba(129,140,248,0.15); border-color: #818cf8; }
 body[data-theme="dark"] .btn-pause-continue { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
 body[data-theme="dark"] .btn-final-main { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
 body[data-theme="dark"] .validation-msg { background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.3); color: #f87171; }
