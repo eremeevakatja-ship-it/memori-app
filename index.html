@@ -11,7 +11,7 @@
     <meta name="apple-mobile-web-app-title" content="Memori" />
     <link rel="apple-touch-icon" href="icon.svg" />
     <link rel="icon" href="icon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="style.css?v=59" />
+    <link rel="stylesheet" href="style.css?v=63" />
   </head>
   <body>
     <div class="container">
@@ -98,7 +98,7 @@
             </button>
             <button onclick="openProfile()" class="btn-profile-nav" id="profileNavBtn">
               <img id="profileNavAvatar" class="profile-nav-avatar" style="display:none;" alt="">
-              <svg id="profileNavIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <img id="profileNavIcon" class="profile-nav-icon-img" src="mascot/cat-face.png" alt="">
             </button>
           </div>
           <div class="logo-block">
@@ -138,7 +138,10 @@
           <div id="validationMsg" class="validation-msg" style="display:none;"></div>
           <div class="input-group">
             <div class="input-label-row">
-              <label id="inputLabel">Вставте текст:</label>
+              <div class="input-label-mascot">
+                <img src="mascot/book.png" class="mascot-icon mascot-icon-sm" alt="">
+                <label id="inputLabel">Вставте текст:</label>
+              </div>
               <div class="ocr-controls">
                 <select id="ocrLang" class="ocr-lang-select" title="Мова тексту">
                   <option value="ukr">🇺🇦</option>
@@ -259,6 +262,7 @@
 
           <!-- Writing area -->
           <div id="writingArea" style="display:none; margin-bottom:16px;">
+            <div class="mascot-row"><img src="mascot/pen.png" class="mascot-icon mascot-icon-md" alt=""></div>
             <textarea id="writingInput" rows="4" class="writing-textarea"></textarea>
             <div id="hintDisplay" class="hint-display" style="display:none;">
               <span class="hint-label"></span>
@@ -272,6 +276,7 @@
 
           <!-- Audio card -->
           <div id="audioCard" style="display:none;" class="audio-card">
+            <div class="mascot-row"><img src="mascot/headphones.png" class="mascot-icon mascot-icon-lg" alt=""></div>
             <div id="audioWave" class="audio-wave">
               <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
               <div class="wave-bars">
@@ -302,7 +307,7 @@
             <!-- Mic recording indicator -->
             <div id="micRecording" style="display:none;" class="mic-recording">
               <div class="mic-pulse-wrap">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+                <img src="mascot/mic.png" class="mic-pulse-img" alt="">
               </div>
               <p id="micStatus" class="audio-status"></p>
             </div>
@@ -310,6 +315,7 @@
 
           <!-- Writing result -->
           <div id="writingResult" style="display:none; margin-bottom:16px;">
+            <div id="writeThinkIcon" class="mascot-row" style="display:none;"><img src="mascot/think.png" class="mascot-icon mascot-icon-md" alt=""></div>
             <div id="writeScoreLine" class="write-score-line"></div>
             <div id="writeMotivation" class="write-motivation" style="display:none;"></div>
             <div id="writeHighlight" class="write-highlight"></div>
@@ -321,7 +327,7 @@
 
         <!-- Rest Screen -->
         <div id="restScreen" style="display: none">
-          <div id="restCanvas"></div>
+          <div id="restCanvas"><img src="mascot/coffee-break.png" alt="" class="rest-cat"></div>
           <div id="restDurInline" class="time-cards rest-dur-inline"></div>
           <h2 id="restTitle" class="rest-title"></h2>
           <p id="restSubtitle" class="rest-subtitle"></p>
@@ -336,7 +342,7 @@
         <!-- Session Pause Screen -->
         <div id="sessionPauseScreen" style="display:none; flex-direction:column; align-items:center; padding:32px 20px; min-height:300px; justify-content:center; animation:fadeIn 0.4s ease;">
           <div class="pause-icon-wrap">
-            <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" x2="6" y1="2" y2="4"/><line x1="10" x2="10" y1="2" y2="4"/><line x1="14" x2="14" y1="2" y2="4"/></svg>
+            <img src="mascot/alert.png" alt="" class="pause-icon-img">
           </div>
           <h2 id="pauseTitle" style="font-size:22px; font-weight:bold; margin-bottom:12px; text-align:center;"></h2>
           <p id="pauseBody" style="font-size:0.9rem; text-align:center; margin-bottom:24px; line-height:1.6; color:#888;"></p>
@@ -380,7 +386,7 @@
             <div class="profile-avatar-wrap" onclick="triggerAvatarUpload()">
               <img id="profileAvatarImg" class="profile-avatar-img" style="display:none;" alt="">
               <div id="profileAvatarPlaceholder" class="profile-avatar-placeholder">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <img class="profile-avatar-placeholder-img" src="mascot/cat-face.png" alt="">
               </div>
               <div class="profile-avatar-cam">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
@@ -388,9 +394,9 @@
             </div>
             <input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="handleAvatarUpload(this)">
             <div class="profile-name-wrap">
-              <span id="profileNameDisplay" class="profile-name-display" onclick="startEditName()"></span>
+              <span id="profileNameDisplay" class="profile-name-display" onclick="startEditName(this)"></span>
               <input id="profileNameInput" class="profile-name-input" type="text" maxlength="40" style="display:none;"
-                     onblur="saveProfileName()" onkeydown="if(event.key==='Enter')this.blur()">
+                     onblur="saveProfileName(this)" onkeydown="if(event.key==='Enter')this.blur()">
             </div>
             <p id="profileHeroStats" class="profile-hero-stats"></p>
           </div>
@@ -412,6 +418,35 @@
           <div id="profileContent" class="profile-content"></div>
         </div>
 
+        <!-- Word Profile Screen — окремий напрямок, спільні тільки ім'я+фото (клас-based, синхронізується з profileScreen) -->
+        <div id="wordProfileScreen" style="display:none;" class="profile-screen">
+          <div class="profile-header">
+            <button onclick="closeProfile()" class="btn-back">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <span id="wordProfileBackLabel">Назад</span>
+            </button>
+          </div>
+
+          <div class="profile-hero">
+            <div class="profile-avatar-wrap" onclick="triggerAvatarUpload()">
+              <img class="profile-avatar-img" style="display:none;" alt="">
+              <div class="profile-avatar-placeholder">
+                <img class="profile-avatar-placeholder-img" src="mascot/cat-face.png" alt="">
+              </div>
+              <div class="profile-avatar-cam">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+              </div>
+            </div>
+            <div class="profile-name-wrap">
+              <span class="profile-name-display" onclick="startEditName(this)"></span>
+              <input class="profile-name-input" type="text" maxlength="40" style="display:none;"
+                     onblur="saveProfileName(this)" onkeydown="if(event.key==='Enter')this.blur()">
+            </div>
+          </div>
+
+          <div id="wordProfileContent" class="profile-content"></div>
+        </div>
+
         <!-- Word Training Screen -->
         <div id="wordTrainingScreen" style="display:none">
           <div id="wtLoadingOverlay" class="ocr-overlay" style="display:none;">
@@ -429,6 +464,7 @@
           </div>
           <div id="wtQuestion" class="wt-question"></div>
           <div id="wtAudioWrap" style="display:none" class="wt-audio-wrap">
+            <div class="mascot-row"><img src="mascot/headphones.png" class="mascot-icon mascot-icon-md" alt=""></div>
             <button onclick="wtPlayAudio()" id="wtListenBtn" class="btn-wt-audio">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
               Прослухати
@@ -444,6 +480,7 @@
 
           <!-- Typing area (spell / dictation) -->
           <div id="wtTypeArea" style="display:none" class="wt-type-area">
+            <div class="mascot-row"><img src="mascot/pen.png" class="mascot-icon mascot-icon-md" alt=""></div>
             <div class="wt-type-wrap">
               <input id="wtTypeInput" type="text" class="wt-type-input"
                      autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"
@@ -468,6 +505,7 @@
 
         <!-- Word Results Screen -->
         <div id="wordResultsScreen" style="display:none;flex-direction:column;align-items:center;padding:36px 20px;min-height:320px;justify-content:center;animation:fadeIn 0.4s ease;">
+          <div class="final-icon-wrap"><img src="mascot/heart.png" alt="" class="final-icon-img"></div>
           <h2 id="wrTitle" style="font-size:1.5rem;font-weight:800;margin-bottom:20px;text-align:center;"></h2>
           <div id="wrFraction" class="wr-fraction"></div>
           <div id="wrPct" class="wr-pct"></div>
@@ -484,6 +522,10 @@
             <button onclick="showModeScreen()" class="btn-back">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
               <span id="wlBackLabel">Назад</span>
+            </button>
+            <button onclick="openWordProfile(showWordLangScreen)" class="btn-profile-nav" id="wordProfileNavBtn">
+              <img class="profile-nav-avatar" style="display:none;" alt="">
+              <img class="profile-nav-icon-img" src="mascot/cat-face.png" alt="">
             </button>
           </div>
           <h2 id="wlTitleEl" class="setup-title">Мовна пара</h2>
@@ -529,6 +571,7 @@
               <span id="wiBackLabel">Назад</span>
             </button>
           </div>
+          <div class="mascot-row"><img src="mascot/book.png" class="mascot-icon mascot-icon-md" alt=""></div>
           <h2 id="wiTitleEl" class="setup-title">Додайте слова</h2>
           <p id="wiHintEl" class="wi-hint">Кожне слово з нового рядка. Формат: слово — переклад</p>
           <div id="wiValidation" class="validation-msg" style="display:none;"></div>
@@ -593,7 +636,7 @@
       </div>
     </div>
 
-    <script src="app.js?v=60"></script>
+    <script src="app.js?v=65"></script>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});

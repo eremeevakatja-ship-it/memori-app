@@ -133,6 +133,12 @@ const translations = {
         profile_in_progress: "В роботі",
         profile_learned: "Вивчено",
         profile_planned: "Плани",
+        profile_words_tab: "Слова",
+        profile_empty_words: "Ще немає збережених наборів слів",
+        profile_words_total: "слів",
+        profile_words_mastered: "вивчено",
+        profile_words_review: "повторити",
+        profile_train: "Тренувати",
         profile_empty_progress: "Немає активної сесії",
         profile_empty_learned: "Ще нічого не вивчено. Пройдіть перший текст!",
         profile_load: "Завантажити",
@@ -268,6 +274,12 @@ const translations = {
         profile_in_progress: "In progress",
         profile_learned: "Learned",
         profile_planned: "Planned",
+        profile_words_tab: "Words",
+        profile_empty_words: "No saved word sets yet",
+        profile_words_total: "words",
+        profile_words_mastered: "mastered",
+        profile_words_review: "to review",
+        profile_train: "Train",
         profile_empty_progress: "No active session",
         profile_empty_learned: "Nothing learned yet. Complete your first text!",
         profile_load: "Load",
@@ -403,6 +415,12 @@ const translations = {
         profile_in_progress: "W toku",
         profile_learned: "Nauczone",
         profile_planned: "Zaplanowane",
+        profile_words_tab: "Słowa",
+        profile_empty_words: "Brak zapisanych zestawów słów",
+        profile_words_total: "słów",
+        profile_words_mastered: "opanowane",
+        profile_words_review: "do powtórki",
+        profile_train: "Trenuj",
         profile_empty_progress: "Brak aktywnej sesji",
         profile_empty_learned: "Nic jeszcze nie nauczone. Ukończ pierwszy tekst!",
         profile_load: "Załaduj",
@@ -538,6 +556,12 @@ const translations = {
         profile_in_progress: "Laufend",
         profile_learned: "Gelernt",
         profile_planned: "Geplant",
+        profile_words_tab: "Wörter",
+        profile_empty_words: "Noch keine gespeicherten Wortsets",
+        profile_words_total: "Wörter",
+        profile_words_mastered: "gelernt",
+        profile_words_review: "zu wiederholen",
+        profile_train: "Trainieren",
         profile_empty_progress: "Keine aktive Sitzung",
         profile_empty_learned: "Noch nichts gelernt. Schließe deinen ersten Text ab!",
         profile_load: "Laden",
@@ -673,6 +697,12 @@ const translations = {
         profile_in_progress: "En cours",
         profile_learned: "Appris",
         profile_planned: "Planifiés",
+        profile_words_tab: "Mots",
+        profile_empty_words: "Aucun ensemble de mots enregistré",
+        profile_words_total: "mots",
+        profile_words_mastered: "maîtrisés",
+        profile_words_review: "à revoir",
+        profile_train: "Entraîner",
         profile_empty_progress: "Aucune session active",
         profile_empty_learned: "Rien appris encore. Terminez votre premier texte !",
         profile_load: "Charger",
@@ -808,6 +838,12 @@ const translations = {
         profile_in_progress: "En progreso",
         profile_learned: "Aprendido",
         profile_planned: "Planificado",
+        profile_words_tab: "Palabras",
+        profile_empty_words: "Aún no hay conjuntos de palabras guardados",
+        profile_words_total: "palabras",
+        profile_words_mastered: "dominadas",
+        profile_words_review: "por repasar",
+        profile_train: "Entrenar",
         profile_empty_progress: "Sin sesión activa",
         profile_empty_learned: "Nada aprendido aún. ¡Completa tu primer texto!",
         profile_load: "Cargar",
@@ -1143,18 +1179,19 @@ function saveProfile(p) {
 }
 
 function updateProfileNavAvatar() {
+    // Клас-селектор замість id — профіль-кнопка тепер живе і на inputScreen, і на wordLangScreen.
     const profile = loadProfile();
-    const img  = document.getElementById('profileNavAvatar');
-    const icon = document.getElementById('profileNavIcon');
-    if (!img || !icon) return;
-    if (profile.avatar) {
-        img.src = profile.avatar;
-        img.style.display = 'block';
-        icon.style.display = 'none';
-    } else {
-        img.style.display = 'none';
-        icon.style.display = 'block';
-    }
+    document.querySelectorAll('.profile-nav-avatar').forEach(img => {
+        if (profile.avatar) {
+            img.src = profile.avatar;
+            img.style.display = 'block';
+        } else {
+            img.style.display = 'none';
+        }
+    });
+    document.querySelectorAll('.profile-nav-icon-img').forEach(icon => {
+        icon.style.display = profile.avatar ? 'none' : 'block';
+    });
 }
 
 function triggerAvatarUpload() {
@@ -1197,20 +1234,23 @@ function cropImageToDataURL(file, size) {
     });
 }
 
-function startEditName() {
-    const display = document.getElementById('profileNameDisplay');
-    const input   = document.getElementById('profileNameInput');
+// Ім'я/фото — єдина спільна ідентичність для обох напрямків (Text/Words),
+// тому ці елементи можуть існувати в DOM двічі (по одному на кожен профіль-екран).
+// closest('.profile-name-wrap') прив'язує клік до ПРАВИЛЬНОЇ пари display/input,
+// а не завжди до першої знайденої.
+function startEditName(el) {
+    const wrap = el.closest('.profile-name-wrap');
+    const input = wrap.querySelector('.profile-name-input');
     const profile = loadProfile();
     input.value = profile.name || '';
-    display.style.display = 'none';
+    el.style.display = 'none';
     input.style.display = 'block';
     input.focus();
     input.select();
 }
 
-function saveProfileName() {
-    const input = document.getElementById('profileNameInput');
-    const val   = input.value.trim().slice(0, 40);
+function saveProfileName(input) {
+    const val = input.value.trim().slice(0, 40);
     const profile = loadProfile();
     profile.name = val;
     saveProfile(profile);
@@ -1222,37 +1262,39 @@ function renderProfileHero() {
     const t = translations[currentLang];
     const profile = loadProfile();
 
-    // Avatar
-    const img = document.getElementById('profileAvatarImg');
-    const ph  = document.getElementById('profileAvatarPlaceholder');
-    if (profile.avatar) {
-        img.src = profile.avatar;
-        img.style.display = 'block';
-        ph.style.display = 'none';
-    } else {
-        img.style.display = 'none';
-        ph.style.display = 'flex';
-    }
+    // Avatar — оновлює ВСІ інстанси (обидва профіль-екрани), де б вони не були
+    document.querySelectorAll('.profile-avatar-img').forEach(img => {
+        if (profile.avatar) { img.src = profile.avatar; img.style.display = 'block'; }
+        else { img.style.display = 'none'; }
+    });
+    document.querySelectorAll('.profile-avatar-placeholder').forEach(ph => {
+        ph.style.display = profile.avatar ? 'none' : 'flex';
+    });
 
-    // Name
-    const display = document.getElementById('profileNameDisplay');
-    display.style.display = 'block';
-    document.getElementById('profileNameInput').style.display = 'none';
-    if (profile.name) {
-        display.innerText = profile.name;
-        display.classList.remove('profile-name-empty');
-    } else {
-        display.innerText = t.profile_name_placeholder || "Ваше ім'я";
-        display.classList.add('profile-name-empty');
-    }
+    // Ім'я — так само, всі інстанси
+    document.querySelectorAll('.profile-name-display').forEach(display => {
+        display.style.display = 'block';
+        const wrap = display.closest('.profile-name-wrap');
+        const input = wrap && wrap.querySelector('.profile-name-input');
+        if (input) input.style.display = 'none';
+        if (profile.name) {
+            display.innerText = profile.name;
+            display.classList.remove('profile-name-empty');
+        } else {
+            display.innerText = t.profile_name_placeholder || "Ваше ім'я";
+            display.classList.add('profile-name-empty');
+        }
+    });
 
-    // Mini-stats under name
-    const learned = loadLearned();
-    const stats   = loadStats();
+    // Text-mode статистика — лишається тільки в Text-профілі (окремий напрямок = окрема "пам'ять")
     const statsEl = document.getElementById('profileHeroStats');
-    const learnedTxt = `${learned.length} ${t.profile_learned || 'вивчено'}`;
-    const streakTxt  = stats.streak > 0 ? `· 🔥 ${stats.streak} ${t.stat_streak_lbl}` : '';
-    statsEl.innerText = learnedTxt + (streakTxt ? ' ' + streakTxt : '');
+    if (statsEl) {
+        const learned = loadLearned();
+        const stats = loadStats();
+        const learnedTxt = `${learned.length} ${t.profile_learned || 'вивчено'}`;
+        const streakTxt = stats.streak > 0 ? `· 🔥 ${stats.streak} ${t.stat_streak_lbl}` : '';
+        statsEl.innerText = learnedTxt + (streakTxt ? ' ' + streakTxt : '');
+    }
 }
 
 // ===== STATS =====
@@ -1372,9 +1414,9 @@ async function checkPendingReminder() {
     const body = (translations[currentLang] || translations.en).notif_body || 'Time to practise! 🔥';
     try {
         const reg = await navigator.serviceWorker.ready;
-        reg.showNotification('Memori 🌿', { body, icon: './icon.svg', badge: './icon.svg' });
+        reg.showNotification('Memori 🌿', { body, icon: './mascot/cat-face.png', badge: './icon.svg' });
     } catch {
-        try { new Notification('Memori 🌿', { body }); } catch {}
+        try { new Notification('Memori 🌿', { body, icon: './mascot/cat-face.png' }); } catch {}
     }
 }
 
@@ -1663,7 +1705,7 @@ function splitLongSentence(sentence, size = blockSize) {
 }
 
 // ===== SCREEN MANAGER =====
-const SCREENS = ['langScreen','modeScreen','inputScreen','setupScreen','learningScreen','restScreen','sessionPauseScreen','finalScreen','profileScreen','wordLangScreen','wordLevelScreen','wordInputScreen','wordVerifyScreen','wordTopicScreen','wordTrainingScreen','wordResultsScreen'];
+const SCREENS = ['langScreen','modeScreen','inputScreen','setupScreen','learningScreen','restScreen','sessionPauseScreen','finalScreen','profileScreen','wordProfileScreen','wordLangScreen','wordLevelScreen','wordInputScreen','wordVerifyScreen','wordTopicScreen','wordTrainingScreen','wordResultsScreen'];
 const FLEX_SCREENS = ['sessionPauseScreen','finalScreen','wordResultsScreen'];
 
 function showScreen(id) {
@@ -2683,6 +2725,7 @@ function compareTexts(original, written, level) {
 function showWritingResult(original, written, result) {
     const t = translations[currentLang];
     document.getElementById('writingArea').style.display = 'none';
+    document.getElementById('writeThinkIcon').style.display = result.passed ? 'none' : 'flex';
 
     const correctCount = result.wordResults.filter(r => r.status === 'correct' || r.status === 'close').length;
     const totalCount = result.wordResults.filter(r => r.status !== 'neutral').length;
@@ -2759,7 +2802,7 @@ function showFinal() {
 
     ['learningScreen', 'restScreen'].forEach(id => document.getElementById(id).style.display = 'none');
     const el = document.getElementById('finalScreen');
-    document.getElementById('finalIcon').innerHTML = ICONS.final[currentTheme] || ICONS.final.light;
+    document.getElementById('finalIcon').innerHTML = '<img src="mascot/heart.png" alt="" class="final-icon-img">';
     const allDone = currentStepIndex >= learningQueue.length;
     if (allDone) {
         clearState();
@@ -2895,8 +2938,13 @@ async function shareResult() {
 
 // ===== PROFILE =====
 
-function openProfile() {
-    document.getElementById('inputScreen').style.display = 'none';
+// Один "слот повернення" — куди закрити Профіль назад. Профіль ніколи не
+// відкривається сам із себе, тому одного слота (а не стеку) достатньо.
+let profileReturnFn = null;
+
+function openProfile(returnFn) {
+    profileReturnFn = typeof returnFn === 'function' ? returnFn : showInputScreen;
+    showScreen('profileScreen');
     const t = translations[currentLang];
     document.getElementById('profileBackLabel').innerText = t.back_lang || 'Назад';
     document.getElementById('ptab-progress-lbl').innerText = t.profile_in_progress || 'В роботі';
@@ -2904,13 +2952,12 @@ function openProfile() {
     document.getElementById('ptab-planned-lbl').innerText = t.profile_planned || 'Плани';
     currentProfileTab = 'progress';
     document.querySelectorAll('.profile-tab').forEach((btn, i) => btn.classList.toggle('active', i === 0));
-    document.getElementById('profileScreen').style.display = 'block';
     renderProfileHero();
     renderProfileTab('progress');
 }
 
 function closeProfile() {
-    showInputScreen();
+    (profileReturnFn || showInputScreen)();
 }
 
 function selectProfileTab(tab, btn) {
@@ -2994,6 +3041,50 @@ function renderProfileTab(tab) {
     }
 }
 
+// ===== WORD PROFILE (окремий напрямок — спільні тільки ім'я+фото через renderProfileHero) =====
+
+function openWordProfile(returnFn) {
+    profileReturnFn = typeof returnFn === 'function' ? returnFn : showWordLangScreen;
+    showScreen('wordProfileScreen');
+    const t = translations[currentLang];
+    document.getElementById('wordProfileBackLabel').innerText = t.back_lang || 'Назад';
+    renderProfileHero();
+    renderWordProfileList();
+}
+
+function renderWordProfileList() {
+    const t = translations[currentLang];
+    const container = document.getElementById('wordProfileContent');
+    const deleteSvg = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>`;
+
+    const sets = loadWordSets();
+    if (sets.length === 0) {
+        container.innerHTML = `<p class="profile-empty">${t.profile_empty_words || 'Ще немає збережених наборів слів'}</p>`;
+        return;
+    }
+    container.innerHTML = sets.map(set => {
+        const total = (set.pairs || []).length;
+        const mastered = (set.pairs || []).filter(p => (p.masteryScore || 0) >= WT_MASTERY_THRESHOLD).length;
+        const review = total - mastered;
+        const pct = total ? Math.round(mastered / total * 100) : 0;
+        const rawTitle = set.topic || '—';
+        const title = rawTitle.length > 60 ? rawTitle.slice(0, 60) + '…' : rawTitle;
+        const langPair = `${(set.langFrom || '').toUpperCase()} → ${(set.langTo || '').toUpperCase()}`;
+        const meta = `${langPair} · ${total} ${t.profile_words_total || 'слів'} · ${mastered} ${t.profile_words_mastered || 'вивчено'} · ${review} ${t.profile_words_review || 'повторити'}`;
+        return `<div class="profile-item">
+          <div class="profile-item-body">
+            <div class="profile-item-title">${escHtml(title)}</div>
+            <div class="profile-item-meta">${meta}</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+          </div>
+          <div class="profile-item-actions">
+            <button class="btn-profile-action" onclick="profileTrainWordSet(${set.id})">${t.profile_train || 'Тренувати'}</button>
+            <button class="btn-profile-delete" onclick="profileDeleteWordSet(${set.id})">${deleteSvg}</button>
+          </div>
+        </div>`;
+    }).join('');
+}
+
 function profileContinue() {
     document.getElementById('profileScreen').style.display = 'none';
     resumeSession();
@@ -3029,6 +3120,17 @@ function profileDeletePlanned(id) {
     saveLibrary(loadLibrary().filter(e => e.id !== id));
     updateLibraryCount();
     renderProfileTab('planned');
+}
+
+function profileTrainWordSet(id) {
+    const set = loadWordSets().find(s => s.id === id);
+    if (!set) return;
+    startWordTraining(set); // showScreen('wordTrainingScreen') всередині ховає поточний екран самостійно
+}
+
+function profileDeleteWordSet(id) {
+    saveWordSets(loadWordSets().filter(s => s.id !== id));
+    renderProfileTab('words');
 }
 
 function startRenameLibEntry(id) {
@@ -3112,6 +3214,7 @@ function escHtml(str) {
 function showWordLangScreen() {
     const t = translations[currentLang];
     showScreen('wordLangScreen');
+    updateProfileNavAvatar();
     document.getElementById('wlBackLabel').innerText = t.back_lang || 'Назад';
     document.getElementById('wlTitleEl').innerText = t.wl_title || 'Мовна пара';
     document.getElementById('wlLearningLabel').innerText = t.wl_learning || 'Яку мову вчимо?';
@@ -3163,8 +3266,8 @@ function showWordLevelScreen() {
     renderWordTimeOptions();
 }
 
-// Скільки часу є зараз на тренування слів — визначає РОЗМІР черги вправ
-// (не рівень: рівень лише обирає складніші типи, час — скільки їх буде).
+// Скільки часу є зараз на тренування слів — визначає РОЗМІР черги вправ.
+// Рівень на типи вправ не впливає (всі типи доступні на будь-якому рівні).
 let wordSessionTime = Infinity;
 function renderWordTimeOptions() {
     const t = translations[currentLang];
@@ -3692,6 +3795,39 @@ const WT_TTS_LANG = {
     ja: 'ja-JP', zh: 'zh-CN', ko: 'ko-KR', ar: 'ar-SA',
 };
 
+// Скільки поспіль "чистих" (без жодної помилки) проходжень слова треба,
+// щоб вважати його вивченим у профілі — навмисно проста метрика, без SRS/дат.
+const WT_MASTERY_THRESHOLD = 2;
+
+// Викликається в кінці тренування (showWordResults) — рахує per-слово чи
+// пройдено БЕЗ жодної помилки цей раз (по всіх типах вправ і requeue-спробах
+// для цього слова), і оновлює masteryScore прямо на об'єкті pair усередині
+// wtSet.pairs (той самий об'єкт, що і в wtQueue[i].pair — filter/sort його не
+// клонують), а тоді зберігає назад у memoriWords_sets.
+function updateWordMastery() {
+    if (!wtSet) return;
+    const byPair = new Map();
+    wtQueue.forEach(ex => {
+        if (!byPair.has(ex.pair)) byPair.set(ex.pair, []);
+        byPair.get(ex.pair).push(ex);
+    });
+    byPair.forEach((exs, pair) => {
+        const attempted = exs.filter(e => e.correct !== undefined && e.correct !== null);
+        if (!attempted.length) return; // не дійшли до цього слова цей раз
+        const allCorrect = attempted.every(e => e.correct === true);
+        pair.masteryScore = allCorrect ? (pair.masteryScore || 0) + 1 : 0;
+    });
+    wtSet.lastTrainedAt = Date.now();
+
+    const sets = loadWordSets();
+    const idx = sets.findIndex(s => s.id === wtSet.id);
+    if (idx >= 0) {
+        sets[idx].pairs = wtSet.pairs;
+        sets[idx].lastTrainedAt = wtSet.lastTrainedAt;
+        saveWordSets(sets);
+    }
+}
+
 async function startWordTraining(set) {
     const t = translations[currentLang];
     const valid = (set.pairs || []).filter(p => p.word && p.translation);
@@ -3705,16 +3841,14 @@ async function startWordTraining(set) {
     wordLangTo   = set.langTo   || 'uk';
     wordLevel    = set.level    || 1;
 
-    // Рівень 3+ розблоковує тип "Речення" — приклади треба підтягнути
+    // Тип "Речення" доступний на будь-якому рівні — приклади підтягуємо
     // заздалегідь (мережевий запит на пару), інакше чергу нема з чого будувати.
-    if (wordLevel >= 3) {
-        showScreen('wordTrainingScreen');
-        showWtLoading(t.wt_preparing || 'Готую вправи…');
-        await prefetchSentenceExamples(valid);
-        hideWtLoading();
-    }
+    showScreen('wordTrainingScreen');
+    showWtLoading(t.wt_preparing || 'Готую вправи…');
+    await prefetchSentenceExamples(valid);
+    hideWtLoading();
 
-    wtQueue = buildWtQueue(valid, wordLevel, wordSessionTime);
+    wtQueue = buildWtQueue(valid, wordSessionTime);
     wtIndex = 0;
     wtCorrect = 0;
     wtCurrentAudioPair = null;
@@ -3793,17 +3927,14 @@ function blankOutSentence(sentenceWithTag) {
 // "Без обмежень" = один повний прохід по всіх розблокованих типах.
 const WT_SEC_PER_EXERCISE = 20; // грубий орієнтир: recognition швидше, typed — довше, в середньому
 
-function buildWtQueue(pairs, level, timeMinutes = Infinity) {
+function buildWtQueue(pairs, timeMinutes = Infinity) {
     const rnd = arr => [...arr].sort(() => Math.random() - 0.5);
     const hasSpeech = 'speechSynthesis' in window;
 
-    const LEVEL_POOL = {
-        1: ['w2t', 't2w'],
-        2: ['w2t', 't2w', hasSpeech ? 'audio' : null],
-        3: ['w2t', 't2w', hasSpeech ? 'audio' : null, 'spell', 'sentence'],
-        4: ['w2t', 't2w', hasSpeech ? 'audio' : null, 'spell', hasSpeech ? 'dictation' : null, 'sentence'],
-    };
-    const pool = (LEVEL_POOL[level] || LEVEL_POOL[1]).filter(Boolean);
+    // Рівень НЕ впливає на те, які типи вправ трапляються — усі типи доступні
+    // на будь-якому рівні (лише фічі браузера/наявність прикладів фільтрують пул).
+    // Час — єдине, що визначає РОЗМІР черги (менше часу = менше вправ).
+    const pool = ['w2t', 't2w', hasSpeech ? 'audio' : null, 'spell', hasSpeech ? 'dictation' : null, 'sentence'].filter(Boolean);
 
     // "sentence" доступний лише для пар з реально знайденими прикладами —
     // фільтруємо саме цей тип по конкретному раунду пар, інші типи без змін.
@@ -4274,6 +4405,7 @@ function wtNext() {
 }
 
 function showWordResults() {
+    updateWordMastery();
     const t = translations[currentLang];
     showScreen('wordResultsScreen');
     const total = wtQueue.length;
