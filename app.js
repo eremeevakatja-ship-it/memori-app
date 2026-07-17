@@ -3960,7 +3960,9 @@ function buildWtQueue(pairs, timeMinutes = Infinity) {
     // Рівень НЕ впливає на те, які типи вправ трапляються — усі типи доступні
     // на будь-якому рівні (лише фічі браузера/наявність прикладів фільтрують пул).
     // Час — єдине, що визначає РОЗМІР черги (менше часу = менше вправ).
-    const pool = ['w2t', 't2w', hasSpeech ? 'audio' : null, 'spell', hasSpeech ? 'dictation' : null, 'sentence'].filter(Boolean);
+    // 'sentence' тимчасово вимкнено — якість речень з Google Translate
+    // недостатня; повернути, коли буде нормальна генерація (див. AI-бекенд)
+    const pool = ['w2t', 't2w', hasSpeech ? 'audio' : null, 'spell', hasSpeech ? 'dictation' : null].filter(Boolean);
 
     // "sentence" доступний лише для пар з реально знайденими прикладами —
     // фільтруємо саме цей тип по конкретному раунду пар, інші типи без змін.
