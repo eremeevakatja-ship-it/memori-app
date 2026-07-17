@@ -3390,6 +3390,21 @@ function parseWordPairs(rawText) {
         if (m) { result.push({ word: m[1].trim(), translation: m[2].trim() }); continue; }
         m = seg.match(/^(.+?)\t(.+)$/);
         if (m) { result.push({ word: m[1].trim(), translation: m[2].trim() }); continue; }
+        // 3+ пробіл-розділених токенів без роздільника: якщо одна мова —
+        // це просто список окремих слів; якщо дві мови — межа скриптів
+        // відділяє слово від (можливо багатослівного) перекладу
+        const tokens = seg.split(/\s+/).filter(Boolean);
+        if (tokens.length >= 3) {
+            const hasCyr = /[а-яА-ЯіІїЇєЄ'ʼ]/.test(seg);
+            const hasLat = /[a-zA-Z]/.test(seg);
+            if (hasCyr && hasLat) {
+                const bnd = findWordBoundary(seg);
+                result.push({ word: seg.slice(0, bnd).trim(), translation: seg.slice(bnd).trim() || null });
+            } else {
+                tokens.forEach(w => result.push({ word: w, translation: null }));
+            }
+            continue;
+        }
         m = seg.match(/^(\S+)\s+(.+)$/);
         if (m) { result.push({ word: m[1].trim(), translation: m[2].trim() }); continue; }
         result.push({ word: seg.trim(), translation: null });
@@ -3582,10 +3597,11 @@ async function cycleTranslation(index) {
         return;
     }
 
-    altTransIndex[key] = (altTransIndex[key] + 1) % list.length;
+    const prevIndex = altTransIndex[key];
+    altTransIndex[key] = (prevIndex + 1) % list.length;
     pair.translation = list[altTransIndex[key]];
     renderWordChips();
-    if (altTransIndex[key] === 0 && list.length > 1) {
+    if (list.length > 1 && prevIndex === list.length - 1) {
         showMotivToast(t.wv_alt_wrapped || 'Це всі варіанти — можна ввести свій, якщо жоден не підійшов');
     }
 }
@@ -3881,7 +3897,9 @@ async function fetchExampleSentences(word, lang) {
         if (!res.ok) return [];
         const data = await res.json();
         const raw = data?.[13]?.[0] || [];
-        return raw.map(e => e[0]).filter(Boolean);
+        // Тільки приклади, де слово справді позначене <b> — інакше
+        // пропуск (blankOutSentence) буде нема куди ставити
+        return raw.map(e => e[0]).filter(Boolean).filter(s => /<b>.*?<\/b>/i.test(s));
     } catch {
         return [];
     }
@@ -3905,7 +3923,15 @@ function hasSentenceExamples(pair) {
 // Це НЕ справжня CEFR-оцінка складності, лише орієнтир на довжину.
 function pickSentenceForLevel(examples, level) {
     if (!examples.length) return null;
-    const sorted = [...examples].sort((a, b) => a.split(/\s+/).length - b.split(/\s+/).length);
+    const wordCount = s => s.replace(/<\/?b>/gi, '').trim().split(/\s+/).filter(Boolean).length;
+
+    // Абсолютні межі довжини по рівню (не лише відносне сортування) —
+    // відсікає однослівні уривки та занадто довгі/складні речення
+    const [minWords, maxWords] = level >= 4 ? [6, 20] : [3, 12];
+    let pool = examples.filter(s => { const n = wordCount(s); return n >= minWords && n <= maxWords; });
+    if (!pool.length) pool = examples; // краще так-сяке речення, ніж жодного
+
+    const sorted = [...pool].sort((a, b) => wordCount(a) - wordCount(b));
     if (sorted.length === 1) return sorted[0];
     const frac = level >= 4 ? 0.75 : 0.15;
     const idx = Math.min(sorted.length - 1, Math.round(frac * (sorted.length - 1)));
@@ -4028,7 +4054,12 @@ function renderWtExercise() {
         input.disabled = false;
         input.placeholder = t.wt_type_placeholder || 'Введіть відповідь...';
         const checkBtn = document.getElementById('wtCheckBtn');
-        if (checkBtn) { checkBtn.title = t.wt_check || 'Перевірити'; checkBtn.style.display = 'flex'; }
+        if (checkBtn) {
+            checkBtn.title = t.wt_check || 'Перевірити';
+            checkBtn.style.display = 'flex';
+            const checkLabel = document.getElementById('wtCheckLabel');
+            if (checkLabel) checkLabel.innerText = t.wt_check || 'Перевірити';
+        }
         // Show hint button
         const hintBtn = document.getElementById('wtHintBtn');
         if (hintBtn) {
