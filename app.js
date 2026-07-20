@@ -164,9 +164,16 @@ const translations = {
         wl_same_error: 'Оберіть різні мови', wl_next: 'Далі →',
         wlev_title: 'Твій рівень?',
         wlev_levels: ['Ніколи не вчив(ла)', 'Кілька слів — здебільшого з мемів та меню', 'Виживу за кордоном — базовими знаннями і посмішкою', 'Говорю! Помиляюся. Але говорю!', 'Субтитри вмикаю "на всяк випадок"', 'Думаю і сни сняться цією мовою'],
-        wi_title: 'Додайте слова', wi_hint: 'Кожне слово з нового рядка. Формат: слово — переклад',
+        wi_title: 'Додайте слова', wi_hint: 'Кожне слово з нового рядка',
+        wi_info_title: 'Як вводити слова?',
+        wi_info_body: 'Два способи — обирайте зручний:\n\n1. Просто слова, по одному на рядок. Переклад підберемо автоматично на наступному кроці.\n\n2. Слово з перекладом одразу — через тире: dog — собака.\n\nМожна вводити будь-якою з двох мов пари — програма сама зрозуміє, де слово, а де переклад.',
         wi_placeholder: 'dog — собака\ncat — кішка\nto run — бігати',
         wi_min_error: 'Потрібно мінімум 2 пари слів',
+        support_title: 'Технічна підтримка', support_type_bug: '🐛 Щось не працює', support_type_idea: '💡 Ідея чи побажання',
+        support_placeholder: 'Опишіть, що сталося або що хотіли б додати…', support_submit: 'Надіслати',
+        support_min_error: 'Напишіть повідомлення', support_thanks: 'Дякую! Побачу це під час наступного оновлення.',
+        support_history_title: 'Мої звернення', support_copy_all: '📋 Скопіювати все',
+        support_copied: 'Скопійовано!', support_copy_failed: 'Не вдалося скопіювати',
         wv_title: 'Перевірте список', wv_hint: 'Натисніть на пару щоб відредагувати',
         wv_add: '+ Додати слово', wv_confirm: 'Все вірно →',
         wv_min_error: 'Потрібно мінімум 2 пари', wv_no_trans: '+ переклад',
@@ -305,9 +312,16 @@ const translations = {
         wl_same_error: 'Please choose different languages', wl_next: 'Next →',
         wlev_title: 'Your level?',
         wlev_levels: ['Never studied it', 'A few words — mostly from memes and menus', 'I\'ll survive abroad — with basics and a smile', 'I speak! I make mistakes. But I speak!', 'Subtitles — just in case', 'I think and dream in this language'],
-        wi_title: 'Add words', wi_hint: 'One word or phrase per line. Format: word — translation',
+        wi_title: 'Add words', wi_hint: 'One word or phrase per line',
+        wi_info_title: 'How to enter words?',
+        wi_info_body: 'Two ways — pick whichever is easier:\n\n1. Just words, one per line. We\'ll suggest a translation automatically on the next step.\n\n2. Word with translation right away — separated by a dash: dog — собака.\n\nYou can type in either of the two languages of your pair — the app will figure out which is the word and which is the translation.',
         wi_placeholder: 'dog — собака\ncat — кішка\nto run — бігати',
         wi_min_error: 'Please add at least 2 word pairs',
+        support_title: 'Technical support', support_type_bug: '🐛 Something\'s broken', support_type_idea: '💡 Idea or request',
+        support_placeholder: 'Describe what happened or what you\'d like added…', support_submit: 'Send',
+        support_min_error: 'Please write a message', support_thanks: 'Thanks! I\'ll see this before the next update.',
+        support_history_title: 'My messages', support_copy_all: '📋 Copy all',
+        support_copied: 'Copied!', support_copy_failed: 'Could not copy',
         wv_title: 'Check your list', wv_hint: 'Tap any pair to edit',
         wv_add: '+ Add word', wv_confirm: 'Looks good →',
         wv_min_error: 'At least 2 pairs required', wv_no_trans: '+ translation',
@@ -446,9 +460,16 @@ const translations = {
         wl_same_error: 'Wybierz różne języki', wl_next: 'Dalej →',
         wlev_title: 'Twój poziom?',
         wlev_levels: ['Nigdy się nie uczyłem(am)', 'Kilka słów — głównie z memów i menu', 'Przeżyję za granicą — z podstawami i uśmiechem', 'Mówię! Mylę się. Ale mówię!', 'Napisy włączam "na wszelki wypadek"', 'Myślę i śnię w tym języku'],
-        wi_title: 'Dodaj słowa', wi_hint: 'Każde słowo w nowej linii. Format: słowo — tłumaczenie',
+        wi_title: 'Dodaj słowa', wi_hint: 'Każde słowo w nowej linii',
+        wi_info_title: 'Jak wpisywać słowa?',
+        wi_info_body: 'Dwa sposoby — wybierz wygodniejszy:\n\n1. Same słowa, po jednym w linii. Tłumaczenie zaproponujemy automatycznie w następnym kroku.\n\n2. Słowo od razu z tłumaczeniem — po myślniku: dog — pies.\n\nMożesz pisać w dowolnym z dwóch języków pary — aplikacja sama rozpozna, co jest słowem, a co tłumaczeniem.',
         wi_placeholder: 'dog — pies\ncat — kot\nto run — biegać',
         wi_min_error: 'Potrzeba co najmniej 2 par słów',
+        support_title: 'Pomoc techniczna', support_type_bug: '🐛 Coś nie działa', support_type_idea: '💡 Pomysł lub życzenie',
+        support_placeholder: 'Opisz, co się stało albo co chciałabyś dodać…', support_submit: 'Wyślij',
+        support_min_error: 'Napisz wiadomość', support_thanks: 'Dzięki! Zobaczę to przed kolejną aktualizacją.',
+        support_history_title: 'Moje zgłoszenia', support_copy_all: '📋 Skopiuj wszystko',
+        support_copied: 'Skopiowano!', support_copy_failed: 'Nie udało się skopiować',
         wv_title: 'Sprawdź listę', wv_hint: 'Dotknij pary aby edytować',
         wv_add: '+ Dodaj słowo', wv_confirm: 'Wszystko OK →',
         wv_min_error: 'Wymagane co najmniej 2 pary', wv_no_trans: '+ tłumaczenie',
@@ -587,9 +608,16 @@ const translations = {
         wl_same_error: 'Bitte verschiedene Sprachen wählen', wl_next: 'Weiter →',
         wlev_title: 'Dein Niveau?',
         wlev_levels: ['Nie gelernt', 'Ein paar Wörter — meistens aus Memes und Menüs', 'Überlebe im Ausland — mit Grundkenntnissen und Lächeln', 'Ich spreche! Ich mache Fehler. Aber ich spreche!', 'Untertitel — nur zur Sicherheit', 'Ich denke und träume in dieser Sprache'],
-        wi_title: 'Wörter hinzufügen', wi_hint: 'Ein Wort pro Zeile. Format: Wort — Übersetzung',
+        wi_title: 'Wörter hinzufügen', wi_hint: 'Ein Wort pro Zeile',
+        wi_info_title: 'Wie gebe ich Wörter ein?',
+        wi_info_body: 'Zwei Wege — wähle den bequemeren:\n\n1. Nur Wörter, eines pro Zeile. Die Übersetzung schlagen wir dir im nächsten Schritt automatisch vor.\n\n2. Wort direkt mit Übersetzung — mit Gedankenstrich getrennt: dog — Hund.\n\nDu kannst in beiden Sprachen deines Paares tippen — die App erkennt selbst, was das Wort und was die Übersetzung ist.',
         wi_placeholder: 'dog — Hund\ncat — Katze\nto run — laufen',
         wi_min_error: 'Mindestens 2 Wortpaare erforderlich',
+        support_title: 'Technischer Support', support_type_bug: '🐛 Etwas funktioniert nicht', support_type_idea: '💡 Idee oder Wunsch',
+        support_placeholder: 'Beschreibe, was passiert ist oder was du dir wünschst…', support_submit: 'Senden',
+        support_min_error: 'Bitte schreib eine Nachricht', support_thanks: 'Danke! Ich sehe das vor dem nächsten Update.',
+        support_history_title: 'Meine Meldungen', support_copy_all: '📋 Alles kopieren',
+        support_copied: 'Kopiert!', support_copy_failed: 'Kopieren fehlgeschlagen',
         wv_title: 'Liste prüfen', wv_hint: 'Tippe auf ein Paar zum Bearbeiten',
         wv_add: '+ Wort hinzufügen', wv_confirm: 'Alles stimmt →',
         wv_min_error: 'Mindestens 2 Paare erforderlich', wv_no_trans: '+ Übersetzung',
@@ -728,9 +756,16 @@ const translations = {
         wl_same_error: 'Choisissez des langues différentes', wl_next: 'Suivant →',
         wlev_title: 'Votre niveau ?',
         wlev_levels: ['Jamais étudié', 'Quelques mots — surtout des mèmes et menus', 'Je survivrai à l\'étranger — avec des bases et un sourire', 'Je parle ! Je fais des erreurs. Mais je parle !', 'Sous-titres — juste au cas où', 'Je pense et rêve dans cette langue'],
-        wi_title: 'Ajouter des mots', wi_hint: 'Un mot par ligne. Format : mot — traduction',
+        wi_title: 'Ajouter des mots', wi_hint: 'Un mot par ligne',
+        wi_info_title: 'Comment saisir les mots ?',
+        wi_info_body: 'Deux façons de faire — choisissez celle qui vous convient :\n\n1. Juste les mots, un par ligne. Nous proposerons une traduction automatiquement à l\'étape suivante.\n\n2. Le mot avec sa traduction directement — séparés par un tiret : dog — chien.\n\nVous pouvez taper dans l\'une ou l\'autre langue de votre paire — l\'application déterminera elle-même quel est le mot et quelle est la traduction.',
         wi_placeholder: 'dog — chien\ncat — chat\nto run — courir',
         wi_min_error: 'Veuillez ajouter au moins 2 paires',
+        support_title: 'Assistance technique', support_type_bug: '🐛 Quelque chose ne marche pas', support_type_idea: '💡 Idée ou souhait',
+        support_placeholder: 'Décrivez ce qui s\'est passé ou ce que vous aimeriez ajouter…', support_submit: 'Envoyer',
+        support_min_error: 'Veuillez écrire un message', support_thanks: 'Merci ! Je verrai ça avant la prochaine mise à jour.',
+        support_history_title: 'Mes messages', support_copy_all: '📋 Tout copier',
+        support_copied: 'Copié !', support_copy_failed: 'Impossible de copier',
         wv_title: 'Vérifier la liste', wv_hint: 'Appuyez sur une paire pour modifier',
         wv_add: '+ Ajouter un mot', wv_confirm: 'Tout est correct →',
         wv_min_error: 'Au moins 2 paires requises', wv_no_trans: '+ traduction',
@@ -869,9 +904,16 @@ const translations = {
         wl_same_error: 'Elige idiomas diferentes', wl_next: 'Siguiente →',
         wlev_title: '¿Tu nivel?',
         wlev_levels: ['Nunca lo estudié', 'Unas palabras — sobre todo de memes y menús', 'Sobreviviré en el extranjero — con lo básico y una sonrisa', '¡Hablo! Me equivoco. ¡Pero hablo!', 'Subtítulos — por si acaso', 'Pienso y sueño en este idioma'],
-        wi_title: 'Añadir palabras', wi_hint: 'Una palabra por línea. Formato: palabra — traducción',
+        wi_title: 'Añadir palabras', wi_hint: 'Una palabra por línea',
+        wi_info_title: '¿Cómo introducir palabras?',
+        wi_info_body: 'Dos formas — elige la que prefieras:\n\n1. Solo palabras, una por línea. Te sugeriremos la traducción automáticamente en el siguiente paso.\n\n2. Palabra con traducción directamente — separadas por un guion: dog — perro.\n\nPuedes escribir en cualquiera de los dos idiomas de tu pareja — la aplicación reconocerá cuál es la palabra y cuál la traducción.',
         wi_placeholder: 'dog — perro\ncat — gato\nto run — correr',
         wi_min_error: 'Por favor añade al menos 2 pares',
+        support_title: 'Soporte técnico', support_type_bug: '🐛 Algo no funciona', support_type_idea: '💡 Idea o sugerencia',
+        support_placeholder: 'Describe qué pasó o qué te gustaría añadir…', support_submit: 'Enviar',
+        support_min_error: 'Escribe un mensaje', support_thanks: '¡Gracias! Lo veré antes de la próxima actualización.',
+        support_history_title: 'Mis mensajes', support_copy_all: '📋 Copiar todo',
+        support_copied: '¡Copiado!', support_copy_failed: 'No se pudo copiar',
         wv_title: 'Verificar la lista', wv_hint: 'Toca un par para editar',
         wv_add: '+ Añadir palabra', wv_confirm: 'Todo correcto →',
         wv_min_error: 'Se requieren al menos 2 pares', wv_no_trans: '+ traducción',
@@ -1707,8 +1749,10 @@ function splitLongSentence(sentence, size = blockSize) {
 // ===== SCREEN MANAGER =====
 const SCREENS = ['langScreen','modeScreen','inputScreen','setupScreen','learningScreen','restScreen','sessionPauseScreen','finalScreen','profileScreen','wordProfileScreen','wordLangScreen','wordLevelScreen','wordInputScreen','wordVerifyScreen','wordTopicScreen','wordTrainingScreen','wordResultsScreen'];
 const FLEX_SCREENS = ['sessionPauseScreen','finalScreen','wordResultsScreen'];
+let currentScreenId = null; // для контексту у зверненнях підтримки — на якому екрані була проблема
 
 function showScreen(id) {
+    currentScreenId = id;
     SCREENS.forEach(s => {
         const el = document.getElementById(s);
         if (!el) return;
@@ -1833,6 +1877,111 @@ function closeInfoPopup(event) {
     const popup = document.getElementById('infoPopup');
     popup.classList.remove('visible');
     setTimeout(() => { popup.style.display = 'none'; }, 260);
+}
+
+// ===== TECH SUPPORT (локально, без бекенду — див. D-002) =====
+// Звернення зберігаються лише в localStorage цього браузера/пристрою.
+// User переглядає їх сама в цьому ж попапі і копіює текстом, щоб
+// передати в наступну сесію розробки. Без email/webhook — свідомий вибір
+// User (без нового зовнішнього сервісу і без витоку даних інших людей).
+let supportType = 'bug';
+
+function openSupportPopup() {
+    const t = translations[currentLang];
+    document.getElementById('supportPopupTitle').innerText = t.support_title || 'Технічна підтримка';
+    document.getElementById('supportTypeBugBtn').innerText = t.support_type_bug || '🐛 Щось не працює';
+    document.getElementById('supportTypeIdeaBtn').innerText = t.support_type_idea || '💡 Ідея чи побажання';
+    document.getElementById('supportTextarea').placeholder = t.support_placeholder || 'Опишіть, що сталося або що хотіли б додати…';
+    document.getElementById('supportTextarea').value = '';
+    document.getElementById('supportSubmitBtn').innerText = t.support_submit || 'Надіслати';
+    document.getElementById('supportHistoryTitle').childNodes[0].nodeValue = (t.support_history_title || 'Мої звернення') + ' (';
+    document.getElementById('supportCopyBtn').innerText = t.support_copy_all || '📋 Скопіювати все';
+    document.getElementById('supportValidation').style.display = 'none';
+    selectSupportType('bug');
+    renderSupportHistory();
+    const popup = document.getElementById('supportPopup');
+    popup.style.display = 'flex';
+    requestAnimationFrame(() => popup.classList.add('visible'));
+}
+
+function closeSupportPopup(event) {
+    if (event && event.target !== document.getElementById('supportPopup')) return;
+    const popup = document.getElementById('supportPopup');
+    popup.classList.remove('visible');
+    setTimeout(() => { popup.style.display = 'none'; }, 260);
+}
+
+function selectSupportType(type, btn) {
+    supportType = type;
+    document.querySelectorAll('.support-type-btn').forEach(b => b.classList.remove('active'));
+    const target = btn || document.getElementById(type === 'bug' ? 'supportTypeBugBtn' : 'supportTypeIdeaBtn');
+    if (target) target.classList.add('active');
+}
+
+function getSupportMessages() {
+    try { return JSON.parse(localStorage.getItem('memori_support') || '[]'); }
+    catch { return []; }
+}
+
+function submitSupportMessage() {
+    const t = translations[currentLang];
+    const textarea = document.getElementById('supportTextarea');
+    const text = textarea.value.trim();
+    if (!text) {
+        const errEl = document.getElementById('supportValidation');
+        errEl.innerText = t.support_min_error || 'Напишіть повідомлення';
+        errEl.style.display = 'block';
+        return;
+    }
+    const list = getSupportMessages();
+    list.unshift({
+        id: `${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+        type: supportType,
+        text,
+        screen: currentScreenId,
+        lang: currentLang,
+        createdAt: new Date().toISOString(),
+    });
+    localStorage.setItem('memori_support', JSON.stringify(list));
+    textarea.value = '';
+    document.getElementById('supportValidation').style.display = 'none';
+    showMotivToast(t.support_thanks || 'Дякую! Побачу це під час наступного оновлення.');
+    renderSupportHistory();
+}
+
+function renderSupportHistory() {
+    const list = getSupportMessages();
+    const container = document.getElementById('supportHistoryList');
+    const wrap = document.getElementById('supportHistoryWrap');
+    const countEl = document.getElementById('supportHistoryCount');
+    if (!container || !wrap) return;
+    wrap.style.display = list.length ? 'block' : 'none';
+    if (countEl) countEl.innerText = String(list.length);
+    container.innerHTML = list.map(m => `
+        <div class="support-history-item">
+            <div class="support-history-meta">
+                <span>${m.type === 'bug' ? '🐛' : '💡'}</span>
+                <span>${new Date(m.createdAt).toLocaleString(currentLang)}</span>
+            </div>
+            <div class="support-history-text">${escHtml(m.text)}</div>
+        </div>
+    `).join('');
+}
+
+function copyAllSupportMessages() {
+    const t = translations[currentLang];
+    const list = getSupportMessages();
+    if (!list.length) return;
+    const text = list.map(m =>
+        `[${m.type === 'bug' ? 'BUG' : 'IDEA'}] ${new Date(m.createdAt).toLocaleString()} — ${m.screen || '?'}\n${m.text}`
+    ).join('\n\n---\n\n');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text)
+            .then(() => showMotivToast(t.support_copied || 'Скопійовано!'))
+            .catch(() => showMotivToast(t.support_copy_failed || 'Не вдалося скопіювати'));
+    } else {
+        showMotivToast(t.support_copy_failed || 'Не вдалося скопіювати');
+    }
 }
 
 function selectTheme(theme, el) {
@@ -3185,6 +3334,8 @@ function saveWordSets(sets) {
     try { localStorage.setItem(WORDS_SETS_KEY, JSON.stringify(sets)); } catch {}
 }
 
+// Обмежено мовами, які реально підтримує інтерфейс (переклад UI + TTS + OCR) —
+// див. `translations`. Розширювати лише разом з повним перекладом інтерфейсу.
 const WORD_LANGUAGES = [
     { code: 'en', flag: 'gb', name: 'English' },
     { code: 'uk', flag: 'ua', name: 'Українська' },
@@ -3192,18 +3343,6 @@ const WORD_LANGUAGES = [
     { code: 'de', flag: 'de', name: 'Deutsch' },
     { code: 'fr', flag: 'fr', name: 'Français' },
     { code: 'es', flag: 'es', name: 'Español' },
-    { code: 'it', flag: 'it', name: 'Italiano' },
-    { code: 'pt', flag: 'pt', name: 'Português' },
-    { code: 'nl', flag: 'nl', name: 'Nederlands' },
-    { code: 'sv', flag: 'se', name: 'Svenska' },
-    { code: 'cs', flag: 'cz', name: 'Čeština' },
-    { code: 'hu', flag: 'hu', name: 'Magyar' },
-    { code: 'ro', flag: 'ro', name: 'Română' },
-    { code: 'tr', flag: 'tr', name: 'Türkçe' },
-    { code: 'ja', flag: 'jp', name: '日本語' },
-    { code: 'zh', flag: 'cn', name: '中文' },
-    { code: 'ko', flag: 'kr', name: '한국어' },
-    { code: 'ar', flag: 'sa', name: 'العربية' },
 ];
 
 function escHtml(str) {
@@ -3312,7 +3451,7 @@ function showWordInputScreen() {
     showScreen('wordInputScreen');
     document.getElementById('wiBackLabel').innerText = t.back_lang || 'Назад';
     document.getElementById('wiTitleEl').innerText = t.wi_title || 'Додайте слова';
-    document.getElementById('wiHintEl').innerText = t.wi_hint || 'Кожне слово з нового рядка. Формат: слово — переклад';
+    document.getElementById('wiHintText').innerText = t.wi_hint || 'Кожне слово з нового рядка';
     document.getElementById('wiNextBtn').innerText = t.wl_next || 'Далі →';
     document.getElementById('wordInputTextarea').placeholder = t.wi_placeholder || 'dog — собака\ncat — кішка';
     document.getElementById('wordInputTextarea').value = '';
@@ -3514,6 +3653,45 @@ async function fetchTranslation(text, from, to) {
     return fetchTranslationMyMemory(text, from, to); // Google unreachable/blocked — fall back
 }
 
+// ===== SMART AUTO-TRANSLATE (визначає напрям перекладу) =====
+// autoTranslateMissing() раніше завжди вважала typed-слово мовою, яку
+// вчимо (wordLangFrom), і перекладала В wordLangTo. Якщо користувач вводив
+// слово рідною мовою (wordLangTo) — воно йшло у тренування як є, без
+// перекладу в мову навчання. Тепер визначаємо РЕАЛЬНУ мову введеного слова
+// через sl=auto і, якщо вона виявилась wordLangTo, а не wordLangFrom —
+// міняємо word/translation місцями, щоб тренована сторона (word) завжди
+// лишалась мовою, яку користувач обрав вчити.
+async function fetchTranslationAutoDetect(text, tl) {
+    try {
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${encodeURIComponent(tl)}&dt=t&q=${encodeURIComponent(text)}`;
+        const res = await fetch(url);
+        if (!res.ok) return null;
+        const data = await res.json();
+        const translated = (data?.[0] || []).map(seg => seg?.[0] || '').join('').trim();
+        const detected = data?.[2] || null; // мова джерела, визначена Google при sl=auto
+        if (!translated) return null;
+        return { translated, detected };
+    } catch {
+        return null;
+    }
+}
+
+async function fetchTranslationSmart(word, langFrom, langTo) {
+    const auto = await fetchTranslationAutoDetect(word, langTo);
+    if (auto && auto.detected === langTo && auto.detected !== langFrom) {
+        // Ввели слово мовою перекладу, а не мовою навчання — перекладаємо
+        // НАЗАД у langFrom, і typed-текст стає перекладом, а не тренованим словом.
+        const back = await fetchTranslation(word, langTo, langFrom);
+        return back ? { word: back, translation: word } : null;
+    }
+    if (auto && auto.translated && auto.translated.trim().toLowerCase() !== word.trim().toLowerCase()) {
+        return { word, translation: auto.translated };
+    }
+    // sl=auto не дав результату (мережа/блок/збіг слів) — стара поведінка як фолбек
+    const fallback = await fetchTranslation(word, langFrom, langTo);
+    return fallback ? { word, translation: fallback } : null;
+}
+
 async function autoTranslateMissing() {
     const t = translations[currentLang];
     const btn = document.getElementById('wvAutoTranslateBtn');
@@ -3528,12 +3706,12 @@ async function autoTranslateMissing() {
     if (btn) { btn.disabled = true; btn.innerText = t.wv_translating || 'Перекладаю…'; }
 
     const results = await Promise.all(missing.map(({ p, i }) =>
-        fetchTranslation(p.word, wordLangFrom, wordLangTo).then(tr => ({ i, tr }))
+        fetchTranslationSmart(p.word, wordLangFrom, wordLangTo).then(r => ({ i, r }))
     ));
 
     let failed = 0;
-    results.forEach(({ i, tr }) => {
-        if (tr) wordPairs[i].translation = tr;
+    results.forEach(({ i, r }) => {
+        if (r) { wordPairs[i].word = r.word; wordPairs[i].translation = r.translation; }
         else failed++;
     });
 

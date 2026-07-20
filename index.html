@@ -11,7 +11,7 @@
     <meta name="apple-mobile-web-app-title" content="Memori" />
     <link rel="apple-touch-icon" href="icon.svg" />
     <link rel="icon" href="icon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="style.css?v=63" />
+    <link rel="stylesheet" href="style.css?v=64" />
   </head>
   <body>
     <div class="container">
@@ -574,7 +574,10 @@
           </div>
           <div class="mascot-row"><img src="mascot/book.png" class="mascot-icon mascot-icon-md" alt=""></div>
           <h2 id="wiTitleEl" class="setup-title">Додайте слова</h2>
-          <p id="wiHintEl" class="wi-hint">Кожне слово з нового рядка. Формат: слово — переклад</p>
+          <p id="wiHintEl" class="wi-hint">
+            <span id="wiHintText">Кожне слово з нового рядка</span>
+            <button onclick="openInfoPopup(translations[currentLang].wi_info_title, translations[currentLang].wi_info_body)" class="btn-info" id="wiInfoBtn" type="button">ⓘ</button>
+          </p>
           <div id="wiValidation" class="validation-msg" style="display:none;"></div>
           <textarea id="wordInputTextarea" class="word-input-textarea" rows="8"
                     oninput="clearWordValidation()"></textarea>
@@ -637,7 +640,37 @@
       </div>
     </div>
 
-    <script src="app.js?v=65"></script>
+    <!-- Support FAB — always reachable, every screen -->
+    <button id="supportFab" onclick="openSupportPopup()" class="support-fab" aria-label="Support" type="button">
+      <img src="mascot/support.png" alt="">
+    </button>
+
+    <!-- Support Popup (bottom sheet) -->
+    <div id="supportPopup" class="info-popup-overlay" style="display:none;" onclick="closeSupportPopup(event)">
+      <div class="info-popup-sheet support-popup-sheet">
+        <div class="info-popup-header">
+          <span id="supportPopupTitle" class="info-popup-title">Технічна підтримка</span>
+          <button onclick="closeSupportPopup()" class="info-popup-close">✕</button>
+        </div>
+        <div class="support-type-row">
+          <button type="button" id="supportTypeBugBtn" class="support-type-btn" onclick="selectSupportType('bug', this)">🐛 Щось не працює</button>
+          <button type="button" id="supportTypeIdeaBtn" class="support-type-btn" onclick="selectSupportType('idea', this)">💡 Ідея чи побажання</button>
+        </div>
+        <textarea id="supportTextarea" class="support-textarea" rows="4"></textarea>
+        <div id="supportValidation" class="validation-msg" style="display:none;"></div>
+        <button onclick="submitSupportMessage()" class="btn-start-main" id="supportSubmitBtn">Надіслати</button>
+
+        <div id="supportHistoryWrap" class="support-history-wrap" style="display:none;">
+          <div class="support-history-header">
+            <span id="supportHistoryTitle">Мої звернення (<span id="supportHistoryCount">0</span>)</span>
+            <button onclick="copyAllSupportMessages()" class="btn-ghost support-copy-btn" id="supportCopyBtn" type="button">📋 Скопіювати все</button>
+          </div>
+          <div id="supportHistoryList" class="support-history-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js?v=66"></script>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});
