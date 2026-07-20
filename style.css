@@ -2747,3 +2747,53 @@ body[data-theme="dark"] .support-textarea { background: #111827; border-color: #
 .support-history-text { font-size: 0.85rem; color: var(--text); white-space: pre-line; line-height: 1.5; }
 body[data-theme="dark"] .support-history-item { background: #1f2937; border-color: #2d3748; }
 body[data-theme="dark"] .support-history-meta { color: #64748b; }
+
+/* Постійний бейдж "?" на іконці — щоб було зрозуміло, що це кнопка допомоги, а не просто маскот */
+.support-fab-badge {
+  position: absolute;
+  top: -2px; right: -2px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--card-bg);
+  line-height: 1;
+  pointer-events: none;
+}
+body[data-theme="dark"] .support-fab-badge { border-color: #1f2937; }
+
+/* Одноразова підказка-хмаринка над кнопкою — з'являється раз на пристрій */
+.support-hint-bubble {
+  position: fixed;
+  bottom: 78px;
+  left: 24px;
+  max-width: 210px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.4;
+  padding: 10px 14px;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+  z-index: 9998;
+  cursor: pointer;
+  animation: supportHintPop 0.3s ease;
+}
+.support-hint-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 20px;
+  width: 14px; height: 14px;
+  background: var(--primary);
+  transform: rotate(45deg);
+  border-radius: 3px;
+}
+@keyframes supportHintPop {
+  from { opacity: 0; transform: translateY(8px) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}

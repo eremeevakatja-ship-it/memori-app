@@ -174,6 +174,7 @@ const translations = {
         support_min_error: 'Напишіть повідомлення', support_thanks: 'Дякую! Побачу це під час наступного оновлення.',
         support_history_title: 'Мої звернення', support_copy_all: '📋 Скопіювати все',
         support_copied: 'Скопійовано!', support_copy_failed: 'Не вдалося скопіювати',
+        support_hint_text: 'Тут можна написати нам, якщо щось не так або є ідея 👋',
         wv_title: 'Перевірте список', wv_hint: 'Натисніть на пару щоб відредагувати',
         wv_add: '+ Додати слово', wv_confirm: 'Все вірно →',
         wv_min_error: 'Потрібно мінімум 2 пари', wv_no_trans: '+ переклад',
@@ -322,6 +323,7 @@ const translations = {
         support_min_error: 'Please write a message', support_thanks: 'Thanks! I\'ll see this before the next update.',
         support_history_title: 'My messages', support_copy_all: '📋 Copy all',
         support_copied: 'Copied!', support_copy_failed: 'Could not copy',
+        support_hint_text: 'You can write to us here if something\'s wrong or you have an idea 👋',
         wv_title: 'Check your list', wv_hint: 'Tap any pair to edit',
         wv_add: '+ Add word', wv_confirm: 'Looks good →',
         wv_min_error: 'At least 2 pairs required', wv_no_trans: '+ translation',
@@ -470,6 +472,7 @@ const translations = {
         support_min_error: 'Napisz wiadomość', support_thanks: 'Dzięki! Zobaczę to przed kolejną aktualizacją.',
         support_history_title: 'Moje zgłoszenia', support_copy_all: '📋 Skopiuj wszystko',
         support_copied: 'Skopiowano!', support_copy_failed: 'Nie udało się skopiować',
+        support_hint_text: 'Tu możesz napisać do nas, jeśli coś nie działa albo masz pomysł 👋',
         wv_title: 'Sprawdź listę', wv_hint: 'Dotknij pary aby edytować',
         wv_add: '+ Dodaj słowo', wv_confirm: 'Wszystko OK →',
         wv_min_error: 'Wymagane co najmniej 2 pary', wv_no_trans: '+ tłumaczenie',
@@ -618,6 +621,7 @@ const translations = {
         support_min_error: 'Bitte schreib eine Nachricht', support_thanks: 'Danke! Ich sehe das vor dem nächsten Update.',
         support_history_title: 'Meine Meldungen', support_copy_all: '📋 Alles kopieren',
         support_copied: 'Kopiert!', support_copy_failed: 'Kopieren fehlgeschlagen',
+        support_hint_text: 'Hier kannst du uns schreiben, wenn etwas nicht funktioniert oder du eine Idee hast 👋',
         wv_title: 'Liste prüfen', wv_hint: 'Tippe auf ein Paar zum Bearbeiten',
         wv_add: '+ Wort hinzufügen', wv_confirm: 'Alles stimmt →',
         wv_min_error: 'Mindestens 2 Paare erforderlich', wv_no_trans: '+ Übersetzung',
@@ -766,6 +770,7 @@ const translations = {
         support_min_error: 'Veuillez écrire un message', support_thanks: 'Merci ! Je verrai ça avant la prochaine mise à jour.',
         support_history_title: 'Mes messages', support_copy_all: '📋 Tout copier',
         support_copied: 'Copié !', support_copy_failed: 'Impossible de copier',
+        support_hint_text: 'Vous pouvez nous écrire ici si quelque chose ne va pas ou si vous avez une idée 👋',
         wv_title: 'Vérifier la liste', wv_hint: 'Appuyez sur une paire pour modifier',
         wv_add: '+ Ajouter un mot', wv_confirm: 'Tout est correct →',
         wv_min_error: 'Au moins 2 paires requises', wv_no_trans: '+ traduction',
@@ -914,6 +919,7 @@ const translations = {
         support_min_error: 'Escribe un mensaje', support_thanks: '¡Gracias! Lo veré antes de la próxima actualización.',
         support_history_title: 'Mis mensajes', support_copy_all: '📋 Copiar todo',
         support_copied: '¡Copiado!', support_copy_failed: 'No se pudo copiar',
+        support_hint_text: 'Aquí puedes escribirnos si algo no funciona o tienes una idea 👋',
         wv_title: 'Verificar la lista', wv_hint: 'Toca un par para editar',
         wv_add: '+ Añadir palabra', wv_confirm: 'Todo correcto →',
         wv_min_error: 'Se requieren al menos 2 pares', wv_no_trans: '+ traducción',
@@ -1772,6 +1778,7 @@ function showScreen(id) {
 function setLanguage(lang) {
     currentLang = lang;
     showModeScreen();
+    maybeShowSupportHint();
 }
 
 function goBackToLang() {
@@ -1886,7 +1893,31 @@ function closeInfoPopup(event) {
 // User (без нового зовнішнього сервісу і без витоку даних інших людей).
 let supportType = 'bug';
 
+// Одноразова підказка-хмаринка над кнопкою підтримки — маскот сам по собі
+// не читається як "кнопка звернення", тож пояснюємо це один раз на пристрій
+// (не при кожному візиті), одразу після вибору мови, коли ми вже знаємо currentLang.
+function maybeShowSupportHint() {
+    let seen;
+    try { seen = localStorage.getItem('memori_support_hint_seen'); } catch { return; }
+    if (seen) return;
+    const t = translations[currentLang];
+    setTimeout(() => {
+        const bubble = document.getElementById('supportHintBubble');
+        if (!bubble) return;
+        document.getElementById('supportHintText').innerText = t.support_hint_text || 'Тут можна написати нам, якщо щось не так 👋';
+        bubble.style.display = 'block';
+        setTimeout(dismissSupportHint, 6000);
+    }, 1200);
+}
+
+function dismissSupportHint() {
+    const bubble = document.getElementById('supportHintBubble');
+    if (bubble) bubble.style.display = 'none';
+    try { localStorage.setItem('memori_support_hint_seen', '1'); } catch {}
+}
+
 function openSupportPopup() {
+    dismissSupportHint();
     const t = translations[currentLang];
     document.getElementById('supportPopupTitle').innerText = t.support_title || 'Технічна підтримка';
     document.getElementById('supportTypeBugBtn').innerText = t.support_type_bug || '🐛 Щось не працює';

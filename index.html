@@ -11,7 +11,7 @@
     <meta name="apple-mobile-web-app-title" content="Memori" />
     <link rel="apple-touch-icon" href="icon.svg" />
     <link rel="icon" href="icon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="style.css?v=64" />
+    <link rel="stylesheet" href="style.css?v=65" />
   </head>
   <body>
     <div class="container">
@@ -643,7 +643,13 @@
     <!-- Support FAB — always reachable, every screen -->
     <button id="supportFab" onclick="openSupportPopup()" class="support-fab" aria-label="Support" type="button">
       <img src="mascot/support.png" alt="">
+      <span class="support-fab-badge">?</span>
     </button>
+
+    <!-- Support FAB — one-time coach-mark, shown once per device -->
+    <div id="supportHintBubble" class="support-hint-bubble" style="display:none;" onclick="dismissSupportHint()">
+      <span id="supportHintText"></span>
+    </div>
 
     <!-- Support Popup (bottom sheet) -->
     <div id="supportPopup" class="info-popup-overlay" style="display:none;" onclick="closeSupportPopup(event)">
@@ -670,7 +676,7 @@
       </div>
     </div>
 
-    <script src="app.js?v=66"></script>
+    <script src="app.js?v=67"></script>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});
