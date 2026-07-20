@@ -542,32 +542,10 @@
           <button onclick="goWordLangNext()" class="btn-start-main" id="wlNextBtn">Далі →</button>
         </div>
 
-        <!-- Word: Level -->
-        <div id="wordLevelScreen" style="display:none">
-          <div class="input-topbar">
-            <button onclick="showScreen('wordLangScreen')" class="btn-back">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-              <span id="wlevBackLabel">Назад</span>
-            </button>
-          </div>
-          <h2 id="wlevTitleEl" class="setup-title">Твій рівень?</h2>
-          <div id="wordLevelCards" class="word-level-list"></div>
-
-          <div class="setup-section">
-            <div class="setup-section-header">
-              <label id="wordTimeLabel">Скільки є часу?</label>
-              <button class="btn-info" id="wordTimeInfoBtn">ⓘ</button>
-            </div>
-            <div class="time-cards" id="wordTimeCards"></div>
-          </div>
-
-          <button onclick="showWordInputScreen()" class="btn-start-main" id="wlevNextBtn">Далі →</button>
-        </div>
-
         <!-- Word: Input -->
         <div id="wordInputScreen" style="display:none">
           <div class="input-topbar">
-            <button onclick="showWordLevelScreen()" class="btn-back">
+            <button onclick="showScreen('wordLangScreen')" class="btn-back">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
               <span id="wiBackLabel">Назад</span>
             </button>
@@ -678,7 +656,7 @@
       </div>
     </div>
 
-    <script src="app.js?v=67"></script>
+    <script src="app.js?v=68"></script>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});

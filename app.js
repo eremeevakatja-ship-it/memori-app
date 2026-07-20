@@ -1753,7 +1753,7 @@ function splitLongSentence(sentence, size = blockSize) {
 }
 
 // ===== SCREEN MANAGER =====
-const SCREENS = ['langScreen','modeScreen','inputScreen','setupScreen','learningScreen','restScreen','sessionPauseScreen','finalScreen','profileScreen','wordProfileScreen','wordLangScreen','wordLevelScreen','wordInputScreen','wordVerifyScreen','wordTopicScreen','wordTrainingScreen','wordResultsScreen'];
+const SCREENS = ['langScreen','modeScreen','inputScreen','setupScreen','learningScreen','restScreen','sessionPauseScreen','finalScreen','profileScreen','wordProfileScreen','wordLangScreen','wordInputScreen','wordVerifyScreen','wordTopicScreen','wordTrainingScreen','wordResultsScreen'];
 const FLEX_SCREENS = ['sessionPauseScreen','finalScreen','wordResultsScreen'];
 let currentScreenId = null; // для контексту у зверненнях підтримки — на якому екрані була проблема
 
@@ -3417,64 +3417,7 @@ function goWordLangNext() {
         return;
     }
     document.getElementById('wlSameError').style.display = 'none';
-    showWordLevelScreen();
-}
-
-function showWordLevelScreen() {
-    const t = translations[currentLang];
-    showScreen('wordLevelScreen');
-    document.getElementById('wlevBackLabel').innerText = t.back_lang || 'Назад';
-    document.getElementById('wlevTitleEl').innerText = t.wlev_title || 'Твій рівень?';
-    document.getElementById('wlevNextBtn').innerText = t.wl_next || 'Далі →';
-    document.getElementById('wordTimeLabel').innerText = t.timeLabel;
-    const wordTimeInfoBtn = document.getElementById('wordTimeInfoBtn');
-    if (wordTimeInfoBtn) wordTimeInfoBtn.onclick = () => openInfoPopup(
-        t.wt_time_info_title || t.time_info_title,
-        t.wt_time_info_body || t.time_info_body
-    );
-    renderWordLevels();
-    renderWordTimeOptions();
-}
-
-// Скільки часу є зараз на тренування слів — визначає РОЗМІР черги вправ.
-// Рівень на типи вправ не впливає (всі типи доступні на будь-якому рівні).
-let wordSessionTime = Infinity;
-function renderWordTimeOptions() {
-    const t = translations[currentLang];
-    const container = document.getElementById('wordTimeCards');
-    if (!container) return;
-    container.innerHTML = '';
-    t.timeOptions.forEach(opt => {
-        const card = document.createElement('button');
-        card.className = 'time-card' + (opt.value === wordSessionTime ? ' active' : '');
-        card.innerText = opt.label;
-        card.addEventListener('click', () => {
-            wordSessionTime = opt.value;
-            container.querySelectorAll('.time-card').forEach(c => c.classList.remove('active'));
-            card.classList.add('active');
-        });
-        container.appendChild(card);
-    });
-}
-
-function renderWordLevels() {
-    const t = translations[currentLang];
-    const levels = t.wlev_levels || ['Never studied it', 'Have basic knowledge', 'Can manage abroad', 'Speak fluently'];
-    const container = document.getElementById('wordLevelCards');
-    container.innerHTML = levels.map((label, i) => {
-        const id = i + 1;
-        return `<button class="word-level-card${wordLevel === id ? ' active' : ''}"
-                        onclick="selectWordLevel(${id}, this)">
-            <span class="word-level-num">${id}</span>
-            <span class="word-level-text">${label}</span>
-        </button>`;
-    }).join('');
-}
-
-function selectWordLevel(id, btn) {
-    wordLevel = id;
-    document.querySelectorAll('.word-level-card').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+    showWordInputScreen();
 }
 
 function showWordInputScreen() {
@@ -4073,7 +4016,7 @@ async function startWordTraining(set) {
     await prefetchSentenceExamples(valid);
     hideWtLoading();
 
-    wtQueue = buildWtQueue(valid, wordSessionTime);
+    wtQueue = buildWtQueue(valid, Infinity); // завжди повний прохід усіма типами вправ по кожному слову
     wtIndex = 0;
     wtCorrect = 0;
     wtCurrentAudioPair = null;
