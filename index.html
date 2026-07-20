@@ -11,7 +11,7 @@
     <meta name="apple-mobile-web-app-title" content="Memori" />
     <link rel="apple-touch-icon" href="icon.svg" />
     <link rel="icon" href="icon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="style.css?v=65" />
+    <link rel="stylesheet" href="style.css?v=66" />
   </head>
   <body>
     <div class="container">
@@ -641,10 +641,12 @@
     </div>
 
     <!-- Support FAB — always reachable, every screen -->
-    <button id="supportFab" onclick="openSupportPopup()" class="support-fab" aria-label="Support" type="button">
-      <img src="mascot/support.png" alt="">
+    <div class="support-fab-wrap">
+      <button id="supportFab" onclick="openSupportPopup()" class="support-fab" aria-label="Support" type="button">
+        <img src="mascot/support.png" alt="">
+      </button>
       <span class="support-fab-badge">?</span>
-    </button>
+    </div>
 
     <!-- Support FAB — one-time coach-mark, shown once per device -->
     <div id="supportHintBubble" class="support-hint-bubble" style="display:none;" onclick="dismissSupportHint()">
