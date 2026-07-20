@@ -3166,7 +3166,7 @@ function renderProfileTab(tab) {
         container.innerHTML = `
           <div class="profile-item">
             <div class="profile-item-body">
-              <div class="profile-item-title">${title}</div>
+              <div class="profile-item-title">${escHtml(title)}</div>
               <div class="profile-item-meta">${date} · ${done} / ${s.blocks.length} ${t.finish_blocks || 'блоків'}</div>
             </div>
             <div class="profile-item-actions">
@@ -3186,7 +3186,7 @@ function renderProfileTab(tab) {
             const date = new Date(entry.completedAt).toLocaleDateString();
             return `<div class="profile-item">
               <div class="profile-item-body">
-                <div class="profile-item-title">${title}</div>
+                <div class="profile-item-title">${escHtml(title)}</div>
                 <div class="profile-item-meta">${date} · ${entry.blockCount} ${t.finish_blocks || 'блоків'}</div>
               </div>
               <div class="profile-item-actions">
@@ -3209,7 +3209,7 @@ function renderProfileTab(tab) {
             const date = new Date(entry.savedAt).toLocaleDateString();
             return `<div class="profile-item" id="lib-item-${entry.id}">
               <div class="profile-item-body" onclick="startRenameLibEntry(${entry.id})">
-                <div class="profile-item-title" id="lib-title-${entry.id}">${title}</div>
+                <div class="profile-item-title" id="lib-title-${entry.id}">${escHtml(title)}</div>
                 <div class="profile-item-meta">${date}</div>
               </div>
               <div class="profile-item-actions">
