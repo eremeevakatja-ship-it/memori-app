@@ -4468,7 +4468,11 @@ function wtCheckTyped() {
                 '\n' + (t.wt_wrong_answer_was || 'Правильно:') + ' ' + ex.pair.word;
         }
         feedback.style.display = 'block';
-        // Keep input enabled for retry — user can edit and resubmit
+        // Keep input enabled for retry — refocus + select so it's obvious you can
+        // just start typing over it (tapping "Перевірити" blurs the field and closes
+        // the mobile keyboard, which was the actual source of "не зрозуміло як")
+        input.focus();
+        input.select();
     }
 }
 
