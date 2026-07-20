@@ -1871,18 +1871,29 @@ function goBackToInput() {
     showScreen('inputScreen');
 }
 
+// Кнопка підтримки — fixed знизу зліва, і на вузьких екранах попапи-bottom-sheet
+// (info-popup-overlay) розтягуються на всю ширину саме в тому куті — ховаємо
+// кнопку, поки відкритий будь-який такий попап, щоб вона не перекривала текст.
+function updateSupportFabVisibility() {
+    const wrap = document.querySelector('.support-fab-wrap');
+    if (!wrap) return;
+    const anyPopupOpen = document.querySelector('.info-popup-overlay.visible');
+    wrap.style.display = anyPopupOpen ? 'none' : '';
+}
+
 function openInfoPopup(title, body) {
     document.getElementById('infoPopupTitle').innerText = title;
     document.getElementById('infoPopupBody').innerText = body;
     const popup = document.getElementById('infoPopup');
     popup.style.display = 'flex';
-    requestAnimationFrame(() => popup.classList.add('visible'));
+    requestAnimationFrame(() => { popup.classList.add('visible'); updateSupportFabVisibility(); });
 }
 
 function closeInfoPopup(event) {
     if (event && event.target !== document.getElementById('infoPopup')) return;
     const popup = document.getElementById('infoPopup');
     popup.classList.remove('visible');
+    updateSupportFabVisibility();
     setTimeout(() => { popup.style.display = 'none'; }, 260);
 }
 
@@ -1932,13 +1943,14 @@ function openSupportPopup() {
     renderSupportHistory();
     const popup = document.getElementById('supportPopup');
     popup.style.display = 'flex';
-    requestAnimationFrame(() => popup.classList.add('visible'));
+    requestAnimationFrame(() => { popup.classList.add('visible'); updateSupportFabVisibility(); });
 }
 
 function closeSupportPopup(event) {
     if (event && event.target !== document.getElementById('supportPopup')) return;
     const popup = document.getElementById('supportPopup');
     popup.classList.remove('visible');
+    updateSupportFabVisibility();
     setTimeout(() => { popup.style.display = 'none'; }, 260);
 }
 
