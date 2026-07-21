@@ -2550,6 +2550,10 @@ body[data-theme="dark"] .wt-speed-btn.wt-speed-active { background: #818cf8; bor
     border-radius: 0 0 16px 16px;
     padding: 14px 18px;
   }
+  /* Extra breathing room below the now full-width Check bar, so the
+     secondary Back/Skip row doesn't sit right under a thumb that just
+     tapped Check. */
+  .wt-bottom-row { margin-top: 26px; }
 }
 .wt-type-input.wt-input-correct { color: #065f46; background: transparent; }
 .wt-type-input.wt-input-wrong   { color: #be123c; background: transparent; }
@@ -2607,8 +2611,8 @@ body[data-theme="dark"] .btn-wt-hint:hover:not(:disabled) { color: #818cf8; }
 .wt-bottom-row {
   display: flex;
   align-items: center;
-  gap: 4px;
-  margin-top: 4px;
+  gap: 8px;
+  margin-top: 20px;
 }
 .btn-wt-back {
   flex-shrink: 0;
@@ -2630,20 +2634,29 @@ body[data-theme="dark"] .btn-wt-back { border-color: #374151 !important; color: 
 body[data-theme="dark"] .btn-wt-back:hover { border-color: #4b5563 !important; color: #9ca3af !important; }
 
 .btn-wt-skip-word {
-  flex: 1;
-  padding: 10px;
+  /* Secondary action — deliberately NOT flex:1/full-width like .btn-wt-check
+     above it. On narrow screens .btn-wt-check becomes a full-width bar right
+     under the input, and a full-width skip link directly beneath it read as
+     a second identical panel (same shape/width/position) — easy to tap by
+     mistake right after "Check". Auto width + right alignment + a visible
+     outline keeps it clearly a smaller, secondary control. */
+  flex: 0 0 auto;
+  width: auto;
+  margin-left: auto;
+  padding: 8px 16px;
   background: transparent;
-  border: none;
-  color: #bbb;
+  border: 1.5px solid #d1d5db;
+  color: #999;
   font-size: 0.82rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   text-align: center;
-  transition: color 0.15s;
+  border-radius: 20px;
+  transition: color 0.15s, border-color 0.15s;
 }
-.btn-wt-skip-word:hover { color: #888; }
-body[data-theme="dark"] .btn-wt-skip-word { color: #475569; }
-body[data-theme="dark"] .btn-wt-skip-word:hover { color: #64748b; }
+.btn-wt-skip-word:hover { color: #777; border-color: #adb1b8; }
+body[data-theme="dark"] .btn-wt-skip-word { border-color: #334155; color: #64748b; }
+body[data-theme="dark"] .btn-wt-skip-word:hover { color: #94a3b8; border-color: #475569; }
 
 /* Results screen */
 .wr-fraction {

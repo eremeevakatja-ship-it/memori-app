@@ -109,7 +109,7 @@ const translations = {
         themeLabel: "Тема:", th_light: "Світла", th_dark: "Темна",
         audio_listening: "Слухайте...", audio_repeat: "Повторіть вголос", audio_ready: "Готово", audio_again: "Ще раз",
         audio_your_turn: "Ваша черга — як повторите?", audio_record: "Записати голосом", audio_silent: "Сказати про себе",
-        audio_recording: "Слухаю вас...", audio_record_error: "Не вдалося. Спробуйте ще.", audio_record_noapi: "Запис голосу не підтримується браузером.", audio_record_denied: "🎙 Дозвольте доступ до мікрофона в налаштуваннях браузера.", audio_record_nomic: "🎙 Мікрофон не знайдено.", audio_record_nospeech: "🎙 Нічого не почуто. Говоріть голосніше.",
+        audio_recording: "Слухаю вас...", audio_record_error: "Не вдалося. Спробуйте ще.", audio_record_noapi: "Запис голосу не підтримується браузером.", audio_record_denied: "🎙 Дозвольте доступ до мікрофона в налаштуваннях браузера.", audio_record_nomic: "🎙 Мікрофон не знайдено.", audio_record_nospeech: "🎙 Нічого не почуто. Говоріть голосніше.", audio_tts_unavailable: "🔇 Озвучка для цієї мови недоступна на вашому пристрої. Спробуйте встановити мовний голос у налаштуваннях браузера/телефону.",
         resume_title: "Незавершена сесія", resume_progress: "крок {n} з {total}", resume_continue: "Продовжити", resume_fresh: "Новий текст",
         ocr_btn: "Файл", ocr_loading: "Розпізнаємо текст...", ocr_preprocessing: "Готуємо зображення...", ocr_error: "Не вдалося розпізнати. Спробуйте інший файл.", ocr_error_doc: "Формат .doc не підтримується. Збережіть файл як .docx", ocr_error_empty: "Файл не завантажено з хмари. Відкрийте його у Word і збережіть на комп'ютер.",
         back_lang: "Мова",
@@ -258,7 +258,7 @@ const translations = {
         themeLabel: "Theme:", th_light: "Light", th_dark: "Dark",
         audio_listening: "Listening...", audio_repeat: "Repeat aloud", audio_ready: "Done", audio_again: "Again",
         audio_your_turn: "Your turn — how will you repeat?", audio_record: "Record voice", audio_silent: "Say to yourself",
-        audio_recording: "Listening to you...", audio_record_error: "Couldn't recognize. Try again.", audio_record_noapi: "Voice recording not supported in this browser.", audio_record_denied: "🎙 Allow microphone access in your browser settings.", audio_record_nomic: "🎙 No microphone found.", audio_record_nospeech: "🎙 Nothing heard. Please speak louder.",
+        audio_recording: "Listening to you...", audio_record_error: "Couldn't recognize. Try again.", audio_record_noapi: "Voice recording not supported in this browser.", audio_record_denied: "🎙 Allow microphone access in your browser settings.", audio_record_nomic: "🎙 No microphone found.", audio_record_nospeech: "🎙 Nothing heard. Please speak louder.", audio_tts_unavailable: "🔇 Voice for this language isn't available on your device. Try installing a language voice in your browser/phone settings.",
         resume_title: "Unfinished session", resume_progress: "step {n} of {total}", resume_continue: "Continue", resume_fresh: "New text",
         ocr_btn: "File", ocr_loading: "Recognizing text...", ocr_preprocessing: "Preparing image...", ocr_error: "Could not read. Try another file.", ocr_error_doc: ".doc format not supported. Save the file as .docx", ocr_error_empty: "File not downloaded from cloud. Open it in Word and save locally.",
         back_lang: "Language",
@@ -407,7 +407,7 @@ const translations = {
         themeLabel: "Motyw:", th_light: "Jasny", th_dark: "Ciemny",
         audio_listening: "Słuchaj...", audio_repeat: "Powtórz na głos", audio_ready: "Gotowe", audio_again: "Jeszcze raz",
         audio_your_turn: "Twoja kolej — jak powtórzysz?", audio_record: "Nagraj głos", audio_silent: "Powiedz w myślach",
-        audio_recording: "Słucham cię...", audio_record_error: "Nie rozpoznano. Spróbuj ponownie.", audio_record_noapi: "Nagrywanie głosu nie jest obsługiwane przez tę przeglądarkę.", audio_record_denied: "🎙 Zezwól na dostęp do mikrofonu w ustawieniach przeglądarki.", audio_record_nomic: "🎙 Nie znaleziono mikrofonu.", audio_record_nospeech: "🎙 Nic nie usłyszano. Mów głośniej.",
+        audio_recording: "Słucham cię...", audio_record_error: "Nie rozpoznano. Spróbuj ponownie.", audio_record_noapi: "Nagrywanie głosu nie jest obsługiwane przez tę przeglądarkę.", audio_record_denied: "🎙 Zezwól na dostęp do mikrofonu w ustawieniach przeglądarki.", audio_record_nomic: "🎙 Nie znaleziono mikrofonu.", audio_record_nospeech: "🎙 Nic nie usłyszano. Mów głośniej.", audio_tts_unavailable: "🔇 Głos dla tego języka nie jest dostępny na tym urządzeniu. Spróbuj zainstalować głos językowy w ustawieniach przeglądarki/telefonu.",
         resume_title: "Niedokończona sesja", resume_progress: "krok {n} z {total}", resume_continue: "Kontynuuj", resume_fresh: "Nowy tekst",
         ocr_btn: "Plik", ocr_loading: "Rozpoznawanie tekstu...", ocr_preprocessing: "Przygotowywanie obrazu...", ocr_error: "Nie udało się odczytać. Spróbuj inny plik.", ocr_error_doc: "Format .doc nie jest obsługiwany. Zapisz plik jako .docx", ocr_error_empty: "Plik nie jest pobrany z chmury. Otwórz go w Word i zapisz lokalnie.",
         back_lang: "Język",
@@ -556,7 +556,7 @@ const translations = {
         themeLabel: "Design:", th_light: "Hell", th_dark: "Dunkel",
         audio_listening: "Hören...", audio_repeat: "Laut wiederholen", audio_ready: "Fertig", audio_again: "Nochmal",
         audio_your_turn: "Du bist dran — wie wiederholst du?", audio_record: "Stimme aufnehmen", audio_silent: "Im Stillen sagen",
-        audio_recording: "Ich höre dir zu...", audio_record_error: "Nicht erkannt. Nochmal versuchen.", audio_record_noapi: "Sprachaufnahme wird von diesem Browser nicht unterstützt.", audio_record_denied: "🎙 Erlauben Sie den Mikrofonzugriff in den Browsereinstellungen.", audio_record_nomic: "🎙 Kein Mikrofon gefunden.", audio_record_nospeech: "🎙 Nichts gehört. Bitte lauter sprechen.",
+        audio_recording: "Ich höre dir zu...", audio_record_error: "Nicht erkannt. Nochmal versuchen.", audio_record_noapi: "Sprachaufnahme wird von diesem Browser nicht unterstützt.", audio_record_denied: "🎙 Erlauben Sie den Mikrofonzugriff in den Browsereinstellungen.", audio_record_nomic: "🎙 Kein Mikrofon gefunden.", audio_record_nospeech: "🎙 Nichts gehört. Bitte lauter sprechen.", audio_tts_unavailable: "🔇 Für diese Sprache ist auf diesem Gerät keine Stimme verfügbar. Installiere eine Sprachstimme in den Browser-/Telefoneinstellungen.",
         resume_title: "Unfertige Sitzung", resume_progress: "Schritt {n} von {total}", resume_continue: "Weiter", resume_fresh: "Neuer Text",
         ocr_btn: "Datei", ocr_loading: "Text wird erkannt...", ocr_preprocessing: "Bild wird vorbereitet...", ocr_error: "Lesen fehlgeschlagen. Andere Datei versuchen.", ocr_error_doc: "Format .doc wird nicht unterstützt. Bitte als .docx speichern", ocr_error_empty: "Datei nicht aus der Cloud heruntergeladen. In Word öffnen und lokal speichern.",
         back_lang: "Sprache",
@@ -705,7 +705,7 @@ const translations = {
         themeLabel: "Thème:", th_light: "Clair", th_dark: "Sombre",
         audio_listening: "Écoutez...", audio_repeat: "Répétez à voix haute", audio_ready: "Terminé", audio_again: "Encore",
         audio_your_turn: "À vous — comment allez-vous répéter ?", audio_record: "Enregistrer la voix", audio_silent: "Dire en silence",
-        audio_recording: "Je vous écoute...", audio_record_error: "Non reconnu. Réessayez.", audio_record_noapi: "Enregistrement vocal non supporté par ce navigateur.", audio_record_denied: "🎙 Autorisez l'accès au micro dans les paramètres du navigateur.", audio_record_nomic: "🎙 Aucun microphone trouvé.", audio_record_nospeech: "🎙 Rien entendu. Parlez plus fort.",
+        audio_recording: "Je vous écoute...", audio_record_error: "Non reconnu. Réessayez.", audio_record_noapi: "Enregistrement vocal non supporté par ce navigateur.", audio_record_denied: "🎙 Autorisez l'accès au micro dans les paramètres du navigateur.", audio_record_nomic: "🎙 Aucun microphone trouvé.", audio_record_nospeech: "🎙 Rien entendu. Parlez plus fort.", audio_tts_unavailable: "🔇 Aucune voix disponible pour cette langue sur cet appareil. Essayez d'installer une voix dans les paramètres du navigateur/téléphone.",
         resume_title: "Session inachevée", resume_progress: "étape {n} sur {total}", resume_continue: "Continuer", resume_fresh: "Nouveau texte",
         ocr_btn: "Fichier", ocr_loading: "Lecture en cours...", ocr_preprocessing: "Préparation de l'image...", ocr_error: "Échec de la lecture. Essayez un autre fichier.", ocr_error_doc: "Format .doc non supporté. Enregistrez en .docx", ocr_error_empty: "Fichier non téléchargé depuis le cloud. Ouvrez-le dans Word et sauvegardez localement.",
         back_lang: "Langue",
@@ -854,7 +854,7 @@ const translations = {
         themeLabel: "Tema:", th_light: "Claro", th_dark: "Oscuro",
         audio_listening: "Escucha...", audio_repeat: "Repite en voz alta", audio_ready: "Listo", audio_again: "Otra vez",
         audio_your_turn: "Tu turno — ¿cómo vas a repetir?", audio_record: "Grabar voz", audio_silent: "Decir en silencio",
-        audio_recording: "Te escucho...", audio_record_error: "No reconocido. Inténtalo de nuevo.", audio_record_noapi: "Grabación de voz no compatible con este navegador.", audio_record_denied: "🎙 Permite el acceso al micrófono en la configuración del navegador.", audio_record_nomic: "🎙 No se encontró micrófono.", audio_record_nospeech: "🎙 No se escuchó nada. Habla más fuerte.",
+        audio_recording: "Te escucho...", audio_record_error: "No reconocido. Inténtalo de nuevo.", audio_record_noapi: "Grabación de voz no compatible con este navegador.", audio_record_denied: "🎙 Permite el acceso al micrófono en la configuración del navegador.", audio_record_nomic: "🎙 No se encontró micrófono.", audio_record_nospeech: "🎙 No se escuchó nada. Habla más fuerte.", audio_tts_unavailable: "🔇 No hay voz disponible para este idioma en tu dispositivo. Prueba a instalar una voz de idioma en la configuración del navegador/teléfono.",
         resume_title: "Sesión inacabada", resume_progress: "paso {n} de {total}", resume_continue: "Continuar", resume_fresh: "Nuevo texto",
         ocr_btn: "Archivo", ocr_loading: "Leyendo archivo...", ocr_preprocessing: "Preparando la imagen...", ocr_error: "No se pudo leer. Intenta con otro archivo.", ocr_error_doc: "Formato .doc no admitido. Guárdelo como .docx", ocr_error_empty: "Archivo no descargado de la nube. Ábralo en Word y guárdelo localmente.",
         back_lang: "Idioma",
@@ -2616,7 +2616,7 @@ function showAudioMethod() {
     speakCurrentBlock();
 }
 
-function speakCurrentBlock() {
+async function speakCurrentBlock() {
     const t = translations[currentLang];
     const step = learningQueue[currentStepIndex];
     const text = step.type === 'bigReview'
@@ -2629,12 +2629,32 @@ function speakCurrentBlock() {
     document.getElementById('audioCard').classList.add('speaking');
 
     window.speechSynthesis.cancel();
+    const lang = langToSpeech[currentLang] || 'en-GB';
+    // Chrome (and some mobile browsers) load the voice list asynchronously —
+    // wait for it (with a safety timeout) before deciding a voice is missing,
+    // otherwise a first-load race can wrongly report "no voice available".
+    await getVoicesReady();
+    const voice = wtPickVoice(lang);
+
+    if (!voice) {
+        // No voice installed for this language on this device — say so
+        // plainly instead of silently speaking with the wrong system voice
+        // or making no sound at all (STATUS.md TTS bug-fix 2026-07-21).
+        document.getElementById('audioCard').classList.remove('speaking');
+        document.getElementById('audioStatus').innerText = t.audio_tts_unavailable;
+        document.getElementById('audioRepeatText').style.display = 'none';
+        document.getElementById('audioAgainBtn').innerText = t.audio_again;
+        document.getElementById('audioBtnRecord').innerText = t.audio_record;
+        document.getElementById('audioBtnSilent').innerText = t.audio_silent;
+        document.getElementById('audioActions').style.display = 'flex';
+        return;
+    }
+
     const utt = new SpeechSynthesisUtterance(text);
-    utt.lang = langToSpeech[currentLang] || 'en-GB';
+    utt.lang = lang;
     utt.rate = ttsSpeed;
     utt.pitch = 1;
-    const voice = wtPickVoice(utt.lang);
-    if (voice) utt.voice = voice;
+    utt.voice = voice;
 
     utt.onend = () => {
         const t = translations[currentLang];
@@ -3433,11 +3453,31 @@ function startRenameLibEntry(id) {
 
 // ===== WORDS MODE =====
 
-// Preload TTS voices (async in some browsers)
-if ('speechSynthesis' in window) {
-    window.speechSynthesis.getVoices();
-    window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+// Preload TTS voices (async in some browsers, e.g. Chrome only populates
+// getVoices() after the `onvoiceschanged` event fires, sometimes well after
+// the page has rendered). getVoicesReady() lets callers await the real list
+// instead of racing getVoices() before it's populated — with a short safety
+// timeout in case the event never fires (some browsers/platforms don't
+// dispatch it even though voices were already available).
+let _voicesReadyPromise = null;
+function getVoicesReady() {
+    if (!('speechSynthesis' in window)) return Promise.resolve([]);
+    if (_voicesReadyPromise) return _voicesReadyPromise;
+    _voicesReadyPromise = new Promise(resolve => {
+        const already = window.speechSynthesis.getVoices();
+        if (already && already.length) { resolve(already); return; }
+        let settled = false;
+        const finish = () => {
+            if (settled) return;
+            settled = true;
+            resolve(window.speechSynthesis.getVoices());
+        };
+        window.speechSynthesis.onvoiceschanged = finish;
+        setTimeout(finish, 400); // safety net if the event never fires
+    });
+    return _voicesReadyPromise;
 }
+if ('speechSynthesis' in window) getVoicesReady();
 
 const WORDS_SETS_KEY = 'memoriWords_sets';
 function loadWordSets() {
@@ -4647,25 +4687,39 @@ function wtSetSpeed(rate) {
     wtPlayAudio();
 }
 
-function wtPlayAudio() {
+async function wtPlayAudio() {
     if (!wtCurrentAudioPair) return;
+    const pairAtCall = wtCurrentAudioPair;
     const lang = WT_TTS_LANG[wordLangFrom] || langToSpeech[wordLangFrom] || 'en-US';
-    const utt = new SpeechSynthesisUtterance(wtCurrentAudioPair.word);
+
+    // Chrome (and some mobile browsers) load the voice list asynchronously —
+    // wait for it (with a safety timeout) before deciding a voice is missing.
+    await getVoicesReady();
+    // User may have moved to a different word/exercise while voices were
+    // loading — bail out rather than overwriting the now-current question.
+    if (wtCurrentAudioPair !== pairAtCall) return;
+
+    const voice = wtPickVoice(lang);
+    const qEl = document.getElementById('wtQuestion');
+
+    if (!voice) {
+        // No matching voice installed — show the word as fallback, with the
+        // reason spelled out so it doesn't look like a silent failure. Keyed
+        // by word+lang (not a one-shot flag) so the explanation still shows
+        // up on every exercise where the voice is missing, not just the first.
+        const t = translations[currentLang];
+        const fallbackKey = pairAtCall.word + '|' + lang;
+        if (qEl.dataset.audioFallbackFor !== fallbackKey) {
+            qEl.dataset.audioFallbackFor = fallbackKey;
+            qEl.innerText = pairAtCall.word + ' — ' + t.audio_tts_unavailable;
+        }
+        return;
+    }
+
+    const utt = new SpeechSynthesisUtterance(pairAtCall.word);
     utt.lang = lang;
     utt.rate = wtAudioRate;
-
-    // Explicitly set voice so browser doesn't fall back to system default
-    const voice = wtPickVoice(lang);
-    if (voice) {
-        utt.voice = voice;
-    } else {
-        // No matching voice installed — show the word as fallback
-        const qEl = document.getElementById('wtQuestion');
-        if (qEl.dataset.audioFallback !== '1') {
-            qEl.dataset.audioFallback = '1';
-            qEl.innerText = wtCurrentAudioPair.word;
-        }
-    }
+    utt.voice = voice;
 
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(utt);
