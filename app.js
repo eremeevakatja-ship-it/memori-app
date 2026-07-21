@@ -1883,11 +1883,17 @@ function splitLongSentence(sentence, size = blockSize) {
     // тоді якийсь шматок і далі перевищує size слів. Такі шматки ріжемо
     // примусово по кількості слів, щоб blockSize реально дотримувався
     // навіть без ком/крапок з комою/тире в реченні.
+    // Короткі шматки (< 4 слів) НЕ відкидаємо (це губило слова — реальний
+    // баг, знайдений User: перші рядки вірша, що після розбиття по комі
+    // давали короткий початковий шматок, зникали з тексту повністю) —
+    // приєднуємо їх до попереднього шматка замість дропу.
     const final = [];
     for (const piece of result) {
         if (countWords(piece) > size) {
             final.push(...splitByWordCount(piece, size));
-        } else if (countWords(piece) >= 4) {
+        } else if (final.length > 0 && countWords(piece) < 4) {
+            final[final.length - 1] += ' ' + piece;
+        } else {
             final.push(piece);
         }
     }
