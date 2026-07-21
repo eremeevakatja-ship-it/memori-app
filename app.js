@@ -111,7 +111,7 @@ const translations = {
         audio_your_turn: "Ваша черга — як повторите?", audio_record: "Записати голосом", audio_silent: "Сказати про себе",
         audio_recording: "Слухаю вас...", audio_record_error: "Не вдалося. Спробуйте ще.", audio_record_noapi: "Запис голосу не підтримується браузером.", audio_record_denied: "🎙 Дозвольте доступ до мікрофона в налаштуваннях браузера.", audio_record_nomic: "🎙 Мікрофон не знайдено.", audio_record_nospeech: "🎙 Нічого не почуто. Говоріть голосніше.",
         resume_title: "Незавершена сесія", resume_progress: "крок {n} з {total}", resume_continue: "Продовжити", resume_fresh: "Новий текст",
-        ocr_btn: "Файл", ocr_loading: "Розпізнаємо текст...", ocr_error: "Не вдалося розпізнати. Спробуйте інший файл.", ocr_error_doc: "Формат .doc не підтримується. Збережіть файл як .docx", ocr_error_empty: "Файл не завантажено з хмари. Відкрийте його у Word і збережіть на комп'ютер.",
+        ocr_btn: "Файл", ocr_loading: "Розпізнаємо текст...", ocr_preprocessing: "Готуємо зображення...", ocr_error: "Не вдалося розпізнати. Спробуйте інший файл.", ocr_error_doc: "Формат .doc не підтримується. Збережіть файл як .docx", ocr_error_empty: "Файл не завантажено з хмари. Відкрийте його у Word і збережіть на комп'ютер.",
         back_lang: "Мова",
         lib_rename_hint: 'Натисніть на назву щоб перейменувати',
         blockSizeLabel: 'Розмір блоку:', blockSizeOptions: ['5 слів', '10 слів', '15 слів'],
@@ -260,7 +260,7 @@ const translations = {
         audio_your_turn: "Your turn — how will you repeat?", audio_record: "Record voice", audio_silent: "Say to yourself",
         audio_recording: "Listening to you...", audio_record_error: "Couldn't recognize. Try again.", audio_record_noapi: "Voice recording not supported in this browser.", audio_record_denied: "🎙 Allow microphone access in your browser settings.", audio_record_nomic: "🎙 No microphone found.", audio_record_nospeech: "🎙 Nothing heard. Please speak louder.",
         resume_title: "Unfinished session", resume_progress: "step {n} of {total}", resume_continue: "Continue", resume_fresh: "New text",
-        ocr_btn: "File", ocr_loading: "Recognizing text...", ocr_error: "Could not read. Try another file.", ocr_error_doc: ".doc format not supported. Save the file as .docx", ocr_error_empty: "File not downloaded from cloud. Open it in Word and save locally.",
+        ocr_btn: "File", ocr_loading: "Recognizing text...", ocr_preprocessing: "Preparing image...", ocr_error: "Could not read. Try another file.", ocr_error_doc: ".doc format not supported. Save the file as .docx", ocr_error_empty: "File not downloaded from cloud. Open it in Word and save locally.",
         back_lang: "Language",
         lib_rename_hint: 'Tap a title to rename',
         blockSizeLabel: 'Block size:', blockSizeOptions: ['5 words', '10 words', '15 words'],
@@ -409,7 +409,7 @@ const translations = {
         audio_your_turn: "Twoja kolej — jak powtórzysz?", audio_record: "Nagraj głos", audio_silent: "Powiedz w myślach",
         audio_recording: "Słucham cię...", audio_record_error: "Nie rozpoznano. Spróbuj ponownie.", audio_record_noapi: "Nagrywanie głosu nie jest obsługiwane przez tę przeglądarkę.", audio_record_denied: "🎙 Zezwól na dostęp do mikrofonu w ustawieniach przeglądarki.", audio_record_nomic: "🎙 Nie znaleziono mikrofonu.", audio_record_nospeech: "🎙 Nic nie usłyszano. Mów głośniej.",
         resume_title: "Niedokończona sesja", resume_progress: "krok {n} z {total}", resume_continue: "Kontynuuj", resume_fresh: "Nowy tekst",
-        ocr_btn: "Plik", ocr_loading: "Rozpoznawanie tekstu...", ocr_error: "Nie udało się odczytać. Spróbuj inny plik.", ocr_error_doc: "Format .doc nie jest obsługiwany. Zapisz plik jako .docx", ocr_error_empty: "Plik nie jest pobrany z chmury. Otwórz go w Word i zapisz lokalnie.",
+        ocr_btn: "Plik", ocr_loading: "Rozpoznawanie tekstu...", ocr_preprocessing: "Przygotowywanie obrazu...", ocr_error: "Nie udało się odczytać. Spróbuj inny plik.", ocr_error_doc: "Format .doc nie jest obsługiwany. Zapisz plik jako .docx", ocr_error_empty: "Plik nie jest pobrany z chmury. Otwórz go w Word i zapisz lokalnie.",
         back_lang: "Język",
         lib_rename_hint: 'Dotknij tytuł, aby zmienić nazwę',
         blockSizeLabel: 'Rozmiar bloku:', blockSizeOptions: ['5 słów', '10 słów', '15 słów'],
@@ -558,7 +558,7 @@ const translations = {
         audio_your_turn: "Du bist dran — wie wiederholst du?", audio_record: "Stimme aufnehmen", audio_silent: "Im Stillen sagen",
         audio_recording: "Ich höre dir zu...", audio_record_error: "Nicht erkannt. Nochmal versuchen.", audio_record_noapi: "Sprachaufnahme wird von diesem Browser nicht unterstützt.", audio_record_denied: "🎙 Erlauben Sie den Mikrofonzugriff in den Browsereinstellungen.", audio_record_nomic: "🎙 Kein Mikrofon gefunden.", audio_record_nospeech: "🎙 Nichts gehört. Bitte lauter sprechen.",
         resume_title: "Unfertige Sitzung", resume_progress: "Schritt {n} von {total}", resume_continue: "Weiter", resume_fresh: "Neuer Text",
-        ocr_btn: "Datei", ocr_loading: "Text wird erkannt...", ocr_error: "Lesen fehlgeschlagen. Andere Datei versuchen.", ocr_error_doc: "Format .doc wird nicht unterstützt. Bitte als .docx speichern", ocr_error_empty: "Datei nicht aus der Cloud heruntergeladen. In Word öffnen und lokal speichern.",
+        ocr_btn: "Datei", ocr_loading: "Text wird erkannt...", ocr_preprocessing: "Bild wird vorbereitet...", ocr_error: "Lesen fehlgeschlagen. Andere Datei versuchen.", ocr_error_doc: "Format .doc wird nicht unterstützt. Bitte als .docx speichern", ocr_error_empty: "Datei nicht aus der Cloud heruntergeladen. In Word öffnen und lokal speichern.",
         back_lang: "Sprache",
         lib_rename_hint: 'Titel antippen zum Umbenennen',
         blockSizeLabel: 'Blockgröße:', blockSizeOptions: ['5 Wörter', '10 Wörter', '15 Wörter'],
@@ -707,7 +707,7 @@ const translations = {
         audio_your_turn: "À vous — comment allez-vous répéter ?", audio_record: "Enregistrer la voix", audio_silent: "Dire en silence",
         audio_recording: "Je vous écoute...", audio_record_error: "Non reconnu. Réessayez.", audio_record_noapi: "Enregistrement vocal non supporté par ce navigateur.", audio_record_denied: "🎙 Autorisez l'accès au micro dans les paramètres du navigateur.", audio_record_nomic: "🎙 Aucun microphone trouvé.", audio_record_nospeech: "🎙 Rien entendu. Parlez plus fort.",
         resume_title: "Session inachevée", resume_progress: "étape {n} sur {total}", resume_continue: "Continuer", resume_fresh: "Nouveau texte",
-        ocr_btn: "Fichier", ocr_loading: "Lecture en cours...", ocr_error: "Échec de la lecture. Essayez un autre fichier.", ocr_error_doc: "Format .doc non supporté. Enregistrez en .docx", ocr_error_empty: "Fichier non téléchargé depuis le cloud. Ouvrez-le dans Word et sauvegardez localement.",
+        ocr_btn: "Fichier", ocr_loading: "Lecture en cours...", ocr_preprocessing: "Préparation de l'image...", ocr_error: "Échec de la lecture. Essayez un autre fichier.", ocr_error_doc: "Format .doc non supporté. Enregistrez en .docx", ocr_error_empty: "Fichier non téléchargé depuis le cloud. Ouvrez-le dans Word et sauvegardez localement.",
         back_lang: "Langue",
         lib_rename_hint: 'Appuyez sur un titre pour le renommer',
         blockSizeLabel: 'Taille du bloc :', blockSizeOptions: ['5 mots', '10 mots', '15 mots'],
@@ -856,7 +856,7 @@ const translations = {
         audio_your_turn: "Tu turno — ¿cómo vas a repetir?", audio_record: "Grabar voz", audio_silent: "Decir en silencio",
         audio_recording: "Te escucho...", audio_record_error: "No reconocido. Inténtalo de nuevo.", audio_record_noapi: "Grabación de voz no compatible con este navegador.", audio_record_denied: "🎙 Permite el acceso al micrófono en la configuración del navegador.", audio_record_nomic: "🎙 No se encontró micrófono.", audio_record_nospeech: "🎙 No se escuchó nada. Habla más fuerte.",
         resume_title: "Sesión inacabada", resume_progress: "paso {n} de {total}", resume_continue: "Continuar", resume_fresh: "Nuevo texto",
-        ocr_btn: "Archivo", ocr_loading: "Leyendo archivo...", ocr_error: "No se pudo leer. Intenta con otro archivo.", ocr_error_doc: "Formato .doc no admitido. Guárdelo como .docx", ocr_error_empty: "Archivo no descargado de la nube. Ábralo en Word y guárdelo localmente.",
+        ocr_btn: "Archivo", ocr_loading: "Leyendo archivo...", ocr_preprocessing: "Preparando la imagen...", ocr_error: "No se pudo leer. Intenta con otro archivo.", ocr_error_doc: "Formato .doc no admitido. Guárdelo como .docx", ocr_error_empty: "Archivo no descargado de la nube. Ábralo en Word y guárdelo localmente.",
         back_lang: "Idioma",
         lib_rename_hint: 'Toca un título para renombrarlo',
         blockSizeLabel: 'Tamaño del bloque:', blockSizeOptions: ['5 palabras', '10 palabras', '15 palabras'],
@@ -1496,6 +1496,98 @@ function triggerOCR() {
     document.getElementById('ocrInput').click();
 }
 
+// Downscale (never upscale) to ~1900px on the long side + grayscale/contrast-stretch on canvas.
+// Speeds up Tesseract (less pixel data to scan) and improves accuracy on uneven phone-photo lighting.
+// Falls back to returning the original file untouched if anything goes wrong (e.g. canvas errors),
+// so OCR still runs instead of hard-failing.
+async function preprocessImageForOcr(file) {
+    const MAX_DIM = 1900;
+    let objectUrl;
+    try {
+        const img = await new Promise((resolve, reject) => {
+            const image = new Image();
+            objectUrl = URL.createObjectURL(file);
+            image.onload = () => resolve(image);
+            image.onerror = reject;
+            image.src = objectUrl;
+        });
+
+        let width = img.naturalWidth;
+        let height = img.naturalHeight;
+        if (!width || !height) return file;
+
+        const longSide = Math.max(width, height);
+        if (longSide > MAX_DIM) {
+            const scale = MAX_DIM / longSide;
+            width = Math.round(width * scale);
+            height = Math.round(height * scale);
+        }
+        // else: image already smaller than MAX_DIM — keep as-is, never upscale
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        const imageData = ctx.getImageData(0, 0, width, height);
+        const data = imageData.data;
+        const pixelCount = width * height;
+
+        // Pass 1: grayscale (luminosity) + find min/max for contrast stretch
+        const gray = new Float32Array(pixelCount);
+        let min = 255, max = 0;
+        for (let i = 0, p = 0; p < pixelCount; i += 4, p++) {
+            const g = data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114;
+            gray[p] = g;
+            if (g < min) min = g;
+            if (g > max) max = g;
+        }
+
+        // Pass 2: linear contrast stretch — spreads the narrow gray range typical of an
+        // unevenly-lit phone photo across the full 0-255 range
+        const range = Math.max(max - min, 1);
+        for (let i = 0, p = 0; p < pixelCount; i += 4, p++) {
+            const v = Math.min(255, Math.max(0, ((gray[p] - min) * 255) / range));
+            data[i] = data[i + 1] = data[i + 2] = v;
+        }
+        ctx.putImageData(imageData, 0, 0);
+
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.92));
+        return blob || file;
+    } catch (e) {
+        return file;
+    } finally {
+        if (objectUrl) URL.revokeObjectURL(objectUrl);
+    }
+}
+
+// Shared by the isImage and "unknown type, try image OCR" branches below — same worker setup,
+// same preprocessing, same PSM tuned for a single block of poem/text text.
+async function recognizeImageText(file, fill, status, t) {
+    await loadTesseract();
+
+    status.innerText = t.ocr_preprocessing || t.ocr_loading;
+    fill.style.width = '5%';
+    const processedBlob = await preprocessImageForOcr(file);
+
+    status.innerText = t.ocr_loading;
+    const lang = document.getElementById('ocrLang').value || tessLang[currentLang] || 'eng';
+    const worker = await Tesseract.createWorker(lang, 1, {
+        logger: m => {
+            if (m.status === 'recognizing text') {
+                fill.style.width = Math.round(m.progress * 100) + '%';
+            }
+        }
+    });
+    // Poem/text photo = one simple block of text, not a page layout — SINGLE_BLOCK is a much
+    // better fit than Tesseract's default page segmentation for this use case
+    await worker.setParameters({ tessedit_pageseg_mode: '6' });
+    const { data: { text: ocrText } } = await worker.recognize(processedBlob);
+    await worker.terminate();
+    return ocrText;
+}
+
 async function handleOCRFile(input) {
     const file = input.files[0];
     if (!file) return;
@@ -1560,33 +1652,11 @@ async function handleOCRFile(input) {
             throw new Error('doc_not_supported');
 
         } else if (isImage) {
-            await loadTesseract();
-            const lang = document.getElementById('ocrLang').value || tessLang[currentLang] || 'eng';
-            const worker = await Tesseract.createWorker(lang, 1, {
-                logger: m => {
-                    if (m.status === 'recognizing text') {
-                        fill.style.width = Math.round(m.progress * 100) + '%';
-                    }
-                }
-            });
-            const { data: { text: ocrText } } = await worker.recognize(file);
-            await worker.terminate();
-            text = ocrText;
+            text = await recognizeImageText(file, fill, status, t);
 
         } else {
             // Unknown type — try image OCR as last resort
-            await loadTesseract();
-            const lang = document.getElementById('ocrLang').value || tessLang[currentLang] || 'eng';
-            const worker = await Tesseract.createWorker(lang, 1, {
-                logger: m => {
-                    if (m.status === 'recognizing text') {
-                        fill.style.width = Math.round(m.progress * 100) + '%';
-                    }
-                }
-            });
-            const { data: { text: ocrText } } = await worker.recognize(file);
-            await worker.terminate();
-            text = ocrText;
+            text = await recognizeImageText(file, fill, status, t);
         }
 
         const cleaned = text.replace(/\r/g, '').replace(/\n{3,}/g, '\n\n').trim();
