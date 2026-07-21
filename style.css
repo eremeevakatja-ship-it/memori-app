@@ -311,6 +311,24 @@ body[data-theme="dark"] .btn-save-planned:hover { color: #818cf8; border-color: 
 #ocrStatus { font-size: 0.82rem; color: var(--primary); font-weight: 600; margin: 0; }
 .ocr-bar { width: 80%; height: 4px; background: var(--primary-soft); border-radius: 2px; overflow: hidden; }
 .ocr-fill { height: 100%; background: var(--primary); border-radius: 2px; width: 0%; transition: width 0.3s; }
+.ocr-cancel-btn {
+  margin-top: 6px;
+  min-height: 40px;
+  padding: 8px 18px;
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  opacity: 0.7;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: opacity 0.15s, border-color 0.15s;
+}
+.ocr-cancel-btn:hover { opacity: 1; border-color: var(--primary); }
+body[data-theme="dark"] .ocr-cancel-btn { border-color: #334155; color: #e2e8f0; }
+body[data-theme="dark"] .ocr-cancel-btn:hover { border-color: #818cf8; }
 
 body[data-theme="dark"] .btn-ocr { border-color: #818cf8; color: #818cf8; }
 
@@ -687,6 +705,10 @@ body[data-theme="dark"] .btn-rest-pause { border-color: #818cf8; color: #818cf8;
   font-weight: 700;
   cursor: pointer;
   padding: 11px 20px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 4px;
   border-radius: var(--btn-radius);
   width: auto;
@@ -2566,7 +2588,10 @@ body[data-theme="dark"] .wt-type-wrap.wt-wrap-correct { background: rgba(5,150,1
 body[data-theme="dark"] .wt-type-wrap.wt-wrap-wrong   { background: rgba(253,164,175,0.07); border-color: #fda4af; }
 body[data-theme="dark"] .wt-type-input.wt-input-correct { color: #6ee7b7; }
 body[data-theme="dark"] .wt-type-input.wt-input-wrong   { color: #fda4af; }
-body[data-theme="dark"] .btn-wt-check { background: #818cf8; }
+/* #4f46e5 (indigo-600, darker than --primary's #818cf8) keeps the same primary
+   color family but gives white button text ~6.3:1 contrast in dark theme
+   (the previous #818cf8 measured ~2.98:1 — fails WCAG AA's 4.5:1 for normal text). */
+body[data-theme="dark"] .btn-wt-check { background: #4f46e5; }
 
 /* Word reveal in audio feedback */
 .wt-reveal-word {
@@ -2617,7 +2642,11 @@ body[data-theme="dark"] .btn-wt-hint:hover:not(:disabled) { color: #818cf8; }
 .btn-wt-back {
   flex-shrink: 0;
   width: auto;
+  min-height: 44px;
   padding: 8px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: transparent !important;
   border: 1.5px solid #d1d5db !important;
   color: #6b7280 !important;
@@ -2642,8 +2671,12 @@ body[data-theme="dark"] .btn-wt-back:hover { border-color: #4b5563 !important; c
      outline keeps it clearly a smaller, secondary control. */
   flex: 0 0 auto;
   width: auto;
+  min-height: 44px;
   margin-left: auto;
   padding: 8px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: transparent;
   border: 1.5px solid #d1d5db;
   color: #999;
@@ -2655,8 +2688,10 @@ body[data-theme="dark"] .btn-wt-back:hover { border-color: #4b5563 !important; c
   transition: color 0.15s, border-color 0.15s;
 }
 .btn-wt-skip-word:hover { color: #777; border-color: #adb1b8; }
-body[data-theme="dark"] .btn-wt-skip-word { border-color: #334155; color: #64748b; }
-body[data-theme="dark"] .btn-wt-skip-word:hover { color: #94a3b8; border-color: #475569; }
+/* #94a3b8 (slate-400) against the dark-theme card background (#161b27) measures
+   ~6.7:1 (previous #64748b measured ~3.6:1 — fails WCAG AA's 4.5:1 for normal text). */
+body[data-theme="dark"] .btn-wt-skip-word { border-color: #475569; color: #94a3b8; }
+body[data-theme="dark"] .btn-wt-skip-word:hover { color: #cbd5e1; border-color: #64748b; }
 
 /* Results screen */
 .wr-fraction {

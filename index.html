@@ -11,7 +11,7 @@
     <meta name="apple-mobile-web-app-title" content="Memori" />
     <link rel="apple-touch-icon" href="icon.svg" />
     <link rel="icon" href="icon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="style.css?v=67" />
+    <link rel="stylesheet" href="style.css?v=68" />
   </head>
   <body>
     <div class="container">
@@ -166,6 +166,7 @@
                 <div class="ocr-spinner"></div>
                 <p id="ocrStatus"></p>
                 <div class="ocr-bar"><div id="ocrFill" class="ocr-fill"></div></div>
+                <button type="button" id="ocrCancelBtn" class="ocr-cancel-btn" onclick="cancelOCR()">Скасувати</button>
               </div>
             </div>
             <input type="file" id="ocrInput" accept="image/*,.pdf,.txt,.docx" style="display:none" onchange="handleOCRFile(this)">
@@ -656,7 +657,7 @@
       </div>
     </div>
 
-    <script src="app.js?v=74"></script>
+    <script src="app.js?v=76"></script>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});

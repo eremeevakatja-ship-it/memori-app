@@ -47,6 +47,10 @@ let wtIndex = 0;
 let wtCorrect = 0;
 let wtCurrentAudioPair = null;
 let wtAudioRate = 1.0;
+// Пари, чий masteryScore вже підбито (комітнуто в localStorage) цієї сесії —
+// щоб updateWordMastery(), яка тепер викликається інкрементально після
+// кожної вправи (а не лише в кінці), не рахувала той самий "чистий прохід" двічі.
+let wtSettledPairs = new Set();
 
 const ICONS = {
     verbatim: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="22" x2="18" y1="12" y2="12"/><line x1="6" x2="2" y1="12" y2="12"/><line x1="12" x2="12" y1="6" y2="2"/><line x1="12" x2="12" y1="22" y2="18"/></svg>`,
@@ -111,7 +115,7 @@ const translations = {
         audio_your_turn: "Ваша черга — як повторите?", audio_record: "Записати голосом", audio_silent: "Сказати про себе",
         audio_recording: "Слухаю вас...", audio_record_error: "Не вдалося. Спробуйте ще.", audio_record_noapi: "Запис голосу не підтримується браузером.", audio_record_denied: "🎙 Дозвольте доступ до мікрофона в налаштуваннях браузера.", audio_record_nomic: "🎙 Мікрофон не знайдено.", audio_record_nospeech: "🎙 Нічого не почуто. Говоріть голосніше.", audio_tts_unavailable: "🔇 Озвучка для цієї мови недоступна на вашому пристрої. Спробуйте встановити мовний голос у налаштуваннях браузера/телефону.",
         resume_title: "Незавершена сесія", resume_progress: "крок {n} з {total}", resume_continue: "Продовжити", resume_fresh: "Новий текст",
-        ocr_btn: "Файл", ocr_loading: "Розпізнаємо текст...", ocr_preprocessing: "Готуємо зображення...", ocr_error: "Не вдалося розпізнати. Спробуйте інший файл.", ocr_error_doc: "Формат .doc не підтримується. Збережіть файл як .docx", ocr_error_empty: "Файл не завантажено з хмари. Відкрийте його у Word і збережіть на комп'ютер.",
+        ocr_btn: "Файл", ocr_loading: "Розпізнаємо текст...", ocr_preprocessing: "Готуємо зображення...", ocr_error: "Не вдалося розпізнати. Спробуйте інший файл.", ocr_error_doc: "Формат .doc не підтримується. Збережіть файл як .docx", ocr_error_empty: "Файл не завантажено з хмари. Відкрийте його у Word і збережіть на комп'ютер.", ocr_error_timeout: "Не вдалося завантажити розпізнавач тексту. Перевірте інтернет і спробуйте ще раз.", ocr_cancel: "Скасувати",
         back_lang: "Мова",
         lib_rename_hint: 'Натисніть на назву щоб перейменувати',
         blockSizeLabel: 'Розмір блоку:', blockSizeOptions: ['5 слів', '10 слів', '15 слів'],
@@ -191,7 +195,7 @@ const translations = {
         wt_type_w2t: '→ Переклад', wt_type_t2w: '→ Слово', wt_type_audio: '🔊 Аудіо',
         wt_listen_prompt: 'Прослухайте та оберіть слово', wt_listen_btn: 'Прослухати',
         wt_correct: '✓ Правильно!', wt_wrong: 'Упс, спробуйте ще раз',
-        wt_save: 'Зберегти', wt_skip: 'Пропустити', wt_finish: 'Завершити',
+        wt_save_word: 'Зберегти', wt_skip: 'Пропустити', wt_finish: 'Завершити',
         wt_type_spell: '✏️ Напиши', wt_type_dictation: '🎧 Диктант', wt_type_sentence: '📝 Речення',
         wt_spell_prompt: 'Напишіть слово мовою навчання',
         wt_dictation_prompt: 'Прослухайте та напишіть слово',
@@ -204,6 +208,7 @@ const translations = {
         wt_result_good: '👍 Непогано!', wt_result_keep: '💪 Продовжуй!',
         wt_score_label: 'правильних відповідей', wt_restart: 'Ще раз', wt_home: 'На головну',
         wt_no_trans: 'Додайте переклади до слів щоб розпочати тренування',
+        wt_resume_confirm: 'Знайдено незавершене тренування цього набору ({n}/{total}). Продовжити з того ж місця?',
         mode_title: 'Що хочемо вчити?',
         mode_text_label: 'Текст', mode_text_desc: 'Вірш, монолог, виступ, презентація',
         mode_words_label: 'Слова та Фрази', mode_words_desc: 'Нова лексика, переклади, словник'
@@ -260,7 +265,7 @@ const translations = {
         audio_your_turn: "Your turn — how will you repeat?", audio_record: "Record voice", audio_silent: "Say to yourself",
         audio_recording: "Listening to you...", audio_record_error: "Couldn't recognize. Try again.", audio_record_noapi: "Voice recording not supported in this browser.", audio_record_denied: "🎙 Allow microphone access in your browser settings.", audio_record_nomic: "🎙 No microphone found.", audio_record_nospeech: "🎙 Nothing heard. Please speak louder.", audio_tts_unavailable: "🔇 Voice for this language isn't available on your device. Try installing a language voice in your browser/phone settings.",
         resume_title: "Unfinished session", resume_progress: "step {n} of {total}", resume_continue: "Continue", resume_fresh: "New text",
-        ocr_btn: "File", ocr_loading: "Recognizing text...", ocr_preprocessing: "Preparing image...", ocr_error: "Could not read. Try another file.", ocr_error_doc: ".doc format not supported. Save the file as .docx", ocr_error_empty: "File not downloaded from cloud. Open it in Word and save locally.",
+        ocr_btn: "File", ocr_loading: "Recognizing text...", ocr_preprocessing: "Preparing image...", ocr_error: "Could not read. Try another file.", ocr_error_doc: ".doc format not supported. Save the file as .docx", ocr_error_empty: "File not downloaded from cloud. Open it in Word and save locally.", ocr_error_timeout: "Could not load the text recognizer. Check your internet connection and try again.", ocr_cancel: "Cancel",
         back_lang: "Language",
         lib_rename_hint: 'Tap a title to rename',
         blockSizeLabel: 'Block size:', blockSizeOptions: ['5 words', '10 words', '15 words'],
@@ -340,7 +345,7 @@ const translations = {
         wt_type_w2t: '→ Translation', wt_type_t2w: '→ Word', wt_type_audio: '🔊 Audio',
         wt_listen_prompt: 'Listen and choose the word', wt_listen_btn: 'Listen',
         wt_correct: '✓ Correct!', wt_wrong: 'Oops, try again',
-        wt_save: 'Save word', wt_skip: 'Skip', wt_finish: 'Finish',
+        wt_save_word: 'Save word', wt_skip: 'Skip', wt_finish: 'Finish',
         wt_type_spell: '✏️ Spell it', wt_type_dictation: '🎧 Dictation', wt_type_sentence: '📝 Sentence',
         wt_spell_prompt: 'Write the word in the learning language',
         wt_dictation_prompt: 'Listen and write the word',
@@ -353,6 +358,7 @@ const translations = {
         wt_result_good: '👍 Not bad!', wt_result_keep: '💪 Keep going!',
         wt_score_label: 'correct answers', wt_restart: 'Try again', wt_home: 'Home',
         wt_no_trans: 'Add translations to your words to start training',
+        wt_resume_confirm: 'Found unfinished training for this set ({n}/{total}). Continue where you left off?',
         mode_title: 'What do you want to learn?',
         mode_text_label: 'Text', mode_text_desc: 'Poem, speech, article, presentation',
         mode_words_label: 'Words & Phrases', mode_words_desc: 'New vocabulary, translations, flashcards'
@@ -409,7 +415,7 @@ const translations = {
         audio_your_turn: "Twoja kolej — jak powtórzysz?", audio_record: "Nagraj głos", audio_silent: "Powiedz w myślach",
         audio_recording: "Słucham cię...", audio_record_error: "Nie rozpoznano. Spróbuj ponownie.", audio_record_noapi: "Nagrywanie głosu nie jest obsługiwane przez tę przeglądarkę.", audio_record_denied: "🎙 Zezwól na dostęp do mikrofonu w ustawieniach przeglądarki.", audio_record_nomic: "🎙 Nie znaleziono mikrofonu.", audio_record_nospeech: "🎙 Nic nie usłyszano. Mów głośniej.", audio_tts_unavailable: "🔇 Głos dla tego języka nie jest dostępny na tym urządzeniu. Spróbuj zainstalować głos językowy w ustawieniach przeglądarki/telefonu.",
         resume_title: "Niedokończona sesja", resume_progress: "krok {n} z {total}", resume_continue: "Kontynuuj", resume_fresh: "Nowy tekst",
-        ocr_btn: "Plik", ocr_loading: "Rozpoznawanie tekstu...", ocr_preprocessing: "Przygotowywanie obrazu...", ocr_error: "Nie udało się odczytać. Spróbuj inny plik.", ocr_error_doc: "Format .doc nie jest obsługiwany. Zapisz plik jako .docx", ocr_error_empty: "Plik nie jest pobrany z chmury. Otwórz go w Word i zapisz lokalnie.",
+        ocr_btn: "Plik", ocr_loading: "Rozpoznawanie tekstu...", ocr_preprocessing: "Przygotowywanie obrazu...", ocr_error: "Nie udało się odczytać. Spróbuj inny plik.", ocr_error_doc: "Format .doc nie jest obsługiwany. Zapisz plik jako .docx", ocr_error_empty: "Plik nie jest pobrany z chmury. Otwórz go w Word i zapisz lokalnie.", ocr_error_timeout: "Nie udało się załadować rozpoznawania tekstu. Sprawdź połączenie z internetem i spróbuj ponownie.", ocr_cancel: "Anuluj",
         back_lang: "Język",
         lib_rename_hint: 'Dotknij tytuł, aby zmienić nazwę',
         blockSizeLabel: 'Rozmiar bloku:', blockSizeOptions: ['5 słów', '10 słów', '15 słów'],
@@ -489,7 +495,7 @@ const translations = {
         wt_type_w2t: '→ Tłumaczenie', wt_type_t2w: '→ Słowo', wt_type_audio: '🔊 Audio',
         wt_listen_prompt: 'Posłuchaj i wybierz słowo', wt_listen_btn: 'Posłuchaj',
         wt_correct: '✓ Dobrze!', wt_wrong: 'Ups, spróbuj jeszcze raz',
-        wt_save: 'Zapisz słowo', wt_skip: 'Pomiń', wt_finish: 'Zakończ',
+        wt_save_word: 'Zapisz słowo', wt_skip: 'Pomiń', wt_finish: 'Zakończ',
         wt_type_spell: '✏️ Napisz', wt_type_dictation: '🎧 Dyktando', wt_type_sentence: '📝 Zdanie',
         wt_spell_prompt: 'Napisz słowo w języku docelowym',
         wt_sentence_prompt: 'Uzupełnij brakujące słowo',
@@ -502,6 +508,7 @@ const translations = {
         wt_result_good: '👍 Nieźle!', wt_result_keep: '💪 Dalej!',
         wt_score_label: 'poprawnych odpowiedzi', wt_restart: 'Jeszcze raz', wt_home: 'Strona główna',
         wt_no_trans: 'Dodaj tłumaczenia, aby rozpocząć trening',
+        wt_resume_confirm: 'Znaleziono nieukończony trening tego zestawu ({n}/{total}). Kontynuować od tego miejsca?',
         mode_title: 'Czego chcesz się uczyć?',
         mode_text_label: 'Tekst', mode_text_desc: 'Wiersz, przemowa, artykuł, prezentacja',
         mode_words_label: 'Słowa i Frazy', mode_words_desc: 'Nowe słownictwo, tłumaczenia, fiszki'
@@ -558,7 +565,7 @@ const translations = {
         audio_your_turn: "Du bist dran — wie wiederholst du?", audio_record: "Stimme aufnehmen", audio_silent: "Im Stillen sagen",
         audio_recording: "Ich höre dir zu...", audio_record_error: "Nicht erkannt. Nochmal versuchen.", audio_record_noapi: "Sprachaufnahme wird von diesem Browser nicht unterstützt.", audio_record_denied: "🎙 Erlauben Sie den Mikrofonzugriff in den Browsereinstellungen.", audio_record_nomic: "🎙 Kein Mikrofon gefunden.", audio_record_nospeech: "🎙 Nichts gehört. Bitte lauter sprechen.", audio_tts_unavailable: "🔇 Für diese Sprache ist auf diesem Gerät keine Stimme verfügbar. Installiere eine Sprachstimme in den Browser-/Telefoneinstellungen.",
         resume_title: "Unfertige Sitzung", resume_progress: "Schritt {n} von {total}", resume_continue: "Weiter", resume_fresh: "Neuer Text",
-        ocr_btn: "Datei", ocr_loading: "Text wird erkannt...", ocr_preprocessing: "Bild wird vorbereitet...", ocr_error: "Lesen fehlgeschlagen. Andere Datei versuchen.", ocr_error_doc: "Format .doc wird nicht unterstützt. Bitte als .docx speichern", ocr_error_empty: "Datei nicht aus der Cloud heruntergeladen. In Word öffnen und lokal speichern.",
+        ocr_btn: "Datei", ocr_loading: "Text wird erkannt...", ocr_preprocessing: "Bild wird vorbereitet...", ocr_error: "Lesen fehlgeschlagen. Andere Datei versuchen.", ocr_error_doc: "Format .doc wird nicht unterstützt. Bitte als .docx speichern", ocr_error_empty: "Datei nicht aus der Cloud heruntergeladen. In Word öffnen und lokal speichern.", ocr_error_timeout: "Texterkennung konnte nicht geladen werden. Internetverbindung prüfen und erneut versuchen.", ocr_cancel: "Abbrechen",
         back_lang: "Sprache",
         lib_rename_hint: 'Titel antippen zum Umbenennen',
         blockSizeLabel: 'Blockgröße:', blockSizeOptions: ['5 Wörter', '10 Wörter', '15 Wörter'],
@@ -638,7 +645,7 @@ const translations = {
         wt_type_w2t: '→ Übersetzung', wt_type_t2w: '→ Wort', wt_type_audio: '🔊 Audio',
         wt_listen_prompt: 'Hör zu und wähle das Wort', wt_listen_btn: 'Anhören',
         wt_correct: '✓ Richtig!', wt_wrong: 'Ups, versuch es nochmal',
-        wt_save: 'Wort merken', wt_skip: 'Überspringen', wt_finish: 'Beenden',
+        wt_save_word: 'Wort merken', wt_skip: 'Überspringen', wt_finish: 'Beenden',
         wt_type_spell: '✏️ Schreiben', wt_type_dictation: '🎧 Diktat', wt_type_sentence: '📝 Satz',
         wt_spell_prompt: 'Schreibe das Wort in der Lernsprache',
         wt_sentence_prompt: 'Fülle das fehlende Wort aus',
@@ -651,6 +658,7 @@ const translations = {
         wt_result_good: '👍 Nicht schlecht!', wt_result_keep: '💪 Weiter so!',
         wt_score_label: 'richtige Antworten', wt_restart: 'Nochmal', wt_home: 'Startseite',
         wt_no_trans: 'Füge Übersetzungen hinzu, um das Training zu starten',
+        wt_resume_confirm: 'Unvollständiges Training für dieses Set gefunden ({n}/{total}). Dort fortsetzen?',
         mode_title: 'Was möchtest du lernen?',
         mode_text_label: 'Text', mode_text_desc: 'Gedicht, Rede, Artikel, Präsentation',
         mode_words_label: 'Wörter & Phrasen', mode_words_desc: 'Neues Vokabular, Übersetzungen, Karteikarten'
@@ -707,7 +715,7 @@ const translations = {
         audio_your_turn: "À vous — comment allez-vous répéter ?", audio_record: "Enregistrer la voix", audio_silent: "Dire en silence",
         audio_recording: "Je vous écoute...", audio_record_error: "Non reconnu. Réessayez.", audio_record_noapi: "Enregistrement vocal non supporté par ce navigateur.", audio_record_denied: "🎙 Autorisez l'accès au micro dans les paramètres du navigateur.", audio_record_nomic: "🎙 Aucun microphone trouvé.", audio_record_nospeech: "🎙 Rien entendu. Parlez plus fort.", audio_tts_unavailable: "🔇 Aucune voix disponible pour cette langue sur cet appareil. Essayez d'installer une voix dans les paramètres du navigateur/téléphone.",
         resume_title: "Session inachevée", resume_progress: "étape {n} sur {total}", resume_continue: "Continuer", resume_fresh: "Nouveau texte",
-        ocr_btn: "Fichier", ocr_loading: "Lecture en cours...", ocr_preprocessing: "Préparation de l'image...", ocr_error: "Échec de la lecture. Essayez un autre fichier.", ocr_error_doc: "Format .doc non supporté. Enregistrez en .docx", ocr_error_empty: "Fichier non téléchargé depuis le cloud. Ouvrez-le dans Word et sauvegardez localement.",
+        ocr_btn: "Fichier", ocr_loading: "Lecture en cours...", ocr_preprocessing: "Préparation de l'image...", ocr_error: "Échec de la lecture. Essayez un autre fichier.", ocr_error_doc: "Format .doc non supporté. Enregistrez en .docx", ocr_error_empty: "Fichier non téléchargé depuis le cloud. Ouvrez-le dans Word et sauvegardez localement.", ocr_error_timeout: "Impossible de charger la reconnaissance de texte. Vérifiez votre connexion internet et réessayez.", ocr_cancel: "Annuler",
         back_lang: "Langue",
         lib_rename_hint: 'Appuyez sur un titre pour le renommer',
         blockSizeLabel: 'Taille du bloc :', blockSizeOptions: ['5 mots', '10 mots', '15 mots'],
@@ -787,7 +795,7 @@ const translations = {
         wt_type_w2t: '→ Traduction', wt_type_t2w: '→ Mot', wt_type_audio: '🔊 Audio',
         wt_listen_prompt: 'Écoutez et choisissez le mot', wt_listen_btn: 'Écouter',
         wt_correct: '✓ Correct !', wt_wrong: 'Oups, réessaie',
-        wt_save: 'Garder le mot', wt_skip: 'Ignorer', wt_finish: 'Terminer',
+        wt_save_word: 'Garder le mot', wt_skip: 'Ignorer', wt_finish: 'Terminer',
         wt_type_spell: '✏️ Écrire', wt_type_dictation: '🎧 Dictée', wt_type_sentence: '📝 Phrase',
         wt_spell_prompt: 'Écrivez le mot dans la langue cible',
         wt_sentence_prompt: 'Complétez le mot manquant',
@@ -800,6 +808,7 @@ const translations = {
         wt_result_good: '👍 Pas mal !', wt_result_keep: '💪 Continuez !',
         wt_score_label: 'bonnes réponses', wt_restart: 'Recommencer', wt_home: 'Accueil',
         wt_no_trans: 'Ajoutez des traductions pour commencer l\'entraînement',
+        wt_resume_confirm: 'Entraînement inachevé trouvé pour cet ensemble ({n}/{total}). Continuer où vous en étiez ?',
         mode_title: 'Que voulez-vous apprendre ?',
         mode_text_label: 'Texte', mode_text_desc: 'Poème, discours, article, présentation',
         mode_words_label: 'Mots & Phrases', mode_words_desc: 'Nouveau vocabulaire, traductions, fiches'
@@ -856,7 +865,7 @@ const translations = {
         audio_your_turn: "Tu turno — ¿cómo vas a repetir?", audio_record: "Grabar voz", audio_silent: "Decir en silencio",
         audio_recording: "Te escucho...", audio_record_error: "No reconocido. Inténtalo de nuevo.", audio_record_noapi: "Grabación de voz no compatible con este navegador.", audio_record_denied: "🎙 Permite el acceso al micrófono en la configuración del navegador.", audio_record_nomic: "🎙 No se encontró micrófono.", audio_record_nospeech: "🎙 No se escuchó nada. Habla más fuerte.", audio_tts_unavailable: "🔇 No hay voz disponible para este idioma en tu dispositivo. Prueba a instalar una voz de idioma en la configuración del navegador/teléfono.",
         resume_title: "Sesión inacabada", resume_progress: "paso {n} de {total}", resume_continue: "Continuar", resume_fresh: "Nuevo texto",
-        ocr_btn: "Archivo", ocr_loading: "Leyendo archivo...", ocr_preprocessing: "Preparando la imagen...", ocr_error: "No se pudo leer. Intenta con otro archivo.", ocr_error_doc: "Formato .doc no admitido. Guárdelo como .docx", ocr_error_empty: "Archivo no descargado de la nube. Ábralo en Word y guárdelo localmente.",
+        ocr_btn: "Archivo", ocr_loading: "Leyendo archivo...", ocr_preprocessing: "Preparando la imagen...", ocr_error: "No se pudo leer. Intenta con otro archivo.", ocr_error_doc: "Formato .doc no admitido. Guárdelo como .docx", ocr_error_empty: "Archivo no descargado de la nube. Ábralo en Word y guárdelo localmente.", ocr_error_timeout: "No se pudo cargar el reconocimiento de texto. Comprueba tu conexión a internet e inténtalo de nuevo.", ocr_cancel: "Cancelar",
         back_lang: "Idioma",
         lib_rename_hint: 'Toca un título para renombrarlo',
         blockSizeLabel: 'Tamaño del bloque:', blockSizeOptions: ['5 palabras', '10 palabras', '15 palabras'],
@@ -936,7 +945,7 @@ const translations = {
         wt_type_w2t: '→ Traducción', wt_type_t2w: '→ Palabra', wt_type_audio: '🔊 Audio',
         wt_listen_prompt: 'Escucha y elige la palabra', wt_listen_btn: 'Escuchar',
         wt_correct: '✓ ¡Correcto!', wt_wrong: 'Ups, inténtalo de nuevo',
-        wt_save: 'Guardar palabra', wt_skip: 'Omitir', wt_finish: 'Terminar',
+        wt_save_word: 'Guardar palabra', wt_skip: 'Omitir', wt_finish: 'Terminar',
         wt_type_spell: '✏️ Escribir', wt_type_dictation: '🎧 Dictado', wt_type_sentence: '📝 Frase',
         wt_spell_prompt: 'Escribe la palabra en el idioma que aprendes',
         wt_sentence_prompt: 'Completa la palabra que falta',
@@ -949,6 +958,7 @@ const translations = {
         wt_result_good: '👍 ¡No está mal!', wt_result_keep: '💪 ¡Sigue así!',
         wt_score_label: 'respuestas correctas', wt_restart: 'Otra vez', wt_home: 'Inicio',
         wt_no_trans: 'Añade traducciones para comenzar el entrenamiento',
+        wt_resume_confirm: 'Se encontró un entrenamiento sin terminar de este conjunto ({n}/{total}). ¿Continuar donde lo dejaste?',
         mode_title: '¿Qué quieres aprender?',
         mode_text_label: 'Texto', mode_text_desc: 'Poema, discurso, artículo, presentación',
         mode_words_label: 'Palabras y Frases', mode_words_desc: 'Nuevo vocabulario, traducciones, tarjetas'
@@ -1174,9 +1184,13 @@ function saveToLibrary() {
         setTimeout(() => { btn.style.color = ''; btn.title = t.library_save; }, 1800);
         return;
     }
-    lib.unshift({ id: Date.now(), title: text.replace(/\n/g, ' ').slice(0, 70), text, savedAt: Date.now() });
+    lib.unshift({ id: Date.now() + '-' + Math.random().toString(36).slice(2, 8), title: text.replace(/\n/g, ' ').slice(0, 70), text, savedAt: Date.now() });
     if (lib.length > MAX_LIBRARY) lib.pop();
     saveLibrary(lib);
+    // Очистити textarea одразу після збереження — інакше наступний вставлений
+    // текст лишається змішаним зі старим (курсор/значення нікуди не ділись).
+    document.getElementById('userText').value = '';
+    clearValidation();
     // Visual feedback — bookmark fills green briefly
     btn.style.color = 'var(--primary)';
     btn.querySelector('svg').setAttribute('fill', 'currentColor');
@@ -1480,15 +1494,38 @@ function loadScript(src) {
     });
 }
 
+// OCR_LOAD_TIMEOUT_MS: якщо CDN просто "мовчить" (не віддає ні успіх, ні явну
+// помилку — типова поведінка нестабільного мобільного інтернету), без цього
+// таймауту користувач лишається перед вічним спінером назавжди.
+const OCR_LOAD_TIMEOUT_MS = 14000;
+
 function loadTesseract() {
-    return new Promise((resolve, reject) => {
+    const load = new Promise((resolve, reject) => {
         if (window.Tesseract) { resolve(); return; }
         const s = document.createElement('script');
         s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
         s.onload = resolve;
-        s.onerror = reject;
+        s.onerror = () => reject(new Error('ocr_load_failed'));
         document.head.appendChild(s);
     });
+    const timeout = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('ocr_load_timeout')), OCR_LOAD_TIMEOUT_MS);
+    });
+    return Promise.race([load, timeout]);
+}
+
+// ocrRequestId: монотонний токен поточної OCR-спроби. cancelOCR() інкрементує
+// його — будь-який ще недовершений handleOCRFile() бачить, що його id
+// застарів, і тихо ігнорує свій результат/помилку замість того, щоб
+// перезаписати екран, який користувач уже закрив і почав заново.
+let ocrRequestId = 0;
+
+function cancelOCR() {
+    ocrRequestId++;
+    const overlay = document.getElementById('ocrOverlay');
+    const btn = document.getElementById('ocrBtn');
+    if (overlay) overlay.style.display = 'none';
+    if (btn) btn.disabled = false;
 }
 
 function triggerOCR() {
@@ -1591,6 +1628,7 @@ async function recognizeImageText(file, fill, status, t) {
 async function handleOCRFile(input) {
     const file = input.files[0];
     if (!file) return;
+    const myOcrId = ++ocrRequestId;
     const t = translations[currentLang];
     const overlay = document.getElementById('ocrOverlay');
     const status = document.getElementById('ocrStatus');
@@ -1659,6 +1697,10 @@ async function handleOCRFile(input) {
             text = await recognizeImageText(file, fill, status, t);
         }
 
+        // Користувач міг натиснути "Скасувати" поки йшло розпізнавання — не
+        // перезаписуємо textarea і не показуємо результат застарілої спроби.
+        if (myOcrId !== ocrRequestId) return;
+
         const cleaned = text.replace(/\r/g, '').replace(/\n{3,}/g, '\n\n').trim();
         if (cleaned.length > 3) {
             document.getElementById('userText').value = cleaned;
@@ -1667,13 +1709,21 @@ async function handleOCRFile(input) {
             showValidation(t.ocr_error);
         }
     } catch(e) {
-        const msg = e.message === 'doc_not_supported' ? (t.ocr_error_doc || '.doc не підтримується. Збережіть як .docx.')
-                  : e.message === 'file_empty'        ? (t.ocr_error_empty || 'Файл не завантажено з хмари. Відкрийте його у Word і збережіть локально.')
+        if (myOcrId !== ocrRequestId) return; // скасовано — помилку не показуємо
+        const msg = e.message === 'doc_not_supported'     ? (t.ocr_error_doc || '.doc не підтримується. Збережіть як .docx.')
+                  : e.message === 'file_empty'            ? (t.ocr_error_empty || 'Файл не завантажено з хмари. Відкрийте його у Word і збережіть локально.')
+                  : e.message === 'ocr_load_timeout'      ? (t.ocr_error_timeout || 'Не вдалося завантажити розпізнавач тексту. Перевірте інтернет і спробуйте ще раз.')
+                  : e.message === 'ocr_load_failed'       ? (t.ocr_error_timeout || 'Не вдалося завантажити розпізнавач тексту. Перевірте інтернет і спробуйте ще раз.')
                   : t.ocr_error;
         showValidation(msg);
     } finally {
-        overlay.style.display = 'none';
-        btn.disabled = false;
+        // Якщо це вже неактуальна (скасована/перезапущена) спроба — cancelOCR()
+        // або новіший виклик handleOCRFile() уже привели overlay/btn у потрібний
+        // стан; не чіпаємо їх повторно, щоб не збити стан свіжішої спроби.
+        if (myOcrId === ocrRequestId) {
+            overlay.style.display = 'none';
+            btn.disabled = false;
+        }
     }
 }
 
@@ -1739,11 +1789,20 @@ function smartSplitText(text, size = blockSize) {
         if (!trimmed) continue;
 
         if (/\n/.test(trimmed)) {
-            // Вірш / пісня: кожен рядок = окремий блок
+            // Вірш / пісня: кожен рядок = окремий блок.
+            // Виняток: якщо рядок довший за size слів — примусово ріжемо його
+            // (той самий splitLongSentence, що й нижче для прози), інакше
+            // довгий рядок без пунктуації повністю ігнорував blockSize.
             const lines = trimmed.split('\n')
                 .map(l => l.replace(/\s+/g, ' ').trim())
                 .filter(l => countWords(l) >= 2);
-            blocks.push(...lines);
+            for (const line of lines) {
+                if (countWords(line) > size) {
+                    blocks.push(...splitLongSentence(line, size));
+                } else {
+                    blocks.push(line);
+                }
+            }
         } else {
             // Проза: групуємо речення
             const prose = trimmed.replace(/\s+/g, ' ');
@@ -1819,7 +1878,39 @@ function splitLongSentence(sentence, size = blockSize) {
         }
     }
     if (cur.length) result.push(cur.join(' ').replace(/[,;—–]\s*$/, '').trim());
-    return result.filter(s => countWords(s) >= 4);
+
+    // Пунктуації для розбиття могло не бути взагалі (або бути замало) —
+    // тоді якийсь шматок і далі перевищує size слів. Такі шматки ріжемо
+    // примусово по кількості слів, щоб blockSize реально дотримувався
+    // навіть без ком/крапок з комою/тире в реченні.
+    const final = [];
+    for (const piece of result) {
+        if (countWords(piece) > size) {
+            final.push(...splitByWordCount(piece, size));
+        } else if (countWords(piece) >= 4) {
+            final.push(piece);
+        }
+    }
+    return final;
+}
+
+// Просте примусове розбиття тексту без пунктуації на шматки по size слів.
+// Якщо останній залишок виходить занадто малим (< 4 слів), приєднуємо його
+// до попереднього шматка замість того, щоб губити слова або створювати
+// мікроскопічний блок з 1-2 слів.
+function splitByWordCount(text, size) {
+    const words = text.split(/\s+/).filter(Boolean);
+    const out = [];
+    let i = 0;
+    while (i < words.length) {
+        let end = Math.min(i + size, words.length);
+        if (words.length - end > 0 && words.length - end < 4) {
+            end = words.length;
+        }
+        out.push(words.slice(i, end).join(' '));
+        i = end;
+    }
+    return out;
 }
 
 // ===== SCREEN MANAGER =====
@@ -1883,6 +1974,8 @@ function showInputScreen() {
     updateProfileNavAvatar();
     document.getElementById('roleSubtitle').innerText = t.welcome;
     document.getElementById('ocrBtnLabel').innerText = t.ocr_btn;
+    const ocrCancelBtn = document.getElementById('ocrCancelBtn');
+    if (ocrCancelBtn) ocrCancelBtn.innerText = t.ocr_cancel || 'Скасувати';
     document.getElementById('ocrLang').value = tessLang[currentLang] || 'eng';
     document.getElementById('userText').placeholder = t.text_placeholder;
     const savePlannedBtn = document.getElementById('saveToPlannedBtn');
@@ -2127,6 +2220,8 @@ function updateThemeToggleFab() {
 
 function renderDayOptions() {
     const t = translations[currentLang];
+    const lbl = document.getElementById('daysLabel');
+    if (lbl) lbl.innerText = t.daysLabel;
     const sel = document.getElementById('studyDays');
     sel.innerHTML = '';
     t.dayOptions.forEach(opt => {
@@ -2167,7 +2262,7 @@ function renderTimeOptions() {
         card.innerText = opt.label;
         card.addEventListener('click', () => {
             sessionTimeLimit = opt.value;
-            document.querySelectorAll('.time-card').forEach(c => c.classList.remove('active'));
+            container.querySelectorAll('.time-card').forEach(c => c.classList.remove('active'));
             card.classList.add('active');
         });
         container.appendChild(card);
@@ -2274,6 +2369,36 @@ function applyFontSize() {
     // Scale main action button text slightly too
     const nb = document.getElementById('nextBtn');
     if (nb) nb.style.fontSize = (1.0 + (size - 1.0) * 0.25).toFixed(2) + 'rem';
+
+    // Words Mode: раніше жоден елемент тренування слів не масштабувався
+    // (fontSizeIndex взагалі ігнорувався в цьому режимі) — застосовуємо ту
+    // саму логіку, що й для Text Mode вище.
+    const wtQuestion = document.getElementById('wtQuestion');
+    if (wtQuestion) wtQuestion.style.fontSize = size + 'rem';
+
+    const wtTypeInput = document.getElementById('wtTypeInput');
+    if (wtTypeInput) wtTypeInput.style.fontSize = Math.min(size, 1.25) + 'rem';
+
+    document.querySelectorAll('.wt-choice').forEach(b => {
+        b.style.fontSize = btnFontSize + 'rem';
+        b.style.padding = btnPad;
+    });
+
+    const wtActionFontSize = (1.0 + (size - 1.0) * 0.25).toFixed(2) + 'rem';
+    document.querySelectorAll('.btn-wt-check').forEach(b => {
+        b.style.fontSize = wtActionFontSize;
+    });
+    document.querySelectorAll('.btn-wt-skip-word, .btn-wt-hint').forEach(b => {
+        b.style.fontSize = btnFontSize + 'rem';
+    });
+
+    // Text Mode: результат "Письмо" (write-highlight/score) раніше не масштабувався —
+    // та сама формула (size+'rem'), що й для textDisplay/audioRepeatText/mindCardBody вище.
+    const writeHighlight = document.getElementById('writeHighlight');
+    if (writeHighlight) writeHighlight.style.fontSize = size + 'rem';
+
+    const writeScoreLine = document.getElementById('writeScoreLine');
+    if (writeScoreLine) writeScoreLine.style.fontSize = size + 'rem';
 }
 
 function changeFontSize(dir) {
@@ -2399,7 +2524,7 @@ function showStep() {
                          : status === 'struggling' ? ' 🔁'
                          : '';
         document.getElementById('stepLabel').innerText = `${t.stepReview}  ${step.sub} / ${step.total}${statusIcon}`;
-        display.innerHTML = `<span class="first-word">${blocks[step.index].split(' ')[0]}</span> ...`;
+        display.innerHTML = `<span class="first-word">${escHtml(blocks[step.index].split(' ')[0])}</span> ...`;
         animateTextIn(display);
         hint.style.display = 'none';
         document.getElementById('methodChoice').style.display = 'block';
@@ -2592,7 +2717,16 @@ function nextBlock() {
     showStep();
 }
 
-function resumeLearning() { currentStepIndex++; showStep(); }
+function resumeLearning() {
+    const btn = document.getElementById('resumeBtn');
+    if (btn) {
+        if (btn.disabled) return;
+        btn.disabled = true;
+        setTimeout(() => { const b = document.getElementById('resumeBtn'); if (b) b.disabled = false; }, 350);
+    }
+    currentStepIndex++;
+    showStep();
+}
 
 function selectMethod(m, el) {
     currentMethod = m;
@@ -3017,8 +3151,8 @@ function showWritingResult(original, written, result) {
     document.getElementById('writeHighlight').innerHTML = result.wordResults.map(r => {
         const cls = { correct: 'wr-correct', close: 'wr-close', wrong: 'wr-wrong' }[r.status] || '';
         return cls
-            ? `<span class="${cls}">${r.word} </span>`
-            : `<span>${r.word} </span>`;
+            ? `<span class="${cls}">${escHtml(r.word)} </span>`
+            : `<span>${escHtml(r.word)} </span>`;
     }).join('');
 
     // Motivation
@@ -3310,13 +3444,13 @@ function renderProfileTab(tab) {
             const title = rawTitle.length > 60 ? rawTitle.slice(0, 60) + '…' : rawTitle;
             const date = new Date(entry.savedAt).toLocaleDateString();
             return `<div class="profile-item" id="lib-item-${entry.id}">
-              <div class="profile-item-body" onclick="startRenameLibEntry(${entry.id})">
+              <div class="profile-item-body" onclick="startRenameLibEntry('${entry.id}')">
                 <div class="profile-item-title" id="lib-title-${entry.id}">${escHtml(title)}</div>
                 <div class="profile-item-meta">${date}</div>
               </div>
               <div class="profile-item-actions">
-                <button class="btn-profile-action" onclick="profileLoadText(${entry.id})">${t.profile_load || 'Завантажити'}</button>
-                <button class="btn-profile-delete" onclick="profileDeletePlanned(${entry.id})">${deleteSvg}</button>
+                <button class="btn-profile-action" onclick="profileLoadText('${entry.id}')">${t.profile_load || 'Завантажити'}</button>
+                <button class="btn-profile-delete" onclick="profileDeletePlanned('${entry.id}')">${deleteSvg}</button>
               </div>
             </div>`;
         }).join('');
@@ -3391,7 +3525,10 @@ function profileDeleteLearned(id) {
 }
 
 function profileLoadText(id) {
-    const entry = loadLibrary().find(e => e.id === id);
+    // String(): id тепер рядок (Date.now()+'-'+random, після фіксу колізії id),
+    // але записи, збережені ДО цього фіксу, можуть мати старий числовий id —
+    // порівнюємо як рядки, щоб працювало для обох форматів.
+    const entry = loadLibrary().find(e => String(e.id) === String(id));
     if (!entry) return;
     document.getElementById('profileScreen').style.display = 'none';
     showInputScreen();
@@ -3399,7 +3536,7 @@ function profileLoadText(id) {
 }
 
 function profileDeletePlanned(id) {
-    saveLibrary(loadLibrary().filter(e => e.id !== id));
+    saveLibrary(loadLibrary().filter(e => String(e.id) !== String(id)));
     updateLibraryCount();
     renderProfileTab('planned');
 }
@@ -3419,7 +3556,7 @@ function startRenameLibEntry(id) {
     const titleEl = document.getElementById('lib-title-' + id);
     if (!titleEl) return;
     const lib = loadLibrary();
-    const entry = lib.find(e => e.id === id);
+    const entry = lib.find(e => String(e.id) === String(id));
     if (!entry) return;
 
     const currentTitle = entry.customTitle || entry.title;
@@ -3436,7 +3573,7 @@ function startRenameLibEntry(id) {
     function save() {
         const newTitle = input.value.trim() || entry.title;
         const lib2 = loadLibrary();
-        const idx = lib2.findIndex(e => e.id === id);
+        const idx = lib2.findIndex(e => String(e.id) === String(id));
         if (idx >= 0) {
             lib2[idx].customTitle = newTitle;
             saveLibrary(lib2);
@@ -3487,6 +3624,38 @@ function saveWordSets(sets) {
     try { localStorage.setItem(WORDS_SETS_KEY, JSON.stringify(sets)); } catch {}
 }
 
+// ===== Words Mode: збереження прогресу ПІД ЧАС тренування (не лише в кінці) =====
+// На відміну від Text Mode (saveState() пише кожен крок), тренування слів раніше
+// було повністю stateless до showWordResults() — закриття вкладки посеред черги
+// втрачало все. Зберігаємо чергу+позицію після кожної вправи, і на наступний запуск
+// того ж набору пропонуємо продовжити з того ж місця.
+const WT_PROGRESS_KEY = 'memoriWords_progress';
+
+function saveWtProgress() {
+    if (!wtSet || !wtQueue.length) return;
+    try {
+        localStorage.setItem(WT_PROGRESS_KEY, JSON.stringify({
+            setId: wtSet.id,
+            wtQueue, wtIndex, wtCorrect,
+            savedAt: Date.now()
+        }));
+    } catch {}
+}
+
+function loadWtProgress() {
+    try {
+        const s = JSON.parse(localStorage.getItem(WT_PROGRESS_KEY));
+        if (!s || !Array.isArray(s.wtQueue) || !s.wtQueue.length) return null;
+        if (Date.now() - s.savedAt > 7 * 24 * 60 * 60 * 1000) { localStorage.removeItem(WT_PROGRESS_KEY); return null; }
+        if (s.wtIndex >= s.wtQueue.length) return null; // вже було завершено
+        return s;
+    } catch { return null; }
+}
+
+function clearWtProgress() {
+    try { localStorage.removeItem(WT_PROGRESS_KEY); } catch {}
+}
+
 // Обмежено мовами, які реально підтримує інтерфейс (переклад UI + TTS + OCR) —
 // див. `translations`. Розширювати лише разом з повним перекладом інтерфейсу.
 const WORD_LANGUAGES = [
@@ -3507,6 +3676,7 @@ function showWordLangScreen() {
     const t = translations[currentLang];
     showScreen('wordLangScreen');
     updateProfileNavAvatar();
+    applyFontSize(); // fontSizeIndex — той самий, спільний для профілю, застосувати одразу і в Words Mode
     document.getElementById('wlBackLabel').innerText = t.back_lang || 'Назад';
     document.getElementById('wlTitleEl').innerText = t.wl_title || 'Мовна пара';
     document.getElementById('wlLearningLabel').innerText = t.wl_learning || 'Яку мову вчимо?';
@@ -4089,11 +4259,18 @@ const WT_TTS_LANG = {
 // щоб вважати його вивченим у профілі — навмисно проста метрика, без SRS/дат.
 const WT_MASTERY_THRESHOLD = 2;
 
-// Викликається в кінці тренування (showWordResults) — рахує per-слово чи
-// пройдено БЕЗ жодної помилки цей раз (по всіх типах вправ і requeue-спробах
-// для цього слова), і оновлює masteryScore прямо на об'єкті pair усередині
-// wtSet.pairs (той самий об'єкт, що і в wtQueue[i].pair — filter/sort його не
-// клонують), а тоді зберігає назад у memoriWords_sets.
+// Раніше викликалась ЛИШЕ в кінці тренування (showWordResults) — якщо вкладку
+// закривали посеред черги (навіть 14/15 вправ), увесь прогрес мастері губився.
+// Тепер викликається інкрементально після КОЖНОЇ вправи (wtNext/wtSkipWord/
+// wtGoBack), а не тільки наприкінці — для кожного слова: рахує чи пройдено
+// БЕЗ жодної помилки (по всіх типах вправ і requeue-спробах для цього слова),
+// щойно останнє наявне на цей момент входження цього слова в черзі отримало
+// відповідь (correct !== undefined) — тобто НЕ чекаючи проходження всієї черги.
+// `wtSettledPairs` захищає від повторного нарахування того самого "чистого
+// проходу" при кожному повторному виклику цієї функції протягом сесії.
+// Оновлює masteryScore прямо на об'єкті pair усередині wtSet.pairs (той самий
+// об'єкт, що і в wtQueue[i].pair — filter/sort його не клонують), і зберігає
+// назад у memoriWords_sets одразу, а не в кінці.
 function updateWordMastery() {
     if (!wtSet) return;
     const byPair = new Map();
@@ -4101,12 +4278,19 @@ function updateWordMastery() {
         if (!byPair.has(ex.pair)) byPair.set(ex.pair, []);
         byPair.get(ex.pair).push(ex);
     });
+    let changed = false;
     byPair.forEach((exs, pair) => {
-        const attempted = exs.filter(e => e.correct !== undefined && e.correct !== null);
-        if (!attempted.length) return; // не дійшли до цього слова цей раз
+        if (wtSettledPairs.has(pair)) return; // вже підбито цієї сесії — не рахувати вдруге
+        const resolved = exs.filter(e => e.correct !== undefined);
+        if (resolved.length < exs.length) return; // ще є невідповіджені вправи цього слова — зачекати
+        const attempted = resolved.filter(e => e.correct !== null); // без пропущених (skip)
+        if (!attempted.length) return; // усі наявні вправи цього слова пропущені — нема що рахувати
+        wtSettledPairs.add(pair);
         const allCorrect = attempted.every(e => e.correct === true);
         pair.masteryScore = allCorrect ? (pair.masteryScore || 0) + 1 : 0;
+        changed = true;
     });
+    if (!changed) return;
     wtSet.lastTrainedAt = Date.now();
 
     const sets = loadWordSets();
@@ -4131,6 +4315,48 @@ async function startWordTraining(set) {
     wordLangTo   = set.langTo   || 'uk';
     wordLevel    = set.level    || 1;
 
+    // Якщо є незавершений прогрес саме для цього набору (вкладку закрили
+    // посеред тренування) — пропонуємо продовжити з того ж місця, а не
+    // почати повністю заново (див. WT_PROGRESS_KEY / saveWtProgress).
+    const saved = loadWtProgress();
+    if (saved && saved.setId === set.id) {
+        const msg = (t.wt_resume_confirm || 'Знайдено незавершене тренування цього набору ({n}/{total}). Продовжити з того ж місця?')
+            .replace('{n}', saved.wtIndex).replace('{total}', saved.wtQueue.length);
+        if (window.confirm(msg)) {
+            // Пари в збереженому JSON — окремі клоновані об'єкти після
+            // JSON.parse, а не ті самі референси, що в set.pairs. Прив'язуємо
+            // назад до реальних об'єктів пар цього набору (за word+translation),
+            // щоб masteryScore і надалі писався в правильне місце.
+            wtQueue = saved.wtQueue.map(ex => {
+                const match = set.pairs.find(p => p.word === ex.pair.word && p.translation === ex.pair.translation);
+                return { ...ex, pair: match || ex.pair };
+            });
+            wtIndex = saved.wtIndex;
+            wtCorrect = saved.wtCorrect || 0;
+            wtCurrentAudioPair = null;
+
+            // Пари, чиї всі наявні на момент збереження вправи вже отримали
+            // відповідь, вже підбили masteryScore ДО перезапуску (інкрементальне
+            // збереження) — позначаємо їх settled, щоб updateWordMastery() не
+            // нарахувала той самий "чистий прохід" вдруге.
+            wtSettledPairs = new Set();
+            const byPair = new Map();
+            wtQueue.forEach(ex => {
+                if (!byPair.has(ex.pair)) byPair.set(ex.pair, []);
+                byPair.get(ex.pair).push(ex);
+            });
+            byPair.forEach((exs, pair) => {
+                if (exs.every(e => e.correct !== undefined)) wtSettledPairs.add(pair);
+            });
+
+            showScreen('wordTrainingScreen');
+            renderWtExercise();
+            return;
+        } else {
+            clearWtProgress();
+        }
+    }
+
     // Тип "Речення" доступний на будь-якому рівні — приклади підтягуємо
     // заздалегідь (мережевий запит на пару), інакше чергу нема з чого будувати.
     showScreen('wordTrainingScreen');
@@ -4142,6 +4368,8 @@ async function startWordTraining(set) {
     wtIndex = 0;
     wtCorrect = 0;
     wtCurrentAudioPair = null;
+    wtSettledPairs = new Set();
+    clearWtProgress();
     showScreen('wordTrainingScreen');
     renderWtExercise();
 }
@@ -4409,6 +4637,11 @@ function renderWtExercise() {
                      onclick="wtSelectChoice(this, ${ch === correctAnswer})">${escHtml(ch)}</button>`
         ).join('');
     }
+
+    // Кожна вправа перемальовує choices/input наново (innerHTML) — inline
+    // fontSize з попереднього виклику applyFontSize() злітає разом з розміткою,
+    // тому застосовуємо знову ПІСЛЯ рендеру розмітки цієї вправи, не лише при вході в екран.
+    applyFontSize();
 }
 
 function getWtDistractors(correct, all, type, count) {
@@ -4600,6 +4833,8 @@ function wtSkipWord() {
         wtQueue[wtIndex].correct = null; // skipped
     }
     wtIndex++;
+    updateWordMastery(); // інкрементально — не чекає кінця черги
+    saveWtProgress();
     renderWtExercise();
 }
 
@@ -4614,7 +4849,11 @@ function wtGoBack() {
         ex.hintUsed = false;
         ex.hadWrongTyped = false;
         ex.attempts = 0;
+        // Ця вправа знову "не відповідена" — дозволяємо пере-оцінити mastery
+        // цього слова пізніше замість заморожування попереднього значення.
+        wtSettledPairs.delete(ex.pair);
     }
+    saveWtProgress();
     renderWtExercise();
 }
 
@@ -4734,11 +4973,14 @@ function wtNext() {
     const hb = document.getElementById('wtHintBtn');
     if (hb) { hb.style.display = 'none'; hb.disabled = false; hb.classList.remove('wt-hint-used'); }
     wtIndex++;
+    updateWordMastery(); // інкрементально — не чекає кінця черги
+    saveWtProgress();
     renderWtExercise();
 }
 
 function showWordResults() {
     updateWordMastery();
+    clearWtProgress(); // сесія завершена нормально — прогрес більше не потрібен
     const t = translations[currentLang];
     showScreen('wordResultsScreen');
     const total = wtQueue.length;
