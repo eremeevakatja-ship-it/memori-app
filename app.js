@@ -3322,7 +3322,7 @@ function profileTrainWordSet(id) {
 
 function profileDeleteWordSet(id) {
     saveWordSets(loadWordSets().filter(s => s.id !== id));
-    renderProfileTab('words');
+    renderWordProfileList();
 }
 
 function startRenameLibEntry(id) {
@@ -4473,6 +4473,10 @@ function wtCheckTyped() {
         // the mobile keyboard, which was the actual source of "не зрозуміло як")
         input.focus();
         input.select();
+        // The mobile keyboard opening shrinks the visible viewport and can cover this
+        // feedback text (it sits below the input) — nudge it back into view once the
+        // keyboard animation settles, so "спробуйте ще раз" is actually visible.
+        setTimeout(() => feedback.scrollIntoView({ block: 'nearest', behavior: 'smooth' }), 300);
     }
 }
 
