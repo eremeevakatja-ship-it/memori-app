@@ -4234,9 +4234,13 @@ function renderWtExercise() {
             hintBtn.classList.remove('wt-hint-used');
             document.getElementById('wtHintLabel').innerText = t.wt_hint || 'Підказка';
         }
-        // Clear wrong state on every keystroke
+        // Clear wrong state on every keystroke — must also clear the wrap (border/background
+        // pink stays otherwise, even though the input's own red text resets, which reads as
+        // "still broken, can't retry")
         input.oninput = () => {
             input.classList.remove('wt-input-wrong');
+            const wrap = document.querySelector('.wt-type-wrap');
+            if (wrap) wrap.classList.remove('wt-wrap-wrong');
             const fb = document.getElementById('wtFeedback');
             if (fb.classList.contains('wt-fb-wrong')) fb.style.display = 'none';
         };
