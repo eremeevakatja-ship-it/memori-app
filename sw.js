@@ -1,6 +1,10 @@
-const CACHE = 'memori-v40';
+const CACHE = 'memori-v41';
 const CORE = [
   './index.html',
+  './state.js',
+  './audio.js',
+  './learning.js',
+  './words.js',
   './app.js',
   './style.css',
   './icon.svg',
