@@ -143,7 +143,7 @@
                 <label id="inputLabel">Вставте текст:</label>
               </div>
               <div class="ocr-controls">
-                <select id="ocrLang" class="ocr-lang-select" title="Мова тексту">
+                <select id="ocrLang" class="ocr-lang-select" title="Мова тексту" onchange="saveOcrLangPref()">
                   <option value="ukr">🇺🇦</option>
                   <option value="eng">🇬🇧</option>
                   <option value="pol">🇵🇱</option>
@@ -657,7 +657,7 @@
       </div>
     </div>
 
-    <script src="app.js?v=77"></script>
+    <script src="app.js?v=78"></script>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});

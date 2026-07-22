@@ -1972,6 +1972,11 @@ function selectMode(mode) {
     }
 }
 
+function saveOcrLangPref() {
+    const val = document.getElementById('ocrLang').value;
+    localStorage.setItem('memori_ocr_lang_pref', val);
+}
+
 function showInputScreen() {
     const t = translations[currentLang];
     showScreen('inputScreen');
@@ -1982,7 +1987,8 @@ function showInputScreen() {
     document.getElementById('ocrBtnLabel').innerText = t.ocr_btn;
     const ocrCancelBtn = document.getElementById('ocrCancelBtn');
     if (ocrCancelBtn) ocrCancelBtn.innerText = t.ocr_cancel || 'Скасувати';
-    document.getElementById('ocrLang').value = tessLang[currentLang] || 'eng';
+    const savedOcrLang = localStorage.getItem('memori_ocr_lang_pref');
+    document.getElementById('ocrLang').value = savedOcrLang || tessLang[currentLang] || 'eng';
     document.getElementById('userText').placeholder = t.text_placeholder;
     const savePlannedBtn = document.getElementById('saveToPlannedBtn');
     if (savePlannedBtn) savePlannedBtn.title = t.library_save;
