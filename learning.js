@@ -506,7 +506,11 @@ function showMindHint() {
         ? blocks.slice(0, step.upToIndex + 1).join('\n')
         : blocks[step.index];
 
-    const wordsPerLine = mindHintLevel === 1 ? 1 : 3;
+    // Level 1 starts at 2 words/line, not 1 — the review teaser (showStep())
+    // already reveals the first word before the method is even chosen, so a
+    // 1-word hint would repeat information the user already has instead of
+    // advancing it.
+    const wordsPerLine = mindHintLevel === 1 ? 2 : 3;
     const hintLines = blockText.split('\n').filter(Boolean).map(line => {
         const words = line.trim().split(/\s+/).filter(Boolean);
         const shown = words.slice(0, Math.min(wordsPerLine, words.length));
@@ -560,7 +564,6 @@ function showWritingInput() {
     const checkBtn = document.getElementById('writeCheckBtn');
     checkBtn.innerText = t.write_check_btn;
     checkBtn.disabled = true;
-    checkBtn.style.opacity = '0.5';
 
     // Reset hint state
     hintUsed = false;
@@ -575,7 +578,6 @@ function showWritingInput() {
     textarea.oninput = function() {
         const hasText = textarea.value.length > 0;
         checkBtn.disabled = !hasText;
-        checkBtn.style.opacity = hasText ? '1' : '0.5';
     };
 
     document.getElementById('writingArea').style.display = 'block';
@@ -604,14 +606,22 @@ function showHint() {
     const writWords = normalizeText(written).split(' ').filter(Boolean);
 
     // Find the first word that is wrong or missing
-    let hintWord = null;
+    let hintIdx = -1;
     for (let i = 0; i < origWords.length; i++) {
         const dist = levenshtein(origWords[i], writWords[i] || '');
-        if (dist > 0) { hintWord = origWords[i]; break; }
+        if (dist > 0) { hintIdx = i; break; }
     }
-    if (!hintWord) hintWord = origWords[writWords.length] || null;
+    if (hintIdx === -1 && writWords.length < origWords.length) hintIdx = writWords.length;
 
-    if (!hintWord) return; // already complete
+    if (hintIdx === -1) return; // already complete
+
+    // The review teaser (showStep()) already reveals word 0 before the method
+    // is even chosen, so if nothing typed/correct yet, a hint that only repeats
+    // word 0 gives no new information — reveal it together with word 1 instead.
+    let hintWord = origWords[hintIdx];
+    if (hintStep.type !== 'bigReview' && hintIdx === 0 && origWords[1]) {
+        hintWord = origWords[0] + ' ' + origWords[1];
+    }
 
     // Show hint word
     const hintDisplay = document.getElementById('hintDisplay');

@@ -592,6 +592,12 @@ body[data-theme="dark"] .mind-hint-display { background: rgba(251,191,36,0.08); 
   flex: 1;
   margin: 0 !important;
 }
+.btn-check:disabled { opacity: 0.5; cursor: not-allowed; }
+/* Dark theme: var(--primary) is a light indigo (#818cf8) that fails WCAG AA
+   with white text (~3:1, worse once :disabled opacity fades it further) —
+   same fix already applied to .btn-wt-check in Words Mode. */
+body[data-theme="dark"] .btn-check { background: #4f46e5; }
+body[data-theme="dark"] .btn-check:disabled { opacity: 0.75; }
 .hint-display {
   display: flex;
   align-items: center;
