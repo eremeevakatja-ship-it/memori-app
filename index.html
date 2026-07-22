@@ -665,6 +665,18 @@
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});
+        // Коли активується НОВА версія SW (після деплою), відкрита вкладка й далі
+        // виконує СТАРИЙ уже завантажений JS, поки хтось вручну не перезавантажить
+        // сторінку — clients.claim() у sw.js бере контроль над фетчами, але не над
+        // тим, що вже виконується в пам'яті. Це і був корінь повторюваних багів
+        // "прогрес зник"/"кнопка не реагує" після деплою нових версій — тихий
+        // авто-reload рівно один раз закриває цю прогалину назавжди.
+        let refreshingAfterSwUpdate = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (refreshingAfterSwUpdate) return;
+          refreshingAfterSwUpdate = true;
+          location.reload();
+        });
       }
     </script>
   </body>
