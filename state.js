@@ -514,9 +514,9 @@ async function checkPendingReminder() {
     const body = (translations[currentLang] || translations.en).notif_body || 'Time to practise! 🔥';
     try {
         const reg = await navigator.serviceWorker.ready;
-        reg.showNotification('Memori 🌿', { body, icon: './mascot/cat-face.png', badge: './icon.svg' });
+        reg.showNotification('Memori 🌿', { body, icon: './icon.svg', badge: './icon.svg' });
     } catch {
-        try { new Notification('Memori 🌿', { body, icon: './mascot/cat-face.png' }); } catch {}
+        try { new Notification('Memori 🌿', { body, icon: './icon.svg' }); } catch {}
     }
 }
 
