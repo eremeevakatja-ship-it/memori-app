@@ -322,7 +322,8 @@ function bigReviewReadDone() {
     document.getElementById('methodChoice').style.display = 'block';
     const t = translations[currentLang];
     document.getElementById('m-mind').innerText = t.method_mind;
-    document.getElementById('m-write').style.display = 'none'; // BigReview: no writing
+    document.getElementById('m-write').style.display = '';
+    document.getElementById('m-write').innerText = t.method_write;
     document.getElementById('m-audio').innerText = t.method_audio;
     document.querySelectorAll('.btn-small').forEach(b => b.classList.remove('active-method'));
 }
