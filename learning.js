@@ -558,7 +558,18 @@ function showWritingInput() {
     document.getElementById('mindCard').style.display = 'none';
     document.getElementById('writingResult').style.display = 'none';
 
+    const wStep = learningQueue[currentStepIndex];
+    const noteEl = document.getElementById('writeBigReviewNote');
     const textarea = document.getElementById('writingInput');
+    if (wStep.type === 'bigReview') {
+        const n = wStep.upToIndex + 1;
+        noteEl.innerText = (t.write_bigreview_note || 'Write all {n} blocks as one text').replace('{n}', n);
+        noteEl.style.display = 'block';
+        textarea.rows = 10;
+    } else {
+        noteEl.style.display = 'none';
+        textarea.rows = 4;
+    }
     textarea.value = '';
     textarea.placeholder = t.write_placeholder;
     const checkBtn = document.getElementById('writeCheckBtn');
@@ -637,7 +648,16 @@ function showHint() {
 }
 
 function normalizeText(text) {
-    return text.toLowerCase().replace(/[.,!?;:"'()\-—«»]/g, ' ').replace(/\s+/g, ' ').trim();
+    // Case and punctuation never count as mistakes here - accuracy levels judge
+    // words, not typography. The punctuation set is wide on purpose: pasted text
+    // (Word, PDF, OCR) commonly carries curly quotes, en-dashes, ellipsis and
+    // non-breaking spaces that a plain [.,!?] set would miss and wrongly mark wrong.
+    return text
+        .toLowerCase()
+        .replace(/\u00A0/g, ' ')
+        .replace(/[.,!?;:"'()\[\]{}\-\u2013\u2014\u00AB\u00BB\u201E\u201C\u201D\u2018\u2019\u2026]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
 }
 
 function levenshtein(a, b) {
@@ -775,7 +795,7 @@ function showFinal() {
 
     ['learningScreen', 'restScreen'].forEach(id => document.getElementById(id).style.display = 'none');
     const el = document.getElementById('finalScreen');
-    document.getElementById('finalIcon').innerHTML = '<span class="icon-badge icon-badge-xl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2"/><path d="M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2"/><path d="M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3"/><path d="M4 22h16"/><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/><path d="M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3"/></svg></span>';
+    document.getElementById('finalIcon').innerHTML = '<span class="icon-badge icon-badge-xl icon-c-rose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2"/><path d="M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2"/><path d="M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3"/><path d="M4 22h16"/><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/><path d="M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3"/></svg></span>';
     const allDone = currentStepIndex >= learningQueue.length;
     if (allDone) {
         clearState();

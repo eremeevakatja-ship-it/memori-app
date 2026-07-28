@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=73" />
+    <link rel="stylesheet" href="style.css?v=75" />
   </head>
   <body>
     <div class="container">
@@ -142,7 +142,7 @@
           <div class="input-group">
             <div class="input-label-row">
               <div class="input-label-mascot">
-                <span class="icon-badge icon-badge-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"/></svg></span>
+                <span class="icon-badge icon-badge-sm icon-c-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"/></svg></span>
                 <label id="inputLabel">Вставте текст:</label>
               </div>
               <div class="ocr-controls">
@@ -266,7 +266,8 @@
 
           <!-- Writing area -->
           <div id="writingArea" style="display:none; margin-bottom:16px;">
-            <div class="icon-row"><span class="icon-badge icon-badge-md"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 21h8"/><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/></svg></span></div>
+            <div class="icon-row"><span class="icon-badge icon-badge-md icon-c-amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 21h8"/><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/></svg></span></div>
+            <p id="writeBigReviewNote" class="write-bigreview-note" style="display:none;"></p>
             <textarea id="writingInput" rows="4" class="writing-textarea"></textarea>
             <div id="hintDisplay" class="hint-display" style="display:none;">
               <span class="hint-label"></span>
@@ -280,7 +281,7 @@
 
           <!-- Audio card -->
           <div id="audioCard" style="display:none;" class="audio-card">
-            <div class="icon-row"><span class="icon-badge icon-badge-lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg></span></div>
+            <div class="icon-row"><span class="icon-badge icon-badge-lg icon-c-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg></span></div>
             <div id="audioWave" class="audio-wave">
               <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
               <div class="wave-bars">
@@ -311,7 +312,7 @@
             <!-- Mic recording indicator -->
             <div id="micRecording" style="display:none;" class="mic-recording">
               <div class="mic-pulse-wrap">
-                <span class="mic-pulse-img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></span>
+                <span class="mic-pulse-img icon-c-coral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></span>
               </div>
               <p id="micStatus" class="audio-status"></p>
             </div>
@@ -319,7 +320,7 @@
 
           <!-- Writing result -->
           <div id="writingResult" style="display:none; margin-bottom:16px;">
-            <div id="writeThinkIcon" class="icon-row" style="display:none;"><span class="icon-badge icon-badge-md"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></span></div>
+            <div id="writeThinkIcon" class="icon-row" style="display:none;"><span class="icon-badge icon-badge-md icon-c-yellow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></span></div>
             <div id="writeScoreLine" class="write-score-line"></div>
             <div id="writeMotivation" class="write-motivation" style="display:none;"></div>
             <div id="writeHighlight" class="write-highlight"></div>
@@ -346,7 +347,7 @@
         <!-- Session Pause Screen -->
         <div id="sessionPauseScreen" style="display:none; flex-direction:column; align-items:center; padding:32px 20px; min-height:300px; justify-content:center; animation:fadeIn 0.4s ease;">
           <div class="pause-icon-wrap">
-            <span class="pause-icon-img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>
+            <span class="pause-icon-img icon-c-violet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 5h4"/><path d="M20 3v4"/><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg></span>
           </div>
           <h2 id="pauseTitle" style="font-size:22px; font-weight:bold; margin-bottom:12px; text-align:center;"></h2>
           <p id="pauseBody" style="font-size:0.9rem; text-align:center; margin-bottom:24px; line-height:1.6; color:#888;"></p>
@@ -389,7 +390,7 @@
           <div class="profile-hero">
             <div class="profile-avatar-wrap" onclick="triggerAvatarUpload()">
               <img id="profileAvatarImg" class="profile-avatar-img" style="display:none;" alt="">
-              <div id="profileAvatarPlaceholder" class="profile-avatar-placeholder">
+              <div id="profileAvatarPlaceholder" class="profile-avatar-placeholder icon-c-teal">
                 <svg class="profile-avatar-placeholder-img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
               </div>
               <div class="profile-avatar-cam">
@@ -434,7 +435,7 @@
           <div class="profile-hero">
             <div class="profile-avatar-wrap" onclick="triggerAvatarUpload()">
               <img class="profile-avatar-img" style="display:none;" alt="">
-              <div class="profile-avatar-placeholder">
+              <div class="profile-avatar-placeholder icon-c-teal">
                 <svg class="profile-avatar-placeholder-img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
               </div>
               <div class="profile-avatar-cam">
@@ -468,7 +469,7 @@
           </div>
           <div id="wtQuestion" class="wt-question"></div>
           <div id="wtAudioWrap" style="display:none" class="wt-audio-wrap">
-            <div class="icon-row"><span class="icon-badge icon-badge-md"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg></span></div>
+            <div class="icon-row"><span class="icon-badge icon-badge-md icon-c-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg></span></div>
             <button onclick="wtPlayAudio()" id="wtListenBtn" class="btn-wt-audio">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
               Прослухати
@@ -484,7 +485,7 @@
 
           <!-- Typing area (spell / dictation) -->
           <div id="wtTypeArea" style="display:none" class="wt-type-area">
-            <div class="icon-row"><span class="icon-badge icon-badge-md"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 21h8"/><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/></svg></span></div>
+            <div class="icon-row"><span class="icon-badge icon-badge-md icon-c-amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 21h8"/><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/></svg></span></div>
             <div class="wt-type-wrap">
               <input id="wtTypeInput" type="text" class="wt-type-input"
                      autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"
@@ -510,7 +511,7 @@
 
         <!-- Word Results Screen -->
         <div id="wordResultsScreen" style="display:none;flex-direction:column;align-items:center;padding:36px 20px;min-height:320px;justify-content:center;animation:fadeIn 0.4s ease;">
-          <div class="final-icon-wrap"><span class="icon-badge icon-badge-xl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2"/><path d="M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2"/><path d="M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3"/><path d="M4 22h16"/><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/><path d="M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3"/></svg></span></div>
+          <div class="final-icon-wrap"><span class="icon-badge icon-badge-xl icon-c-rose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2"/><path d="M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2"/><path d="M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3"/><path d="M4 22h16"/><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/><path d="M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3"/></svg></span></div>
           <h2 id="wrTitle" style="font-size:1.5rem;font-weight:800;margin-bottom:20px;text-align:center;"></h2>
           <div id="wrFraction" class="wr-fraction"></div>
           <div id="wrPct" class="wr-pct"></div>
@@ -554,7 +555,7 @@
               <span id="wiBackLabel">Назад</span>
             </button>
           </div>
-          <div class="icon-row"><span class="icon-badge icon-badge-md"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"/></svg></span></div>
+          <div class="icon-row"><span class="icon-badge icon-badge-md icon-c-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"/></svg></span></div>
           <h2 id="wiTitleEl" class="setup-title">Додайте слова</h2>
           <p id="wiHintEl" class="wi-hint">
             <span id="wiHintText">Кожне слово з нового рядка</span>
@@ -662,9 +663,9 @@
 
     <script src="state.js?v=2"></script>
     <script src="audio.js?v=1"></script>
-    <script src="learning.js?v=3"></script>
+    <script src="learning.js?v=5"></script>
     <script src="words.js?v=1"></script>
-    <script src="app.js?v=79"></script>
+    <script src="app.js?v=81"></script>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});
