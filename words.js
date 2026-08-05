@@ -18,6 +18,16 @@ const WORD_LANGUAGES = [
     { code: 'es', flag: 'es', name: 'Español' },
 ];
 
+// Мови з підтвердженою якісною озвучкою на реальному пристрої (2026-08-05);
+// uk/pl/fr — браузер на тестовому телефоні User взагалі не має голосу
+// (пропонує "додати голос" — системне обмеження пристрою, не баг коду);
+// es — ще не перевірено, СВІДОМО не додано сюди й не заблоковано нижче,
+// лишається доступним як і було (гейтиться лише наявністю speechSynthesis).
+// Використовується в buildWtQueue() нижче, щоб archived-мови (uk/pl/fr) не
+// потрапляли в пул audio/dictation вправ Words Mode. Нічого не видалено —
+// лише звужено видимість, до платного TTS. Див. DECISIONS.md D-006, BACKLOG.md TTS-01.
+const TTS_VERIFIED_LANGS = ['en', 'de'];
+
 
 // ----- [W4 Words Mode screens flow + translation fetching]  (was app.js lines 3681-4256) -----
 function showWordLangScreen() {
@@ -25,8 +35,11 @@ function showWordLangScreen() {
     showScreen('wordLangScreen');
     updateProfileNavAvatar();
     applyFontSize(); // fontSizeIndex — той самий, спільний для профілю, застосувати одразу і в Words Mode
+    setBottomNav('words', 'learn');
     document.getElementById('wlBackLabel').innerText = t.back_lang || 'Назад';
     document.getElementById('wlTitleEl').innerText = t.wl_title || 'Мовна пара';
+    const wlSubEl = document.getElementById('wlSubtitleEl');
+    if (wlSubEl) wlSubEl.innerText = t.wl_subtitle || '';
     document.getElementById('wlLearningLabel').innerText = t.wl_learning || 'Яку мову вчимо?';
     document.getElementById('wlNativeLabel').innerText = t.wl_native || 'Моя рідна мова';
     document.getElementById('wlNextBtn').innerText = t.wl_next || 'Далі →';
@@ -462,6 +475,8 @@ function showWordTopicScreen() {
     showScreen('wordTopicScreen');
     document.getElementById('wtBackLabel').innerText = t.back_lang || 'Назад';
     document.getElementById('wtTitleEl').innerText = t.wt_title || 'Назвіть тему';
+    const wtSubEl = document.getElementById('wtTopicSubtitleEl');
+    if (wtSubEl) wtSubEl.innerText = t.wt_topic_subtitle || '';
     document.getElementById('wordTopicInput').placeholder = t.wt_placeholder || 'Наприклад: Тварини';
     document.getElementById('wtAutoBtn').innerText = t.wt_auto || '✨ Підібрати автоматично';
     document.getElementById('wtSaveBtn').innerText = t.wt_save || 'Зберегти →';
@@ -802,12 +817,19 @@ function buildWtQueue(pairs, timeMinutes = Infinity) {
     const rnd = arr => [...arr].sort(() => Math.random() - 0.5);
     const hasSpeech = 'speechSynthesis' in window;
 
+    // audio/dictation озвучують pair.word мовою wordLangFrom (мова що вчимо, не
+    // wordLangTo/не мова інтерфейсу — див. wtPlayAudio() в audio.js). Архівовано
+    // 2026-08-05 для uk/pl/fr (немає голосу на тестовому пристрої User) — es
+    // свідомо лишається як і раніше (лише hasSpeech), ще не перевірено.
+    const ttsWordOk = hasSpeech &&
+        (TTS_VERIFIED_LANGS.includes(wordLangFrom) || wordLangFrom === 'es');
+
     // Рівень НЕ впливає на те, які типи вправ трапляються — усі типи доступні
     // на будь-якому рівні (лише фічі браузера/наявність прикладів фільтрують пул).
     // Час — єдине, що визначає РОЗМІР черги (менше часу = менше вправ).
     // 'sentence' тимчасово вимкнено — якість речень з Google Translate
     // недостатня; повернути, коли буде нормальна генерація (див. AI-бекенд)
-    const pool = ['w2t', 't2w', hasSpeech ? 'audio' : null, 'spell', hasSpeech ? 'dictation' : null].filter(Boolean);
+    const pool = ['w2t', 't2w', ttsWordOk ? 'audio' : null, 'spell', ttsWordOk ? 'dictation' : null].filter(Boolean);
 
     // "sentence" доступний лише для пар з реально знайденими прикладами —
     // фільтруємо саме цей тип по конкретному раунду пар, інші типи без змін.
@@ -1292,13 +1314,24 @@ function wtGoHome() {
 // ----- [W1 WORD PROFILE screen (openWordProfile/renderWordProfileList)]  (was app.js lines 3466-3509) -----
 // ===== WORD PROFILE (окремий напрямок — спільні тільки ім'я+фото через renderProfileHero) =====
 
-function openWordProfile(returnFn) {
+// focus: 'progress' (default, скролить до списку наборів слів) | 'identity' (скролить
+// до hero — ім'я+аватар). Той самий екран (wordProfileScreen) обслуговує обидва пункти
+// нижньої навігації Words Mode — симетрично до openProfile() в app.js, див. DECISIONS.md.
+function openWordProfile(returnFn, focus) {
     profileReturnFn = typeof returnFn === 'function' ? returnFn : showWordLangScreen;
     showScreen('wordProfileScreen');
     const t = translations[currentLang];
     document.getElementById('wordProfileBackLabel').innerText = t.back_lang || 'Назад';
     renderProfileHero();
     renderWordProfileList();
+    updateProfileNavAvatar();
+    setBottomNav('words', focus === 'identity' ? 'profile' : 'progress');
+    if (focus === 'identity') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+        const listEl = document.querySelector('#wordProfileScreen .profile-content');
+        if (listEl) listEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 }
 
 function renderWordProfileList() {

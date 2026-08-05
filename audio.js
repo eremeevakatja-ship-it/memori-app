@@ -302,15 +302,38 @@ function playNewBlockSound() {
 // F-04: плавна поява тексту блоку — перезапускає CSS-анімацію на елементі
 
 // ----- [A4 Text Mode audio review method]  (was app.js lines 2748-2932) -----
+// 2026-08-05 correction (D-008 addendum): this method used to open straight
+// into speakCurrentBlock() (TTS reads the block aloud), only revealing the
+// record/silent buttons once the utterance finished (or immediately, if no
+// voice was installed — see the old audio_tts_unavailable branch below).
+// User clarified she only wanted the TTS step gone — recording her own voice
+// (ASR, startVoiceRecord()) should stay reachable, and doesn't depend on the
+// browser having a good voice the way TTS does. So this now skips straight to
+// the "ready to record" state: no speakCurrentBlock() call, no wave/"Listening"
+// hint that implies something is about to play aloud.
 function showAudioMethod() {
+    const t = translations[currentLang];
     document.getElementById('textDisplay').style.display = 'none';
     document.getElementById('nextBtn').style.display = 'none';
     document.getElementById('mindCard').style.display = 'none';
     document.getElementById('writingArea').style.display = 'none';
     document.getElementById('writingResult').style.display = 'none';
     document.getElementById('audioCard').style.display = 'block';
-    renderAudioSpeedRow();
-    speakCurrentBlock();
+    document.getElementById('audioCard').classList.remove('speaking');
+
+    // Archived (not deleted, D-006/TTS-01): "Ще раз" replays TTS, and the
+    // speed row tunes TTS rate — neither applies now that nothing is spoken.
+    // The wave/headphone visual is the same "something is playing" cue, so it
+    // stays hidden here too.
+    document.getElementById('audioWave').style.display = 'none';
+    document.getElementById('audioAgainBtn').style.display = 'none';
+    document.getElementById('audioSpeedRow').style.display = 'none';
+
+    document.getElementById('audioStatus').innerText = t.audio_ready_record;
+    document.getElementById('audioRepeatText').style.display = 'none';
+    document.getElementById('audioBtnRecord').innerText = t.audio_record;
+    document.getElementById('audioBtnSilent').innerText = t.audio_silent;
+    document.getElementById('audioActions').style.display = 'flex';
 }
 
 async function speakCurrentBlock() {

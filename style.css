@@ -2292,22 +2292,37 @@ body[data-theme="dark"] .word-topic-input {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(64,145,108,0.15);
 }
+/* Playful Premium icon tiles (2026-08-05) — градієнтна плитка + кольорова тінь замість
+   плаского кольору. Той самий прийом можна перевикористати для інших "великих"
+   функціональних плиток у майбутньому (напр. method-card), НЕ на дрібні inline SVG
+   в кнопках і НЕ на навігаційну лінійну iconography (D-007 там лишається чинним). */
 .mode-card-icon {
   width: 52px;
   height: 52px;
-  border-radius: 14px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  color: rgba(255,255,255,0.97);
 }
+.mode-card-icon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.38), rgba(255,255,255,0) 60%);
+  pointer-events: none;
+}
+.mode-card-icon svg { position: relative; z-index: 1; }
 .mode-card-icon-text {
-  background: #e8f5e9;
-  color: #2d6a4f;
+  background: linear-gradient(135deg, #57b587, #2d6a4f);
+  box-shadow: 0 10px 20px -6px rgba(45,106,79,0.55);
 }
 .mode-card-icon-words {
-  background: #e8eaf6;
-  color: #3949ab;
+  background: linear-gradient(135deg, #8b93f5, #4338ca);
+  box-shadow: 0 10px 20px -6px rgba(67,56,202,0.5);
 }
 .mode-card-body {
   flex: 1;
@@ -2343,16 +2358,119 @@ body[data-theme="dark"] .mode-card:hover {
   border-color: #818cf8;
   box-shadow: 0 6px 20px rgba(129,140,248,0.15);
 }
-body[data-theme="dark"] .mode-card-icon-text {
-  background: rgba(64,145,108,0.18);
-  color: #4ade80;
-}
-body[data-theme="dark"] .mode-card-icon-words {
-  background: rgba(99,102,241,0.18);
-  color: #818cf8;
-}
+/* mode-card-icon-text/words — навмисно БЕЗ dark-theme перевизначення: градієнтна
+   плитка + кольорова тінь самодостатня в обох темах (той самий прийом, що й
+   support-fab/theme-toggle-fab, які теж не мають dark-специфічних кольорів заливки). */
 body[data-theme="dark"] .mode-card:hover .mode-card-arrow {
   color: #818cf8;
+}
+
+/* ===== SHORT-SCREEN COMPOSITION (modeScreen / wordLangScreen / wordTopicScreen) =====
+   2026-08-05 — ці 3 екрани раніше мали короткий контент, що прилипав до верху картки,
+   лишаючи ~50% картки порожньою. Топбар (кнопка "Назад") лишається поза центрованим
+   блоком (щоб не зʼїжджала в середину екрана), решта контенту центрується вертикально
+   у виділеному min-height (задано inline в index.html на кожному екрані, як і в
+   FLEX_SCREENS-патерні sessionPauseScreen/finalScreen). */
+.screen-blob-host { position: relative; overflow: hidden; }
+.screen-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(50px);
+  opacity: 0.16;
+  pointer-events: none;
+  z-index: 0;
+}
+.screen-blob-1 { width: 180px; height: 180px; top: -50px; right: -50px; background: var(--primary); }
+.screen-blob-2 { width: 150px; height: 150px; bottom: -40px; left: -40px; background: var(--primary-soft); opacity: 0.5; }
+.screen-center-content {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.screen-subtitle {
+  font-size: 0.85rem;
+  color: #888;
+  text-align: center;
+  line-height: 1.5;
+  margin: -14px 0 22px;
+}
+body[data-theme="dark"] .screen-subtitle { color: #64748b; }
+
+/* Fade+translateY stagger for the centered content's direct children */
+.stagger-in > * { opacity: 0; animation: fadeIn 0.5s ease forwards; }
+.stagger-in > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger-in > *:nth-child(2) { animation-delay: 0.12s; }
+.stagger-in > *:nth-child(3) { animation-delay: 0.19s; }
+.stagger-in > *:nth-child(4) { animation-delay: 0.26s; }
+.stagger-in > *:nth-child(5) { animation-delay: 0.33s; }
+.stagger-in > *:nth-child(6) { animation-delay: 0.4s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .stagger-in > * { animation: none; opacity: 1; }
+  #modeScreen, #wordLangScreen, #wordTopicScreen { animation: none; }
+}
+
+/* ===== BOTTOM NAV (Навчання/Прогрес/Профіль) =====
+   Floating pill, спільна для Text і Words (navContext в app.js вирішує маршрут).
+   Видима лише на hub/профіль-екранах — BOTTOM_NAV_SCREENS в app.js. */
+.bottom-nav {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 2px;
+  background: var(--card-bg);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px -8px rgba(15,42,30,0.25), 0 2px 8px rgba(15,42,30,0.08);
+  padding: 6px;
+  z-index: 9998;
+  max-width: calc(100vw - 24px);
+}
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-width: 64px;
+  min-height: 46px;
+  padding: 6px 12px;
+  border: none;
+  background: transparent;
+  border-radius: 14px;
+  color: #999;
+  cursor: pointer;
+  margin: 0;
+  width: auto;
+  font-size: 0.65rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+.bottom-nav-item svg { display: block; }
+.bottom-nav-item:hover { opacity: 1; transform: none; color: var(--primary); }
+.bottom-nav-item.active { color: var(--primary); background: var(--primary-soft); }
+.bottom-nav-avatar-wrap { display: flex; align-items: center; justify-content: center; }
+.bottom-nav-item .profile-nav-avatar { width: 19px; height: 19px; border-width: 1.5px; }
+.bottom-nav-item .profile-nav-icon-img { width: 19px; height: 19px; }
+body[data-theme="dark"] .bottom-nav {
+  background: #161b27;
+  border-color: #2d3748;
+  box-shadow: 0 10px 30px -8px rgba(0,0,0,0.5);
+}
+body[data-theme="dark"] .bottom-nav-item { color: #4a5568; }
+body[data-theme="dark"] .bottom-nav-item.active { color: #818cf8; background: rgba(129,140,248,0.15); }
+
+/* Місце під плаваючий бар знизу картки + піднімаємо theme/support FAB над ним, щоб не
+   накладались (обидва FAB — position:fixed bottom:24px, той самий рівень, що й бар). */
+body.nav-visible .card { padding-bottom: 132px; }
+body.nav-visible .theme-toggle-fab,
+body.nav-visible .support-fab-wrap {
+  bottom: 90px;
 }
 
 /* ===== WORD TRAINING ===== */

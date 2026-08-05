@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=75" />
+    <link rel="stylesheet" href="style.css?v=76" />
   </head>
   <body>
     <div class="container">
@@ -60,35 +60,40 @@
         </div>
 
         <!-- Mode Screen -->
-        <div id="modeScreen" style="display:none">
+        <div id="modeScreen" class="screen-blob-host" style="display:none; flex-direction:column; min-height:440px; animation:fadeIn 0.4s ease;">
           <div class="input-topbar">
             <button onclick="goBackToLang()" class="btn-back">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
               <span id="modeBackLabel">Мова</span>
             </button>
           </div>
-          <p id="modeTitleEl" class="mode-screen-title">Що хочемо вчити?</p>
-          <div class="mode-cards">
-            <button class="mode-card" onclick="selectMode('text')">
-              <div class="mode-card-icon mode-card-icon-text">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
-              </div>
-              <div class="mode-card-body">
-                <div class="mode-card-label" id="modeTextLabel">Текст</div>
-                <div class="mode-card-desc" id="modeTextDesc">Вірш, монолог, виступ, презентація</div>
-              </div>
-              <svg class="mode-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-            </button>
-            <button class="mode-card" onclick="selectMode('words')">
-              <div class="mode-card-icon mode-card-icon-words">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
-              </div>
-              <div class="mode-card-body">
-                <div class="mode-card-label" id="modeWordsLabel">Слова та Фрази</div>
-                <div class="mode-card-desc" id="modeWordsDesc">Нова лексика, переклади, словник</div>
-              </div>
-              <svg class="mode-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-            </button>
+          <div class="screen-blob screen-blob-1"></div>
+          <div class="screen-blob screen-blob-2"></div>
+          <div class="screen-center-content stagger-in">
+            <p id="modeTitleEl" class="mode-screen-title">Що хочемо вчити?</p>
+            <p id="modeSubtitleEl" class="screen-subtitle">Оберіть напрямок — можна змінити будь-коли</p>
+            <div class="mode-cards">
+              <button class="mode-card" onclick="selectMode('text')">
+                <div class="mode-card-icon mode-card-icon-text">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+                </div>
+                <div class="mode-card-body">
+                  <div class="mode-card-label" id="modeTextLabel">Текст</div>
+                  <div class="mode-card-desc" id="modeTextDesc">Вірш, монолог, виступ, презентація</div>
+                </div>
+                <svg class="mode-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+              <button class="mode-card" onclick="selectMode('words')">
+                <div class="mode-card-icon mode-card-icon-words">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+                </div>
+                <div class="mode-card-body">
+                  <div class="mode-card-label" id="modeWordsLabel">Слова та Фрази</div>
+                  <div class="mode-card-desc" id="modeWordsDesc">Нова лексика, переклади, словник</div>
+                </div>
+                <svg class="mode-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -98,10 +103,6 @@
             <button onclick="showModeScreen()" class="btn-back">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
               <span id="backBtnLabel">Мова</span>
-            </button>
-            <button onclick="openProfile()" class="btn-profile-nav" id="profileNavBtn">
-              <img id="profileNavAvatar" class="profile-nav-avatar" style="display:none;" alt="">
-              <svg id="profileNavIcon" class="profile-nav-icon-img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             </button>
           </div>
           <div class="logo-block">
@@ -248,7 +249,7 @@
               </button>
               <button class="btn-small" onclick="selectMethod('audio', this)">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
-                <span id="m-audio">Аудіо</span>
+                <span id="m-audio">Голосом</span>
               </button>
             </div>
           </div>
@@ -523,28 +524,29 @@
         <!-- === WORDS MODE SCREENS === -->
 
         <!-- Word: Language Pair -->
-        <div id="wordLangScreen" style="display:none">
+        <div id="wordLangScreen" class="screen-blob-host" style="display:none; flex-direction:column; min-height:440px; animation:fadeIn 0.4s ease;">
           <div class="input-topbar">
             <button onclick="showModeScreen()" class="btn-back">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
               <span id="wlBackLabel">Назад</span>
             </button>
-            <button onclick="openWordProfile(showWordLangScreen)" class="btn-profile-nav" id="wordProfileNavBtn">
-              <img class="profile-nav-avatar" style="display:none;" alt="">
-              <svg class="profile-nav-icon-img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            </button>
           </div>
-          <h2 id="wlTitleEl" class="setup-title">Мовна пара</h2>
-          <div class="wl-section">
-            <label id="wlLearningLabel" class="wl-label">Яку мову вчимо?</label>
-            <select id="wordLangFromSelect" class="word-lang-select"></select>
+          <div class="screen-blob screen-blob-1"></div>
+          <div class="screen-blob screen-blob-2"></div>
+          <div class="screen-center-content stagger-in">
+            <h2 id="wlTitleEl" class="setup-title">Мовна пара</h2>
+            <p id="wlSubtitleEl" class="screen-subtitle">Мова, яку вивчаєте, і рідна — для перекладу та вимови</p>
+            <div class="wl-section">
+              <label id="wlLearningLabel" class="wl-label">Яку мову вчимо?</label>
+              <select id="wordLangFromSelect" class="word-lang-select"></select>
+            </div>
+            <div class="wl-section">
+              <label id="wlNativeLabel" class="wl-label">Моя рідна мова</label>
+              <select id="wordLangToSelect" class="word-lang-select"></select>
+            </div>
+            <div id="wlSameError" class="validation-msg" style="display:none;"></div>
+            <button onclick="goWordLangNext()" class="btn-start-main" id="wlNextBtn">Далі →</button>
           </div>
-          <div class="wl-section">
-            <label id="wlNativeLabel" class="wl-label">Моя рідна мова</label>
-            <select id="wordLangToSelect" class="word-lang-select"></select>
-          </div>
-          <div id="wlSameError" class="validation-msg" style="display:none;"></div>
-          <button onclick="goWordLangNext()" class="btn-start-main" id="wlNextBtn">Далі →</button>
         </div>
 
         <!-- Word: Input -->
@@ -589,22 +591,49 @@
         </div>
 
         <!-- Word: Topic -->
-        <div id="wordTopicScreen" style="display:none">
+        <div id="wordTopicScreen" class="screen-blob-host" style="display:none; flex-direction:column; min-height:400px; animation:fadeIn 0.4s ease;">
           <div class="input-topbar">
             <button onclick="showWordVerifyScreen()" class="btn-back">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
               <span id="wtBackLabel">Назад</span>
             </button>
           </div>
-          <h2 id="wtTitleEl" class="setup-title">Назвіть тему</h2>
-          <input type="text" id="wordTopicInput" class="word-topic-input"
-                 maxlength="50" onkeydown="if(event.key==='Enter') saveWordSetAndStart()">
-          <button onclick="autoSuggestTopic()" class="btn-ghost btn-topic-auto" id="wtAutoBtn">✨ Підібрати автоматично</button>
-          <button onclick="saveWordSetAndStart()" class="btn-start-main" id="wtSaveBtn">Зберегти →</button>
+          <div class="screen-blob screen-blob-1"></div>
+          <div class="screen-blob screen-blob-2"></div>
+          <div class="screen-center-content stagger-in">
+            <h2 id="wtTitleEl" class="setup-title">Назвіть тему</h2>
+            <p id="wtTopicSubtitleEl" class="screen-subtitle">Назва допоможе швидко знайти цей набір у профілі</p>
+            <input type="text" id="wordTopicInput" class="word-topic-input"
+                   maxlength="50" onkeydown="if(event.key==='Enter') saveWordSetAndStart()">
+            <button onclick="autoSuggestTopic()" class="btn-ghost btn-topic-auto" id="wtAutoBtn">✨ Підібрати автоматично</button>
+            <button onclick="saveWordSetAndStart()" class="btn-start-main" id="wtSaveBtn">Зберегти →</button>
+          </div>
         </div>
 
       </div>
     </div>
+
+    <!-- Bottom Nav — Навчання/Прогрес/Профіль, floating pill. Тільки на hub-екранах
+         (inputScreen/wordLangScreen) і на самих екранах профілю/прогресу — див.
+         BOTTOM_NAV_SCREENS у app.js. Один спільний бар для Text і Words: navContext
+         (app.js) вирішує куди ведуть кнопки, а не дублювання розмітки. -->
+    <nav id="bottomNav" class="bottom-nav" style="display:none;" aria-label="Primary">
+      <button type="button" class="bottom-nav-item" data-nav="learn" onclick="bottomNavGo('learn')">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"/></svg>
+        <span id="navLearnLbl">Навчання</span>
+      </button>
+      <button type="button" class="bottom-nav-item" data-nav="progress" onclick="bottomNavGo('progress')">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        <span id="navProgressLbl">Прогрес</span>
+      </button>
+      <button type="button" class="bottom-nav-item" data-nav="profile" onclick="bottomNavGo('profile')">
+        <span class="bottom-nav-avatar-wrap">
+          <img class="profile-nav-avatar" style="display:none;" alt="">
+          <svg class="profile-nav-icon-img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </span>
+        <span id="navProfileLbl">Профіль</span>
+      </button>
+    </nav>
 
     <!-- Theme toggle FAB — visible on every screen -->
     <button id="themeToggleFab" onclick="toggleTheme()" class="theme-toggle-fab">
@@ -661,11 +690,11 @@
       </div>
     </div>
 
-    <script src="state.js?v=2"></script>
-    <script src="audio.js?v=1"></script>
-    <script src="learning.js?v=6"></script>
-    <script src="words.js?v=1"></script>
-    <script src="app.js?v=81"></script>
+    <script src="state.js?v=4"></script>
+    <script src="audio.js?v=2"></script>
+    <script src="learning.js?v=8"></script>
+    <script src="words.js?v=3"></script>
+    <script src="app.js?v=87"></script>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});

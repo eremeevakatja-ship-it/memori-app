@@ -263,6 +263,9 @@ function showStep() {
         document.getElementById('m-mind').innerText = t.method_mind;
         document.getElementById('m-write').style.display = '';
         document.getElementById('m-write').innerText = t.method_write;
+        // 2026-08-05 (D-008 addendum): "Аудіо" метод more visible again — see
+        // state.js comment above the (now removed) TEXT_AUDIO_METHOD_ENABLED flag.
+        document.getElementById('m-audio').closest('.btn-small').style.display = '';
         document.getElementById('m-audio').innerText = t.method_audio;
     }
     document.getElementById('progressFill').style.width = ((currentStepIndex + 1) / learningQueue.length * 100) + '%';
@@ -324,6 +327,8 @@ function bigReviewReadDone() {
     document.getElementById('m-mind').innerText = t.method_mind;
     document.getElementById('m-write').style.display = '';
     document.getElementById('m-write').innerText = t.method_write;
+    // 2026-08-05 (D-008 addendum): see showStep() above for why.
+    document.getElementById('m-audio').closest('.btn-small').style.display = '';
     document.getElementById('m-audio').innerText = t.method_audio;
     document.querySelectorAll('.btn-small').forEach(b => b.classList.remove('active-method'));
 }

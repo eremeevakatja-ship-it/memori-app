@@ -75,6 +75,7 @@ const translations = {
         themeLabel: "Тема:", th_light: "Світла", th_dark: "Темна",
         audio_listening: "Слухайте...", audio_repeat: "Повторіть вголос", audio_ready: "Готово", audio_again: "Ще раз",
         audio_your_turn: "Ваша черга — як повторите?", audio_record: "Записати голосом", audio_silent: "Сказати про себе",
+        audio_ready_record: "Готові? Запишіть себе або прочитайте подумки",
         audio_recording: "Слухаю вас...", audio_record_error: "Не вдалося. Спробуйте ще.", audio_record_noapi: "Запис голосу не підтримується браузером.", audio_record_denied: "🎙 Дозвольте доступ до мікрофона в налаштуваннях браузера.", audio_record_nomic: "🎙 Мікрофон не знайдено.", audio_record_nospeech: "🎙 Нічого не почуто. Говоріть голосніше.", audio_tts_unavailable: "🔇 Озвучка для цієї мови недоступна на вашому пристрої. Спробуйте встановити мовний голос у налаштуваннях браузера/телефону.",
         resume_title: "Незавершена сесія", resume_progress: "крок {n} з {total}", resume_continue: "Продовжити", resume_fresh: "Новий текст",
         ocr_btn: "Файл", ocr_loading: "Розпізнаємо текст...", ocr_preprocessing: "Готуємо зображення...", ocr_error: "Не вдалося розпізнати. Спробуйте інший файл.", ocr_error_doc: "Формат .doc не підтримується. Збережіть файл як .docx", ocr_error_empty: "Файл не завантажено з хмари. Відкрийте його у Word і збережіть на комп'ютер.", ocr_error_timeout: "Не вдалося завантажити розпізнавач тексту. Перевірте інтернет і спробуйте ще раз.", ocr_cancel: "Скасувати",
@@ -92,7 +93,7 @@ const translations = {
         notif_dismiss: "Ні, дякую", notif_body: "Час практикуватись! Не переривай серію 🔥",
         notif_confirm: "Нагадування увімкнено ✓",
         instruction_hint: "Прочитайте двічі, повторіть в умі і йдіть далі",
-        method_mind: "В умі", method_write: "Письмо", method_audio: "Аудіо",
+        method_mind: "В умі", method_write: "Письмо", method_audio: "Голосом",
         text_placeholder: "Вставте або введіть текст...",
         profile_btn: "Профіль",
         profile_title: "Мій прогрес",
@@ -173,7 +174,11 @@ const translations = {
         wt_resume_confirm: 'Знайдено незавершене тренування цього набору ({n}/{total}). Продовжити з того ж місця?',
         mode_title: 'Що хочемо вчити?',
         mode_text_label: 'Текст', mode_text_desc: 'Вірш, монолог, виступ, презентація',
-        mode_words_label: 'Слова та Фрази', mode_words_desc: 'Нова лексика, переклади, словник'
+        mode_words_label: 'Слова та Фрази', mode_words_desc: 'Нова лексика, переклади, словник',
+        nav_learn: 'Навчання', nav_progress: 'Прогрес', nav_profile: 'Профіль',
+        mode_subtitle: 'Оберіть напрямок — можна змінити будь-коли',
+        wl_subtitle: 'Мова, яку вивчаєте, і рідна — для перекладу та вимови',
+        wt_topic_subtitle: 'Назва допоможе швидко знайти цей набір у профілі'
     },
     en: {
         welcome: "Welcome. Let's learn without stress.",
@@ -226,6 +231,7 @@ const translations = {
         themeLabel: "Theme:", th_light: "Light", th_dark: "Dark",
         audio_listening: "Listening...", audio_repeat: "Repeat aloud", audio_ready: "Done", audio_again: "Again",
         audio_your_turn: "Your turn — how will you repeat?", audio_record: "Record voice", audio_silent: "Say to yourself",
+        audio_ready_record: "Ready? Record yourself or read it silently",
         audio_recording: "Listening to you...", audio_record_error: "Couldn't recognize. Try again.", audio_record_noapi: "Voice recording not supported in this browser.", audio_record_denied: "🎙 Allow microphone access in your browser settings.", audio_record_nomic: "🎙 No microphone found.", audio_record_nospeech: "🎙 Nothing heard. Please speak louder.", audio_tts_unavailable: "🔇 Voice for this language isn't available on your device. Try installing a language voice in your browser/phone settings.",
         resume_title: "Unfinished session", resume_progress: "step {n} of {total}", resume_continue: "Continue", resume_fresh: "New text",
         ocr_btn: "File", ocr_loading: "Recognizing text...", ocr_preprocessing: "Preparing image...", ocr_error: "Could not read. Try another file.", ocr_error_doc: ".doc format not supported. Save the file as .docx", ocr_error_empty: "File not downloaded from cloud. Open it in Word and save locally.", ocr_error_timeout: "Could not load the text recognizer. Check your internet connection and try again.", ocr_cancel: "Cancel",
@@ -243,7 +249,7 @@ const translations = {
         notif_dismiss: "No thanks", notif_body: "Time to practise! Keep your streak going 🔥",
         notif_confirm: "Reminder enabled ✓",
         instruction_hint: "Read twice, recall in your mind, then continue",
-        method_mind: "Mental", method_write: "Write", method_audio: "Audio",
+        method_mind: "Mental", method_write: "Write", method_audio: "Voice",
         text_placeholder: "Paste or type your text...",
         profile_btn: "Profile",
         profile_title: "My Progress",
@@ -324,7 +330,11 @@ const translations = {
         wt_resume_confirm: 'Found unfinished training for this set ({n}/{total}). Continue where you left off?',
         mode_title: 'What do you want to learn?',
         mode_text_label: 'Text', mode_text_desc: 'Poem, speech, article, presentation',
-        mode_words_label: 'Words & Phrases', mode_words_desc: 'New vocabulary, translations, flashcards'
+        mode_words_label: 'Words & Phrases', mode_words_desc: 'New vocabulary, translations, flashcards',
+        nav_learn: 'Learn', nav_progress: 'Progress', nav_profile: 'Profile',
+        mode_subtitle: 'Pick a direction — you can switch anytime',
+        wl_subtitle: 'The language you\'re learning, plus your own — for translation and pronunciation',
+        wt_topic_subtitle: 'A name helps you find this set again later'
     },
     pl: {
         welcome: "Witamy. Zacznijmy naukę bez stresu.",
@@ -377,6 +387,7 @@ const translations = {
         themeLabel: "Motyw:", th_light: "Jasny", th_dark: "Ciemny",
         audio_listening: "Słuchaj...", audio_repeat: "Powtórz na głos", audio_ready: "Gotowe", audio_again: "Jeszcze raz",
         audio_your_turn: "Twoja kolej — jak powtórzysz?", audio_record: "Nagraj głos", audio_silent: "Powiedz w myślach",
+        audio_ready_record: "Gotowi? Nagraj się lub przeczytaj w myślach",
         audio_recording: "Słucham cię...", audio_record_error: "Nie rozpoznano. Spróbuj ponownie.", audio_record_noapi: "Nagrywanie głosu nie jest obsługiwane przez tę przeglądarkę.", audio_record_denied: "🎙 Zezwól na dostęp do mikrofonu w ustawieniach przeglądarki.", audio_record_nomic: "🎙 Nie znaleziono mikrofonu.", audio_record_nospeech: "🎙 Nic nie usłyszano. Mów głośniej.", audio_tts_unavailable: "🔇 Głos dla tego języka nie jest dostępny na tym urządzeniu. Spróbuj zainstalować głos językowy w ustawieniach przeglądarki/telefonu.",
         resume_title: "Niedokończona sesja", resume_progress: "krok {n} z {total}", resume_continue: "Kontynuuj", resume_fresh: "Nowy tekst",
         ocr_btn: "Plik", ocr_loading: "Rozpoznawanie tekstu...", ocr_preprocessing: "Przygotowywanie obrazu...", ocr_error: "Nie udało się odczytać. Spróbuj inny plik.", ocr_error_doc: "Format .doc nie jest obsługiwany. Zapisz plik jako .docx", ocr_error_empty: "Plik nie jest pobrany z chmury. Otwórz go w Word i zapisz lokalnie.", ocr_error_timeout: "Nie udało się załadować rozpoznawania tekstu. Sprawdź połączenie z internetem i spróbuj ponownie.", ocr_cancel: "Anuluj",
@@ -394,7 +405,7 @@ const translations = {
         notif_dismiss: "Nie, dziękuję", notif_body: "Czas na praktykę! Nie przerywaj serii 🔥",
         notif_confirm: "Przypomnienie włączone ✓",
         instruction_hint: "Przeczytaj dwa razy, powtórz w myślach i jedź dalej",
-        method_mind: "W myślach", method_write: "Pisanie", method_audio: "Audio",
+        method_mind: "W myślach", method_write: "Pisanie", method_audio: "Głosem",
         text_placeholder: "Wklej lub wpisz tekst...",
         profile_btn: "Profil",
         profile_title: "Mój postęp",
@@ -475,7 +486,11 @@ const translations = {
         wt_resume_confirm: 'Znaleziono nieukończony trening tego zestawu ({n}/{total}). Kontynuować od tego miejsca?',
         mode_title: 'Czego chcesz się uczyć?',
         mode_text_label: 'Tekst', mode_text_desc: 'Wiersz, przemowa, artykuł, prezentacja',
-        mode_words_label: 'Słowa i Frazy', mode_words_desc: 'Nowe słownictwo, tłumaczenia, fiszki'
+        mode_words_label: 'Słowa i Frazy', mode_words_desc: 'Nowe słownictwo, tłumaczenia, fiszki',
+        nav_learn: 'Nauka', nav_progress: 'Postęp', nav_profile: 'Profil',
+        mode_subtitle: 'Wybierz kierunek — możesz zmienić w każdej chwili',
+        wl_subtitle: 'Język, którego się uczysz, i twój ojczysty — do tłumaczeń i wymowy',
+        wt_topic_subtitle: 'Nazwa pomoże szybko znaleźć ten zestaw w profilu'
     },
     de: {
         welcome: "Willkommen. Lernen ohne Stress.",
@@ -528,6 +543,7 @@ const translations = {
         themeLabel: "Design:", th_light: "Hell", th_dark: "Dunkel",
         audio_listening: "Hören...", audio_repeat: "Laut wiederholen", audio_ready: "Fertig", audio_again: "Nochmal",
         audio_your_turn: "Du bist dran — wie wiederholst du?", audio_record: "Stimme aufnehmen", audio_silent: "Im Stillen sagen",
+        audio_ready_record: "Bereit? Nimm dich auf oder lies es im Stillen",
         audio_recording: "Ich höre dir zu...", audio_record_error: "Nicht erkannt. Nochmal versuchen.", audio_record_noapi: "Sprachaufnahme wird von diesem Browser nicht unterstützt.", audio_record_denied: "🎙 Erlauben Sie den Mikrofonzugriff in den Browsereinstellungen.", audio_record_nomic: "🎙 Kein Mikrofon gefunden.", audio_record_nospeech: "🎙 Nichts gehört. Bitte lauter sprechen.", audio_tts_unavailable: "🔇 Für diese Sprache ist auf diesem Gerät keine Stimme verfügbar. Installiere eine Sprachstimme in den Browser-/Telefoneinstellungen.",
         resume_title: "Unfertige Sitzung", resume_progress: "Schritt {n} von {total}", resume_continue: "Weiter", resume_fresh: "Neuer Text",
         ocr_btn: "Datei", ocr_loading: "Text wird erkannt...", ocr_preprocessing: "Bild wird vorbereitet...", ocr_error: "Lesen fehlgeschlagen. Andere Datei versuchen.", ocr_error_doc: "Format .doc wird nicht unterstützt. Bitte als .docx speichern", ocr_error_empty: "Datei nicht aus der Cloud heruntergeladen. In Word öffnen und lokal speichern.", ocr_error_timeout: "Texterkennung konnte nicht geladen werden. Internetverbindung prüfen und erneut versuchen.", ocr_cancel: "Abbrechen",
@@ -545,7 +561,7 @@ const translations = {
         notif_dismiss: "Nein danke", notif_body: "Zeit zum Üben! Halte deine Serie aufrecht 🔥",
         notif_confirm: "Erinnerung aktiviert ✓",
         instruction_hint: "Zweimal lesen, im Kopf wiederholen, dann weiter",
-        method_mind: "Im Kopf", method_write: "Schreiben", method_audio: "Audio",
+        method_mind: "Im Kopf", method_write: "Schreiben", method_audio: "Stimme",
         text_placeholder: "Text einfügen oder tippen...",
         profile_btn: "Profil",
         profile_title: "Mein Fortschritt",
@@ -626,7 +642,11 @@ const translations = {
         wt_resume_confirm: 'Unvollständiges Training für dieses Set gefunden ({n}/{total}). Dort fortsetzen?',
         mode_title: 'Was möchtest du lernen?',
         mode_text_label: 'Text', mode_text_desc: 'Gedicht, Rede, Artikel, Präsentation',
-        mode_words_label: 'Wörter & Phrasen', mode_words_desc: 'Neues Vokabular, Übersetzungen, Karteikarten'
+        mode_words_label: 'Wörter & Phrasen', mode_words_desc: 'Neues Vokabular, Übersetzungen, Karteikarten',
+        nav_learn: 'Lernen', nav_progress: 'Fortschritt', nav_profile: 'Profil',
+        mode_subtitle: 'Wähle eine Richtung — du kannst jederzeit wechseln',
+        wl_subtitle: 'Die Sprache, die du lernst, und deine Muttersprache — für Übersetzung und Aussprache',
+        wt_topic_subtitle: 'Ein Name hilft dir, dieses Set später im Profil wiederzufinden'
     },
     fr: {
         welcome: "Bienvenue. Apprenons sans stress.",
@@ -679,6 +699,7 @@ const translations = {
         themeLabel: "Thème:", th_light: "Clair", th_dark: "Sombre",
         audio_listening: "Écoutez...", audio_repeat: "Répétez à voix haute", audio_ready: "Terminé", audio_again: "Encore",
         audio_your_turn: "À vous — comment allez-vous répéter ?", audio_record: "Enregistrer la voix", audio_silent: "Dire en silence",
+        audio_ready_record: "Prêt ? Enregistrez-vous ou lisez en silence",
         audio_recording: "Je vous écoute...", audio_record_error: "Non reconnu. Réessayez.", audio_record_noapi: "Enregistrement vocal non supporté par ce navigateur.", audio_record_denied: "🎙 Autorisez l'accès au micro dans les paramètres du navigateur.", audio_record_nomic: "🎙 Aucun microphone trouvé.", audio_record_nospeech: "🎙 Rien entendu. Parlez plus fort.", audio_tts_unavailable: "🔇 Aucune voix disponible pour cette langue sur cet appareil. Essayez d'installer une voix dans les paramètres du navigateur/téléphone.",
         resume_title: "Session inachevée", resume_progress: "étape {n} sur {total}", resume_continue: "Continuer", resume_fresh: "Nouveau texte",
         ocr_btn: "Fichier", ocr_loading: "Lecture en cours...", ocr_preprocessing: "Préparation de l'image...", ocr_error: "Échec de la lecture. Essayez un autre fichier.", ocr_error_doc: "Format .doc non supporté. Enregistrez en .docx", ocr_error_empty: "Fichier non téléchargé depuis le cloud. Ouvrez-le dans Word et sauvegardez localement.", ocr_error_timeout: "Impossible de charger la reconnaissance de texte. Vérifiez votre connexion internet et réessayez.", ocr_cancel: "Annuler",
@@ -696,7 +717,7 @@ const translations = {
         notif_dismiss: "Non merci", notif_body: "C'est l'heure de pratiquer ! Gardez votre série 🔥",
         notif_confirm: "Rappel activé ✓",
         instruction_hint: "Lisez deux fois, rappelez-vous mentalement, continuez",
-        method_mind: "Mental", method_write: "Écriture", method_audio: "Audio",
+        method_mind: "Mental", method_write: "Écriture", method_audio: "Voix",
         text_placeholder: "Collez ou saisissez votre texte...",
         profile_btn: "Profil",
         profile_title: "Ma progression",
@@ -777,7 +798,11 @@ const translations = {
         wt_resume_confirm: 'Entraînement inachevé trouvé pour cet ensemble ({n}/{total}). Continuer où vous en étiez ?',
         mode_title: 'Que voulez-vous apprendre ?',
         mode_text_label: 'Texte', mode_text_desc: 'Poème, discours, article, présentation',
-        mode_words_label: 'Mots & Phrases', mode_words_desc: 'Nouveau vocabulaire, traductions, fiches'
+        mode_words_label: 'Mots & Phrases', mode_words_desc: 'Nouveau vocabulaire, traductions, fiches',
+        nav_learn: 'Apprendre', nav_progress: 'Progrès', nav_profile: 'Profil',
+        mode_subtitle: 'Choisissez une direction — vous pouvez changer à tout moment',
+        wl_subtitle: 'La langue que vous apprenez, et votre langue maternelle — pour la traduction et la prononciation',
+        wt_topic_subtitle: 'Un nom vous aidera à retrouver cet ensemble dans votre profil'
     },
     es: {
         welcome: "Bienvenido. Aprendamos sin estrés.",
@@ -830,6 +855,7 @@ const translations = {
         themeLabel: "Tema:", th_light: "Claro", th_dark: "Oscuro",
         audio_listening: "Escucha...", audio_repeat: "Repite en voz alta", audio_ready: "Listo", audio_again: "Otra vez",
         audio_your_turn: "Tu turno — ¿cómo vas a repetir?", audio_record: "Grabar voz", audio_silent: "Decir en silencio",
+        audio_ready_record: "¿Listo? Grábate o léelo en silencio",
         audio_recording: "Te escucho...", audio_record_error: "No reconocido. Inténtalo de nuevo.", audio_record_noapi: "Grabación de voz no compatible con este navegador.", audio_record_denied: "🎙 Permite el acceso al micrófono en la configuración del navegador.", audio_record_nomic: "🎙 No se encontró micrófono.", audio_record_nospeech: "🎙 No se escuchó nada. Habla más fuerte.", audio_tts_unavailable: "🔇 No hay voz disponible para este idioma en tu dispositivo. Prueba a instalar una voz de idioma en la configuración del navegador/teléfono.",
         resume_title: "Sesión inacabada", resume_progress: "paso {n} de {total}", resume_continue: "Continuar", resume_fresh: "Nuevo texto",
         ocr_btn: "Archivo", ocr_loading: "Leyendo archivo...", ocr_preprocessing: "Preparando la imagen...", ocr_error: "No se pudo leer. Intenta con otro archivo.", ocr_error_doc: "Formato .doc no admitido. Guárdelo como .docx", ocr_error_empty: "Archivo no descargado de la nube. Ábralo en Word y guárdelo localmente.", ocr_error_timeout: "No se pudo cargar el reconocimiento de texto. Comprueba tu conexión a internet e inténtalo de nuevo.", ocr_cancel: "Cancelar",
@@ -847,7 +873,7 @@ const translations = {
         notif_dismiss: "No, gracias", notif_body: "¡Hora de practicar! Mantén tu racha 🔥",
         notif_confirm: "Recordatorio activado ✓",
         instruction_hint: "Lee dos veces, recuerda mentalmente y continúa",
-        method_mind: "Mental", method_write: "Escritura", method_audio: "Audio",
+        method_mind: "Mental", method_write: "Escritura", method_audio: "Voz",
         text_placeholder: "Pega o escribe tu texto...",
         profile_btn: "Perfil",
         profile_title: "Mi progreso",
@@ -928,7 +954,11 @@ const translations = {
         wt_resume_confirm: 'Se encontró un entrenamiento sin terminar de este conjunto ({n}/{total}). ¿Continuar donde lo dejaste?',
         mode_title: '¿Qué quieres aprender?',
         mode_text_label: 'Texto', mode_text_desc: 'Poema, discurso, artículo, presentación',
-        mode_words_label: 'Palabras y Frases', mode_words_desc: 'Nuevo vocabulario, traducciones, tarjetas'
+        mode_words_label: 'Palabras y Frases', mode_words_desc: 'Nuevo vocabulario, traducciones, tarjetas',
+        nav_learn: 'Aprender', nav_progress: 'Progreso', nav_profile: 'Perfil',
+        mode_subtitle: 'Elige una dirección — puedes cambiar en cualquier momento',
+        wl_subtitle: 'El idioma que aprendes, y tu idioma natal — para traducción y pronunciación',
+        wt_topic_subtitle: 'Un nombre te ayudará a encontrar este conjunto en tu perfil'
     }
 };
 
@@ -1008,7 +1038,16 @@ function showMotivToast(msg) {
 // ----- [app: SCREEN MANAGER]  (was app.js lines 1922-2045) -----
 // ===== SCREEN MANAGER =====
 const SCREENS = ['langScreen','modeScreen','inputScreen','setupScreen','learningScreen','restScreen','sessionPauseScreen','finalScreen','profileScreen','wordProfileScreen','wordLangScreen','wordInputScreen','wordVerifyScreen','wordTopicScreen','wordTrainingScreen','wordResultsScreen'];
-const FLEX_SCREENS = ['sessionPauseScreen','finalScreen','wordResultsScreen'];
+// modeScreen/wordLangScreen/wordTopicScreen додано сюди 2026-08-05 (Playful Premium composition
+// pass) — раніше короткий контент цих 3 екранів просто прилипав до верху картки, лишаючи ~50%
+// картки порожньою внизу. FLEX_SCREENS вже мав готовий механізм (display:flex + min-height +
+// justify-content:center з inline style в index.html) для sessionPauseScreen/finalScreen/
+// wordResultsScreen — перевикористано той самий шлях замість винаходу нового.
+const FLEX_SCREENS = ['sessionPauseScreen','finalScreen','wordResultsScreen','modeScreen','wordLangScreen','wordTopicScreen'];
+// Екрани, на яких видно нижню навігацію (Навчання/Прогрес/Профіль) — тільки hub-екрани
+// верхнього рівня (де раніше була кнопка-аватарка) + самі екрани профілю/прогресу.
+// НЕ показується під час активного навчання/тренування (один екран — одна дія, README UX Designer).
+const BOTTOM_NAV_SCREENS = ['inputScreen','profileScreen','wordLangScreen','wordProfileScreen'];
 let currentScreenId = null; // для контексту у зверненнях підтримки — на якому екрані була проблема
 
 function showScreen(id) {
@@ -1027,6 +1066,53 @@ function showScreen(id) {
             el.style.display = 'none';
         }
     });
+    updateBottomNavVisibility(id);
+}
+
+// ----- [UX-01 Bottom nav: Навчання/Прогрес/Профіль]  (2026-08-05) -----
+// Одна спільна панель для обох напрямків (Text/Words) — навMode вирішує куди ведуть кнопки,
+// а не дублювання розмітки. Див. DECISIONS.md для архітектурного обґрунтування (чому
+// "Прогрес" і "Профіль" ведуть на ОДИН і той самий екран профілю, а не на два різні).
+let navContext = 'text';    // 'text' | 'words' — який напрямок зараз активний для навігації
+let navActiveTab = 'learn'; // 'learn' | 'progress' | 'profile' — яка кнопка підсвічена
+
+function updateBottomNavVisibility(id) {
+    const nav = document.getElementById('bottomNav');
+    if (!nav) return;
+    const show = BOTTOM_NAV_SCREENS.includes(id);
+    nav.style.display = show ? 'flex' : 'none';
+    document.body.classList.toggle('nav-visible', show);
+}
+
+function setBottomNav(context, tab) {
+    navContext = context;
+    navActiveTab = tab;
+    renderBottomNav();
+}
+
+function renderBottomNav() {
+    const t = translations[currentLang];
+    const learnLbl = document.getElementById('navLearnLbl');
+    const progLbl = document.getElementById('navProgressLbl');
+    const profLbl = document.getElementById('navProfileLbl');
+    if (learnLbl) learnLbl.innerText = t.nav_learn || 'Навчання';
+    if (progLbl) progLbl.innerText = t.nav_progress || 'Прогрес';
+    if (profLbl) profLbl.innerText = t.nav_profile || 'Профіль';
+    document.querySelectorAll('.bottom-nav-item').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.nav === navActiveTab);
+    });
+}
+
+function bottomNavGo(tab) {
+    if (navContext === 'words') {
+        if (tab === 'learn') showWordLangScreen();
+        else if (tab === 'progress') openWordProfile(showWordLangScreen, 'progress');
+        else openWordProfile(showWordLangScreen, 'identity');
+    } else {
+        if (tab === 'learn') showInputScreen();
+        else if (tab === 'progress') openProfile(showInputScreen, 'progress');
+        else openProfile(showInputScreen, 'identity');
+    }
 }
 
 function setLanguage(lang) {
@@ -1048,6 +1134,8 @@ function showModeScreen() {
     document.getElementById('modeTextDesc').innerText = t.mode_text_desc || 'Вірш, монолог, виступ, презентація';
     document.getElementById('modeWordsLabel').innerText = t.mode_words_label || 'Слова та Фрази';
     document.getElementById('modeWordsDesc').innerText = t.mode_words_desc || 'Нова лексика, переклади, словник';
+    const modeSubEl = document.getElementById('modeSubtitleEl');
+    if (modeSubEl) modeSubEl.innerText = t.mode_subtitle || '';
     updateThemeToggleFab();
 }
 
@@ -1070,6 +1158,7 @@ function showInputScreen() {
     document.getElementById('backBtnLabel').innerText = t.back_lang;
     updateThemeToggleFab();
     updateProfileNavAvatar();
+    setBottomNav('text', 'learn');
     document.getElementById('roleSubtitle').innerText = t.welcome;
     document.getElementById('ocrBtnLabel').innerText = t.ocr_btn;
     const ocrCancelBtn = document.getElementById('ocrCancelBtn');
@@ -1163,11 +1252,19 @@ function closeInfoPopup(event) {
 
 
 // ----- [app: TECH SUPPORT]  (was app.js lines 2069-2198) -----
-// ===== TECH SUPPORT (локально, без бекенду — див. D-002) =====
-// Звернення зберігаються лише в localStorage цього браузера/пристрою.
-// User переглядає їх сама в цьому ж попапі і копіює текстом, щоб
-// передати в наступну сесію розробки. Без email/webhook — свідомий вибір
-// User (без нового зовнішнього сервісу і без витоку даних інших людей).
+// ===== TECH SUPPORT (локально + опційний webhook, див. D-002) =====
+// Звернення завжди зберігаються в localStorage цього браузера/пристрою —
+// це лишається основним каналом і власною історією User (попап,
+// "📋 Скопіювати все"). Локальне сховище per-device: звернення з чужих
+// пристроїв User не бачить, поки сама не перевірить той пристрій.
+// ДОДАТКОВО (2026-08-05): якщо SUPPORT_WEBHOOK_URL заповнено, кожне
+// звернення також fire-and-forget відправляється на Google Apps Script,
+// який дописує рядок у Google Sheet User — так вона бачить звернення
+// з будь-якого пристрою, не тільки свого. Webhook ніколи не замінює
+// localStorage і не блокує UI: мережева помилка/CORS/недеплой — тихо
+// ігнорується, збереження і toast відбуваються незалежно від неї.
+// Заповнити рядком після деплою Google Apps Script — див. STATUS.md.
+const SUPPORT_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbw3wQ-gTV7Ye3AlWaeN-P9ay6Ya5ZUabVXcviacwcWCRlx0XARDfYJVQS_ifIIdKfCK1A/exec';
 let supportType = 'bug';
 
 // Одноразова підказка-хмаринка над кнопкою підтримки — маскот сам по собі
@@ -1252,6 +1349,16 @@ function submitSupportMessage() {
         createdAt: new Date().toISOString(),
     });
     localStorage.setItem('memori_support', JSON.stringify(list));
+    // Додатковий канал (не заміна localStorage) — fire-and-forget, ніколи
+    // не блокує UI і не показує помилку користувачу, якщо мережа/webhook недоступні.
+    if (SUPPORT_WEBHOOK_URL !== '') {
+        try {
+            fetch(SUPPORT_WEBHOOK_URL, {
+                method: 'POST',
+                body: JSON.stringify({ type: supportType, text, screen: currentScreenId, lang: currentLang, createdAt: new Date().toISOString() }),
+            }).catch(() => {});
+        } catch {}
+    }
     textarea.value = '';
     document.getElementById('supportValidation').style.display = 'none';
     showMotivToast(t.support_thanks || 'Дякую! Побачу це під час наступного оновлення.');
@@ -1637,7 +1744,11 @@ async function shareResult() {
 // відкривається сам із себе, тому одного слота (а не стеку) достатньо.
 let profileReturnFn = null;
 
-function openProfile(returnFn) {
+// focus: 'progress' (default, скролить до вкладок В роботі/Вивчено/Плани) | 'identity'
+// (скролить до hero — ім'я+аватар+налаштування). Один і той самий екран (profileScreen)
+// обслуговує обидва пункти нижньої навігації ("Прогрес" і "Профіль") — див. DECISIONS.md
+// чому не розділено на два окремі екрани (ризик регресії синхронізації hero).
+function openProfile(returnFn, focus) {
     profileReturnFn = typeof returnFn === 'function' ? returnFn : showInputScreen;
     showScreen('profileScreen');
     const t = translations[currentLang];
@@ -1649,6 +1760,14 @@ function openProfile(returnFn) {
     document.querySelectorAll('.profile-tab').forEach((btn, i) => btn.classList.toggle('active', i === 0));
     renderProfileHero();
     renderProfileTab('progress');
+    updateProfileNavAvatar();
+    setBottomNav('text', focus === 'identity' ? 'profile' : 'progress');
+    if (focus === 'identity') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+        const tabsEl = document.querySelector('#profileScreen .profile-tabs');
+        if (tabsEl) tabsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 }
 
 function closeProfile() {

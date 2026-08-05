@@ -38,6 +38,20 @@ let blockMastery = {}; // {blockIndex: {recent: [true, false, true]}}  ← last 
     } catch {}
 })();
 const FONT_SIZES = [1.0, 1.25, 1.55, 1.85];
+
+// Text Mode: метод "Аудіо" на кнопці вибору методу (m-audio, index.html) —
+// СКОРИГОВАНО 2026-08-05 (D-008 addendum): раніше тут стояв прапорець
+// TEXT_AUDIO_METHOD_ENABLED=false, який ховав УСЮ кнопку методу. User уточнила:
+// прибрати вона хотіла лише TTS-прослуховування блоку вголос (speakCurrentBlock,
+// audio.js) — запис власного голосу (ASR, startVoiceRecord(), безкоштовний
+// SpeechRecognition, працює однаково для будь-якої мови) вона хоче лишити
+// доступним. Тепер метод "Аудіо" = лише запис/подумки, без TTS-кроку, тож ховати
+// всю кнопку прапорцем більше немає сенсу — showStep()/bigReviewReadDone()
+// (learning.js) показують m-audio завжди, як m-mind/m-write.
+// Функції speakCurrentBlock/speakAgain/renderAudioSpeedRow (audio.js, state.js)
+// НЕ видалені — просто більше не викликаються з цього флоу. Лишені на випадок
+// платного TTS у майбутньому — див. D-006/TTS-01.
+
 let blocks = [], currentStepIndex = 0, learningQueue = [];
 let sessionStartTime = null;
 let accuracyLevel = 'verbatim';
