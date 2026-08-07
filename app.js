@@ -137,7 +137,7 @@ const translations = {
         wi_placeholder: 'dog — собака\ncat — кішка\nto run — бігати',
         wi_min_error: 'Потрібно мінімум 2 пари слів',
         support_title: 'Технічна підтримка', support_type_bug: '🐛 Щось не працює', support_type_idea: '💡 Ідея чи побажання', support_type_compliment: '😻 Похваліть нас',
-        support_placeholder: 'Опишіть, що сталося або що хотіли б додати…', support_placeholder_bug: 'Що саме зламалось? Розкажіть, де і що сталося — розберемось 🛠️', support_placeholder_idea: 'Чого не вистачає? Поділіться ідеєю — може, встигне в наступне оновлення 💡', support_placeholder_compliment: 'Просто скажіть щось приємне… ми відкладемо це на поганий день 💛', support_submit: 'Надіслати',
+        support_placeholder: 'Опишіть, що сталося або що хотіли б додати…', support_placeholder_bug: 'Опишіть, будь ласка, що сталося — ми уважно розберемось і виправимо 🛠️', support_placeholder_idea: 'Поділіться ідеєю — нам справді цікаво, що можна покращити 💡', support_placeholder_compliment: 'Просто скажіть щось приємне… ми відкладемо це на поганий день 💛', support_submit: 'Надіслати',
         support_min_error: 'Напишіть повідомлення', support_thanks: 'Дякую! Побачу це під час наступного оновлення.',
         support_history_title: 'Мої звернення', support_copy_all: '📋 Скопіювати все',
         support_copied: 'Скопійовано!', support_copy_failed: 'Не вдалося скопіювати',
@@ -298,7 +298,7 @@ const translations = {
         wi_placeholder: 'dog — собака\ncat — кішка\nto run — бігати',
         wi_min_error: 'Please add at least 2 word pairs',
         support_title: 'Technical support', support_type_bug: '🐛 Something\'s broken', support_type_idea: '💡 Idea or request', support_type_compliment: '😻 Praise us',
-        support_placeholder: 'Describe what happened or what you\'d like added…', support_placeholder_bug: 'What broke? Tell us where and what happened — we\'ll sort it out 🛠️', support_placeholder_idea: 'What\'s missing? Share your idea — it might make the next update 💡', support_placeholder_compliment: 'Just tell us something nice… we\'ll save it for a rainy day 💛', support_submit: 'Send',
+        support_placeholder: 'Describe what happened or what you\'d like added…', support_placeholder_bug: 'Tell us what happened, please — we\'ll take a good look and fix it 🛠️', support_placeholder_idea: 'Share your idea — we\'d genuinely love to hear what could be better 💡', support_placeholder_compliment: 'Just tell us something nice… we\'ll save it for a rainy day 💛', support_submit: 'Send',
         support_min_error: 'Please write a message', support_thanks: 'Thanks! I\'ll see this before the next update.',
         support_history_title: 'My messages', support_copy_all: '📋 Copy all',
         support_copied: 'Copied!', support_copy_failed: 'Could not copy',
@@ -459,7 +459,7 @@ const translations = {
         wi_placeholder: 'dog — pies\ncat — kot\nto run — biegać',
         wi_min_error: 'Potrzeba co najmniej 2 par słów',
         support_title: 'Pomoc techniczna', support_type_bug: '🐛 Coś nie działa', support_type_idea: '💡 Pomysł lub życzenie', support_type_compliment: '😻 Pochwal nas',
-        support_placeholder: 'Opisz, co się stało albo co chciałabyś dodać…', support_placeholder_bug: 'Co się popsuło? Napisz, gdzie i co się stało — zajmiemy się tym 🛠️', support_placeholder_idea: 'Czego brakuje? Podziel się pomysłem — może trafi do następnej aktualizacji 💡', support_placeholder_compliment: 'Powiedz nam coś miłego… schowamy to na gorszy dzień 💛', support_submit: 'Wyślij',
+        support_placeholder: 'Opisz, co się stało albo co chciałabyś dodać…', support_placeholder_bug: 'Napisz, proszę, co się stało — na pewno się tym zajmiemy 🛠️', support_placeholder_idea: 'Podziel się pomysłem — naprawdę ciekawi nas, co można poprawić 💡', support_placeholder_compliment: 'Powiedz nam coś miłego… schowamy to na gorszy dzień 💛', support_submit: 'Wyślij',
         support_min_error: 'Napisz wiadomość', support_thanks: 'Dzięki! Zobaczę to przed kolejną aktualizacją.',
         support_history_title: 'Moje zgłoszenia', support_copy_all: '📋 Skopiuj wszystko',
         support_copied: 'Skopiowano!', support_copy_failed: 'Nie udało się skopiować',
@@ -620,7 +620,7 @@ const translations = {
         wi_placeholder: 'dog — Hund\ncat — Katze\nto run — laufen',
         wi_min_error: 'Mindestens 2 Wortpaare erforderlich',
         support_title: 'Technischer Support', support_type_bug: '🐛 Etwas funktioniert nicht', support_type_idea: '💡 Idee oder Wunsch', support_type_compliment: '😻 Lobt uns',
-        support_placeholder: 'Beschreibe, was passiert ist oder was du dir wünschst…', support_placeholder_bug: 'Was ist kaputt? Beschreib, wo und was passiert ist — wir kümmern uns darum 🛠️', support_placeholder_idea: 'Was fehlt? Teil uns deine Idee mit — vielleicht schafft sie es ins nächste Update 💡', support_placeholder_compliment: 'Sag uns einfach etwas Nettes… wir heben es uns für einen schlechten Tag auf 💛', support_submit: 'Senden',
+        support_placeholder: 'Beschreibe, was passiert ist oder was du dir wünschst…', support_placeholder_bug: 'Beschreib bitte, was passiert ist — wir schauen es uns in Ruhe an 🛠️', support_placeholder_idea: 'Teil uns deine Idee mit — uns interessiert wirklich, was besser sein könnte 💡', support_placeholder_compliment: 'Sag uns einfach etwas Nettes… wir heben es uns für einen schlechten Tag auf 💛', support_submit: 'Senden',
         support_min_error: 'Bitte schreib eine Nachricht', support_thanks: 'Danke! Ich sehe das vor dem nächsten Update.',
         support_history_title: 'Meine Meldungen', support_copy_all: '📋 Alles kopieren',
         support_copied: 'Kopiert!', support_copy_failed: 'Kopieren fehlgeschlagen',
@@ -781,7 +781,7 @@ const translations = {
         wi_placeholder: 'dog — chien\ncat — chat\nto run — courir',
         wi_min_error: 'Veuillez ajouter au moins 2 paires',
         support_title: 'Assistance technique', support_type_bug: '🐛 Quelque chose ne marche pas', support_type_idea: '💡 Idée ou souhait', support_type_compliment: '😻 Complimentez-nous',
-        support_placeholder: 'Décrivez ce qui s\'est passé ou ce que vous aimeriez ajouter…', support_placeholder_bug: 'Qu\'est-ce qui ne marche pas ? Dites-nous où et ce qui s\'est passé — on s\'en occupe 🛠️', support_placeholder_idea: 'Qu\'est-ce qui manque ? Partagez votre idée — elle pourrait arriver dans la prochaine mise à jour 💡', support_placeholder_compliment: 'Dites-nous juste quelque chose de gentil… on le gardera pour les mauvais jours 💛', support_submit: 'Envoyer',
+        support_placeholder: 'Décrivez ce qui s\'est passé ou ce que vous aimeriez ajouter…', support_placeholder_bug: 'Dites-nous ce qui s\'est passé, s\'il vous plaît — on va y regarder de près 🛠️', support_placeholder_idea: 'Partagez votre idée — ça nous intéresse vraiment de savoir ce qu\'on pourrait améliorer 💡', support_placeholder_compliment: 'Dites-nous juste quelque chose de gentil… on le gardera pour les mauvais jours 💛', support_submit: 'Envoyer',
         support_min_error: 'Veuillez écrire un message', support_thanks: 'Merci ! Je verrai ça avant la prochaine mise à jour.',
         support_history_title: 'Mes messages', support_copy_all: '📋 Tout copier',
         support_copied: 'Copié !', support_copy_failed: 'Impossible de copier',
@@ -942,7 +942,7 @@ const translations = {
         wi_placeholder: 'dog — perro\ncat — gato\nto run — correr',
         wi_min_error: 'Por favor añade al menos 2 pares',
         support_title: 'Soporte técnico', support_type_bug: '🐛 Algo no funciona', support_type_idea: '💡 Idea o sugerencia', support_type_compliment: '😻 Elógianos',
-        support_placeholder: 'Describe qué pasó o qué te gustaría añadir…', support_placeholder_compliment: 'Dinos algo bonito… lo guardaremos para un mal día 💛', support_submit: 'Enviar',
+        support_placeholder: 'Describe qué pasó o qué te gustaría añadir…', support_placeholder_bug: 'Cuéntanos qué pasó, por favor — lo revisaremos con calma 🛠️', support_placeholder_idea: 'Comparte tu idea — de verdad nos interesa saber qué se puede mejorar 💡', support_placeholder_compliment: 'Dinos algo bonito… lo guardaremos para un mal día 💛', support_submit: 'Enviar',
         support_min_error: 'Escribe un mensaje', support_thanks: '¡Gracias! Lo veré antes de la próxima actualización.',
         support_history_title: 'Mis mensajes', support_copy_all: '📋 Copiar todo',
         support_copied: '¡Copiado!', support_copy_failed: 'No se pudo copiar',
@@ -1320,9 +1320,17 @@ function dismissSupportHint() {
     try { localStorage.setItem('memori_support_hint_seen', '1'); } catch {}
 }
 
+// Поки User ще не обрала мову інтерфейсу (на langScreen, currentLang завжди має
+// технічне значення-заглушку 'uk' з state.js) — підтримка англійською, бо це
+// міжнародна мова і для будь-кого зрозуміліша, ніж вгадана заглушка. Щойно мову
+// обрано (setLanguage → showModeScreen), підтримка одразу переходить на неї.
+function getSupportLang() {
+    return (currentScreenId === 'langScreen' || currentScreenId === null) ? 'en' : currentLang;
+}
+
 function openSupportPopup() {
     dismissSupportHint();
-    const t = translations[currentLang];
+    const t = translations[getSupportLang()];
     document.getElementById('supportPopupTitle').innerText = t.support_title || 'Технічна підтримка';
     document.getElementById('supportTypeBugBtn').innerText = t.support_type_bug || '🐛 Щось не працює';
     document.getElementById('supportTypeIdeaBtn').innerText = t.support_type_idea || '💡 Ідея чи побажання';
@@ -1355,12 +1363,11 @@ function selectSupportType(type, btn) {
     document.querySelectorAll('.support-type-btn').forEach(b => b.classList.remove('active'));
     const target = btn || document.getElementById(SUPPORT_TYPE_BTN_IDS[type] || 'supportTypeBugBtn');
     if (target) target.classList.add('active');
-    const t = translations[currentLang];
+    const t = translations[getSupportLang()];
     const textarea = document.getElementById('supportTextarea');
     if (textarea) {
-        textarea.placeholder = type === 'compliment'
-            ? (t.support_placeholder_compliment || 'Просто скажіть щось приємне…')
-            : (t.support_placeholder || 'Опишіть, що сталося або що хотіли б додати…');
+        const placeholders = { bug: t.support_placeholder_bug, idea: t.support_placeholder_idea, compliment: t.support_placeholder_compliment };
+        textarea.placeholder = placeholders[type] || t.support_placeholder || 'Опишіть, що сталося або що хотіли б додати…';
     }
 }
 
@@ -1370,7 +1377,8 @@ function getSupportMessages() {
 }
 
 function submitSupportMessage() {
-    const t = translations[currentLang];
+    const supportLang = getSupportLang();
+    const t = translations[supportLang];
     const textarea = document.getElementById('supportTextarea');
     const text = textarea.value.trim();
     if (!text) {
@@ -1385,7 +1393,7 @@ function submitSupportMessage() {
         type: supportType,
         text,
         screen: currentScreenId,
-        lang: currentLang,
+        lang: supportLang,
         createdAt: new Date().toISOString(),
     });
     localStorage.setItem('memori_support', JSON.stringify(list));
@@ -1395,7 +1403,7 @@ function submitSupportMessage() {
         try {
             fetch(SUPPORT_WEBHOOK_URL, {
                 method: 'POST',
-                body: JSON.stringify({ type: supportType, text, screen: currentScreenId, lang: currentLang, createdAt: new Date().toISOString() }),
+                body: JSON.stringify({ type: supportType, text, screen: currentScreenId, lang: supportLang, createdAt: new Date().toISOString() }),
             }).catch(() => {});
         } catch {}
     }
