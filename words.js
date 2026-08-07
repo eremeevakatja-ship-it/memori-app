@@ -419,14 +419,27 @@ function editWordChip(index) {
     const chip = document.getElementById('wchip-' + index);
     if (!chip || chip.classList.contains('chip-editing')) return;
     const t = translations[currentLang];
+    const posHint = t.wv_pos_hint || 'Частина мови — потрібна для вправи «Фраза» (колокації)';
+    const posOptions = [
+        ['', t.wv_pos_none || '—'],
+        ['noun', t.wv_pos_noun || 'іменник'],
+        ['verb', t.wv_pos_verb || 'дієслово'],
+        ['adj', t.wv_pos_adj || 'прикметник'],
+    ].map(([val, label]) => `<option value="${val}"${pair.pos === val ? ' selected' : ''}>${escHtml(label)}</option>`).join('');
     chip.classList.add('chip-editing');
     chip.onclick = null;
     chip.innerHTML = `
-        <input class="chip-edit-word" type="text" value="${escHtml(pair.word)}" placeholder="${t.wl_learning || 'слово'}">
-        <span class="word-chip-arrow">→</span>
-        <input class="chip-edit-trans" type="text" value="${escHtml(pair.translation || '')}" placeholder="${t.wv_no_trans || 'переклад'}">
-        <button class="chip-save-btn" onclick="event.stopPropagation(); saveWordChip(${index})">✓</button>
-        <button class="chip-delete-btn" onclick="event.stopPropagation(); deleteWordChip(${index})">✕</button>
+        <div class="chip-edit-row1">
+            <input class="chip-edit-word" type="text" value="${escHtml(pair.word)}" placeholder="${t.wl_learning || 'слово'}">
+            <span class="word-chip-arrow">→</span>
+            <input class="chip-edit-trans" type="text" value="${escHtml(pair.translation || '')}" placeholder="${t.wv_no_trans || 'переклад'}">
+        </div>
+        <div class="chip-edit-row2">
+            <span class="chip-pos-icon" title="${escHtml(posHint)}">🧩</span>
+            <select class="chip-edit-pos" title="${escHtml(posHint)}">${posOptions}</select>
+            <button class="chip-save-btn" onclick="event.stopPropagation(); saveWordChip(${index})">✓</button>
+            <button class="chip-delete-btn" onclick="event.stopPropagation(); deleteWordChip(${index})">✕</button>
+        </div>
     `;
     const wordInput = chip.querySelector('.chip-edit-word');
     wordInput.focus();
@@ -443,8 +456,9 @@ function saveWordChip(index) {
     if (!chip) return;
     const word = (chip.querySelector('.chip-edit-word')?.value || '').trim();
     const trans = (chip.querySelector('.chip-edit-trans')?.value || '').trim();
+    const pos = chip.querySelector('.chip-edit-pos')?.value || '';
     if (!word) { deleteWordChip(index); return; }
-    wordPairs[index] = { word, translation: trans || null };
+    wordPairs[index] = { word, translation: trans || null, pos: pos || undefined };
     renderWordChips();
 }
 
@@ -930,32 +944,79 @@ function buildTrueFalseItem(pair, allPairs) {
 // ===== COLLOCATIONS (type: 'colloc') =====
 // User свідомо обрала варіант "без зовнішніх даних" (raніше пробували тягнути
 // приклади речень з Google Translate dt=ex для типу 'sentence' — вимкнено,
-// якість недостатня, див. коментар вище). Тому тут — прості шаблонні фрази з
-// пропуском, однакові для будь-якого слова цієї мови (без урахування частини
-// мови/роду/відмінка — свідомий компроміс: гірший контекст, зате 100% надійно,
-// без мережевого запиту й без ризику знову впертись у ту саму проблему якості).
+// якість недостатня, див. коментар вище).
+//
+// v3 (FB-12, 2026-08-07) — виправлення реальної скарги User: v1/v2 templates
+// були ПОВНИМИ РЕЧЕННЯМИ ("I need ___.", "Do you have ___?"), розрахованими на
+// іменник-додаток. Слово підставлялось в базовій формі БЕЗ урахування частини
+// мови — для дієслів/прикметників/фраз речення ставали граматично
+// неможливими, тож вправу не можна було виконати правильно взагалі не через
+// помилку рендеру, а через саму механіку. User: потрібні саме КОЛОКАЦІЇ —
+// короткі фрази ("very ___", "want to ___"), що показують з якими
+// прикметниками/дієсловами/прийменниками слово функціонує, а не повні речення.
+//
+// Рішення: шаблони тепер згруповані за частиною мови (noun/verb/adj) на
+// кожну мову, і саме коротка ФРАЗА (не речення) з пропуском — наприклад
+// noun: "need a ___", verb: "want to ___", adj: "very ___". Яку групу
+// використати, визначає новий необов'язковий `pair.pos`, який користувач
+// ставить при редагуванні чіпа (editWordChip/saveWordChip). Якщо `pos` не
+// вказано — тип 'colloc' просто НЕ трапляється для цієї пари (як і 'sentence'
+// для пар без прикладів, див. hasSentenceExamples/pairsForType вище) — це
+// свідомо краще, ніж вгадувати частину мови евристикою (ненадійно для
+// довільних слів у 6 мовах) або показувати граматично неможливу вправу знову.
+// Раніше збережені набори (без pos) — просто не отримають цей тип, без
+// помилок.
+//
+// Свідомо НЕ вирішено (як і в v1/v2): pair.word підставляється в БАЗОВІЙ формі
+// без відмінювання/узгодження роду/числа (напр. uk/pl "потрібен ___" вимагає
+// чоловічого роду, "a lot of ___" — множини) — фрази обрані так, щоб мінімум
+// половина категорії була граматично безпечною (adj-фрази найбезпечніші,
+// article-free noun-фрази де можливо), решта — прийнятий компроміс, той самий
+// принцип, що і в решті застосунку без бекенду/словника відмінків.
 const COLLOCATION_TEMPLATES = {
-    en: ['I need ___.', 'Do you have ___?', 'Where is ___?', 'I like ___.', 'Show me ___.', "Let's talk about ___.", 'Think about ___.', 'This is ___.'],
-    uk: ['Мені потрібен ___.', 'У тебе є ___?', 'Де ___?', 'Мені подобається ___.', 'Покажи мені ___.', 'Поговорімо про ___.', 'Подумай про ___.', 'Це ___.'],
-    pl: ['Potrzebuję ___.', 'Czy masz ___?', 'Gdzie jest ___?', 'Lubię ___.', 'Pokaż mi ___.', 'Porozmawiajmy o ___.', 'Pomyśl o ___.', 'To jest ___.'],
-    de: ['Ich brauche ___.', 'Hast du ___?', 'Wo ist ___?', 'Ich mag ___.', 'Zeig mir ___.', 'Lass uns über ___ reden.', 'Denk an ___.', 'Das ist ___.'],
-    fr: ["J'ai besoin de ___.", 'As-tu ___?', 'Où est ___?', "J'aime ___.", 'Montre-moi ___.', 'Parlons de ___.', 'Pense à ___.', "C'est ___."],
-    es: ['Necesito ___.', '¿Tienes ___?', '¿Dónde está ___?', 'Me gusta ___.', 'Muéstrame ___.', 'Hablemos de ___.', 'Piensa en ___.', 'Esto es ___.'],
+    en: {
+        noun: ['need a ___', 'kind of ___', 'a lot of ___', 'talk about ___', 'think about ___', 'new ___'],
+        verb: ['want to ___', 'try to ___', 'start to ___', "can't ___", 'love to ___', 'never ___'],
+        adj: ['very ___', 'so ___', 'too ___', 'quite ___', 'really ___', 'not ___'],
+    },
+    uk: {
+        noun: ['потрібен ___', 'багато ___', 'говорити про ___', 'подумати про ___', 'новий ___', 'вид ___'],
+        verb: ['хочу ___', 'треба ___', 'спробувати ___', 'не можу ___', 'почати ___', 'люблю ___'],
+        adj: ['дуже ___', 'такий ___', 'зовсім не ___', 'справді ___', 'надто ___', 'досить ___'],
+    },
+    pl: {
+        noun: ['potrzebuję ___', 'dużo ___', 'mówić o ___', 'pomyśleć o ___', 'nowy ___', 'rodzaj ___'],
+        verb: ['chcę ___', 'trzeba ___', 'spróbować ___', 'nie mogę ___', 'zacząć ___', 'lubię ___'],
+        adj: ['bardzo ___', 'taki ___', 'wcale nie ___', 'naprawdę ___', 'zbyt ___', 'dość ___'],
+    },
+    de: {
+        noun: ['ich brauche ___', 'viel ___', 'reden über ___', 'denk an ___', 'Art von ___', 'zeig mir ___'],
+        verb: ['ich möchte ___', 'versuchen zu ___', 'anfangen zu ___', 'ich kann nicht ___', 'ich will ___', 'ich muss ___'],
+        adj: ['sehr ___', 'ganz ___', 'zu ___', 'wirklich ___', 'nicht ___', 'so ___'],
+    },
+    fr: {
+        noun: ["j'ai besoin de ___", 'beaucoup de ___', 'parler de ___', 'penser à ___', 'montre-moi ___', 'type de ___'],
+        verb: ['je veux ___', 'essayer de ___', 'commencer à ___', 'je ne peux pas ___', "j'aime ___", 'je dois ___'],
+        adj: ['très ___', 'trop ___', 'vraiment ___', 'pas ___', 'assez ___', 'si ___'],
+    },
+    es: {
+        noun: ['necesito ___', 'mucho ___', 'hablar de ___', 'pensar en ___', 'un tipo de ___', 'muéstrame ___'],
+        verb: ['quiero ___', 'intentar ___', 'empezar a ___', 'no puedo ___', 'me gusta ___', 'tengo que ___'],
+        adj: ['muy ___', 'demasiado ___', 'realmente ___', 'no ___', 'bastante ___', 'tan ___'],
+    },
 };
 
-// FB-03 (2026-08-07) редизайн: раніше — ОДНЕ випадкове шаблонне речення на
-// вправу. User: звучить неприродно, бо шаблон обирається наосліп, без
-// узгодження з реальним словом. Нова механіка (v2) — 3 РІЗНІ шаблони з тим
-// самим пропуском одночасно, одне слово-відповідь підходить до всіх трьох
-// (`collocTemplates`, масив). Кожна мова має 8 шаблонів у COLLOCATION_TEMPLATES
-// — гарантовано вистачає на 3 без повторів.
-// Свідомо НЕ вирішено (як і в v1): pair.word підставляється в БАЗОВІЙ формі в
-// усі 3 речення без відмінювання/узгодження роду — для uk/pl це й далі може
-// звучати неприродно граматично. Морфологія слова — поза скоупом простого
-// клієнтського JS без бекенду/словника відмінків; свідомий компроміс, той
-// самий, що й у v1.
+// Пара має пройти цю перевірку, щоб тип 'colloc' взагалі трапився для неї
+// (див. pairsForType у buildWtQueue) — без pos шаблон обрати нема з чого.
+function hasCollocTemplates(pair) {
+    const langTemplates = COLLOCATION_TEMPLATES[wordLangFrom] || COLLOCATION_TEMPLATES.en;
+    const list = pair.pos && langTemplates[pair.pos];
+    return !!(list && list.length >= 3);
+}
+
 function buildCollocItem(pair) {
-    const templates = COLLOCATION_TEMPLATES[wordLangFrom] || COLLOCATION_TEMPLATES.en;
+    const langTemplates = COLLOCATION_TEMPLATES[wordLangFrom] || COLLOCATION_TEMPLATES.en;
+    const templates = (pair.pos && langTemplates[pair.pos]) || langTemplates.noun;
     const shuffled = [...templates].sort(() => Math.random() - 0.5);
     return { pair, type: 'colloc', collocTemplates: shuffled.slice(0, 3) };
 }
@@ -978,9 +1039,14 @@ function buildWtQueue(pairs, timeMinutes = Infinity) {
     // недостатня; повернути, коли буде нормальна генерація (див. AI-бекенд)
     const pool = ['w2t', 't2w', ttsWordOk ? 'audio' : null, 'spell', ttsWordOk ? 'dictation' : null, 'truefalse', 'colloc'].filter(Boolean);
 
-    // "sentence" доступний лише для пар з реально знайденими прикладами —
-    // фільтруємо саме цей тип по конкретному раунду пар, інші типи без змін.
-    const pairsForType = (type, list) => type === 'sentence' ? list.filter(hasSentenceExamples) : list;
+    // "sentence" доступний лише для пар з реально знайденими прикладами,
+    // "colloc" — лише для пар із вказаною частиною мови (pair.pos, див.
+    // hasCollocTemplates вище) — фільтруємо саме ці типи по конкретному
+    // раунду пар, інші типи без змін.
+    const pairsForType = (type, list) =>
+        type === 'sentence' ? list.filter(hasSentenceExamples) :
+        type === 'colloc' ? list.filter(hasCollocTemplates) :
+        list;
 
     const q = [];
     if (timeMinutes === Infinity) {

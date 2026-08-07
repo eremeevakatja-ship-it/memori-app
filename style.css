@@ -2238,8 +2238,15 @@ body[data-theme="dark"] .chip-cycle-btn:hover { background: rgba(129,140,248,0.1
   border-color: var(--primary);
   background: var(--primary-soft);
   cursor: default;
-  flex-wrap: nowrap;
+  flex-direction: column;
+  align-items: stretch;
   padding: 8px 10px;
+  gap: 6px;
+}
+.chip-edit-row1,
+.chip-edit-row2 {
+  display: flex;
+  align-items: center;
   gap: 6px;
 }
 .chip-edit-word,
@@ -2256,6 +2263,26 @@ body[data-theme="dark"] .chip-cycle-btn:hover { background: rgba(129,140,248,0.1
 }
 .chip-edit-word:focus,
 .chip-edit-trans:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+.chip-pos-icon {
+  flex-shrink: 0;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+.chip-edit-pos {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 5px 6px;
+  font-size: 0.82rem;
+  background: var(--card-bg);
+  color: var(--text);
+  font-family: inherit;
+}
+.chip-edit-pos:focus {
   outline: none;
   border-color: var(--primary);
 }
@@ -2336,7 +2363,8 @@ body[data-theme="dark"] .word-chip.chip-editing {
   border-color: #818cf8;
 }
 body[data-theme="dark"] .chip-edit-word,
-body[data-theme="dark"] .chip-edit-trans {
+body[data-theme="dark"] .chip-edit-trans,
+body[data-theme="dark"] .chip-edit-pos {
   background: #0f172a;
   border-color: #334155;
   color: #e2e8f0;
