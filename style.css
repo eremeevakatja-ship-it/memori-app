@@ -3018,6 +3018,24 @@ body[data-theme="dark"] .support-textarea { background: #111827; border-color: #
 body[data-theme="dark"] .support-history-item { background: #1f2937; border-color: #2d3748; }
 body[data-theme="dark"] .support-history-meta { color: #64748b; }
 
+.support-history-delete {
+  margin-left: auto;
+  width: 20px; height: 20px;
+  min-width: 20px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #999;
+  font-size: 0.95rem;
+  line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+.support-history-delete:hover { background: rgba(220,38,38,0.12); color: #dc2626; }
+body[data-theme="dark"] .support-history-delete { color: #64748b; }
+body[data-theme="dark"] .support-history-delete:hover { background: rgba(248,113,113,0.15); color: #f87171; }
+
 /* Постійний бейдж "?" на іконці — щоб було зрозуміло, що це кнопка допомоги, а не просто маскот */
 .support-fab-badge {
   position: absolute;

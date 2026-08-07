@@ -606,7 +606,7 @@ function saveWordSetAndStart() {
     const sets = loadWordSets();
     sets.unshift(newSet);
     saveWordSets(sets);
-    startWordTraining(newSet);
+    startWordTraining(newSet, showWordTopicScreen);
 }
 
 // ===== WORD TRAINING ENGINE =====
@@ -660,7 +660,7 @@ function updateWordMastery() {
     }
 }
 
-async function startWordTraining(set) {
+async function startWordTraining(set, returnScreenFn) {
     const t = translations[currentLang];
     const valid = (set.pairs || []).filter(p => p.word && p.translation);
     if (!valid.length) {
@@ -668,6 +668,7 @@ async function startWordTraining(set) {
         showModeScreen();
         return;
     }
+    wtReturnScreen = typeof returnScreenFn === 'function' ? returnScreenFn : null;
     wtSet = set;
     wordLangFrom = set.langFrom || 'en';
     wordLangTo   = set.langTo   || 'uk';
@@ -903,7 +904,7 @@ function renderWtExercise() {
     const skipBtn = document.getElementById('wtSkipWordBtn');
     if (skipBtn) skipBtn.style.display = 'block';
     const backBtn = document.getElementById('wtBackBtn');
-    if (backBtn) backBtn.style.display = wtIndex > 0 ? 'inline-block' : 'none';
+    if (backBtn) backBtn.style.display = 'inline-block';
 
     const qEl = document.getElementById('wtQuestion');
     const audioWrap = document.getElementById('wtAudioWrap');
@@ -1204,7 +1205,14 @@ function wtSkipWord() {
 }
 
 function wtGoBack() {
-    if (wtIndex <= 0) return;
+    if (wtIndex <= 0) {
+        if (typeof wtReturnScreen === 'function') {
+            wtReturnScreen();
+        } else {
+            openWordProfile(showWordLangScreen, 'progress');
+        }
+        return;
+    }
     wtIndex--;
     const ex = wtQueue[wtIndex];
     if (ex) {
@@ -1314,9 +1322,11 @@ function wtGoHome() {
 // ----- [W1 WORD PROFILE screen (openWordProfile/renderWordProfileList)]  (was app.js lines 3466-3509) -----
 // ===== WORD PROFILE (окремий напрямок — спільні тільки ім'я+фото через renderProfileHero) =====
 
-// focus: 'progress' (default, скролить до списку наборів слів) | 'identity' (скролить
-// до hero — ім'я+аватар). Той самий екран (wordProfileScreen) обслуговує обидва пункти
-// нижньої навігації Words Mode — симетрично до openProfile() в app.js, див. DECISIONS.md.
+// focus: 'progress' (скролить до списку наборів слів) | 'identity' (default з єдиного
+// нав-пункту "Профіль" з 2026-08-06, скролить до hero — ім'я+аватар). Раніше екран
+// обслуговував 2 пункти нав-бару Words Mode ("Прогрес" і "Профіль"), тепер лишився
+// тільки "Профіль" → bottomNavGo завжди передає 'identity' — симетрично до
+// openProfile() в app.js, див. D-009 addendum у DECISIONS.md.
 function openWordProfile(returnFn, focus) {
     profileReturnFn = typeof returnFn === 'function' ? returnFn : showWordLangScreen;
     showScreen('wordProfileScreen');

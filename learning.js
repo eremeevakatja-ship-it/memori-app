@@ -236,6 +236,7 @@ function showStep() {
 
     document.getElementById('learningScreen').style.display = 'block';
     document.getElementById('restScreen').style.display = 'none';
+    document.getElementById('learningBackLabel').innerText = t.back_lang || 'Назад';
     const display = document.getElementById('textDisplay');
     const hint = document.getElementById('instructionHint');
 
@@ -839,6 +840,11 @@ function restartLearning() {
 }
 
 function goHome() {
+    showScreen('langScreen');
+}
+
+function exitLearningScreen() {
+    saveState();
     showInputScreen();
 }
 

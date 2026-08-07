@@ -136,8 +136,8 @@ const translations = {
         wi_info_body: 'Два способи — обирайте зручний:\n\n1. Просто слова, по одному на рядок. Переклад підберемо автоматично на наступному кроці.\n\n2. Слово з перекладом одразу — через тире: dog — собака.\n\nМожна вводити будь-якою з двох мов пари — програма сама зрозуміє, де слово, а де переклад.',
         wi_placeholder: 'dog — собака\ncat — кішка\nto run — бігати',
         wi_min_error: 'Потрібно мінімум 2 пари слів',
-        support_title: 'Технічна підтримка', support_type_bug: '🐛 Щось не працює', support_type_idea: '💡 Ідея чи побажання',
-        support_placeholder: 'Опишіть, що сталося або що хотіли б додати…', support_submit: 'Надіслати',
+        support_title: 'Технічна підтримка', support_type_bug: '🐛 Щось не працює', support_type_idea: '💡 Ідея чи побажання', support_type_compliment: '😻 Похваліть нас',
+        support_placeholder: 'Опишіть, що сталося або що хотіли б додати…', support_placeholder_compliment: 'Просто скажіть щось приємне… ми відкладемо це на поганий день 💛', support_submit: 'Надіслати',
         support_min_error: 'Напишіть повідомлення', support_thanks: 'Дякую! Побачу це під час наступного оновлення.',
         support_history_title: 'Мої звернення', support_copy_all: '📋 Скопіювати все',
         support_copied: 'Скопійовано!', support_copy_failed: 'Не вдалося скопіювати',
@@ -292,8 +292,8 @@ const translations = {
         wi_info_body: 'Two ways — pick whichever is easier:\n\n1. Just words, one per line. We\'ll suggest a translation automatically on the next step.\n\n2. Word with translation right away — separated by a dash: dog — собака.\n\nYou can type in either of the two languages of your pair — the app will figure out which is the word and which is the translation.',
         wi_placeholder: 'dog — собака\ncat — кішка\nto run — бігати',
         wi_min_error: 'Please add at least 2 word pairs',
-        support_title: 'Technical support', support_type_bug: '🐛 Something\'s broken', support_type_idea: '💡 Idea or request',
-        support_placeholder: 'Describe what happened or what you\'d like added…', support_submit: 'Send',
+        support_title: 'Technical support', support_type_bug: '🐛 Something\'s broken', support_type_idea: '💡 Idea or request', support_type_compliment: '😻 Praise us',
+        support_placeholder: 'Describe what happened or what you\'d like added…', support_placeholder_compliment: 'Just tell us something nice… we\'ll save it for a rainy day 💛', support_submit: 'Send',
         support_min_error: 'Please write a message', support_thanks: 'Thanks! I\'ll see this before the next update.',
         support_history_title: 'My messages', support_copy_all: '📋 Copy all',
         support_copied: 'Copied!', support_copy_failed: 'Could not copy',
@@ -448,8 +448,8 @@ const translations = {
         wi_info_body: 'Dwa sposoby — wybierz wygodniejszy:\n\n1. Same słowa, po jednym w linii. Tłumaczenie zaproponujemy automatycznie w następnym kroku.\n\n2. Słowo od razu z tłumaczeniem — po myślniku: dog — pies.\n\nMożesz pisać w dowolnym z dwóch języków pary — aplikacja sama rozpozna, co jest słowem, a co tłumaczeniem.',
         wi_placeholder: 'dog — pies\ncat — kot\nto run — biegać',
         wi_min_error: 'Potrzeba co najmniej 2 par słów',
-        support_title: 'Pomoc techniczna', support_type_bug: '🐛 Coś nie działa', support_type_idea: '💡 Pomysł lub życzenie',
-        support_placeholder: 'Opisz, co się stało albo co chciałabyś dodać…', support_submit: 'Wyślij',
+        support_title: 'Pomoc techniczna', support_type_bug: '🐛 Coś nie działa', support_type_idea: '💡 Pomysł lub życzenie', support_type_compliment: '😻 Pochwal nas',
+        support_placeholder: 'Opisz, co się stało albo co chciałabyś dodać…', support_placeholder_compliment: 'Powiedz nam coś miłego… schowamy to na gorszy dzień 💛', support_submit: 'Wyślij',
         support_min_error: 'Napisz wiadomość', support_thanks: 'Dzięki! Zobaczę to przed kolejną aktualizacją.',
         support_history_title: 'Moje zgłoszenia', support_copy_all: '📋 Skopiuj wszystko',
         support_copied: 'Skopiowano!', support_copy_failed: 'Nie udało się skopiować',
@@ -604,8 +604,8 @@ const translations = {
         wi_info_body: 'Zwei Wege — wähle den bequemeren:\n\n1. Nur Wörter, eines pro Zeile. Die Übersetzung schlagen wir dir im nächsten Schritt automatisch vor.\n\n2. Wort direkt mit Übersetzung — mit Gedankenstrich getrennt: dog — Hund.\n\nDu kannst in beiden Sprachen deines Paares tippen — die App erkennt selbst, was das Wort und was die Übersetzung ist.',
         wi_placeholder: 'dog — Hund\ncat — Katze\nto run — laufen',
         wi_min_error: 'Mindestens 2 Wortpaare erforderlich',
-        support_title: 'Technischer Support', support_type_bug: '🐛 Etwas funktioniert nicht', support_type_idea: '💡 Idee oder Wunsch',
-        support_placeholder: 'Beschreibe, was passiert ist oder was du dir wünschst…', support_submit: 'Senden',
+        support_title: 'Technischer Support', support_type_bug: '🐛 Etwas funktioniert nicht', support_type_idea: '💡 Idee oder Wunsch', support_type_compliment: '😻 Lobt uns',
+        support_placeholder: 'Beschreibe, was passiert ist oder was du dir wünschst…', support_placeholder_compliment: 'Sag uns einfach etwas Nettes… wir heben es uns für einen schlechten Tag auf 💛', support_submit: 'Senden',
         support_min_error: 'Bitte schreib eine Nachricht', support_thanks: 'Danke! Ich sehe das vor dem nächsten Update.',
         support_history_title: 'Meine Meldungen', support_copy_all: '📋 Alles kopieren',
         support_copied: 'Kopiert!', support_copy_failed: 'Kopieren fehlgeschlagen',
@@ -760,8 +760,8 @@ const translations = {
         wi_info_body: 'Deux façons de faire — choisissez celle qui vous convient :\n\n1. Juste les mots, un par ligne. Nous proposerons une traduction automatiquement à l\'étape suivante.\n\n2. Le mot avec sa traduction directement — séparés par un tiret : dog — chien.\n\nVous pouvez taper dans l\'une ou l\'autre langue de votre paire — l\'application déterminera elle-même quel est le mot et quelle est la traduction.',
         wi_placeholder: 'dog — chien\ncat — chat\nto run — courir',
         wi_min_error: 'Veuillez ajouter au moins 2 paires',
-        support_title: 'Assistance technique', support_type_bug: '🐛 Quelque chose ne marche pas', support_type_idea: '💡 Idée ou souhait',
-        support_placeholder: 'Décrivez ce qui s\'est passé ou ce que vous aimeriez ajouter…', support_submit: 'Envoyer',
+        support_title: 'Assistance technique', support_type_bug: '🐛 Quelque chose ne marche pas', support_type_idea: '💡 Idée ou souhait', support_type_compliment: '😻 Complimentez-nous',
+        support_placeholder: 'Décrivez ce qui s\'est passé ou ce que vous aimeriez ajouter…', support_placeholder_compliment: 'Dites-nous juste quelque chose de gentil… on le gardera pour les mauvais jours 💛', support_submit: 'Envoyer',
         support_min_error: 'Veuillez écrire un message', support_thanks: 'Merci ! Je verrai ça avant la prochaine mise à jour.',
         support_history_title: 'Mes messages', support_copy_all: '📋 Tout copier',
         support_copied: 'Copié !', support_copy_failed: 'Impossible de copier',
@@ -916,8 +916,8 @@ const translations = {
         wi_info_body: 'Dos formas — elige la que prefieras:\n\n1. Solo palabras, una por línea. Te sugeriremos la traducción automáticamente en el siguiente paso.\n\n2. Palabra con traducción directamente — separadas por un guion: dog — perro.\n\nPuedes escribir en cualquiera de los dos idiomas de tu pareja — la aplicación reconocerá cuál es la palabra y cuál la traducción.',
         wi_placeholder: 'dog — perro\ncat — gato\nto run — correr',
         wi_min_error: 'Por favor añade al menos 2 pares',
-        support_title: 'Soporte técnico', support_type_bug: '🐛 Algo no funciona', support_type_idea: '💡 Idea o sugerencia',
-        support_placeholder: 'Describe qué pasó o qué te gustaría añadir…', support_submit: 'Enviar',
+        support_title: 'Soporte técnico', support_type_bug: '🐛 Algo no funciona', support_type_idea: '💡 Idea o sugerencia', support_type_compliment: '😻 Elógianos',
+        support_placeholder: 'Describe qué pasó o qué te gustaría añadir…', support_placeholder_compliment: 'Dinos algo bonito… lo guardaremos para un mal día 💛', support_submit: 'Enviar',
         support_min_error: 'Escribe un mensaje', support_thanks: '¡Gracias! Lo veré antes de la próxima actualización.',
         support_history_title: 'Mis mensajes', support_copy_all: '📋 Copiar todo',
         support_copied: '¡Copiado!', support_copy_failed: 'No se pudo copiar',
@@ -1093,24 +1093,24 @@ function setBottomNav(context, tab) {
 function renderBottomNav() {
     const t = translations[currentLang];
     const learnLbl = document.getElementById('navLearnLbl');
-    const progLbl = document.getElementById('navProgressLbl');
     const profLbl = document.getElementById('navProfileLbl');
     if (learnLbl) learnLbl.innerText = t.nav_learn || 'Навчання';
-    if (progLbl) progLbl.innerText = t.nav_progress || 'Прогрес';
     if (profLbl) profLbl.innerText = t.nav_profile || 'Профіль';
     document.querySelectorAll('.bottom-nav-item').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.nav === navActiveTab);
     });
 }
 
+// "Прогрес" видалено 2026-08-06 — дублював "Профіль" (обидва відкривали той самий
+// екран, різнились лише scroll-фокусом). Лишився один пункт "Профіль", тому завжди
+// відкриваємо з focus='identity' (hero зверху), як і раніше робив пункт "Профіль".
+// Див. D-009 addendum у _manager/DECISIONS.md.
 function bottomNavGo(tab) {
     if (navContext === 'words') {
         if (tab === 'learn') showWordLangScreen();
-        else if (tab === 'progress') openWordProfile(showWordLangScreen, 'progress');
         else openWordProfile(showWordLangScreen, 'identity');
     } else {
         if (tab === 'learn') showInputScreen();
-        else if (tab === 'progress') openProfile(showInputScreen, 'progress');
         else openProfile(showInputScreen, 'identity');
     }
 }
@@ -1296,6 +1296,7 @@ function openSupportPopup() {
     document.getElementById('supportPopupTitle').innerText = t.support_title || 'Технічна підтримка';
     document.getElementById('supportTypeBugBtn').innerText = t.support_type_bug || '🐛 Щось не працює';
     document.getElementById('supportTypeIdeaBtn').innerText = t.support_type_idea || '💡 Ідея чи побажання';
+    document.getElementById('supportTypeComplimentBtn').innerText = t.support_type_compliment || '😻 Похваліть нас';
     document.getElementById('supportTextarea').placeholder = t.support_placeholder || 'Опишіть, що сталося або що хотіли б додати…';
     document.getElementById('supportTextarea').value = '';
     document.getElementById('supportSubmitBtn').innerText = t.support_submit || 'Надіслати';
@@ -1317,11 +1318,20 @@ function closeSupportPopup(event) {
     setTimeout(() => { popup.style.display = 'none'; }, 260);
 }
 
+const SUPPORT_TYPE_BTN_IDS = { bug: 'supportTypeBugBtn', idea: 'supportTypeIdeaBtn', compliment: 'supportTypeComplimentBtn' };
+
 function selectSupportType(type, btn) {
     supportType = type;
     document.querySelectorAll('.support-type-btn').forEach(b => b.classList.remove('active'));
-    const target = btn || document.getElementById(type === 'bug' ? 'supportTypeBugBtn' : 'supportTypeIdeaBtn');
+    const target = btn || document.getElementById(SUPPORT_TYPE_BTN_IDS[type] || 'supportTypeBugBtn');
     if (target) target.classList.add('active');
+    const t = translations[currentLang];
+    const textarea = document.getElementById('supportTextarea');
+    if (textarea) {
+        textarea.placeholder = type === 'compliment'
+            ? (t.support_placeholder_compliment || 'Просто скажіть щось приємне…')
+            : (t.support_placeholder || 'Опишіть, що сталося або що хотіли б додати…');
+    }
 }
 
 function getSupportMessages() {
@@ -1365,6 +1375,9 @@ function submitSupportMessage() {
     renderSupportHistory();
 }
 
+const SUPPORT_TYPE_ICON = { bug: '🐛', idea: '💡', compliment: '😻' };
+const SUPPORT_TYPE_TAG = { bug: 'BUG', idea: 'IDEA', compliment: 'COMPLIMENT' };
+
 function renderSupportHistory() {
     const list = getSupportMessages();
     const container = document.getElementById('supportHistoryList');
@@ -1376,12 +1389,18 @@ function renderSupportHistory() {
     container.innerHTML = list.map(m => `
         <div class="support-history-item">
             <div class="support-history-meta">
-                <span>${m.type === 'bug' ? '🐛' : '💡'}</span>
+                <span>${SUPPORT_TYPE_ICON[m.type] || '💬'}</span>
                 <span>${new Date(m.createdAt).toLocaleString(currentLang)}</span>
+                <button type="button" class="support-history-delete" onclick="deleteSupportMessage('${m.id}')" aria-label="Delete">×</button>
             </div>
             <div class="support-history-text">${escHtml(m.text)}</div>
         </div>
     `).join('');
+}
+
+function deleteSupportMessage(id) {
+    localStorage.setItem('memori_support', JSON.stringify(getSupportMessages().filter(m => m.id !== id)));
+    renderSupportHistory();
 }
 
 function copyAllSupportMessages() {
@@ -1389,7 +1408,7 @@ function copyAllSupportMessages() {
     const list = getSupportMessages();
     if (!list.length) return;
     const text = list.map(m =>
-        `[${m.type === 'bug' ? 'BUG' : 'IDEA'}] ${new Date(m.createdAt).toLocaleString()} — ${m.screen || '?'}\n${m.text}`
+        `[${SUPPORT_TYPE_TAG[m.type] || 'MSG'}] ${new Date(m.createdAt).toLocaleString()} — ${m.screen || '?'}\n${m.text}`
     ).join('\n\n---\n\n');
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text)
@@ -1744,10 +1763,12 @@ async function shareResult() {
 // відкривається сам із себе, тому одного слота (а не стеку) достатньо.
 let profileReturnFn = null;
 
-// focus: 'progress' (default, скролить до вкладок В роботі/Вивчено/Плани) | 'identity'
-// (скролить до hero — ім'я+аватар+налаштування). Один і той самий екран (profileScreen)
-// обслуговує обидва пункти нижньої навігації ("Прогрес" і "Профіль") — див. DECISIONS.md
-// чому не розділено на два окремі екрани (ризик регресії синхронізації hero).
+// focus: 'progress' (скролить до вкладок В роботі/Вивчено/Плани) | 'identity' (default
+// з єдиного нав-пункту "Профіль" з 2026-08-06, скролить до hero — ім'я+аватар+
+// налаштування). Раніше екран обслуговував 2 пункти нав-бару ("Прогрес" і "Профіль"),
+// тепер лишився тільки "Профіль" → bottomNavGo завжди передає 'identity'; параметр
+// focus лишається (не видалений) — див. D-009 addendum у DECISIONS.md чому не
+// розділено на два окремі екрани (ризик регресії синхронізації hero).
 function openProfile(returnFn, focus) {
     profileReturnFn = typeof returnFn === 'function' ? returnFn : showInputScreen;
     showScreen('profileScreen');

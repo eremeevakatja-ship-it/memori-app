@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=76" />
+    <link rel="stylesheet" href="style.css?v=78" />
   </head>
   <body>
     <div class="container">
@@ -225,6 +225,12 @@
 
         <!-- Learning Screen -->
         <div id="learningScreen" style="display: none">
+          <div class="input-topbar">
+            <button onclick="exitLearningScreen()" class="btn-back">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <span id="learningBackLabel">Назад</span>
+            </button>
+          </div>
           <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
           <div class="step-row">
             <div id="stepLabel" class="step-badge"></div>
@@ -613,18 +619,17 @@
       </div>
     </div>
 
-    <!-- Bottom Nav — Навчання/Прогрес/Профіль, floating pill. Тільки на hub-екранах
-         (inputScreen/wordLangScreen) і на самих екранах профілю/прогресу — див.
+    <!-- Bottom Nav — Навчання/Профіль, floating pill. Тільки на hub-екранах
+         (inputScreen/wordLangScreen) і на самому екрані профілю — див.
          BOTTOM_NAV_SCREENS у app.js. Один спільний бар для Text і Words: navContext
-         (app.js) вирішує куди ведуть кнопки, а не дублювання розмітки. -->
+         (app.js) вирішує куди ведуть кнопки, а не дублювання розмітки.
+         "Прогрес" видалено 2026-08-06 (дублював "Профіль" — обидва вели на той
+         самий екран, лишався тільки різний scroll-фокус) — див. D-009 addendum
+         у _manager/DECISIONS.md. -->
     <nav id="bottomNav" class="bottom-nav" style="display:none;" aria-label="Primary">
       <button type="button" class="bottom-nav-item" data-nav="learn" onclick="bottomNavGo('learn')">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"/></svg>
         <span id="navLearnLbl">Навчання</span>
-      </button>
-      <button type="button" class="bottom-nav-item" data-nav="progress" onclick="bottomNavGo('progress')">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-        <span id="navProgressLbl">Прогрес</span>
       </button>
       <button type="button" class="bottom-nav-item" data-nav="profile" onclick="bottomNavGo('profile')">
         <span class="bottom-nav-avatar-wrap">
@@ -675,6 +680,7 @@
         <div class="support-type-row">
           <button type="button" id="supportTypeBugBtn" class="support-type-btn" onclick="selectSupportType('bug', this)">🐛 Щось не працює</button>
           <button type="button" id="supportTypeIdeaBtn" class="support-type-btn" onclick="selectSupportType('idea', this)">💡 Ідея чи побажання</button>
+          <button type="button" id="supportTypeComplimentBtn" class="support-type-btn" onclick="selectSupportType('compliment', this)">😻 Похваліть нас</button>
         </div>
         <textarea id="supportTextarea" class="support-textarea" rows="4"></textarea>
         <div id="supportValidation" class="validation-msg" style="display:none;"></div>
@@ -693,8 +699,8 @@
     <script src="state.js?v=4"></script>
     <script src="audio.js?v=2"></script>
     <script src="learning.js?v=8"></script>
-    <script src="words.js?v=3"></script>
-    <script src="app.js?v=87"></script>
+    <script src="words.js?v=4"></script>
+    <script src="app.js?v=91"></script>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});
