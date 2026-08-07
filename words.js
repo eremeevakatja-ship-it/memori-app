@@ -37,6 +37,7 @@ function showWordLangScreen() {
     applyFontSize(); // fontSizeIndex — той самий, спільний для профілю, застосувати одразу і в Words Mode
     setBottomNav('words', 'learn');
     document.getElementById('wlBackLabel').innerText = t.back_lang || 'Назад';
+    document.getElementById('wlHomeBtn').title = document.getElementById('wlHomeBtn').ariaLabel = t.finish_home || 'На головну';
     document.getElementById('wlTitleEl').innerText = t.wl_title || 'Мовна пара';
     const wlSubEl = document.getElementById('wlSubtitleEl');
     if (wlSubEl) wlSubEl.innerText = t.wl_subtitle || '';
@@ -77,6 +78,7 @@ function showWordInputScreen() {
     const t = translations[currentLang];
     showScreen('wordInputScreen');
     document.getElementById('wiBackLabel').innerText = t.back_lang || 'Назад';
+    document.getElementById('wiHomeBtn').title = document.getElementById('wiHomeBtn').ariaLabel = t.finish_home || 'На головну';
     document.getElementById('wiTitleEl').innerText = t.wi_title || 'Додайте слова';
     document.getElementById('wiHintText').innerText = t.wi_hint || 'Кожне слово з нового рядка';
     document.getElementById('wiNextBtn').innerText = t.wl_next || 'Далі →';
@@ -202,6 +204,7 @@ function showWordVerifyScreen() {
     const t = translations[currentLang];
     showScreen('wordVerifyScreen');
     document.getElementById('wvBackLabel').innerText = t.back_lang || 'Назад';
+    document.getElementById('wvHomeBtn').title = document.getElementById('wvHomeBtn').ariaLabel = t.finish_home || 'На головну';
     document.getElementById('wvTitleEl').innerText = t.wv_title || 'Перевірте список';
     document.getElementById('wvHintEl').innerText = t.wv_hint || 'Натисніть на пару щоб відредагувати';
     document.getElementById('wvHint2Text').innerText = t.wv_hint_cycle || '— спробувати інший варіант перекладу';
@@ -474,6 +477,7 @@ function showWordTopicScreen() {
     const t = translations[currentLang];
     showScreen('wordTopicScreen');
     document.getElementById('wtBackLabel').innerText = t.back_lang || 'Назад';
+    document.getElementById('wtTopicHomeBtn').title = document.getElementById('wtTopicHomeBtn').ariaLabel = t.finish_home || 'На головну';
     document.getElementById('wtTitleEl').innerText = t.wt_title || 'Назвіть тему';
     const wtSubEl = document.getElementById('wtTopicSubtitleEl');
     if (wtSubEl) wtSubEl.innerText = t.wt_topic_subtitle || '';
@@ -633,6 +637,35 @@ function updateWordMastery() {
     if (!wtSet) return;
     const byPair = new Map();
     wtQueue.forEach(ex => {
+        if (ex.type === 'match') {
+            // Раунд match тримає кілька пар в одній вправі (ex.pairs) — розкладаємо
+            // на синтетичні "вправа на 1 пару" записи по pairResults[i], щоб
+            // mastery рахувалась per-word так само, як і для решти типів.
+            if (!Array.isArray(ex.pairs)) return;
+            ex.pairs.forEach((p, i) => {
+                if (!byPair.has(p)) byPair.set(p, []);
+                const matched = ex.pairResults ? ex.pairResults[i] : undefined;
+                const hadMistake = ex.pairHadMistake ? ex.pairHadMistake[i] : false;
+                byPair.get(p).push({ correct: matched === true ? !hadMistake : undefined });
+            });
+            return;
+        }
+        if (ex.type === 'listen') {
+            // Аналогічно match: раунд тримає кілька слів, розкладаємо на
+            // синтетичні записи. Правильність per-word — чи збіглася позначка
+            // "прозвучало/не прозвучало" з тим, чи слово справді звучало, а
+            // не whole-round результат (справедливіше: одна помилка з 6 слів
+            // не повинна скидати mastery решти 5 правильно розпізнаних).
+            if (!Array.isArray(ex.pairs)) return;
+            const spokenSet = new Set(ex.spokenIndices || []);
+            const selectedSet = new Set(ex.selected || []);
+            const resolved = ex.correct !== undefined;
+            ex.pairs.forEach((p, i) => {
+                if (!byPair.has(p)) byPair.set(p, []);
+                byPair.get(p).push({ correct: resolved ? (spokenSet.has(i) === selectedSet.has(i)) : undefined });
+            });
+            return;
+        }
         if (!byPair.has(ex.pair)) byPair.set(ex.pair, []);
         byPair.get(ex.pair).push(ex);
     });
@@ -660,6 +693,45 @@ function updateWordMastery() {
     }
 }
 
+// Відновлює wtQueue/wtIndex/wtCorrect зі збереженого прогресу (saveWtProgress)
+// і одразу показує wordTrainingScreen — спільна логіка для confirm-діалогу
+// (startWordTraining, коли User сам обирає набір з незавершеним прогресом)
+// і для тихого авто-resume при відкритті додатку (checkAppBootResume, state.js).
+function applyWtSavedProgress(set, saved) {
+    wtSet = set;
+    wordLangFrom = set.langFrom || 'en';
+    wordLangTo   = set.langTo   || 'uk';
+    wordLevel    = set.level    || 1;
+    // Пари в збереженому JSON — окремі клоновані об'єкти після
+    // JSON.parse, а не ті самі референси, що в set.pairs. Прив'язуємо
+    // назад до реальних об'єктів пар цього набору (за word+translation),
+    // щоб masteryScore і надалі писався в правильне місце.
+    wtQueue = saved.wtQueue.map(ex => {
+        const match = set.pairs.find(p => p.word === ex.pair.word && p.translation === ex.pair.translation);
+        return { ...ex, pair: match || ex.pair };
+    });
+    wtIndex = saved.wtIndex;
+    wtCorrect = saved.wtCorrect || 0;
+    wtCurrentAudioPair = null;
+
+    // Пари, чиї всі наявні на момент збереження вправи вже отримали
+    // відповідь, вже підбили masteryScore ДО перезапуску (інкрементальне
+    // збереження) — позначаємо їх settled, щоб updateWordMastery() не
+    // нарахувала той самий "чистий прохід" вдруге.
+    wtSettledPairs = new Set();
+    const byPair = new Map();
+    wtQueue.forEach(ex => {
+        if (!byPair.has(ex.pair)) byPair.set(ex.pair, []);
+        byPair.get(ex.pair).push(ex);
+    });
+    byPair.forEach((exs, pair) => {
+        if (exs.every(e => e.correct !== undefined)) wtSettledPairs.add(pair);
+    });
+
+    showScreen('wordTrainingScreen');
+    renderWtExercise();
+}
+
 async function startWordTraining(set, returnScreenFn) {
     const t = translations[currentLang];
     const valid = (set.pairs || []).filter(p => p.word && p.translation);
@@ -682,34 +754,7 @@ async function startWordTraining(set, returnScreenFn) {
         const msg = (t.wt_resume_confirm || 'Знайдено незавершене тренування цього набору ({n}/{total}). Продовжити з того ж місця?')
             .replace('{n}', saved.wtIndex).replace('{total}', saved.wtQueue.length);
         if (window.confirm(msg)) {
-            // Пари в збереженому JSON — окремі клоновані об'єкти після
-            // JSON.parse, а не ті самі референси, що в set.pairs. Прив'язуємо
-            // назад до реальних об'єктів пар цього набору (за word+translation),
-            // щоб masteryScore і надалі писався в правильне місце.
-            wtQueue = saved.wtQueue.map(ex => {
-                const match = set.pairs.find(p => p.word === ex.pair.word && p.translation === ex.pair.translation);
-                return { ...ex, pair: match || ex.pair };
-            });
-            wtIndex = saved.wtIndex;
-            wtCorrect = saved.wtCorrect || 0;
-            wtCurrentAudioPair = null;
-
-            // Пари, чиї всі наявні на момент збереження вправи вже отримали
-            // відповідь, вже підбили masteryScore ДО перезапуску (інкрементальне
-            // збереження) — позначаємо їх settled, щоб updateWordMastery() не
-            // нарахувала той самий "чистий прохід" вдруге.
-            wtSettledPairs = new Set();
-            const byPair = new Map();
-            wtQueue.forEach(ex => {
-                if (!byPair.has(ex.pair)) byPair.set(ex.pair, []);
-                byPair.get(ex.pair).push(ex);
-            });
-            byPair.forEach((exs, pair) => {
-                if (exs.every(e => e.correct !== undefined)) wtSettledPairs.add(pair);
-            });
-
-            showScreen('wordTrainingScreen');
-            renderWtExercise();
+            applyWtSavedProgress(set, saved);
             return;
         } else {
             clearWtProgress();
@@ -813,6 +858,90 @@ function blankOutSentence(sentenceWithTag) {
 // вони просто рідше трапляються, бо на менший час влазить менше раундів.
 // "Без обмежень" = один повний прохід по всіх розблокованих типах.
 const WT_SEC_PER_EXERCISE = 20; // грубий орієнтир: recognition швидше, typed — довше, в середньому
+const WT_MATCH_MAX_PER_ROUND = 6; // максимум пар в одному раунді matching (вимога User)
+
+// Ділить пари на раунди matching по ≤6 пар кожен — якщо влазить в один раунд,
+// повертає його одним елементом; інакше ділить порівну (round-robin, різниця
+// в розмірі раундів не більш ніж на 1 пару) на мінімальну кількість раундів,
+// що вкладається в ліміт.
+function buildMatchRounds(pairs) {
+    const rnd = arr => [...arr].sort(() => Math.random() - 0.5);
+    const list = rnd(pairs);
+    if (list.length < 2) return []; // нема з чим складати пари
+    if (list.length <= WT_MATCH_MAX_PER_ROUND) return [list];
+
+    const roundCount = Math.ceil(list.length / WT_MATCH_MAX_PER_ROUND);
+    const groups = Array.from({ length: roundCount }, () => []);
+    list.forEach((p, i) => groups[i % roundCount].push(p));
+    return groups;
+}
+
+const WT_LISTEN_MAX_PER_ROUND = 6;
+
+// Ділить пари на раунди "Слухай і познач" по ≤6 слів кожен (та сама схема
+// round-robin, що й buildMatchRounds), і для кожного раунду одразу вирішує,
+// яка ПІДмножина слів реально прозвучить (spokenIndices, індекси в межах
+// вже перетасованого round.pairs) — приблизно половина, мінімум 1, лишає
+// хоч одне непрозвучене (інакше "яких прозвучало" вироджується в "усі").
+function buildListenRounds(pairs) {
+    const rnd = arr => [...arr].sort(() => Math.random() - 0.5);
+    const list = rnd(pairs);
+    if (list.length < 3) return []; // замало слів, щоб було з чого відрізняти "почуте" від "не почутого"
+
+    let groups;
+    if (list.length <= WT_LISTEN_MAX_PER_ROUND) {
+        groups = [list];
+    } else {
+        const roundCount = Math.ceil(list.length / WT_LISTEN_MAX_PER_ROUND);
+        groups = Array.from({ length: roundCount }, () => []);
+        list.forEach((p, i) => groups[i % roundCount].push(p));
+    }
+
+    return groups.map(group => {
+        const shuffled = rnd(group);
+        const n = shuffled.length;
+        const spokenCount = Math.max(1, Math.min(n - 1, Math.round(n / 2)));
+        const allIdx = Array.from({ length: n }, (_, i) => i);
+        const spokenIndices = rnd(allIdx).slice(0, spokenCount).sort((a, b) => a - b);
+        return { type: 'listen', pairs: shuffled, spokenIndices, selected: [] };
+    });
+}
+
+// ~50/50: показуємо або реальний переклад пари (isCorrect=true), або
+// переклад-дистрактор з іншої пари цього набору (isCorrect=false) — вирішується
+// одразу при побудові черги (не в момент рендеру), щоб "назад" показував ту
+// саму версію питання, а не тасував наново. Якщо в наборі немає іншої пари з
+// відмінним перекладом — не з чого зробити хибний варіант, показуємо правдивий.
+function buildTrueFalseItem(pair, allPairs) {
+    const isTrue = Math.random() < 0.5;
+    if (isTrue) return { pair, type: 'truefalse', tfCorrect: true, tfShown: pair.translation };
+    const others = allPairs.filter(p => p !== pair && p.translation && p.translation !== pair.translation);
+    if (!others.length) return { pair, type: 'truefalse', tfCorrect: true, tfShown: pair.translation };
+    const decoy = others[Math.floor(Math.random() * others.length)];
+    return { pair, type: 'truefalse', tfCorrect: false, tfShown: decoy.translation };
+}
+
+// ===== COLLOCATIONS (type: 'colloc') =====
+// User свідомо обрала варіант "без зовнішніх даних" (raніше пробували тягнути
+// приклади речень з Google Translate dt=ex для типу 'sentence' — вимкнено,
+// якість недостатня, див. коментар вище). Тому тут — прості шаблонні фрази з
+// пропуском, однакові для будь-якого слова цієї мови (без урахування частини
+// мови/роду/відмінка — свідомий компроміс: гірший контекст, зате 100% надійно,
+// без мережевого запиту й без ризику знову впертись у ту саму проблему якості).
+const COLLOCATION_TEMPLATES = {
+    en: ['I need ___.', 'Do you have ___?', 'Where is ___?', 'I like ___.', 'Show me ___.', "Let's talk about ___.", 'Think about ___.', 'This is ___.'],
+    uk: ['Мені потрібен ___.', 'У тебе є ___?', 'Де ___?', 'Мені подобається ___.', 'Покажи мені ___.', 'Поговорімо про ___.', 'Подумай про ___.', 'Це ___.'],
+    pl: ['Potrzebuję ___.', 'Czy masz ___?', 'Gdzie jest ___?', 'Lubię ___.', 'Pokaż mi ___.', 'Porozmawiajmy o ___.', 'Pomyśl o ___.', 'To jest ___.'],
+    de: ['Ich brauche ___.', 'Hast du ___?', 'Wo ist ___?', 'Ich mag ___.', 'Zeig mir ___.', 'Lass uns über ___ reden.', 'Denk an ___.', 'Das ist ___.'],
+    fr: ["J'ai besoin de ___.", 'As-tu ___?', 'Où est ___?', "J'aime ___.", 'Montre-moi ___.', 'Parlons de ___.', 'Pense à ___.', "C'est ___."],
+    es: ['Necesito ___.', '¿Tienes ___?', '¿Dónde está ___?', 'Me gusta ___.', 'Muéstrame ___.', 'Hablemos de ___.', 'Piensa en ___.', 'Esto es ___.'],
+};
+
+function buildCollocItem(pair) {
+    const templates = COLLOCATION_TEMPLATES[wordLangFrom] || COLLOCATION_TEMPLATES.en;
+    const template = templates[Math.floor(Math.random() * templates.length)];
+    return { pair, type: 'colloc', collocTemplate: template };
+}
 
 function buildWtQueue(pairs, timeMinutes = Infinity) {
     const rnd = arr => [...arr].sort(() => Math.random() - 0.5);
@@ -830,7 +959,7 @@ function buildWtQueue(pairs, timeMinutes = Infinity) {
     // Час — єдине, що визначає РОЗМІР черги (менше часу = менше вправ).
     // 'sentence' тимчасово вимкнено — якість речень з Google Translate
     // недостатня; повернути, коли буде нормальна генерація (див. AI-бекенд)
-    const pool = ['w2t', 't2w', ttsWordOk ? 'audio' : null, 'spell', ttsWordOk ? 'dictation' : null].filter(Boolean);
+    const pool = ['w2t', 't2w', ttsWordOk ? 'audio' : null, 'spell', ttsWordOk ? 'dictation' : null, 'truefalse', 'colloc'].filter(Boolean);
 
     // "sentence" доступний лише для пар з реально знайденими прикладами —
     // фільтруємо саме цей тип по конкретному раунду пар, інші типи без змін.
@@ -839,7 +968,15 @@ function buildWtQueue(pairs, timeMinutes = Infinity) {
     const q = [];
     if (timeMinutes === Infinity) {
         // Повний прохід — по одному раунду кожного розблокованого типу
-        pool.forEach(type => pairsForType(type, rnd(pairs)).forEach(p => q.push({ pair: p, type })));
+        pool.forEach(type => pairsForType(type, rnd(pairs)).forEach(p => q.push(
+            type === 'truefalse' ? buildTrueFalseItem(p, pairs) :
+            type === 'colloc' ? buildCollocItem(p) :
+            { pair: p, type })));
+        buildMatchRounds(pairs).forEach(group => q.push({
+            type: 'match', pairs: group, pairResults: undefined, pairHadMistake: undefined,
+            mistakeCount: 0, roundScored: false,
+        }));
+        if (ttsWordOk) buildListenRounds(pairs).forEach(round => q.push(round));
         return q;
     }
 
@@ -864,7 +1001,17 @@ function buildWtQueue(pairs, timeMinutes = Infinity) {
 // і так триває, поки не буде відповіді правильно.
 function requeueWtExercise(ex) {
     const insertAt = Math.min(wtIndex + 3, wtQueue.length);
-    wtQueue.splice(insertAt, 0, { pair: ex.pair, type: ex.type });
+    // truefalse/colloc несуть дані поза pair/type (tfCorrect/tfShown,
+    // collocTemplate) — плейн {pair,type} загубив би їх.
+    let item;
+    if (ex.type === 'truefalse') {
+        item = buildTrueFalseItem(ex.pair, wtSet.pairs.filter(p => p.word && p.translation));
+    } else if (ex.type === 'colloc') {
+        item = buildCollocItem(ex.pair);
+    } else {
+        item = { pair: ex.pair, type: ex.type };
+    }
+    wtQueue.splice(insertAt, 0, item);
 }
 
 function renderWtExercise() {
@@ -895,6 +1042,10 @@ function renderWtExercise() {
         spell: t.wt_type_spell || '✏️ Напиши',
         dictation: t.wt_type_dictation || '🎧 Диктант',
         sentence: t.wt_type_sentence || '📝 Речення',
+        match: t.wt_type_match || '🔗 Пари',
+        truefalse: t.wt_type_truefalse || '✓✗ Правда чи ні',
+        colloc: t.wt_type_colloc || '🧩 Фраза',
+        listen: t.wt_type_listen || '🎧 Слухай і познач',
     };
     document.getElementById('wtTypeBadge').innerText = badges[type] || type;
 
@@ -910,6 +1061,64 @@ function renderWtExercise() {
     const audioWrap = document.getElementById('wtAudioWrap');
     const choicesEl = document.getElementById('wtChoices');
     const typeArea = document.getElementById('wtTypeArea');
+    const matchArea = document.getElementById('wtMatchArea');
+    const listenArea = document.getElementById('wtListenArea');
+
+    if (type === 'match') {
+        audioWrap.style.display = 'none';
+        choicesEl.style.display = 'none';
+        typeArea.style.display = 'none';
+        listenArea.style.display = 'none';
+        matchArea.style.display = 'flex';
+        if (skipBtn) skipBtn.style.display = 'none'; // "пропустити слово" не має сенсу для раунду з кількох пар
+        qEl.innerText = t.wt_match_prompt || 'Знайдіть пари: слово — переклад';
+        renderWtMatchExercise(wtQueue[wtIndex]);
+        return;
+    }
+    matchArea.style.display = 'none';
+
+    if (type === 'listen') {
+        audioWrap.style.display = 'none';
+        choicesEl.style.display = 'none';
+        typeArea.style.display = 'none';
+        listenArea.style.display = 'block';
+        if (skipBtn) skipBtn.style.display = 'none'; // так само, як match — раунд з кількох слів
+        qEl.innerText = t.wt_listen_pick_prompt || 'Прослухайте і відмітьте слова, які прозвучали';
+        renderWtListenExercise(wtQueue[wtIndex]);
+        return;
+    }
+    listenArea.style.display = 'none';
+
+    if (type === 'truefalse') {
+        const tfEx = wtQueue[wtIndex];
+        audioWrap.style.display = 'none';
+        typeArea.style.display = 'none';
+        choicesEl.style.display = 'grid';
+        qEl.innerHTML = `<div class="wt-tf-word">${escHtml(pair.word)}</div>` +
+            `<div class="wt-tf-eq">=</div>` +
+            `<div class="wt-tf-trans">${escHtml(tfEx.tfShown)}</div>`;
+        choicesEl.className = 'wt-choices wt-choices-col1';
+        choicesEl.innerHTML =
+            `<button class="wt-choice" data-correct="${tfEx.tfCorrect === true}" onclick="wtSelectChoice(this, ${tfEx.tfCorrect === true})">${escHtml(t.wt_true || '✓ Правда')}</button>` +
+            `<button class="wt-choice" data-correct="${tfEx.tfCorrect === false}" onclick="wtSelectChoice(this, ${tfEx.tfCorrect === false})">${escHtml(t.wt_false || '✗ Неправда')}</button>`;
+        return;
+    }
+
+    if (type === 'colloc') {
+        const collocEx = wtQueue[wtIndex];
+        audioWrap.style.display = 'none';
+        typeArea.style.display = 'none';
+        choicesEl.style.display = 'grid';
+        qEl.innerHTML = escHtml(collocEx.collocTemplate).replace('___', '<span class="wt-colloc-blank">___</span>');
+        // "до 3" — вимога User: максимум 1 правильне + 2 дистрактори, незалежно від розміру набору
+        const distractors = getWtDistractors(pair, validPairs, 't2w', Math.min(2, choiceCount - 1));
+        const choices = [pair.word, ...distractors].sort(() => Math.random() - 0.5);
+        choicesEl.className = 'wt-choices' + (choices.length === 2 ? ' wt-choices-col1' : '');
+        choicesEl.innerHTML = choices.map(ch =>
+            `<button class="wt-choice" data-correct="${ch === pair.word}" onclick="wtSelectChoice(this, ${ch === pair.word})">${escHtml(ch)}</button>`
+        ).join('');
+        return;
+    }
 
     const isTyping = (type === 'spell' || type === 'dictation' || type === 'sentence');
 
@@ -1073,6 +1282,202 @@ function wtSelectChoice(btn, isCorrect) {
     }
 }
 
+// ===== MATCH EXERCISE (type: 'match') =====
+// Один пункт черги = один раунд (до 6 пар, buildMatchRounds()). Клік по слову
+// й перекладу з протилежних колонок — якщо індекси пари збігаються, пара
+// "закривається"; інакше коротка помилка й обидві кнопки розблоковуються.
+// wtMatchSelWord/wtMatchSelTrans — транзієнтний UI-стан вибору (НЕ зберігається
+// в ex, скидається щорендеру), на відміну від pairResults/mistakeCount, які
+// живуть на самому об'єкті вправи й переживають saveWtProgress()/reload.
+let wtMatchSelWord = null, wtMatchSelTrans = null;
+
+function shuffleIndices(n) {
+    const arr = Array.from({ length: n }, (_, i) => i);
+    return arr.sort(() => Math.random() - 0.5);
+}
+
+function renderWtMatchExercise(ex) {
+    if (!ex.pairResults) ex.pairResults = new Array(ex.pairs.length).fill(undefined);
+    if (!ex.pairHadMistake) ex.pairHadMistake = new Array(ex.pairs.length).fill(false);
+    if (!ex.wordOrder) ex.wordOrder = shuffleIndices(ex.pairs.length);
+    if (!ex.transOrder) ex.transOrder = shuffleIndices(ex.pairs.length);
+    wtMatchSelWord = null;
+    wtMatchSelTrans = null;
+
+    const wordsCol = document.getElementById('wtMatchWordsCol');
+    const transCol = document.getElementById('wtMatchTransCol');
+    wordsCol.innerHTML = ex.wordOrder.map(pi => {
+        const done = ex.pairResults[pi] === true;
+        return `<button class="wt-match-chip${done ? ' wt-match-done' : ''}" data-idx="${pi}" ${done ? 'disabled' : ''} onclick="wtMatchSelect('word', ${pi})">${escHtml(ex.pairs[pi].word)}</button>`;
+    }).join('');
+    transCol.innerHTML = ex.transOrder.map(pi => {
+        const done = ex.pairResults[pi] === true;
+        return `<button class="wt-match-chip${done ? ' wt-match-done' : ''}" data-idx="${pi}" ${done ? 'disabled' : ''} onclick="wtMatchSelect('trans', ${pi})">${escHtml(ex.pairs[pi].translation)}</button>`;
+    }).join('');
+
+    if (ex.pairResults.every(r => r === true)) wtMatchFinishRound(ex);
+}
+
+function wtMatchSelect(side, pairIdx) {
+    const ex = wtQueue[wtIndex];
+    if (!ex || ex.type !== 'match' || ex.pairResults[pairIdx] === true) return;
+
+    if (side === 'word') wtMatchSelWord = wtMatchSelWord === pairIdx ? null : pairIdx;
+    else wtMatchSelTrans = wtMatchSelTrans === pairIdx ? null : pairIdx;
+
+    document.querySelectorAll('#wtMatchWordsCol .wt-match-chip').forEach(b =>
+        b.classList.toggle('wt-match-selected', Number(b.dataset.idx) === wtMatchSelWord));
+    document.querySelectorAll('#wtMatchTransCol .wt-match-chip').forEach(b =>
+        b.classList.toggle('wt-match-selected', Number(b.dataset.idx) === wtMatchSelTrans));
+
+    if (wtMatchSelWord === null || wtMatchSelTrans === null) return;
+
+    const wordBtn = document.querySelector(`#wtMatchWordsCol .wt-match-chip[data-idx="${wtMatchSelWord}"]`);
+    const transBtn = document.querySelector(`#wtMatchTransCol .wt-match-chip[data-idx="${wtMatchSelTrans}"]`);
+
+    if (wtMatchSelWord === wtMatchSelTrans) {
+        ex.pairResults[wtMatchSelWord] = true;
+        wordBtn.classList.add('wt-match-done');
+        transBtn.classList.add('wt-match-done');
+        wordBtn.classList.remove('wt-match-selected');
+        transBtn.classList.remove('wt-match-selected');
+        wordBtn.disabled = true;
+        transBtn.disabled = true;
+        wtMatchSelWord = null;
+        wtMatchSelTrans = null;
+        saveWtProgress();
+        if (ex.pairResults.every(r => r === true)) wtMatchFinishRound(ex);
+    } else {
+        ex.mistakeCount = (ex.mistakeCount || 0) + 1;
+        ex.pairHadMistake[wtMatchSelWord] = true;
+        ex.pairHadMistake[wtMatchSelTrans] = true;
+        wordBtn.classList.add('wt-match-wrong');
+        transBtn.classList.add('wt-match-wrong');
+        wtMatchSelWord = null;
+        wtMatchSelTrans = null;
+        saveWtProgress();
+        setTimeout(() => {
+            wordBtn.classList.remove('wt-match-wrong', 'wt-match-selected');
+            transBtn.classList.remove('wt-match-wrong', 'wt-match-selected');
+        }, 500);
+    }
+}
+
+// roundScored захищає від подвійного нарахування wtCorrect, якщо раунд
+// довелось перерендерити вже завершеним (напр. reload рівно між останньою
+// парою і кліком "Далі" — ex.correct не встиг потрапити у збережений знімок,
+// а pairResults уже всі true).
+function wtMatchFinishRound(ex) {
+    const t = translations[currentLang];
+    ex.correct = !ex.mistakeCount;
+    if (ex.correct && !ex.roundScored) wtCorrect++;
+    ex.roundScored = true;
+    const feedback = document.getElementById('wtFeedback');
+    feedback.className = 'wt-feedback ' + (ex.correct ? 'wt-fb-correct' : 'wt-fb-wrong');
+    feedback.innerText = ex.correct ? (t.wt_correct || '✓ Правильно!') : (t.wt_match_mistakes || 'Готово, але були помилки');
+    feedback.style.display = 'block';
+    const nextBtn = document.getElementById('wtNextBtn');
+    nextBtn.innerText = (wtIndex + 1 < wtQueue.length) ? (t.next || 'Далі') + ' →' : (t.done || 'Готово');
+    nextBtn.style.display = 'block';
+    saveWtProgress();
+}
+
+// ===== LISTEN & PICK (type: 'listen') =====
+// Один пункт черги = один раунд (до 6 слів, buildListenRounds()). Кнопка
+// "Прослухати" озвучує ЛИШЕ підмножину слів (ex.spokenIndices) у випадковому
+// порядку з паузами; студент відмічає на сітці ЯКІ слова, на його думку,
+// прозвучали, і підтверджує "Перевірити" — одна спроба на раунд (без
+// requeue/2-мисс, як у MC-типів; на відміну від Match тут немає негайного
+// фідбеку по кожному кліку, лише по всьому раунду одразу).
+function renderWtListenExercise(ex) {
+    const t = translations[currentLang];
+    if (!ex.selected) ex.selected = [];
+    document.getElementById('wtListenPlayLabel').innerText = t.wt_listen_btn || 'Прослухати';
+    document.getElementById('wtListenCheckBtn').innerText = t.wt_check || 'Перевірити';
+    const checkBtn = document.getElementById('wtListenCheckBtn');
+    checkBtn.style.display = ex.correct === undefined ? 'block' : 'none';
+    renderWtListenChips(ex);
+}
+
+function renderWtListenChips(ex) {
+    const grid = document.getElementById('wtListenGrid');
+    const revealed = ex.correct !== undefined;
+    const spokenSet = new Set(ex.spokenIndices);
+    grid.innerHTML = ex.pairs.map((p, i) => {
+        const sel = (ex.selected || []).includes(i);
+        let cls = 'wt-listen-chip';
+        if (sel) cls += ' wt-listen-selected';
+        if (revealed) {
+            if (spokenSet.has(i)) cls += ' wt-listen-correct-answer';
+            else if (sel) cls += ' wt-listen-wrong-answer';
+        }
+        return `<button class="${cls}" data-idx="${i}" ${revealed ? 'disabled' : ''} onclick="wtListenToggle(${i})">${escHtml(p.word)}</button>`;
+    }).join('');
+}
+
+async function wtListenPlayRound() {
+    const ex = wtQueue[wtIndex];
+    if (!ex || ex.type !== 'listen' || ex.playing) return;
+    const t = translations[currentLang];
+    const lang = WT_TTS_LANG[wordLangFrom] || langToSpeech[wordLangFrom] || 'en-US';
+    await getVoicesReady();
+    if (wtQueue[wtIndex] !== ex) return; // перейшли далі, поки чекали голоси
+    const voice = wtPickVoice(lang);
+    if (!voice) {
+        showMotivToast(t.audio_tts_unavailable || 'Аудіо недоступне для цієї мови');
+        return;
+    }
+    ex.playing = true;
+    if (!ex.playOrder) ex.playOrder = [...ex.spokenIndices].sort(() => Math.random() - 0.5);
+    window.speechSynthesis.cancel();
+    for (const idx of ex.playOrder) {
+        if (wtQueue[wtIndex] !== ex) break; // вийшли з раунду під час програвання
+        await new Promise(resolve => {
+            const utt = new SpeechSynthesisUtterance(ex.pairs[idx].word);
+            utt.lang = lang;
+            utt.rate = wtAudioRate;
+            utt.voice = voice;
+            utt.onend = resolve;
+            utt.onerror = resolve;
+            window.speechSynthesis.speak(utt);
+        });
+        await new Promise(r => setTimeout(r, 450));
+    }
+    ex.playing = false;
+}
+
+function wtListenToggle(idx) {
+    const ex = wtQueue[wtIndex];
+    if (!ex || ex.type !== 'listen' || ex.correct !== undefined) return;
+    if (!ex.selected) ex.selected = [];
+    const pos = ex.selected.indexOf(idx);
+    if (pos >= 0) ex.selected.splice(pos, 1); else ex.selected.push(idx);
+    saveWtProgress();
+    renderWtListenChips(ex);
+}
+
+function wtListenCheck() {
+    const ex = wtQueue[wtIndex];
+    if (!ex || ex.type !== 'listen' || ex.correct !== undefined) return;
+    const t = translations[currentLang];
+    const selectedSet = new Set(ex.selected || []);
+    const spokenSet = new Set(ex.spokenIndices);
+    const isCorrect = selectedSet.size === spokenSet.size && [...selectedSet].every(i => spokenSet.has(i));
+    ex.correct = isCorrect;
+    if (isCorrect) wtCorrect++;
+    renderWtListenChips(ex);
+    document.getElementById('wtListenCheckBtn').style.display = 'none';
+
+    const feedback = document.getElementById('wtFeedback');
+    feedback.className = 'wt-feedback ' + (isCorrect ? 'wt-fb-correct' : 'wt-fb-wrong');
+    feedback.innerText = isCorrect ? (t.wt_correct || '✓ Правильно!') : (t.wt_match_mistakes || 'Готово, але були помилки');
+    feedback.style.display = 'block';
+    const nextBtn = document.getElementById('wtNextBtn');
+    nextBtn.innerText = (wtIndex + 1 < wtQueue.length) ? (t.next || 'Далі') + ' →' : (t.done || 'Готово');
+    nextBtn.style.display = 'block';
+    saveWtProgress();
+}
+
 function wtShowHint() {
     const ex = wtQueue[wtIndex];
     if (!ex) return;
@@ -1222,9 +1627,28 @@ function wtGoBack() {
         ex.hintUsed = false;
         ex.hadWrongTyped = false;
         ex.attempts = 0;
-        // Ця вправа знову "не відповідена" — дозволяємо пере-оцінити mastery
-        // цього слова пізніше замість заморожування попереднього значення.
-        wtSettledPairs.delete(ex.pair);
+        if (ex.type === 'match') {
+            // Раунд matching перезапускається з нуля (нова тасовка), а не
+            // з half-довершеним станом — узгоджено з тим, що інші типи теж
+            // скидають attempts/hadWrongTyped при поверненні назад.
+            ex.pairResults = undefined;
+            ex.pairHadMistake = undefined;
+            ex.wordOrder = undefined;
+            ex.transOrder = undefined;
+            ex.mistakeCount = 0;
+            ex.roundScored = false;
+            ex.pairs.forEach(p => wtSettledPairs.delete(p));
+        } else if (ex.type === 'listen') {
+            ex.selected = [];
+            ex.correct = undefined;
+            ex.playOrder = undefined;
+            ex.playing = false;
+            ex.pairs.forEach(p => wtSettledPairs.delete(p));
+        } else {
+            // Ця вправа знову "не відповідена" — дозволяємо пере-оцінити mastery
+            // цього слова пізніше замість заморожування попереднього значення.
+            wtSettledPairs.delete(ex.pair);
+        }
     }
     saveWtProgress();
     renderWtExercise();
@@ -1316,7 +1740,7 @@ function wtRestart() {
 }
 
 function wtGoHome() {
-    showModeScreen();
+    showScreen('langScreen');
 }
 
 // ----- [W1 WORD PROFILE screen (openWordProfile/renderWordProfileList)]  (was app.js lines 3466-3509) -----
@@ -1363,6 +1787,9 @@ function renderWordProfileList() {
         const title = rawTitle.length > 60 ? rawTitle.slice(0, 60) + '…' : rawTitle;
         const langPair = `${(set.langFrom || '').toUpperCase()} → ${(set.langTo || '').toUpperCase()}`;
         const meta = `${langPair} · ${total} ${t.profile_words_total || 'слів'} · ${mastered} ${t.profile_words_mastered || 'вивчено'} · ${review} ${t.profile_words_review || 'повторити'}`;
+        const quickBtn = mastered >= 2
+            ? `<button class="btn-profile-action btn-profile-ghost" onclick="profileQuickRoundWordSet(${set.id})">${t.profile_quick_round || '⚡ Швидко'}</button>`
+            : '';
         return `<div class="profile-item">
           <div class="profile-item-body">
             <div class="profile-item-title">${escHtml(title)}</div>
@@ -1371,6 +1798,7 @@ function renderWordProfileList() {
           </div>
           <div class="profile-item-actions">
             <button class="btn-profile-action" onclick="profileTrainWordSet(${set.id})">${t.profile_train || 'Тренувати'}</button>
+            ${quickBtn}
             <button class="btn-profile-delete" onclick="profileDeleteWordSet(${set.id})">${deleteSvg}</button>
           </div>
         </div>`;
@@ -1383,6 +1811,43 @@ function profileTrainWordSet(id) {
     const set = loadWordSets().find(s => s.id === id);
     if (!set) return;
     startWordTraining(set); // showScreen('wordTrainingScreen') всередині ховає поточний екран самостійно
+}
+
+function profileQuickRoundWordSet(id) {
+    const set = loadWordSets().find(s => s.id === id);
+    if (!set) return;
+    startQuickRound(set);
+}
+
+// ===== ШВИДКИЙ РАУНД (type: 'w2t', лише вже вивчені слова) =====
+// Короткий тайм-атакний прохід для закріплення того, що вже "вивчено"
+// (masteryScore >= WT_MASTERY_THRESHOLD) — не повний цикл усіх типів вправ,
+// а лише w2t-впізнавання, до WT_QUICK_ROUND_SIZE слів. Повністю перевикористовує
+// wordTrainingScreen/renderWtExercise (w2t вже вміє рендеритись) — тут лише
+// власна побудова черги й точка входу.
+const WT_QUICK_ROUND_SIZE = 15;
+
+function startQuickRound(set) {
+    const t = translations[currentLang];
+    const mastered = (set.pairs || []).filter(p => p.word && p.translation && (p.masteryScore || 0) >= WT_MASTERY_THRESHOLD);
+    if (mastered.length < 2) {
+        showMotivToast(t.wt_quick_not_enough || 'Замало вивчених слів для швидкого раунду');
+        return;
+    }
+    const rnd = arr => [...arr].sort(() => Math.random() - 0.5);
+    wtReturnScreen = null;
+    wtSet = set;
+    wordLangFrom = set.langFrom || 'en';
+    wordLangTo = set.langTo || 'uk';
+    wordLevel = set.level || 1;
+    wtQueue = rnd(mastered).slice(0, WT_QUICK_ROUND_SIZE).map(p => ({ pair: p, type: 'w2t' }));
+    wtIndex = 0;
+    wtCorrect = 0;
+    wtCurrentAudioPair = null;
+    wtSettledPairs = new Set();
+    clearWtProgress();
+    showScreen('wordTrainingScreen');
+    renderWtExercise();
 }
 
 function profileDeleteWordSet(id) {

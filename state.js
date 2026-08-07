@@ -123,7 +123,7 @@ function loadState() {
     try {
         const s = JSON.parse(localStorage.getItem(STATE_KEY));
         if (!s || !s.blocks || !s.blocks.length) return null;
-        if (Date.now() - s.savedAt > 14 * 24 * 60 * 60 * 1000) { localStorage.removeItem(STATE_KEY); return null; }
+        if (Date.now() - s.savedAt > 24 * 60 * 60 * 1000) { localStorage.removeItem(STATE_KEY); return null; }
         return s;
     } catch { return null; }
 }
@@ -560,6 +560,7 @@ function saveWtProgress() {
         localStorage.setItem(WT_PROGRESS_KEY, JSON.stringify({
             setId: wtSet.id,
             wtQueue, wtIndex, wtCorrect,
+            lang: currentLang,
             savedAt: Date.now()
         }));
     } catch {}
@@ -569,7 +570,7 @@ function loadWtProgress() {
     try {
         const s = JSON.parse(localStorage.getItem(WT_PROGRESS_KEY));
         if (!s || !Array.isArray(s.wtQueue) || !s.wtQueue.length) return null;
-        if (Date.now() - s.savedAt > 7 * 24 * 60 * 60 * 1000) { localStorage.removeItem(WT_PROGRESS_KEY); return null; }
+        if (Date.now() - s.savedAt > 24 * 60 * 60 * 1000) { localStorage.removeItem(WT_PROGRESS_KEY); return null; }
         if (s.wtIndex >= s.wtQueue.length) return null; // вже було завершено
         return s;
     } catch { return null; }

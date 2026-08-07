@@ -137,7 +137,7 @@ const translations = {
         wi_placeholder: 'dog — собака\ncat — кішка\nto run — бігати',
         wi_min_error: 'Потрібно мінімум 2 пари слів',
         support_title: 'Технічна підтримка', support_type_bug: '🐛 Щось не працює', support_type_idea: '💡 Ідея чи побажання', support_type_compliment: '😻 Похваліть нас',
-        support_placeholder: 'Опишіть, що сталося або що хотіли б додати…', support_placeholder_compliment: 'Просто скажіть щось приємне… ми відкладемо це на поганий день 💛', support_submit: 'Надіслати',
+        support_placeholder: 'Опишіть, що сталося або що хотіли б додати…', support_placeholder_bug: 'Що саме зламалось? Розкажіть, де і що сталося — розберемось 🛠️', support_placeholder_idea: 'Чого не вистачає? Поділіться ідеєю — може, встигне в наступне оновлення 💡', support_placeholder_compliment: 'Просто скажіть щось приємне… ми відкладемо це на поганий день 💛', support_submit: 'Надіслати',
         support_min_error: 'Напишіть повідомлення', support_thanks: 'Дякую! Побачу це під час наступного оновлення.',
         support_history_title: 'Мої звернення', support_copy_all: '📋 Скопіювати все',
         support_copied: 'Скопійовано!', support_copy_failed: 'Не вдалося скопіювати',
@@ -160,6 +160,11 @@ const translations = {
         wt_correct: '✓ Правильно!', wt_wrong: 'Упс, спробуйте ще раз',
         wt_save_word: 'Зберегти', wt_skip: 'Пропустити', wt_finish: 'Завершити',
         wt_type_spell: '✏️ Напиши', wt_type_dictation: '🎧 Диктант', wt_type_sentence: '📝 Речення',
+        wt_type_match: '🔗 Пари', wt_type_truefalse: '✓✗ Правда чи ні', wt_type_colloc: '🧩 Фраза', wt_type_listen: '🎧 Слухай і познач',
+        wt_match_prompt: 'Знайдіть пари: слово — переклад', wt_match_mistakes: 'Готово, але були помилки',
+        wt_true: '✓ Правда', wt_false: '✗ Неправда',
+        wt_listen_pick_prompt: 'Прослухайте і відмітьте слова, які прозвучали',
+        profile_quick_round: '⚡ Швидко', wt_quick_not_enough: 'Замало вивчених слів для швидкого раунду',
         wt_spell_prompt: 'Напишіть слово мовою навчання',
         wt_dictation_prompt: 'Прослухайте та напишіть слово',
         wt_sentence_prompt: 'Впишіть пропущене слово',
@@ -293,7 +298,7 @@ const translations = {
         wi_placeholder: 'dog — собака\ncat — кішка\nto run — бігати',
         wi_min_error: 'Please add at least 2 word pairs',
         support_title: 'Technical support', support_type_bug: '🐛 Something\'s broken', support_type_idea: '💡 Idea or request', support_type_compliment: '😻 Praise us',
-        support_placeholder: 'Describe what happened or what you\'d like added…', support_placeholder_compliment: 'Just tell us something nice… we\'ll save it for a rainy day 💛', support_submit: 'Send',
+        support_placeholder: 'Describe what happened or what you\'d like added…', support_placeholder_bug: 'What broke? Tell us where and what happened — we\'ll sort it out 🛠️', support_placeholder_idea: 'What\'s missing? Share your idea — it might make the next update 💡', support_placeholder_compliment: 'Just tell us something nice… we\'ll save it for a rainy day 💛', support_submit: 'Send',
         support_min_error: 'Please write a message', support_thanks: 'Thanks! I\'ll see this before the next update.',
         support_history_title: 'My messages', support_copy_all: '📋 Copy all',
         support_copied: 'Copied!', support_copy_failed: 'Could not copy',
@@ -316,6 +321,11 @@ const translations = {
         wt_correct: '✓ Correct!', wt_wrong: 'Oops, try again',
         wt_save_word: 'Save word', wt_skip: 'Skip', wt_finish: 'Finish',
         wt_type_spell: '✏️ Spell it', wt_type_dictation: '🎧 Dictation', wt_type_sentence: '📝 Sentence',
+        wt_type_match: '🔗 Match', wt_type_truefalse: '✓✗ True or false', wt_type_colloc: '🧩 Phrase', wt_type_listen: '🎧 Listen & pick',
+        wt_match_prompt: 'Match the words with their translations', wt_match_mistakes: 'Done, but with some mistakes',
+        wt_true: '✓ True', wt_false: '✗ False',
+        wt_listen_pick_prompt: 'Listen and mark the words you heard',
+        profile_quick_round: '⚡ Quick', wt_quick_not_enough: 'Not enough learned words for a quick round',
         wt_spell_prompt: 'Write the word in the learning language',
         wt_dictation_prompt: 'Listen and write the word',
         wt_sentence_prompt: 'Fill in the missing word',
@@ -449,7 +459,7 @@ const translations = {
         wi_placeholder: 'dog — pies\ncat — kot\nto run — biegać',
         wi_min_error: 'Potrzeba co najmniej 2 par słów',
         support_title: 'Pomoc techniczna', support_type_bug: '🐛 Coś nie działa', support_type_idea: '💡 Pomysł lub życzenie', support_type_compliment: '😻 Pochwal nas',
-        support_placeholder: 'Opisz, co się stało albo co chciałabyś dodać…', support_placeholder_compliment: 'Powiedz nam coś miłego… schowamy to na gorszy dzień 💛', support_submit: 'Wyślij',
+        support_placeholder: 'Opisz, co się stało albo co chciałabyś dodać…', support_placeholder_bug: 'Co się popsuło? Napisz, gdzie i co się stało — zajmiemy się tym 🛠️', support_placeholder_idea: 'Czego brakuje? Podziel się pomysłem — może trafi do następnej aktualizacji 💡', support_placeholder_compliment: 'Powiedz nam coś miłego… schowamy to na gorszy dzień 💛', support_submit: 'Wyślij',
         support_min_error: 'Napisz wiadomość', support_thanks: 'Dzięki! Zobaczę to przed kolejną aktualizacją.',
         support_history_title: 'Moje zgłoszenia', support_copy_all: '📋 Skopiuj wszystko',
         support_copied: 'Skopiowano!', support_copy_failed: 'Nie udało się skopiować',
@@ -472,6 +482,11 @@ const translations = {
         wt_correct: '✓ Dobrze!', wt_wrong: 'Ups, spróbuj jeszcze raz',
         wt_save_word: 'Zapisz słowo', wt_skip: 'Pomiń', wt_finish: 'Zakończ',
         wt_type_spell: '✏️ Napisz', wt_type_dictation: '🎧 Dyktando', wt_type_sentence: '📝 Zdanie',
+        wt_type_match: '🔗 Pary', wt_type_truefalse: '✓✗ Prawda czy fałsz', wt_type_colloc: '🧩 Fraza', wt_type_listen: '🎧 Słuchaj i zaznacz',
+        wt_match_prompt: 'Dopasuj słowa do tłumaczeń', wt_match_mistakes: 'Gotowe, ale były błędy',
+        wt_true: '✓ Prawda', wt_false: '✗ Fałsz',
+        wt_listen_pick_prompt: 'Posłuchaj i zaznacz słowa, które usłyszałeś',
+        profile_quick_round: '⚡ Szybko', wt_quick_not_enough: 'Za mało nauczonych słów na szybką rundę',
         wt_spell_prompt: 'Napisz słowo w języku docelowym',
         wt_sentence_prompt: 'Uzupełnij brakujące słowo',
         wt_sentence_no_examples: 'Brak jeszcze przykładowych zdań dla tych słów',
@@ -605,7 +620,7 @@ const translations = {
         wi_placeholder: 'dog — Hund\ncat — Katze\nto run — laufen',
         wi_min_error: 'Mindestens 2 Wortpaare erforderlich',
         support_title: 'Technischer Support', support_type_bug: '🐛 Etwas funktioniert nicht', support_type_idea: '💡 Idee oder Wunsch', support_type_compliment: '😻 Lobt uns',
-        support_placeholder: 'Beschreibe, was passiert ist oder was du dir wünschst…', support_placeholder_compliment: 'Sag uns einfach etwas Nettes… wir heben es uns für einen schlechten Tag auf 💛', support_submit: 'Senden',
+        support_placeholder: 'Beschreibe, was passiert ist oder was du dir wünschst…', support_placeholder_bug: 'Was ist kaputt? Beschreib, wo und was passiert ist — wir kümmern uns darum 🛠️', support_placeholder_idea: 'Was fehlt? Teil uns deine Idee mit — vielleicht schafft sie es ins nächste Update 💡', support_placeholder_compliment: 'Sag uns einfach etwas Nettes… wir heben es uns für einen schlechten Tag auf 💛', support_submit: 'Senden',
         support_min_error: 'Bitte schreib eine Nachricht', support_thanks: 'Danke! Ich sehe das vor dem nächsten Update.',
         support_history_title: 'Meine Meldungen', support_copy_all: '📋 Alles kopieren',
         support_copied: 'Kopiert!', support_copy_failed: 'Kopieren fehlgeschlagen',
@@ -628,6 +643,11 @@ const translations = {
         wt_correct: '✓ Richtig!', wt_wrong: 'Ups, versuch es nochmal',
         wt_save_word: 'Wort merken', wt_skip: 'Überspringen', wt_finish: 'Beenden',
         wt_type_spell: '✏️ Schreiben', wt_type_dictation: '🎧 Diktat', wt_type_sentence: '📝 Satz',
+        wt_type_match: '🔗 Paare', wt_type_truefalse: '✓✗ Wahr oder falsch', wt_type_colloc: '🧩 Phrase', wt_type_listen: '🎧 Hören & markieren',
+        wt_match_prompt: 'Ordne die Wörter ihren Übersetzungen zu', wt_match_mistakes: 'Fertig, aber mit Fehlern',
+        wt_true: '✓ Wahr', wt_false: '✗ Falsch',
+        wt_listen_pick_prompt: 'Hör zu und markiere die Wörter, die du gehört hast',
+        profile_quick_round: '⚡ Schnell', wt_quick_not_enough: 'Zu wenige gelernte Wörter für eine schnelle Runde',
         wt_spell_prompt: 'Schreibe das Wort in der Lernsprache',
         wt_sentence_prompt: 'Fülle das fehlende Wort aus',
         wt_sentence_no_examples: 'Für diese Wörter gibt es noch keine Beispielsätze',
@@ -761,7 +781,7 @@ const translations = {
         wi_placeholder: 'dog — chien\ncat — chat\nto run — courir',
         wi_min_error: 'Veuillez ajouter au moins 2 paires',
         support_title: 'Assistance technique', support_type_bug: '🐛 Quelque chose ne marche pas', support_type_idea: '💡 Idée ou souhait', support_type_compliment: '😻 Complimentez-nous',
-        support_placeholder: 'Décrivez ce qui s\'est passé ou ce que vous aimeriez ajouter…', support_placeholder_compliment: 'Dites-nous juste quelque chose de gentil… on le gardera pour les mauvais jours 💛', support_submit: 'Envoyer',
+        support_placeholder: 'Décrivez ce qui s\'est passé ou ce que vous aimeriez ajouter…', support_placeholder_bug: 'Qu\'est-ce qui ne marche pas ? Dites-nous où et ce qui s\'est passé — on s\'en occupe 🛠️', support_placeholder_idea: 'Qu\'est-ce qui manque ? Partagez votre idée — elle pourrait arriver dans la prochaine mise à jour 💡', support_placeholder_compliment: 'Dites-nous juste quelque chose de gentil… on le gardera pour les mauvais jours 💛', support_submit: 'Envoyer',
         support_min_error: 'Veuillez écrire un message', support_thanks: 'Merci ! Je verrai ça avant la prochaine mise à jour.',
         support_history_title: 'Mes messages', support_copy_all: '📋 Tout copier',
         support_copied: 'Copié !', support_copy_failed: 'Impossible de copier',
@@ -784,6 +804,11 @@ const translations = {
         wt_correct: '✓ Correct !', wt_wrong: 'Oups, réessaie',
         wt_save_word: 'Garder le mot', wt_skip: 'Ignorer', wt_finish: 'Terminer',
         wt_type_spell: '✏️ Écrire', wt_type_dictation: '🎧 Dictée', wt_type_sentence: '📝 Phrase',
+        wt_type_match: '🔗 Paires', wt_type_truefalse: '✓✗ Vrai ou faux', wt_type_colloc: '🧩 Expression', wt_type_listen: '🎧 Écoute et coche',
+        wt_match_prompt: 'Associez les mots à leur traduction', wt_match_mistakes: 'Terminé, mais avec des erreurs',
+        wt_true: '✓ Vrai', wt_false: '✗ Faux',
+        wt_listen_pick_prompt: 'Écoutez et cochez les mots que vous avez entendus',
+        profile_quick_round: '⚡ Rapide', wt_quick_not_enough: 'Pas assez de mots appris pour un tour rapide',
         wt_spell_prompt: 'Écrivez le mot dans la langue cible',
         wt_sentence_prompt: 'Complétez le mot manquant',
         wt_sentence_no_examples: 'Pas encore de phrases d\'exemple pour ces mots',
@@ -940,6 +965,11 @@ const translations = {
         wt_correct: '✓ ¡Correcto!', wt_wrong: 'Ups, inténtalo de nuevo',
         wt_save_word: 'Guardar palabra', wt_skip: 'Omitir', wt_finish: 'Terminar',
         wt_type_spell: '✏️ Escribir', wt_type_dictation: '🎧 Dictado', wt_type_sentence: '📝 Frase',
+        wt_type_match: '🔗 Parejas', wt_type_truefalse: '✓✗ Verdadero o falso', wt_type_colloc: '🧩 Expresión', wt_type_listen: '🎧 Escucha y marca',
+        wt_match_prompt: 'Empareja las palabras con su traducción', wt_match_mistakes: 'Listo, pero con errores',
+        wt_true: '✓ Verdadero', wt_false: '✗ Falso',
+        wt_listen_pick_prompt: 'Escucha y marca las palabras que oíste',
+        profile_quick_round: '⚡ Rápido', wt_quick_not_enough: 'Muy pocas palabras aprendidas para una ronda rápida',
         wt_spell_prompt: 'Escribe la palabra en el idioma que aprendes',
         wt_sentence_prompt: 'Completa la palabra que falta',
         wt_sentence_no_examples: 'Todavía no hay frases de ejemplo para estas palabras',
@@ -1956,4 +1986,31 @@ function startRenameLibEntry(id) {
         if (e.key === 'Escape') { input.value = currentTitle; input.blur(); }
     };
 }
+
+// ===== BOOT-TIME AUTO-RESUME (24h) =====
+// User: "закрив вкладку посеред навчання — хочу, щоб при відкритті протягом
+// 24 год додаток сам продовжив з того ж місця, ніби я нікуди не виходив".
+// Тому на старті додатку, ще до першого показу langScreen, перевіряємо
+// збережений прогрес (Text Mode: STATE_KEY / Words Mode: WT_PROGRESS_KEY,
+// обидва тепер тримають дані лише 24 год — state.js) і одразу заходимо в
+// нього, без банера/діалогу з підтвердженням. Це безпечно саме тому, що на
+// learningScreen і wordTrainingScreen тепер завжди є кнопка "назад"/"на
+// головну" — вихід з автовідновленої сесії завжди під рукою.
+function checkAppBootResume() {
+    const textSaved = loadState();
+    const wordSaved = loadWtProgress();
+    if (!textSaved && !wordSaved) return;
+
+    if (textSaved && (!wordSaved || textSaved.savedAt >= wordSaved.savedAt)) {
+        resumeSession();
+        return;
+    }
+    if (wordSaved) {
+        const set = loadWordSets().find(s => s.id === wordSaved.setId);
+        if (!set) return;
+        if (wordSaved.lang) currentLang = wordSaved.lang;
+        applyWtSavedProgress(set, wordSaved);
+    }
+}
+checkAppBootResume();
 
