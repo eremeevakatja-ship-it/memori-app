@@ -1500,6 +1500,50 @@ body[data-theme="dark"] .btn-profile-action { background: linear-gradient(135deg
 body[data-theme="dark"] .btn-profile-ghost { background: transparent; border-color: #818cf8; color: #818cf8; }
 body[data-theme="dark"] .btn-profile-ghost:hover { background: rgba(129,140,248,0.15); }
 body[data-theme="dark"] .btn-profile-delete { color: #374151; }
+
+/* FB-09 (2026-08-07): зведений словник (word-dict-*) — усередині
+   #wordDictionaryContent, той самий .profile-content скрол-контейнер, що й
+   renderWordProfileList (набори). Легші рядки, ніж .profile-item — тут лише
+   відображення (word→translation+тема), без action-кнопок. */
+.word-dict-group { margin-bottom: 4px; }
+.word-dict-group-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 6px 2px;
+  margin-bottom: 4px;
+}
+.word-dict-count {
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: 0.68rem;
+  font-weight: 700;
+  border-radius: 20px;
+  padding: 1px 8px;
+}
+.word-dict-row {
+  background: #fafafa;
+  border: 1.5px solid #e8eaed;
+  border-radius: 10px;
+  padding: 9px 12px;
+  margin-bottom: 6px;
+}
+.word-dict-pair { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+.word-dict-word { font-size: 0.85rem; font-weight: 700; color: var(--text); }
+.word-dict-arrow { font-size: 0.75rem; color: #bbb; }
+.word-dict-trans { font-size: 0.85rem; color: var(--text); }
+.word-dict-topic { font-size: 0.68rem; color: #aaa; margin-top: 2px; }
+body[data-theme="dark"] .word-dict-row { background: #1f2937; border-color: #2d3748; }
+body[data-theme="dark"] .word-dict-word,
+body[data-theme="dark"] .word-dict-trans { color: #e2e8f0; }
+body[data-theme="dark"] .word-dict-arrow,
+body[data-theme="dark"] .word-dict-topic { color: #4a5568; }
+body[data-theme="dark"] .word-dict-count { background: rgba(129,140,248,0.15); color: #818cf8; }
 body[data-theme="dark"] .btn-profile-delete:hover { color: #f87171; }
 
 /* ===== PROFILE HERO (avatar + name) ===== */
@@ -2554,6 +2598,23 @@ body[data-theme="dark"] .wt-tf-eq { color: #4a5568; }
   min-width: 60px;
   border-bottom: 2.5px solid var(--primary);
   color: var(--primary);
+}
+/* FB-03 (2026-08-07): 3 короткі фрази одночасно замість 1 — рендериться
+   всередині #wtQuestion (font-size 1.45rem/weight 800 успадкувались би без
+   явного оверрайду тут), тому .wt-colloc-line свідомо менший і легший, щоб
+   3 рядки читались як список, а не як 3 "заголовки". Перевірено на 375px —
+   3 рядки типової довжини вміщуються без горизонтального скролу.  */
+.wt-colloc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: center;
+}
+.wt-colloc-line {
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.4;
+  word-break: break-word;
 }
 .wt-listen-area { margin-bottom: 16px; }
 .wt-listen-grid {

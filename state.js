@@ -80,6 +80,14 @@ let wtReturnScreen = null;
 // щоб updateWordMastery(), яка тепер викликається інкрементально після
 // кожної вправи (а не лише в кінці), не рахувала той самий "чистий прохід" двічі.
 let wtSettledPairs = new Set();
+// Мітка старту поточної сесії Words Mode тренування (Date.now()) — потрібна,
+// щоб showWordResults() (words.js) могла порахувати реальний час сесії й
+// передати його в updateStats() (FB-08). Виставляється в 3 точках входу:
+// startWordTraining() (свіжий старт), applyWtSavedProgress() (продовження
+// збереженого прогресу — і явне, і тихе boot-resume), startQuickRound()
+// (швидкий раунд). Скидається щоразу, щоб час "заморожений" закритою
+// вкладкою між сесіями не потрапляв у підрахунок.
+let wtSessionStartTime = null;
 
 // ----- [S3 updateBlockMastery/getBlockStatus]  (was app.js lines 1038-1053) -----
 function updateBlockMastery(blockIndex, passed) {

@@ -728,6 +728,11 @@ function applyWtSavedProgress(set, saved) {
         if (exs.every(e => e.correct !== undefined)) wtSettledPairs.add(pair);
     });
 
+    // Нова мітка старту саме цього продовження, не оригінального старту
+    // (той міг бути годинами тому, до закриття вкладки/24h boot-resume) —
+    // інакше updateStats() (FB-08) порахувала б "хвилини" геть завищено.
+    wtSessionStartTime = Date.now();
+
     showScreen('wordTrainingScreen');
     renderWtExercise();
 }
@@ -773,6 +778,7 @@ async function startWordTraining(set, returnScreenFn) {
     wtCorrect = 0;
     wtCurrentAudioPair = null;
     wtSettledPairs = new Set();
+    wtSessionStartTime = Date.now();
     clearWtProgress();
     showScreen('wordTrainingScreen');
     renderWtExercise();
@@ -937,10 +943,21 @@ const COLLOCATION_TEMPLATES = {
     es: ['Necesito ___.', '¿Tienes ___?', '¿Dónde está ___?', 'Me gusta ___.', 'Muéstrame ___.', 'Hablemos de ___.', 'Piensa en ___.', 'Esto es ___.'],
 };
 
+// FB-03 (2026-08-07) редизайн: раніше — ОДНЕ випадкове шаблонне речення на
+// вправу. User: звучить неприродно, бо шаблон обирається наосліп, без
+// узгодження з реальним словом. Нова механіка (v2) — 3 РІЗНІ шаблони з тим
+// самим пропуском одночасно, одне слово-відповідь підходить до всіх трьох
+// (`collocTemplates`, масив). Кожна мова має 8 шаблонів у COLLOCATION_TEMPLATES
+// — гарантовано вистачає на 3 без повторів.
+// Свідомо НЕ вирішено (як і в v1): pair.word підставляється в БАЗОВІЙ формі в
+// усі 3 речення без відмінювання/узгодження роду — для uk/pl це й далі може
+// звучати неприродно граматично. Морфологія слова — поза скоупом простого
+// клієнтського JS без бекенду/словника відмінків; свідомий компроміс, той
+// самий, що й у v1.
 function buildCollocItem(pair) {
     const templates = COLLOCATION_TEMPLATES[wordLangFrom] || COLLOCATION_TEMPLATES.en;
-    const template = templates[Math.floor(Math.random() * templates.length)];
-    return { pair, type: 'colloc', collocTemplate: template };
+    const shuffled = [...templates].sort(() => Math.random() - 0.5);
+    return { pair, type: 'colloc', collocTemplates: shuffled.slice(0, 3) };
 }
 
 function buildWtQueue(pairs, timeMinutes = Infinity) {
@@ -1109,7 +1126,13 @@ function renderWtExercise() {
         audioWrap.style.display = 'none';
         typeArea.style.display = 'none';
         choicesEl.style.display = 'grid';
-        qEl.innerHTML = escHtml(collocEx.collocTemplate).replace('___', '<span class="wt-colloc-blank">___</span>');
+        // collocTemplates — новий формат (масив 3 шаблонів, FB-03 2026-08-07).
+        // collocTemplate (однина) — фолбек для прогресу, збереженого ДО цієї
+        // зміни (applyWtSavedProgress відновлює вправу з localStorage як є).
+        const templates = collocEx.collocTemplates || (collocEx.collocTemplate ? [collocEx.collocTemplate] : []);
+        qEl.innerHTML = `<div class="wt-colloc-list">` + templates.map(tpl =>
+            `<div class="wt-colloc-line">${escHtml(tpl).replace('___', '<span class="wt-colloc-blank">___</span>')}</div>`
+        ).join('') + `</div>`;
         // "до 3" — вимога User: максимум 1 правильне + 2 дистрактори, незалежно від розміру набору
         const distractors = getWtDistractors(pair, validPairs, 't2w', Math.min(2, choiceCount - 1));
         const choices = [pair.word, ...distractors].sort(() => Math.random() - 0.5);
@@ -1243,8 +1266,14 @@ function wtSelectChoice(btn, isCorrect) {
         document.querySelectorAll('.wt-choice').forEach(b => b.disabled = true);
 
         feedback.className = 'wt-feedback wt-fb-correct';
-        // For audio: show word + translation in feedback
+        // For audio: show word + translation in feedback.
+        // For truefalse: if the shown translation was the FAKE one (tfCorrect===false,
+        // user correctly guessed "Неправда"), the real translation was never displayed
+        // anywhere — reveal it here too, same pattern as audio (FB-01).
         if (ex.type === 'audio' && ex.pair.translation) {
+            feedback.innerHTML = (t.wt_correct || '✓ Правильно!') +
+                `<div class="wt-reveal-word"><b>${escHtml(ex.pair.word)}</b><span class="wt-reveal-arrow">→</span>${escHtml(ex.pair.translation)}</div>`;
+        } else if (ex.type === 'truefalse' && ex.tfCorrect === false && ex.pair.translation) {
             feedback.innerHTML = (t.wt_correct || '✓ Правильно!') +
                 `<div class="wt-reveal-word"><b>${escHtml(ex.pair.word)}</b><span class="wt-reveal-arrow">→</span>${escHtml(ex.pair.translation)}</div>`;
         } else {
@@ -1266,7 +1295,16 @@ function wtSelectChoice(btn, isCorrect) {
             document.querySelector('.wt-choice[data-correct="true"]')?.classList.add('wt-reveal');
             document.querySelectorAll('.wt-choice').forEach(b => b.disabled = true);
             feedback.className = 'wt-feedback wt-fb-wrong';
-            feedback.innerText = t.wt_wrong || 'Упс, спробуйте ще раз';
+            // truefalse: the button reveal above only marks which BUTTON ("Правда"/
+            // "Неправда") was correct — it never shows the actual translation. When the
+            // shown translation was fake (tfCorrect===false), also surface the real one
+            // here, same reveal pattern as dictation's wrong-answer case (FB-01).
+            if (ex.type === 'truefalse' && ex.tfCorrect === false && ex.pair.translation) {
+                feedback.innerHTML = (t.wt_wrong || 'Упс, спробуйте ще раз') +
+                    `<div class="wt-reveal-word wt-reveal-word-wrong"><b>${escHtml(ex.pair.word)}</b><span class="wt-reveal-arrow">→</span>${escHtml(ex.pair.translation)}</div>`;
+            } else {
+                feedback.innerText = t.wt_wrong || 'Упс, спробуйте ще раз';
+            }
             feedback.style.display = 'block';
             if (skipBtn) skipBtn.style.display = 'none';
             ex.correct = false;
@@ -1470,7 +1508,18 @@ function wtListenCheck() {
 
     const feedback = document.getElementById('wtFeedback');
     feedback.className = 'wt-feedback ' + (isCorrect ? 'wt-fb-correct' : 'wt-fb-wrong');
-    feedback.innerText = isCorrect ? (t.wt_correct || '✓ Правильно!') : (t.wt_match_mistakes || 'Готово, але були помилки');
+    if (isCorrect) {
+        // Reveal word→translation for every word that actually played this round,
+        // same reveal pattern as the audio/dictation exercises (FB-02).
+        const revealHtml = ex.spokenIndices
+            .map(i => ex.pairs[i])
+            .filter(p => p && p.translation)
+            .map(p => `<div class="wt-reveal-word"><b>${escHtml(p.word)}</b><span class="wt-reveal-arrow">→</span>${escHtml(p.translation)}</div>`)
+            .join('');
+        feedback.innerHTML = (t.wt_correct || '✓ Правильно!') + revealHtml;
+    } else {
+        feedback.innerText = t.wt_match_mistakes || 'Готово, але були помилки';
+    }
     feedback.style.display = 'block';
     const nextBtn = document.getElementById('wtNextBtn');
     nextBtn.innerText = (wtIndex + 1 < wtQueue.length) ? (t.next || 'Далі') + ' →' : (t.done || 'Готово');
@@ -1710,9 +1759,44 @@ function wtNext() {
     renderWtExercise();
 }
 
+// Унікальні пари слів, задіяні в поточній wtQueue — рахує кожне слово раз,
+// незалежно від того, скільки типів вправ (w2t/t2w/audio/spell/.../truefalse)
+// його практикували. 'match'/'listen' — раундові вправи з кількома парами
+// одразу (ex.pairs), решта типів — одна пара на вправу (ex.pair).
+function wtSessionUniquePairCount() {
+    const pairs = new Set();
+    wtQueue.forEach(ex => {
+        if (ex.type === 'match' || ex.type === 'listen') {
+            (ex.pairs || []).forEach(p => pairs.add(p));
+        } else if (ex.pair) {
+            pairs.add(ex.pair);
+        }
+    });
+    return pairs.size;
+}
+
 function showWordResults() {
     updateWordMastery();
     clearWtProgress(); // сесія завершена нормально — прогрес більше не потрібен
+
+    // FB-08: Words Mode раніше взагалі не оновлював загальну статистику
+    // (streak/totalBlocks/totalMinutes, statsBar/profileHeroStats) — рахувалась
+    // лише з Text Mode (learning.js:showFinal). "blocksLearned" тут = к-сть
+    // УНІКАЛЬНИХ слів цієї сесії, не к-сть виконаних вправ (wtQueue.length):
+    // один блок у Text Mode — це один смисловий шматок контенту, який студент
+    // вивчив, а не кожен окремий повтор/прохід по ньому. Аналогічно тут —
+    // одиниця вивченого контенту це слово, а не одна з ~5-9 вправ-форматів
+    // (w2t/t2w/audio/spell/dictation/truefalse/colloc/match/listen), якими це
+    // саме слово практикується в одному повному проході. Рахувати wtQueue.length
+    // напряму завищило б "блоки" в рази порівняно з Text Mode й спотворило б
+    // сенс лічильника на statsBar. updateStats() сама виходить рано, якщо N<=0.
+    if (wtSessionStartTime) {
+        const wordsLearned = wtSessionUniquePairCount();
+        const minutesSpent = (Date.now() - wtSessionStartTime) / 60000;
+        updateStats(wordsLearned, minutesSpent);
+        wtSessionStartTime = null; // спожито — наступна сесія виставить свою мітку заново
+    }
+
     const t = translations[currentLang];
     showScreen('wordResultsScreen');
     const total = wtQueue.length;
@@ -1756,16 +1840,96 @@ function openWordProfile(returnFn, focus) {
     showScreen('wordProfileScreen');
     const t = translations[currentLang];
     document.getElementById('wordProfileBackLabel').innerText = t.back_lang || 'Назад';
+    document.getElementById('wptab-sets-lbl').innerText = t.wptab_sets || 'За наборами';
+    document.getElementById('wptab-dictionary-lbl').innerText = t.wptab_dictionary || 'Словник';
     renderProfileHero();
+    // Завжди відкриваємо на вкладці "За наборами" — той самий скидний патерн,
+    // що й openProfile() у Text-профілі (currentProfileTab='progress' на кожен
+    // вхід). Скоуп querySelectorAll до #wordProfileScreen: клас .profile-tab
+    // спільний з Text-профілем (app.js selectProfileTab), тому не чіпаємо
+    // глобально — інакше перемикання вкладок в одному профілі могло б скинути
+    // active-стан в іншому (нешкідливо, бо і так скидається тут на кожен вхід,
+    // але коректніше не покладатись на це).
+    document.querySelectorAll('#wordProfileScreen .profile-tab').forEach((btn, i) => btn.classList.toggle('active', i === 0));
+    document.getElementById('wordProfileContent').style.display = 'block';
+    document.getElementById('wordDictionaryContent').style.display = 'none';
     renderWordProfileList();
     updateProfileNavAvatar();
     setBottomNav('words', focus === 'identity' ? 'profile' : 'progress');
     if (focus === 'identity') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-        const listEl = document.querySelector('#wordProfileScreen .profile-content');
+        const listEl = document.querySelector('#wordProfileScreen .profile-tabs');
         if (listEl) listEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+}
+
+// FB-09 (2026-08-07): перемикач вкладок "За наборами" (renderWordProfileList,
+// вже існував) / "Словник" (renderWordDictionary, новий) всередині
+// wordProfileScreen — той самий tab-патерн, що й у Text-профілі
+// (selectProfileTab/renderProfileTab, app.js), але окрема функція й скоуп
+// querySelectorAll до #wordProfileScreen, щоб не чіпати Text-профіль (спільний
+// клас .profile-tab, різні DOM-дерева).
+function selectWordProfileTab(tab, btn) {
+    document.querySelectorAll('#wordProfileScreen .profile-tab').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    document.getElementById('wordProfileContent').style.display = tab === 'dictionary' ? 'none' : 'block';
+    document.getElementById('wordDictionaryContent').style.display = tab === 'dictionary' ? 'block' : 'none';
+    if (tab === 'dictionary') renderWordDictionary();
+}
+
+// ===== WORD DICTIONARY (FB-09, 2026-08-07) =====
+// Зведений список УСІХ окремих слів з УСІХ наборів одночасно (на відміну від
+// renderWordProfileList — той показує статистику ПО НАБОРАХ, не окремі слова).
+// Групування — лише на основі pair.masteryScore (0..WT_MASTERY_THRESHOLD),
+// іншого сигналу зараз просто немає на кожній парі.
+// ОБМЕЖЕННЯ (свідомо, задокументовано і в звіті): немає часової мітки
+// останнього тренування слова (lastPracticedAt чи подібне) — тому "На
+// повторення" тут means "є частковий прогрес, але ще не закріпилось"
+// (0 < masteryScore < WT_MASTERY_THRESHOLD), а НЕ "вивчено давно і забувається
+// з часом" (справжня recency-логіка). Щоб порахувати чесно другий варіант,
+// треба буде додати timestamp на pair (напр. виставляти в updateWordMastery(),
+// words.js ~636) і саме тоді переробити цю функцію — навмисно НЕ робиться
+// зараз, але й нічого тут не заважає додати поле пізніше.
+function renderWordDictionary() {
+    const t = translations[currentLang];
+    const container = document.getElementById('wordDictionaryContent');
+    const sets = loadWordSets();
+
+    const mastered = [];
+    const review = [];
+    const unlearned = [];
+    sets.forEach(set => {
+        (set.pairs || []).forEach(p => {
+            if (!p.word || !p.translation) return;
+            const score = p.masteryScore || 0;
+            const row = { word: p.word, translation: p.translation, topic: set.topic || '—' };
+            if (score >= WT_MASTERY_THRESHOLD) mastered.push(row);
+            else if (score > 0) review.push(row);
+            else unlearned.push(row);
+        });
+    });
+
+    if (!mastered.length && !review.length && !unlearned.length) {
+        container.innerHTML = `<p class="profile-empty">${t.profile_empty_words || 'Ще немає збережених наборів слів'}</p>`;
+        return;
+    }
+
+    const renderRow = row => `<div class="word-dict-row">
+        <div class="word-dict-pair"><span class="word-dict-word">${escHtml(row.word)}</span><span class="word-dict-arrow">→</span><span class="word-dict-trans">${escHtml(row.translation)}</span></div>
+        <div class="word-dict-topic">${escHtml(row.topic)}</div>
+    </div>`;
+
+    // Порожні групи — жодного заголовка взагалі (вимога User), не "0 слів".
+    const renderGroup = (label, rows) => rows.length ? `<div class="word-dict-group">
+        <div class="word-dict-group-title">${escHtml(label)}<span class="word-dict-count">${rows.length}</span></div>
+        ${rows.map(renderRow).join('')}
+      </div>` : '';
+
+    container.innerHTML =
+        renderGroup(t.wdict_mastered || 'Вивчені', mastered) +
+        renderGroup(t.wdict_review || 'На повторення', review) +
+        renderGroup(t.wdict_unlearned || 'Не вивчені', unlearned);
 }
 
 function renderWordProfileList() {
@@ -1845,6 +2009,7 @@ function startQuickRound(set) {
     wtCorrect = 0;
     wtCurrentAudioPair = null;
     wtSettledPairs = new Set();
+    wtSessionStartTime = Date.now();
     clearWtProgress();
     showScreen('wordTrainingScreen');
     renderWtExercise();
