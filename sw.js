@@ -1,4 +1,4 @@
-const CACHE = 'memori-v64';
+const CACHE = 'memori-v65';
 const CORE = [
   './index.html',
   './state.js',

@@ -98,7 +98,7 @@ const translations = {
         method_mind: "В умі", method_write: "Письмо", method_audio: "Голосом",
         text_placeholder: "Вставте або введіть текст...",
         profile_btn: "Профіль",
-        profile_title: "Мій прогрес",
+        profile_title: "Профіль",
         profile_in_progress: "В роботі",
         profile_learned: "Вивчено",
         profile_planned: "Плани",
@@ -191,10 +191,13 @@ const translations = {
         mode_title: 'Що хочемо вчити?',
         mode_text_label: 'Текст', mode_text_desc: 'Вірш, монолог, виступ, презентація',
         mode_words_label: 'Слова та Фрази', mode_words_desc: 'Нова лексика, переклади, словник',
-        nav_learn: 'Навчання', nav_progress: 'Прогрес', nav_profile: 'Профіль',
+        nav_learn: 'Навчання', nav_library: 'Бібліотека', nav_progress: 'Прогрес', nav_profile: 'Профіль',
         mode_subtitle: 'Оберіть напрямок — можна змінити будь-коли',
         wl_subtitle: 'Мова, яку вивчаєте, і рідна — для перекладу та вимови',
-        wt_topic_subtitle: 'Назва допоможе швидко знайти цей набір у профілі'
+        wt_topic_subtitle: 'Назва допоможе швидко знайти цей набір у профілі',
+        library_title: 'Бібліотека', progress_title: 'Прогрес',
+        profile_mood: 'Настрій зараз', profile_about: 'Про тебе',
+        profile_country: 'Країна', profile_city: 'Місто', profile_age: 'Вік', profile_email: 'Пошта'
     },
     en: {
         welcome: "Welcome. Let's learn without stress.",
@@ -270,7 +273,7 @@ const translations = {
         method_mind: "Mental", method_write: "Write", method_audio: "Voice",
         text_placeholder: "Paste or type your text...",
         profile_btn: "Profile",
-        profile_title: "My Progress",
+        profile_title: "Profile",
         profile_in_progress: "In progress",
         profile_learned: "Learned",
         profile_planned: "Planned",
@@ -363,10 +366,13 @@ const translations = {
         mode_title: 'What do you want to learn?',
         mode_text_label: 'Text', mode_text_desc: 'Poem, speech, article, presentation',
         mode_words_label: 'Words & Phrases', mode_words_desc: 'New vocabulary, translations, flashcards',
-        nav_learn: 'Learn', nav_progress: 'Progress', nav_profile: 'Profile',
+        nav_learn: 'Learn', nav_library: 'Library', nav_progress: 'Progress', nav_profile: 'Profile',
         mode_subtitle: 'Pick a direction — you can switch anytime',
         wl_subtitle: 'The language you\'re learning, plus your own — for translation and pronunciation',
-        wt_topic_subtitle: 'A name helps you find this set again later'
+        wt_topic_subtitle: 'A name helps you find this set again later',
+        library_title: 'Library', progress_title: 'Progress',
+        profile_mood: 'Mood right now', profile_about: 'About you',
+        profile_country: 'Country', profile_city: 'City', profile_age: 'Age', profile_email: 'Email'
     },
     pl: {
         welcome: "Witamy. Zacznijmy naukę bez stresu.",
@@ -442,7 +448,7 @@ const translations = {
         method_mind: "W myślach", method_write: "Pisanie", method_audio: "Głosem",
         text_placeholder: "Wklej lub wpisz tekst...",
         profile_btn: "Profil",
-        profile_title: "Mój postęp",
+        profile_title: "Profil",
         profile_in_progress: "W toku",
         profile_learned: "Nauczone",
         profile_planned: "Zaplanowane",
@@ -535,10 +541,13 @@ const translations = {
         mode_title: 'Czego chcesz się uczyć?',
         mode_text_label: 'Tekst', mode_text_desc: 'Wiersz, przemowa, artykuł, prezentacja',
         mode_words_label: 'Słowa i Frazy', mode_words_desc: 'Nowe słownictwo, tłumaczenia, fiszki',
-        nav_learn: 'Nauka', nav_progress: 'Postęp', nav_profile: 'Profil',
+        nav_learn: 'Nauka', nav_library: 'Biblioteka', nav_progress: 'Postęp', nav_profile: 'Profil',
         mode_subtitle: 'Wybierz kierunek — możesz zmienić w każdej chwili',
         wl_subtitle: 'Język, którego się uczysz, i twój ojczysty — do tłumaczeń i wymowy',
-        wt_topic_subtitle: 'Nazwa pomoże szybko znaleźć ten zestaw w profilu'
+        wt_topic_subtitle: 'Nazwa pomoże szybko znaleźć ten zestaw w profilu',
+        library_title: 'Biblioteka', progress_title: 'Postęp',
+        profile_mood: 'Nastrój teraz', profile_about: 'O tobie',
+        profile_country: 'Kraj', profile_city: 'Miasto', profile_age: 'Wiek', profile_email: 'E-mail'
     },
     de: {
         welcome: "Willkommen. Lernen ohne Stress.",
@@ -614,7 +623,7 @@ const translations = {
         method_mind: "Im Kopf", method_write: "Schreiben", method_audio: "Stimme",
         text_placeholder: "Text einfügen oder tippen...",
         profile_btn: "Profil",
-        profile_title: "Mein Fortschritt",
+        profile_title: "Profil",
         profile_in_progress: "Laufend",
         profile_learned: "Gelernt",
         profile_planned: "Geplant",
@@ -707,10 +716,13 @@ const translations = {
         mode_title: 'Was möchtest du lernen?',
         mode_text_label: 'Text', mode_text_desc: 'Gedicht, Rede, Artikel, Präsentation',
         mode_words_label: 'Wörter & Phrasen', mode_words_desc: 'Neues Vokabular, Übersetzungen, Karteikarten',
-        nav_learn: 'Lernen', nav_progress: 'Fortschritt', nav_profile: 'Profil',
+        nav_learn: 'Lernen', nav_library: 'Bibliothek', nav_progress: 'Fortschritt', nav_profile: 'Profil',
         mode_subtitle: 'Wähle eine Richtung — du kannst jederzeit wechseln',
         wl_subtitle: 'Die Sprache, die du lernst, und deine Muttersprache — für Übersetzung und Aussprache',
-        wt_topic_subtitle: 'Ein Name hilft dir, dieses Set später im Profil wiederzufinden'
+        wt_topic_subtitle: 'Ein Name hilft dir, dieses Set später im Profil wiederzufinden',
+        library_title: 'Bibliothek', progress_title: 'Fortschritt',
+        profile_mood: 'Aktuelle Stimmung', profile_about: 'Über dich',
+        profile_country: 'Land', profile_city: 'Stadt', profile_age: 'Alter', profile_email: 'E-Mail'
     },
     fr: {
         welcome: "Bienvenue. Apprenons sans stress.",
@@ -786,7 +798,7 @@ const translations = {
         method_mind: "Mental", method_write: "Écriture", method_audio: "Voix",
         text_placeholder: "Collez ou saisissez votre texte...",
         profile_btn: "Profil",
-        profile_title: "Ma progression",
+        profile_title: "Profil",
         profile_in_progress: "En cours",
         profile_learned: "Appris",
         profile_planned: "Planifiés",
@@ -879,10 +891,13 @@ const translations = {
         mode_title: 'Que voulez-vous apprendre ?',
         mode_text_label: 'Texte', mode_text_desc: 'Poème, discours, article, présentation',
         mode_words_label: 'Mots & Phrases', mode_words_desc: 'Nouveau vocabulaire, traductions, fiches',
-        nav_learn: 'Apprendre', nav_progress: 'Progrès', nav_profile: 'Profil',
+        nav_learn: 'Apprendre', nav_library: 'Bibliothèque', nav_progress: 'Progrès', nav_profile: 'Profil',
         mode_subtitle: 'Choisissez une direction — vous pouvez changer à tout moment',
         wl_subtitle: 'La langue que vous apprenez, et votre langue maternelle — pour la traduction et la prononciation',
-        wt_topic_subtitle: 'Un nom vous aidera à retrouver cet ensemble dans votre profil'
+        wt_topic_subtitle: 'Un nom vous aidera à retrouver cet ensemble dans votre profil',
+        library_title: 'Bibliothèque', progress_title: 'Progrès',
+        profile_mood: 'Humeur du moment', profile_about: 'À propos de toi',
+        profile_country: 'Pays', profile_city: 'Ville', profile_age: 'Âge', profile_email: 'E-mail'
     },
     es: {
         welcome: "Bienvenido. Aprendamos sin estrés.",
@@ -958,7 +973,7 @@ const translations = {
         method_mind: "Mental", method_write: "Escritura", method_audio: "Voz",
         text_placeholder: "Pega o escribe tu texto...",
         profile_btn: "Perfil",
-        profile_title: "Mi progreso",
+        profile_title: "Perfil",
         profile_in_progress: "En progreso",
         profile_learned: "Aprendido",
         profile_planned: "Planificado",
@@ -1051,10 +1066,13 @@ const translations = {
         mode_title: '¿Qué quieres aprender?',
         mode_text_label: 'Texto', mode_text_desc: 'Poema, discurso, artículo, presentación',
         mode_words_label: 'Palabras y Frases', mode_words_desc: 'Nuevo vocabulario, traducciones, tarjetas',
-        nav_learn: 'Aprender', nav_progress: 'Progreso', nav_profile: 'Perfil',
+        nav_learn: 'Aprender', nav_library: 'Biblioteca', nav_progress: 'Progreso', nav_profile: 'Perfil',
         mode_subtitle: 'Elige una dirección — puedes cambiar en cualquier momento',
         wl_subtitle: 'El idioma que aprendes, y tu idioma natal — para traducción y pronunciación',
-        wt_topic_subtitle: 'Un nombre te ayudará a encontrar este conjunto en tu perfil'
+        wt_topic_subtitle: 'Un nombre te ayudará a encontrar este conjunto en tu perfil',
+        library_title: 'Biblioteca', progress_title: 'Progreso',
+        profile_mood: 'Estado de ánimo', profile_about: 'Sobre ti',
+        profile_country: 'País', profile_city: 'Ciudad', profile_age: 'Edad', profile_email: 'Correo'
     }
 };
 
@@ -1133,17 +1151,19 @@ function showMotivToast(msg) {
 
 // ----- [app: SCREEN MANAGER]  (was app.js lines 1922-2045) -----
 // ===== SCREEN MANAGER =====
-const SCREENS = ['langScreen','modeScreen','inputScreen','setupScreen','learningScreen','restScreen','sessionPauseScreen','finalScreen','profileScreen','wordProfileScreen','wordLangScreen','wordInputScreen','wordVerifyScreen','wordTopicScreen','wordTrainingScreen','wordResultsScreen'];
+const SCREENS = ['langScreen','modeScreen','inputScreen','setupScreen','learningScreen','restScreen','sessionPauseScreen','finalScreen','profileScreen','wordProfileScreen','progressScreen','profileIdentityScreen','wordLangScreen','wordInputScreen','wordVerifyScreen','wordTopicScreen','wordTrainingScreen','wordResultsScreen'];
 // modeScreen/wordLangScreen/wordTopicScreen додано сюди 2026-08-05 (Playful Premium composition
 // pass) — раніше короткий контент цих 3 екранів просто прилипав до верху картки, лишаючи ~50%
 // картки порожньою внизу. FLEX_SCREENS вже мав готовий механізм (display:flex + min-height +
 // justify-content:center з inline style в index.html) для sessionPauseScreen/finalScreen/
 // wordResultsScreen — перевикористано той самий шлях замість винаходу нового.
 const FLEX_SCREENS = ['sessionPauseScreen','finalScreen','wordResultsScreen','modeScreen','wordLangScreen','wordTopicScreen'];
-// Екрани, на яких видно нижню навігацію (Навчання/Прогрес/Профіль) — тільки hub-екрани
-// верхнього рівня (де раніше була кнопка-аватарка) + самі екрани профілю/прогресу.
+// Екрани, на яких видно нижню навігацію (Навчання/Бібліотека/Прогрес/Профіль) — тільки
+// hub-екрани верхнього рівня (де раніше була кнопка-аватарка) + самі екрани
+// бібліотеки/прогресу/профілю (2026-08-07: розділені на 3 окремі екрани, див. коментар
+// над #bottomNav в index.html і D-009 addendum у DECISIONS.md).
 // НЕ показується під час активного навчання/тренування (один екран — одна дія, README UX Designer).
-const BOTTOM_NAV_SCREENS = ['inputScreen','profileScreen','wordLangScreen','wordProfileScreen'];
+const BOTTOM_NAV_SCREENS = ['inputScreen','profileScreen','wordLangScreen','wordProfileScreen','progressScreen','profileIdentityScreen'];
 let currentScreenId = null; // для контексту у зверненнях підтримки — на якому екрані була проблема
 
 function showScreen(id) {
@@ -1165,12 +1185,13 @@ function showScreen(id) {
     updateBottomNavVisibility(id);
 }
 
-// ----- [UX-01 Bottom nav: Навчання/Прогрес/Профіль]  (2026-08-05) -----
+// ----- [UX-01 Bottom nav: Навчання/Бібліотека/Прогрес/Профіль]  (2026-08-05, розділено 2026-08-07) -----
 // Одна спільна панель для обох напрямків (Text/Words) — навMode вирішує куди ведуть кнопки,
-// а не дублювання розмітки. Див. DECISIONS.md для архітектурного обґрунтування (чому
-// "Прогрес" і "Профіль" ведуть на ОДИН і той самий екран профілю, а не на два різні).
+// а не дублювання розмітки. Див. DECISIONS.md D-009/D-009 addendum для архітектурної
+// історії (чому спершу "Прогрес" і "Профіль" вели на один екран, а тепер Бібліотека і
+// Прогрес — окремі екрани, а Профіль — лише особисте).
 let navContext = 'text';    // 'text' | 'words' — який напрямок зараз активний для навігації
-let navActiveTab = 'learn'; // 'learn' | 'progress' | 'profile' — яка кнопка підсвічена
+let navActiveTab = 'learn'; // 'learn' | 'library' | 'progress' | 'profile' — яка кнопка підсвічена
 
 function updateBottomNavVisibility(id) {
     const nav = document.getElementById('bottomNav');
@@ -1189,25 +1210,33 @@ function setBottomNav(context, tab) {
 function renderBottomNav() {
     const t = translations[currentLang];
     const learnLbl = document.getElementById('navLearnLbl');
+    const libLbl = document.getElementById('navLibraryLbl');
+    const progLbl = document.getElementById('navProgressLbl');
     const profLbl = document.getElementById('navProfileLbl');
     if (learnLbl) learnLbl.innerText = t.nav_learn || 'Навчання';
+    if (libLbl) libLbl.innerText = t.nav_library || 'Бібліотека';
+    if (progLbl) progLbl.innerText = t.nav_progress || 'Прогрес';
     if (profLbl) profLbl.innerText = t.nav_profile || 'Профіль';
     document.querySelectorAll('.bottom-nav-item').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.nav === navActiveTab);
     });
 }
 
-// "Прогрес" видалено 2026-08-06 — дублював "Профіль" (обидва відкривали той самий
-// екран, різнились лише scroll-фокусом). Лишився один пункт "Профіль", тому завжди
-// відкриваємо з focus='identity' (hero зверху), як і раніше робив пункт "Профіль".
-// Див. D-009 addendum у _manager/DECISIONS.md.
+// 2026-08-07: "Бібліотека" і "Прогрес" знову 2 окремі пункти (не дублікати цього разу —
+// кожен веде на СВІЙ екран: openProfile/openWordProfile = списки текстів/наборів слів
+// (тепер без hero), showProgressScreen = нове, memori_stats, openProfileIdentity = нове,
+// лише особисте — hero переїхав туди). Див. коментар над #bottomNav в index.html.
 function bottomNavGo(tab) {
     if (navContext === 'words') {
         if (tab === 'learn') showWordLangScreen();
-        else openWordProfile(showWordLangScreen, 'identity');
+        else if (tab === 'library') openWordProfile(showWordLangScreen, 'progress');
+        else if (tab === 'progress') showProgressScreen(showWordLangScreen);
+        else openProfileIdentity(showWordLangScreen);
     } else {
         if (tab === 'learn') showInputScreen();
-        else openProfile(showInputScreen, 'identity');
+        else if (tab === 'library') openProfile(showInputScreen, 'progress');
+        else if (tab === 'progress') showProgressScreen(showInputScreen);
+        else openProfileIdentity(showInputScreen);
     }
 }
 
@@ -1268,7 +1297,6 @@ function showInputScreen() {
     const nextBtn = document.getElementById('nextToSetupBtn');
     if (nextBtn) nextBtn.innerText = (t.nextBtn || 'Далі') + ' →';
     checkSavedState();
-    renderStats();
     checkPendingReminder();
 }
 
@@ -1867,36 +1895,116 @@ async function shareResult() {
 // відкривається сам із себе, тому одного слота (а не стеку) достатньо.
 let profileReturnFn = null;
 
-// focus: 'progress' (скролить до вкладок В роботі/Вивчено/Плани) | 'identity' (default
-// з єдиного нав-пункту "Профіль" з 2026-08-06, скролить до hero — ім'я+аватар+
-// налаштування). Раніше екран обслуговував 2 пункти нав-бару ("Прогрес" і "Профіль"),
-// тепер лишився тільки "Профіль" → bottomNavGo завжди передає 'identity'; параметр
-// focus лишається (не видалений) — див. D-009 addendum у DECISIONS.md чому не
-// розділено на два окремі екрани (ризик регресії синхронізації hero).
+// 2026-08-07: profileScreen тепер ЛИШЕ "Бібліотека" (вкладки В роботі/Вивчено/Плани) —
+// hero (фото+ім'я) переїхав у окремий profileIdentityScreen (openProfileIdentity нижче).
+// focus-параметр історичний (раніше вибирав scroll-ціль між hero і вкладками, D-009/
+// D-009 addendum у DECISIONS.md) — тепер нема куди скролити (hero відсутній), сигнатура
+// лишена незмінною, щоб не ламати виклик bottomNavGo('library').
 function openProfile(returnFn, focus) {
     profileReturnFn = typeof returnFn === 'function' ? returnFn : showInputScreen;
     showScreen('profileScreen');
     const t = translations[currentLang];
     document.getElementById('profileBackLabel').innerText = t.back_lang || 'Назад';
+    const titleEl = document.getElementById('libraryTitleEl');
+    if (titleEl) titleEl.innerText = t.library_title || 'Бібліотека';
     document.getElementById('ptab-progress-lbl').innerText = t.profile_in_progress || 'В роботі';
     document.getElementById('ptab-learned-lbl').innerText = t.profile_learned || 'Вивчено';
     document.getElementById('ptab-planned-lbl').innerText = t.profile_planned || 'Плани';
     currentProfileTab = 'progress';
     document.querySelectorAll('.profile-tab').forEach((btn, i) => btn.classList.toggle('active', i === 0));
-    renderProfileHero();
     renderProfileTab('progress');
     updateProfileNavAvatar();
-    setBottomNav('text', focus === 'identity' ? 'profile' : 'progress');
-    if (focus === 'identity') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-        const tabsEl = document.querySelector('#profileScreen .profile-tabs');
-        if (tabsEl) tabsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    setBottomNav('text', 'library');
 }
 
 function closeProfile() {
     (profileReturnFn || showInputScreen)();
+}
+
+// ----- [Progress screen]  (2026-08-07, nav split: Бібліотека/Прогрес/Профіль розділені) -----
+// Спільний для Text і Words (той самий memori_stats лічильник, FB-08) — навконтекст
+// береться з уже виставленого navContext (Words/Text hub виставляє його при вході).
+let progressReturnFn = null;
+
+function showProgressScreen(returnFn) {
+    progressReturnFn = typeof returnFn === 'function' ? returnFn : showInputScreen;
+    showScreen('progressScreen');
+    const t = translations[currentLang];
+    document.getElementById('progressBackLabel').innerText = t.back_lang || 'Назад';
+    document.getElementById('progressTitleEl').innerText = t.progress_title || 'Прогрес';
+    setBottomNav(navContext, 'progress');
+    renderStats();
+}
+
+function closeProgressScreen() {
+    (progressReturnFn || showInputScreen)();
+}
+
+// ----- [Profile Identity screen]  (2026-08-07, nav split) -----
+// ЛИШЕ особисте: ім'я/фото (renderProfileHero, без змін логіки) + настрій (FB-14,
+// простий toggle без історії) + країна/місто/вік/пошта (усі необов'язкові, без
+// валідації). Спільний для Text і Words — та сама людина, той самий memori_profile.
+let identityReturnFn = null;
+
+function openProfileIdentity(returnFn) {
+    identityReturnFn = typeof returnFn === 'function' ? returnFn : showInputScreen;
+    showScreen('profileIdentityScreen');
+    const t = translations[currentLang];
+    document.getElementById('identityBackLabel').innerText = t.back_lang || 'Назад';
+    document.getElementById('identityTitleEl').innerText = t.profile_title || 'Профіль';
+    const moodLbl = document.getElementById('profileMoodLabel');
+    const aboutLbl = document.getElementById('profileAboutLabel');
+    const emailLbl = document.getElementById('profileEmailLabel');
+    if (moodLbl) moodLbl.innerText = t.profile_mood || 'Настрій зараз';
+    if (aboutLbl) aboutLbl.innerText = t.profile_about || 'Про тебе';
+    if (emailLbl) emailLbl.innerText = t.profile_email || 'Пошта';
+    const countryEl = document.getElementById('profileCountryInput');
+    const cityEl = document.getElementById('profileCityInput');
+    const ageEl = document.getElementById('profileAgeInput');
+    const emailEl = document.getElementById('profileEmailInput');
+    if (countryEl) countryEl.placeholder = t.profile_country || 'Країна';
+    if (cityEl) cityEl.placeholder = t.profile_city || 'Місто';
+    if (ageEl) ageEl.placeholder = t.profile_age || 'Вік';
+    if (emailEl) emailEl.placeholder = t.profile_email || 'Пошта';
+    renderProfileHero();
+    renderProfileIdentityFields();
+    updateProfileNavAvatar();
+    setBottomNav(navContext, 'profile');
+}
+
+function closeProfileIdentity() {
+    (identityReturnFn || showInputScreen)();
+}
+
+function renderProfileIdentityFields() {
+    const profile = loadProfile();
+    document.querySelectorAll('.mood-pill').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mood === profile.mood);
+    });
+    const countryEl = document.getElementById('profileCountryInput');
+    const cityEl = document.getElementById('profileCityInput');
+    const ageEl = document.getElementById('profileAgeInput');
+    const emailEl = document.getElementById('profileEmailInput');
+    if (countryEl) countryEl.value = profile.country || '';
+    if (cityEl) cityEl.value = profile.city || '';
+    if (ageEl) ageEl.value = profile.age || '';
+    if (emailEl) emailEl.value = profile.email || '';
+}
+
+// Простий toggle: клік на активний настрій знову — знімає вибір. Без історії/попапу
+// (FB-14 — окрема майбутня задача).
+function selectProfileMood(mood, btn) {
+    const profile = loadProfile();
+    profile.mood = (profile.mood === mood) ? '' : mood;
+    saveProfile(profile);
+    document.querySelectorAll('.mood-pill').forEach(b => b.classList.toggle('active', b.dataset.mood === profile.mood));
+}
+
+function saveProfileAbout(field, input) {
+    const profile = loadProfile();
+    const maxLen = field === 'age' ? 3 : (field === 'email' ? 80 : 60);
+    profile[field] = input.value.trim().slice(0, maxLen);
+    saveProfile(profile);
 }
 
 function selectProfileTab(tab, btn) {

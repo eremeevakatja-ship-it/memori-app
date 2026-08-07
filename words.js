@@ -1894,21 +1894,22 @@ function wtGoHome() {
 }
 
 // ----- [W1 WORD PROFILE screen (openWordProfile/renderWordProfileList)]  (was app.js lines 3466-3509) -----
-// ===== WORD PROFILE (окремий напрямок — спільні тільки ім'я+фото через renderProfileHero) =====
+// ===== WORD PROFILE (окремий напрямок — 2026-08-07: тепер ЛИШЕ "Бібліотека", hero
+// (фото+ім'я, раніше тут через renderProfileHero) переїхав у profileIdentityScreen,
+// app.js) =====
 
-// focus: 'progress' (скролить до списку наборів слів) | 'identity' (default з єдиного
-// нав-пункту "Профіль" з 2026-08-06, скролить до hero — ім'я+аватар). Раніше екран
-// обслуговував 2 пункти нав-бару Words Mode ("Прогрес" і "Профіль"), тепер лишився
-// тільки "Профіль" → bottomNavGo завжди передає 'identity' — симетрично до
-// openProfile() в app.js, див. D-009 addendum у DECISIONS.md.
+// 2026-08-07: focus-параметр історичний (раніше вибирав scroll-ціль між hero і списком
+// наборів, D-009/D-009 addendum у DECISIONS.md) — тепер нема куди скролити (hero
+// відсутній), сигнатура лишена незмінною, щоб не ламати виклик bottomNavGo('library').
 function openWordProfile(returnFn, focus) {
     profileReturnFn = typeof returnFn === 'function' ? returnFn : showWordLangScreen;
     showScreen('wordProfileScreen');
     const t = translations[currentLang];
     document.getElementById('wordProfileBackLabel').innerText = t.back_lang || 'Назад';
+    const titleEl = document.getElementById('wordLibraryTitleEl');
+    if (titleEl) titleEl.innerText = t.library_title || 'Бібліотека';
     document.getElementById('wptab-sets-lbl').innerText = t.wptab_sets || 'За наборами';
     document.getElementById('wptab-dictionary-lbl').innerText = t.wptab_dictionary || 'Словник';
-    renderProfileHero();
     // Завжди відкриваємо на вкладці "За наборами" — той самий скидний патерн,
     // що й openProfile() у Text-профілі (currentProfileTab='progress' на кожен
     // вхід). Скоуп querySelectorAll до #wordProfileScreen: клас .profile-tab
@@ -1921,13 +1922,7 @@ function openWordProfile(returnFn, focus) {
     document.getElementById('wordDictionaryContent').style.display = 'none';
     renderWordProfileList();
     updateProfileNavAvatar();
-    setBottomNav('words', focus === 'identity' ? 'profile' : 'progress');
-    if (focus === 'identity') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-        const listEl = document.querySelector('#wordProfileScreen .profile-tabs');
-        if (listEl) listEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    setBottomNav('words', 'library');
 }
 
 // FB-09 (2026-08-07): перемикач вкладок "За наборами" (renderWordProfileList,

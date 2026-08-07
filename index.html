@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=81" />
+    <link rel="stylesheet" href="style.css?v=82" />
   </head>
   <body>
     <div class="container">
@@ -104,31 +104,16 @@
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
               <span id="backBtnLabel">Мова</span>
             </button>
+            <!-- Паритет з wordLangScreen (wlHomeBtn) — той самий .btn-home-topbar/goHome() -->
+            <button onclick="goHome()" class="btn-home-topbar" id="inputHomeBtn" title="На головну" aria-label="На головну">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </button>
           </div>
           <div class="logo-block">
             <svg class="logo-svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z" fill="var(--primary)" fill-opacity="0.16"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
             <h1 class="logo-text" style="font-size:1.6rem;">Memori</h1>
           </div>
           <p id="roleSubtitle" class="role-subtitle"></p>
-          <div id="statsBar" class="stats-bar" style="display:none;">
-            <div class="stat-chip">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="#f97316" stroke="none"><path d="M12 2c0 0-5 4.5-5 9a5 5 0 0 0 10 0c0-4.5-5-9-5-9zm-1 12.5c-1.5 0-2.5-1-2.5-2.5s2.5-5 2.5-5 2.5 3.5 2.5 5-1 2.5-2.5 2.5z"/></svg>
-              <span id="statStreakVal" class="stat-val"></span>
-              <small id="statStreakLbl" class="stat-lbl"></small>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-chip">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-              <span id="statBlocksVal" class="stat-val"></span>
-              <small id="statBlocksLbl" class="stat-lbl"></small>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-chip">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              <span id="statTimeVal" class="stat-val"></span>
-              <small id="statTimeLbl" class="stat-lbl"></small>
-            </div>
-          </div>
           <div id="resumeBanner" style="display:none;" class="resume-banner">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
             <div class="resume-banner-body">
@@ -401,33 +386,15 @@
           </div>
         </div>
 
-        <!-- Profile Screen -->
+        <!-- Profile Screen — 2026-08-07: тепер ЛИШЕ "Бібліотека" (списки текстів), hero
+             (фото+ім'я) переїхав у profileIdentityScreen. -->
         <div id="profileScreen" style="display:none;" class="profile-screen">
           <div class="profile-header">
             <button onclick="closeProfile()" class="btn-back">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
               <span id="profileBackLabel">Назад</span>
             </button>
-          </div>
-
-          <!-- Hero: avatar + name -->
-          <div class="profile-hero">
-            <div class="profile-avatar-wrap" onclick="triggerAvatarUpload()">
-              <img id="profileAvatarImg" class="profile-avatar-img" style="display:none;" alt="">
-              <div id="profileAvatarPlaceholder" class="profile-avatar-placeholder icon-c-teal">
-                <svg class="profile-avatar-placeholder-img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              </div>
-              <div class="profile-avatar-cam">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
-              </div>
-            </div>
-            <input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="handleAvatarUpload(this)">
-            <div class="profile-name-wrap">
-              <span id="profileNameDisplay" class="profile-name-display" onclick="startEditName(this)"></span>
-              <input id="profileNameInput" class="profile-name-input" type="text" maxlength="40" style="display:none;"
-                     onblur="saveProfileName(this)" onkeydown="if(event.key==='Enter')this.blur()">
-            </div>
-            <p id="profileHeroStats" class="profile-hero-stats"></p>
+            <span class="profile-title-h" id="libraryTitleEl">Бібліотека</span>
           </div>
 
           <div class="profile-tabs">
@@ -447,30 +414,16 @@
           <div id="profileContent" class="profile-content"></div>
         </div>
 
-        <!-- Word Profile Screen — окремий напрямок, спільні тільки ім'я+фото (клас-based, синхронізується з profileScreen) -->
+        <!-- Word Profile Screen — 2026-08-07: тепер ЛИШЕ "Бібліотека" (набори слів), hero
+             (спільний з Text через клас-based renderProfileHero) переїхав у
+             profileIdentityScreen. -->
         <div id="wordProfileScreen" style="display:none;" class="profile-screen">
           <div class="profile-header">
             <button onclick="closeProfile()" class="btn-back">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
               <span id="wordProfileBackLabel">Назад</span>
             </button>
-          </div>
-
-          <div class="profile-hero">
-            <div class="profile-avatar-wrap" onclick="triggerAvatarUpload()">
-              <img class="profile-avatar-img" style="display:none;" alt="">
-              <div class="profile-avatar-placeholder icon-c-teal">
-                <svg class="profile-avatar-placeholder-img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              </div>
-              <div class="profile-avatar-cam">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
-              </div>
-            </div>
-            <div class="profile-name-wrap">
-              <span class="profile-name-display" onclick="startEditName(this)"></span>
-              <input class="profile-name-input" type="text" maxlength="40" style="display:none;"
-                     onblur="saveProfileName(this)" onkeydown="if(event.key==='Enter')this.blur()">
-            </div>
+            <span class="profile-title-h" id="wordLibraryTitleEl">Бібліотека</span>
           </div>
 
           <div class="profile-tabs">
@@ -485,6 +438,100 @@
           </div>
           <div id="wordProfileContent" class="profile-content"></div>
           <div id="wordDictionaryContent" class="profile-content" style="display:none;"></div>
+        </div>
+
+        <!-- Progress Screen — 2026-08-07, нове: memori_stats (streak/блоки/час), той самий
+             #statsBar/renderStats() що раніше жив на inputScreen, тепер лише тут. Спільний
+             для Text і Words (той самий лічильник, FB-08). -->
+        <div id="progressScreen" style="display:none;">
+          <div class="input-topbar">
+            <button onclick="closeProgressScreen()" class="btn-back">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <span id="progressBackLabel">Назад</span>
+            </button>
+            <button onclick="goHome()" class="btn-home-topbar" id="progressHomeBtn" title="На головну" aria-label="На головну">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </button>
+          </div>
+          <h2 id="progressTitleEl" class="setup-title">Прогрес</h2>
+          <div id="statsBar" class="stats-bar" style="display:none;">
+            <div class="stat-chip">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="#f97316" stroke="none"><path d="M12 2c0 0-5 4.5-5 9a5 5 0 0 0 10 0c0-4.5-5-9-5-9zm-1 12.5c-1.5 0-2.5-1-2.5-2.5s2.5-5 2.5-5 2.5 3.5 2.5 5-1 2.5-2.5 2.5z"/></svg>
+              <span id="statStreakVal" class="stat-val"></span>
+              <small id="statStreakLbl" class="stat-lbl"></small>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-chip">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+              <span id="statBlocksVal" class="stat-val"></span>
+              <small id="statBlocksLbl" class="stat-lbl"></small>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-chip">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span id="statTimeVal" class="stat-val"></span>
+              <small id="statTimeLbl" class="stat-lbl"></small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Profile Identity Screen — 2026-08-07, нове: ЛИШЕ особисте (ім'я/фото + настрій/
+             про себе). Спільний для Text і Words (та сама людина) — на відміну від
+             profileScreen/wordProfileScreen ("Бібліотека"), які лишаються окремими
+             per-напрямок екранами. Hero-розмітка (avatar/name) переїхала сюди з
+             profileScreen, той самий renderProfileHero()/startEditName()/saveProfileName()
+             без змін логіки (state.js). -->
+        <div id="profileIdentityScreen" style="display:none;">
+          <div class="input-topbar">
+            <button onclick="closeProfileIdentity()" class="btn-back">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <span id="identityBackLabel">Назад</span>
+            </button>
+            <button onclick="goHome()" class="btn-home-topbar" id="identityHomeBtn" title="На головну" aria-label="На головну">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </button>
+          </div>
+          <h2 id="identityTitleEl" class="setup-title">Профіль</h2>
+
+          <div class="profile-hero">
+            <div class="profile-avatar-wrap" onclick="triggerAvatarUpload()">
+              <img id="profileAvatarImg" class="profile-avatar-img" style="display:none;" alt="">
+              <div id="profileAvatarPlaceholder" class="profile-avatar-placeholder icon-c-teal">
+                <svg class="profile-avatar-placeholder-img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div class="profile-avatar-cam">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+              </div>
+            </div>
+            <input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="handleAvatarUpload(this)">
+            <div class="profile-name-wrap">
+              <span id="profileNameDisplay" class="profile-name-display" onclick="startEditName(this)"></span>
+              <input id="profileNameInput" class="profile-name-input" type="text" maxlength="40" style="display:none;"
+                     onblur="saveProfileName(this)" onkeydown="if(event.key==='Enter')this.blur()">
+            </div>
+          </div>
+
+          <!-- FB-14 (майбутнє): поки простий toggle-стан без історії/попапу -->
+          <div class="profile-about-section">
+            <label id="profileMoodLabel" class="profile-about-label">Настрій зараз</label>
+            <div id="moodPillsRow" class="mood-pills-row">
+              <button type="button" class="mood-pill" data-mood="😄" onclick="selectProfileMood('😄',this)">😄</button>
+              <button type="button" class="mood-pill" data-mood="🙂" onclick="selectProfileMood('🙂',this)">🙂</button>
+              <button type="button" class="mood-pill" data-mood="😐" onclick="selectProfileMood('😐',this)">😐</button>
+              <button type="button" class="mood-pill" data-mood="😔" onclick="selectProfileMood('😔',this)">😔</button>
+              <button type="button" class="mood-pill" data-mood="🔥" onclick="selectProfileMood('🔥',this)">🔥</button>
+            </div>
+
+            <label id="profileAboutLabel" class="profile-about-label">Про тебе</label>
+            <div class="profile-about-row">
+              <input id="profileCountryInput" class="profile-about-input" type="text" maxlength="60" onblur="saveProfileAbout('country', this)">
+              <input id="profileCityInput" class="profile-about-input" type="text" maxlength="60" onblur="saveProfileAbout('city', this)">
+            </div>
+            <input id="profileAgeInput" class="profile-about-input" type="text" inputmode="numeric" maxlength="3" onblur="saveProfileAbout('age', this)">
+
+            <label id="profileEmailLabel" class="profile-about-label">Пошта</label>
+            <input id="profileEmailInput" class="profile-about-input" type="text" maxlength="80" onblur="saveProfileAbout('email', this)">
+          </div>
         </div>
 
         <!-- Word Training Screen -->
@@ -675,17 +722,32 @@
       </div>
     </div>
 
-    <!-- Bottom Nav — Навчання/Профіль, floating pill. Тільки на hub-екранах
-         (inputScreen/wordLangScreen) і на самому екрані профілю — див.
-         BOTTOM_NAV_SCREENS у app.js. Один спільний бар для Text і Words: navContext
-         (app.js) вирішує куди ведуть кнопки, а не дублювання розмітки.
-         "Прогрес" видалено 2026-08-06 (дублював "Профіль" — обидва вели на той
-         самий екран, лишався тільки різний scroll-фокус) — див. D-009 addendum
-         у _manager/DECISIONS.md. -->
+    <!-- Bottom Nav — Навчання/Бібліотека/Прогрес/Профіль, floating pill. Тільки на
+         hub-екранах (inputScreen/wordLangScreen) і на самих екранах бібліотеки/
+         прогресу/профілю — див. BOTTOM_NAV_SCREENS у app.js. Один спільний бар для
+         Text і Words: navContext (app.js) вирішує куди ведуть кнопки, а не
+         дублювання розмітки.
+         2026-08-07: Бібліотека і Прогрес розділено на 2 окремі екрани (раніше
+         "Прогрес" видаляли 2026-08-06, бо дублював "Профіль" — обидва вели на
+         profileScreen/wordProfileScreen, різнились лише scroll-фокусом). Тепер
+         profileScreen/wordProfileScreen = ЛИШЕ "Бібліотека" (списки текстів/наборів
+         слів, без hero), новий progressScreen = ЛИШЕ статистика (memori_stats),
+         новий profileIdentityScreen = ЛИШЕ особисте (ім'я/фото/настрій/про себе,
+         hero переїхав сюди). Це замінює D-009 addendum, не сам D-009 (розділення
+         на кілька екранів замість scroll-фокусу в одному) — див. STATUS.md
+         2026-08-07 "Nav-структура: Бібліотека/Прогрес/Профіль розділені". -->
     <nav id="bottomNav" class="bottom-nav" style="display:none;" aria-label="Primary">
       <button type="button" class="bottom-nav-item" data-nav="learn" onclick="bottomNavGo('learn')">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"/></svg>
         <span id="navLearnLbl">Навчання</span>
+      </button>
+      <button type="button" class="bottom-nav-item" data-nav="library" onclick="bottomNavGo('library')">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="18" rx="1"/><rect x="14" y="3" width="7" height="18" rx="1"/></svg>
+        <span id="navLibraryLbl">Бібліотека</span>
+      </button>
+      <button type="button" class="bottom-nav-item" data-nav="progress" onclick="bottomNavGo('progress')">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M6 20V10"/><path d="M12 20V4"/><path d="M18 20v-7"/></svg>
+        <span id="navProgressLbl">Прогрес</span>
       </button>
       <button type="button" class="bottom-nav-item" data-nav="profile" onclick="bottomNavGo('profile')">
         <span class="bottom-nav-avatar-wrap">
@@ -755,8 +817,8 @@
     <script src="state.js?v=6"></script>
     <script src="audio.js?v=2"></script>
     <script src="learning.js?v=10"></script>
-    <script src="words.js?v=8"></script>
-    <script src="app.js?v=97"></script>
+    <script src="words.js?v=9"></script>
+    <script src="app.js?v=98"></script>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});

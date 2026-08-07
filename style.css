@@ -1570,14 +1570,12 @@ body[data-theme="dark"] .word-dict-topic { color: #4a5568; }
 body[data-theme="dark"] .word-dict-count { background: rgba(129,140,248,0.15); color: #818cf8; }
 body[data-theme="dark"] .btn-profile-delete:hover { color: #f87171; }
 
-/* ===== PROFILE HERO (avatar + name) ===== */
-.profile-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 4px;
-}
-.profile-header .btn-back { margin: 0; }
-
+/* ===== PROFILE HERO (avatar + name) — 2026-08-07: тепер живе лише в
+   profileIdentityScreen (переїхало з profileScreen/wordProfileScreen, які стали
+   "Бібліотека"). Дубльоване .profile-header тут прибрано — воно звужувало
+   margin-bottom до 4px спеціально під сусідство з hero; базове визначення
+   (.profile-header, margin-bottom:20px, вище в цьому файлі) тепер знову коректне
+   для profileScreen/wordProfileScreen без hero. ===== */
 .profile-hero {
   display: flex;
   flex-direction: column;
@@ -1695,6 +1693,53 @@ body[data-theme="dark"] .profile-name-display { color: #e2e8f0; }
 body[data-theme="dark"] .profile-name-empty { color: #374151; }
 body[data-theme="dark"] .profile-name-input { color: #e2e8f0; border-color: #818cf8 !important; }
 body[data-theme="dark"] .profile-hero-stats { color: #374151; }
+
+/* ===== PROFILE IDENTITY — mood + about-you fields (2026-08-07, nav split) =====
+   Усі кольори через var(--card-bg)/var(--border)/var(--text)/var(--primary*), які вже
+   самі перевизначаються під body[data-theme="dark"] (див. :root/dark блок вище у файлі)
+   — окремих dark-правил тут не треба, той самий принцип що й .stat-val/.stat-chip. */
+.profile-about-section { margin-top: 8px; }
+.profile-about-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+  opacity: 0.85;
+  margin: 18px 0 10px;
+}
+.profile-about-label:first-child { margin-top: 0; }
+.mood-pills-row { display: flex; gap: 8px; justify-content: center; }
+.mood-pill {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--card-bg);
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  transition: all 0.15s;
+}
+.mood-pill:hover { opacity: 1; transform: scale(1.06); border-color: var(--primary); }
+.mood-pill.active { border-color: var(--primary); background: var(--primary-soft); }
+.profile-about-row { display: flex; gap: 8px; }
+.profile-about-row .profile-about-input { flex: 1; }
+.profile-about-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text);
+  font-size: 0.9rem;
+  margin: 0 0 10px;
+  font-family: inherit;
+}
+.profile-about-input:focus { outline: none; border-color: var(--primary); }
 
 /* ===== SETTINGS TOGGLE ===== */
 .settings-toggle {
