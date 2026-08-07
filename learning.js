@@ -227,6 +227,15 @@ function resetLearningExtras() {
 function showStep() {
     const step = learningQueue[currentStepIndex];
     const t = translations[currentLang];
+    // FB-04/FB-05: topbar labels set once here (before the 'rest'/'bigReview' early
+    // returns below) — same spot/pattern as learningBackLabel used to update in
+    // only, so the icon-only Дім/Завершити buttons get a translated tooltip on
+    // every entry into learningScreen, not just on 'new'/'review' steps.
+    document.getElementById('learningBackLabel').innerText = t.back_lang || 'Назад';
+    const homeBtn = document.getElementById('learningHomeBtn');
+    if (homeBtn) homeBtn.title = homeBtn.ariaLabel = t.finish_home || 'На головну';
+    const finishBtn = document.getElementById('learningFinishBtn');
+    if (finishBtn) finishBtn.title = finishBtn.ariaLabel = t.learning_finish_here || 'Завершити тут';
     if (!step) { showFinal(); return; }
     if (step.type === 'rest') { startRest(); return; }
     if (step.type === 'bigReview') { showBigReview(step.upToIndex); return; }
@@ -236,7 +245,6 @@ function showStep() {
 
     document.getElementById('learningScreen').style.display = 'block';
     document.getElementById('restScreen').style.display = 'none';
-    document.getElementById('learningBackLabel').innerText = t.back_lang || 'Назад';
     const display = document.getElementById('textDisplay');
     const hint = document.getElementById('instructionHint');
 
@@ -418,6 +426,26 @@ function startRest() {
     if (motivEl) { motivEl.innerText = lastMotivation || ''; }
     renderRestDurOnScreen();
     startRestCountdown();
+
+    // FB-06: показати весь шматок тексту, вивчений НА РАЗІ (усі new-блоки, показані
+    // до цього моменту сесії, не тільки останній) — не примусово, просто доступно
+    // для читання/повторення очима поки триває таймер, без кнопок що зупиняють паузу.
+    // newBlocksShownInSession new-кроки завжди йдуть у порядку blocks[0..N-1]
+    // (generateQueue штовхає 'new' по черзі за індексом) — тому просте slice()
+    // дає рівно "все, що вже показали", без окремого трекінгу тексту по блоках.
+    const reviewBox = document.getElementById('restReviewBox');
+    const reviewText = document.getElementById('restReviewText');
+    const reviewInvite = document.getElementById('restReviewInvite');
+    if (reviewBox && reviewText) {
+        const learnedSoFar = blocks.slice(0, newBlocksShownInSession).join('\n').trim();
+        if (learnedSoFar) {
+            if (reviewInvite) reviewInvite.innerText = t.rest_review_invite || '';
+            reviewText.innerText = learnedSoFar;
+            reviewBox.style.display = 'block';
+        } else {
+            reviewBox.style.display = 'none';
+        }
+    }
 }
 
 function nextBlock() {
@@ -809,7 +837,14 @@ function showFinal() {
         addToLearned(currentRawText || document.getElementById('userText').value.trim(), blocks.length);
     }
     document.getElementById('finalTitle').innerText = allDone ? t.finish_all_title : t.finish_title;
-    document.getElementById('finalBlocks').innerText = `${blocks.length} ${t.finish_blocks}`;
+    // FB-05: на достроковому завершенні (allDone === false — так само і для вже
+    // існуючого pauseFinish(), не тільки нового finishLearningHere()) показуємо
+    // реально пройдені блоки (newBlocksShownInSession), а не blocks.length (розмір
+    // усього тексту). На природному завершенні обидва числа завжди рівні (кожен
+    // блок отримує рівно один 'new'-крок), тому це нічого не міняє для існуючого
+    // фінального екрану — лише виправляє неточність для раннього виходу.
+    const blocksReached = allDone ? blocks.length : Math.min(newBlocksShownInSession, blocks.length);
+    document.getElementById('finalBlocks').innerText = `${blocksReached} ${t.finish_blocks}`;
     document.getElementById('finalTime').innerText = `${t.finish_time}: ${timeStr}`;
     document.getElementById('finalRestartBtn').innerText = t.finish_restart;
     document.getElementById('finalHomeBtn').innerText = t.finish_home;
@@ -846,5 +881,32 @@ function goHome() {
 function exitLearningScreen() {
     saveState();
     showInputScreen();
+}
+
+// FB-04: "Дім" на learningScreen — веде на той самий справжній корінь (langScreen)
+// що й goHome() на інших екранах (не дублюємо showScreen('langScreen') тут).
+// Відрізняється від goHome() лише тим, що сесія в цей момент АКТИВНА (mid-exercise,
+// на відміну від hub-екранів де goHome() викликається без session-стану) — тому
+// перед переходом зберігаємо прогрес тим самим saveState(), що й "Назад"
+// (exitLearningScreen() вище). Свідомий вибір безпечного варіанту: користувач може
+// повернутись і продовжити (resume banner / 24h auto-resume), а не втратити місце.
+function goHomeFromLearning() {
+    saveState();
+    goHome();
+}
+
+// FB-05: "Завершити тут" — дострокове завершення поточного проходу тексту, доступне
+// в будь-який момент mid-exercise (на відміну від pauseFinish(), яку викликає лише
+// showSessionPause() між кроками, коли метод попереднього кроку вже завершено).
+// Тому спершу зупиняємо будь-яку активну озвучку/розпізнавання голосу тим самим
+// resetLearningExtras(), що й звичайний перехід між кроками — а далі та сама
+// showFinal(), що й при природному завершенні чи pauseFinish(): жодної окремої
+// гілки підрахунку статистики (finalBlocks тепер коректно показує реально пройдені
+// блоки — див. коментар у showFinal()).
+function finishLearningHere() {
+    resetLearningExtras();
+    document.getElementById('sessionPauseScreen').style.display = 'none';
+    if (newBlocksShownInSession <= 0) newBlocksShownInSession = 1;
+    showFinal();
 }
 

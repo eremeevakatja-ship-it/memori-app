@@ -1311,6 +1311,10 @@ body[data-theme="dark"] .theme-toggle-fab { background: #1f2937; border-color: #
   margin-bottom: 16px;
 }
 .input-topbar .btn-back { margin: 0; }
+/* FB-05: групує "Завершити тут"+"Дім" разом на learningScreen — той самий
+   .input-topbar (justify-content:space-between) лишається без змін для екранів
+   з рівно 2 кнопками, ця обгортка потрібна лише там, де їх 3. */
+.topbar-actions { display: flex; align-items: center; gap: 8px; }
 .btn-home-topbar {
   display: inline-flex;
   align-items: center;
@@ -1328,6 +1332,26 @@ body[data-theme="dark"] .theme-toggle-fab { background: #1f2937; border-color: #
 .btn-home-topbar:hover { color: var(--primary); border-color: var(--primary); }
 body[data-theme="dark"] .btn-home-topbar { color: #4a5568; }
 body[data-theme="dark"] .btn-home-topbar:hover { color: #818cf8; border-color: #818cf8; }
+/* FB-05: той самий 30x30 icon-only паттерн що й .btn-home-topbar, окремий зелений
+   акцент за замовчуванням — щоб "позитивне завершення" візуально відрізнялось від
+   нейтральної навігації "Дім" ще до наведення. */
+.btn-finish-topbar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: #52b788;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.btn-finish-topbar:hover { color: var(--primary); border-color: var(--primary); }
+body[data-theme="dark"] .btn-finish-topbar { color: #6ee7b7; }
+body[data-theme="dark"] .btn-finish-topbar:hover { color: #818cf8; border-color: #818cf8; }
 .btn-profile-nav {
   background: transparent;
   border: 1.5px solid var(--border);
@@ -1871,6 +1895,36 @@ body[data-theme="dark"] .profile-list-hint { color: #374151; }
   text-align: center;
   opacity: 0.85;
 }
+
+/* ===== FB-06: вивчений на разі шматок тексту на екрані відпочинку ===== */
+.rest-review-box {
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--primary-soft);
+  box-sizing: border-box;
+  text-align: left;
+}
+.rest-review-invite {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--text);
+  opacity: 0.75;
+  margin: 0 0 8px;
+  line-height: 1.4;
+}
+.rest-review-text {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--text);
+  white-space: pre-line;
+  max-height: 140px;
+  overflow-y: auto;
+}
+body[data-theme="dark"] .rest-review-box { background: rgba(129,140,248,0.1); }
+body[data-theme="dark"] .rest-review-invite { color: #94a3b8; opacity: 1; }
+body[data-theme="dark"] .rest-review-text { color: #e2e8f0; }
 
 /* ===== BIG REVIEW BADGE ===== */
 .step-badge-big {
