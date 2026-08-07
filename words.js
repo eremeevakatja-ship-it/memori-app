@@ -46,6 +46,7 @@ function showWordLangScreen() {
     document.getElementById('wlNextBtn').innerText = t.wl_next || 'Далі →';
     document.getElementById('wlSameError').style.display = 'none';
     renderWordLangSelects();
+    checkMoodPopup(); // FB-14: той самий hub-boot момент, що й showInputScreen() (app.js)
 }
 
 function renderWordLangSelects() {
@@ -1894,13 +1895,13 @@ function wtGoHome() {
 }
 
 // ----- [W1 WORD PROFILE screen (openWordProfile/renderWordProfileList)]  (was app.js lines 3466-3509) -----
-// ===== WORD PROFILE (окремий напрямок — 2026-08-07: тепер ЛИШЕ "Бібліотека", hero
-// (фото+ім'я, раніше тут через renderProfileHero) переїхав у profileIdentityScreen,
-// app.js) =====
+// ===== WORD PROFILE (окремий напрямок — 2026-08-07 re-split: тепер ЛИШЕ "Словник" —
+// "За наборами" переїхало в progressScreen (app.js showProgressScreen), бо User:
+// розподіл Бібліотека/Прогрес мав бути "за наборами" в Прогресі, Бібліотека = лише
+// Словник. Один список без вкладок. Hero — profileIdentityScreen, app.js) =====
 
-// 2026-08-07: focus-параметр історичний (раніше вибирав scroll-ціль між hero і списком
-// наборів, D-009/D-009 addendum у DECISIONS.md) — тепер нема куди скролити (hero
-// відсутній), сигнатура лишена незмінною, щоб не ламати виклик bottomNavGo('library').
+// 2026-08-07: focus-параметр історичний (D-009/D-009 addendum у DECISIONS.md) —
+// нема куди скролити, сигнатура лишена незмінною, щоб не ламати виклик bottomNavGo('library').
 function openWordProfile(returnFn, focus) {
     profileReturnFn = typeof returnFn === 'function' ? returnFn : showWordLangScreen;
     showScreen('wordProfileScreen');
@@ -1908,35 +1909,9 @@ function openWordProfile(returnFn, focus) {
     document.getElementById('wordProfileBackLabel').innerText = t.back_lang || 'Назад';
     const titleEl = document.getElementById('wordLibraryTitleEl');
     if (titleEl) titleEl.innerText = t.library_title || 'Бібліотека';
-    document.getElementById('wptab-sets-lbl').innerText = t.wptab_sets || 'За наборами';
-    document.getElementById('wptab-dictionary-lbl').innerText = t.wptab_dictionary || 'Словник';
-    // Завжди відкриваємо на вкладці "За наборами" — той самий скидний патерн,
-    // що й openProfile() у Text-профілі (currentProfileTab='progress' на кожен
-    // вхід). Скоуп querySelectorAll до #wordProfileScreen: клас .profile-tab
-    // спільний з Text-профілем (app.js selectProfileTab), тому не чіпаємо
-    // глобально — інакше перемикання вкладок в одному профілі могло б скинути
-    // active-стан в іншому (нешкідливо, бо і так скидається тут на кожен вхід,
-    // але коректніше не покладатись на це).
-    document.querySelectorAll('#wordProfileScreen .profile-tab').forEach((btn, i) => btn.classList.toggle('active', i === 0));
-    document.getElementById('wordProfileContent').style.display = 'block';
-    document.getElementById('wordDictionaryContent').style.display = 'none';
-    renderWordProfileList();
+    renderWordDictionary();
     updateProfileNavAvatar();
     setBottomNav('words', 'library');
-}
-
-// FB-09 (2026-08-07): перемикач вкладок "За наборами" (renderWordProfileList,
-// вже існував) / "Словник" (renderWordDictionary, новий) всередині
-// wordProfileScreen — той самий tab-патерн, що й у Text-профілі
-// (selectProfileTab/renderProfileTab, app.js), але окрема функція й скоуп
-// querySelectorAll до #wordProfileScreen, щоб не чіпати Text-профіль (спільний
-// клас .profile-tab, різні DOM-дерева).
-function selectWordProfileTab(tab, btn) {
-    document.querySelectorAll('#wordProfileScreen .profile-tab').forEach(b => b.classList.remove('active'));
-    if (btn) btn.classList.add('active');
-    document.getElementById('wordProfileContent').style.display = tab === 'dictionary' ? 'none' : 'block';
-    document.getElementById('wordDictionaryContent').style.display = tab === 'dictionary' ? 'block' : 'none';
-    if (tab === 'dictionary') renderWordDictionary();
 }
 
 // ===== WORD DICTIONARY (FB-09, 2026-08-07) =====
@@ -1976,6 +1951,10 @@ function renderWordDictionary() {
         return;
     }
 
+    // 2026-08-07: чіп замість рядка на всю ширину — User: "не один під одним а
+    // один біля одного, бо шукати неможливо". Сітка (word-dict-group-rows, CSS
+    // grid) навколо чіпів всередині кожної групи, сама категоризація (mastered/
+    // review/unlearned) без змін.
     const renderRow = row => `<div class="word-dict-row">
         <div class="word-dict-pair"><span class="word-dict-word">${escHtml(row.word)}</span><span class="word-dict-arrow">→</span><span class="word-dict-trans">${escHtml(row.translation)}</span></div>
         <div class="word-dict-topic">${escHtml(row.topic)}</div>
@@ -1984,7 +1963,7 @@ function renderWordDictionary() {
     // Порожні групи — жодного заголовка взагалі (вимога User), не "0 слів".
     const renderGroup = (label, rows) => rows.length ? `<div class="word-dict-group">
         <div class="word-dict-group-title">${escHtml(label)}<span class="word-dict-count">${rows.length}</span></div>
-        ${rows.map(renderRow).join('')}
+        <div class="word-dict-group-rows">${rows.map(renderRow).join('')}</div>
       </div>` : '';
 
     container.innerHTML =
@@ -1993,9 +1972,13 @@ function renderWordDictionary() {
         renderGroup(t.wdict_unlearned || 'Не вивчені', unlearned);
 }
 
-function renderWordProfileList() {
+// 2026-08-07 (re-split): переїхав з wordProfileScreen у progressScreen (Words-контекст,
+// "За наборами" тепер частина Прогресу) — containerId тому обов'язковий параметр,
+// дефолту на неіснуючий #wordProfileContent більше немає сенсу тримати.
+function renderWordProfileList(containerId) {
     const t = translations[currentLang];
-    const container = document.getElementById('wordProfileContent');
+    const container = document.getElementById(containerId);
+    if (!container) return;
     const deleteSvg = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>`;
 
     const sets = loadWordSets();
@@ -2078,5 +2061,7 @@ function startQuickRound(set) {
 
 function profileDeleteWordSet(id) {
     saveWordSets(loadWordSets().filter(s => s.id !== id));
-    renderWordProfileList();
+    // "За наборами" тепер живе лише на progressScreen (re-split, 2026-08-07) —
+    // єдине місце, звідки ця кнопка може бути натиснута.
+    renderWordProfileList('progressContent');
 }

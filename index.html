@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=82" />
+    <link rel="stylesheet" href="style.css?v=84" />
   </head>
   <body>
     <div class="container">
@@ -386,8 +386,9 @@
           </div>
         </div>
 
-        <!-- Profile Screen — 2026-08-07: тепер ЛИШЕ "Бібліотека" (списки текстів), hero
-             (фото+ім'я) переїхав у profileIdentityScreen. -->
+        <!-- Profile Screen — 2026-08-07 (re-split): ЛИШЕ "Вивчено" (В роботі/Плани
+             переїхали в progressScreen). Один список, без вкладок — категоризований
+             у renderLearnedLibrary() (app.js). Hero (фото+ім'я) — profileIdentityScreen. -->
         <div id="profileScreen" style="display:none;" class="profile-screen">
           <div class="profile-header">
             <button onclick="closeProfile()" class="btn-back">
@@ -396,27 +397,11 @@
             </button>
             <span class="profile-title-h" id="libraryTitleEl">Бібліотека</span>
           </div>
-
-          <div class="profile-tabs">
-            <button class="profile-tab active" onclick="selectProfileTab('progress',this)">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-              <span id="ptab-progress-lbl">В роботі</span>
-            </button>
-            <button class="profile-tab" onclick="selectProfileTab('learned',this)">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span id="ptab-learned-lbl">Вивчено</span>
-            </button>
-            <button class="profile-tab" onclick="selectProfileTab('planned',this)">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-              <span id="ptab-planned-lbl">Плани</span>
-            </button>
-          </div>
           <div id="profileContent" class="profile-content"></div>
         </div>
 
-        <!-- Word Profile Screen — 2026-08-07: тепер ЛИШЕ "Бібліотека" (набори слів), hero
-             (спільний з Text через клас-based renderProfileHero) переїхав у
-             profileIdentityScreen. -->
+        <!-- Word Profile Screen — 2026-08-07 (re-split): ЛИШЕ "Словник" (За наборами
+             переїхало в progressScreen). Один список, без вкладок. Hero — profileIdentityScreen. -->
         <div id="wordProfileScreen" style="display:none;" class="profile-screen">
           <div class="profile-header">
             <button onclick="closeProfile()" class="btn-back">
@@ -425,24 +410,13 @@
             </button>
             <span class="profile-title-h" id="wordLibraryTitleEl">Бібліотека</span>
           </div>
-
-          <div class="profile-tabs">
-            <button class="profile-tab active" onclick="selectWordProfileTab('sets',this)">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-              <span id="wptab-sets-lbl">За наборами</span>
-            </button>
-            <button class="profile-tab" onclick="selectWordProfileTab('dictionary',this)">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/><path d="M9 7h7M9 11h5"/></svg>
-              <span id="wptab-dictionary-lbl">Словник</span>
-            </button>
-          </div>
-          <div id="wordProfileContent" class="profile-content"></div>
-          <div id="wordDictionaryContent" class="profile-content" style="display:none;"></div>
+          <div id="wordDictionaryContent" class="profile-content"></div>
         </div>
 
-        <!-- Progress Screen — 2026-08-07, нове: memori_stats (streak/блоки/час), той самий
-             #statsBar/renderStats() що раніше жив на inputScreen, тепер лише тут. Спільний
-             для Text і Words (той самий лічильник, FB-08). -->
+        <!-- Progress Screen — 2026-08-07 (re-split): статистика (memori_stats) прибрана
+             з UI зовсім (User: "прибрати зовсім, не переносити"). Text-контекст: 2 вкладки
+             В роботі/Плани (переїхали сюди з profileScreen). Words-контекст: 1 секція
+             "За наборами" (переїхала сюди з wordProfileScreen), без вкладок. -->
         <div id="progressScreen" style="display:none;">
           <div class="input-topbar">
             <button onclick="closeProgressScreen()" class="btn-back">
@@ -454,25 +428,19 @@
             </button>
           </div>
           <h2 id="progressTitleEl" class="setup-title">Прогрес</h2>
-          <div id="statsBar" class="stats-bar" style="display:none;">
-            <div class="stat-chip">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="#f97316" stroke="none"><path d="M12 2c0 0-5 4.5-5 9a5 5 0 0 0 10 0c0-4.5-5-9-5-9zm-1 12.5c-1.5 0-2.5-1-2.5-2.5s2.5-5 2.5-5 2.5 3.5 2.5 5-1 2.5-2.5 2.5z"/></svg>
-              <span id="statStreakVal" class="stat-val"></span>
-              <small id="statStreakLbl" class="stat-lbl"></small>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-chip">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-              <span id="statBlocksVal" class="stat-val"></span>
-              <small id="statBlocksLbl" class="stat-lbl"></small>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-chip">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              <span id="statTimeVal" class="stat-val"></span>
-              <small id="statTimeLbl" class="stat-lbl"></small>
-            </div>
+
+          <!-- Text-only: 2 вкладки. Words-контекст ховає цей блок цілком (showProgressScreen). -->
+          <div id="progressTabs" class="profile-tabs" style="display:none;">
+            <button class="profile-tab active" onclick="selectProgressTab('progress',this)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              <span id="prtab-progress-lbl">В роботі</span>
+            </button>
+            <button class="profile-tab" onclick="selectProgressTab('planned',this)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+              <span id="prtab-planned-lbl">Плани</span>
+            </button>
           </div>
+          <div id="progressContent" class="profile-content"></div>
         </div>
 
         <!-- Profile Identity Screen — 2026-08-07, нове: ЛИШЕ особисте (ім'я/фото + настрій/
@@ -814,11 +782,32 @@
       </div>
     </div>
 
-    <script src="state.js?v=6"></script>
+    <!-- Mood Popup (bottom sheet) — FB-14: щотижневий попап настрою, окремий елемент
+         від notifPrompt (нагадування) і від profileIdentityScreen mood-toggle
+         (той самий info-popup-overlay/-sheet патерн, що й infoPopup/supportPopup вище,
+         але окремі #id і клас .mood-popup-pill — див. коментар у app.js/checkMoodPopup). -->
+    <div id="moodPopup" class="info-popup-overlay" style="display:none;" onclick="closeMoodPopupOverlay(event)">
+      <div class="info-popup-sheet mood-popup-sheet">
+        <h3 id="moodPopupTitle" class="mood-popup-title"></h3>
+        <p id="moodPopupSub" class="mood-popup-sub"></p>
+        <div class="mood-popup-pills-row">
+          <button type="button" class="mood-popup-pill" data-mood="😄" onclick="selectMoodPopupPill('😄',this)">😄</button>
+          <button type="button" class="mood-popup-pill" data-mood="🙂" onclick="selectMoodPopupPill('🙂',this)">🙂</button>
+          <button type="button" class="mood-popup-pill" data-mood="😐" onclick="selectMoodPopupPill('😐',this)">😐</button>
+          <button type="button" class="mood-popup-pill" data-mood="😔" onclick="selectMoodPopupPill('😔',this)">😔</button>
+        </div>
+        <div class="mood-popup-actions">
+          <button type="button" onclick="confirmMoodPopup()" id="moodPopupCta" class="btn-start-main" disabled></button>
+          <button type="button" onclick="dismissMoodPopup()" id="moodPopupLaterBtn" class="btn-ghost"></button>
+        </div>
+      </div>
+    </div>
+
+    <script src="state.js?v=7"></script>
     <script src="audio.js?v=2"></script>
     <script src="learning.js?v=10"></script>
-    <script src="words.js?v=9"></script>
-    <script src="app.js?v=98"></script>
+    <script src="words.js?v=11"></script>
+    <script src="app.js?v=100"></script>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});

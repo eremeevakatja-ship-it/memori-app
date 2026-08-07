@@ -277,7 +277,13 @@ function addToLearned(text, blockCount) {
         id: Date.now(),
         title: text.replace(/\n/g, ' ').slice(0, 70),
         text, blockCount,
-        completedAt: Date.now()
+        completedAt: Date.now(),
+        // 2026-08-07: тип завченого матеріалу — ставиться вручну в "Вивчено"
+        // (renderLearnedLibrary/changeLearnedCategory, app.js), той самий принцип,
+        // що й pair.pos у Words Mode — вгадати автоматично неможливо. Старі записи
+        // без цього поля читаються з фолбеком entry.category || 'text' скрізь, де
+        // категорія використовується — не ламаються.
+        category: 'text'
     });
     if (arr.length > 50) arr.pop();
     saveLearned(arr);
@@ -454,10 +460,15 @@ function updateStats(blocksLearned, minutesSpent) {
     saveStats(s);
 }
 
+// 2026-08-07: #statsBar видалено з UI (User: прибрати статистику зовсім, не
+// переносити) — ця функція більше нізвідки не викликається, лишена лише тому,
+// що логіка updateStats()/loadStats() і далі пише дані (можливо знадобиться
+// пізніше). Null-guard на випадок майбутнього виклику без існуючого #statsBar.
 function renderStats() {
     const s = loadStats();
     const t = translations[currentLang];
     const bar = document.getElementById('statsBar');
+    if (!bar) return;
     if (!s.lastDate) { bar.style.display = 'none'; return; }
 
     document.getElementById('statStreakVal').innerText = s.streak;

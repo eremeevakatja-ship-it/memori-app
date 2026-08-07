@@ -1525,10 +1525,51 @@ body[data-theme="dark"] .btn-profile-ghost { background: transparent; border-col
 body[data-theme="dark"] .btn-profile-ghost:hover { background: rgba(129,140,248,0.15); }
 body[data-theme="dark"] .btn-profile-delete { color: #374151; }
 
+/* 2026-08-07 (Library/Progress re-split): "Вивчено" (profileScreen) — теплий
+   заголовок екрану + категоризовані групи (renderLearnedLibrary, app.js).
+   Group-заголовки перевикористовують .word-dict-group/-group-title/-count
+   нижче (той самий принцип, що вже об'єднував Words-словник). */
+.learned-hero-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-align: center;
+  margin: 0 0 14px;
+}
+body[data-theme="dark"] .learned-hero-title { color: #818cf8; }
+
+/* Кожен запис "Вивчено" — 2 рядки замість 1 (як .profile-item), бо додався
+   inline-select категорії поруч з кнопками дії — на 320px в один рядок з
+   назвою/датою вже не влазить. */
+.profile-item-learned { flex-direction: column; align-items: stretch; }
+.profile-item-learned-row2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.learned-cat-select {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 5px 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: var(--card-bg);
+  color: var(--text);
+  font-family: inherit;
+  width: auto;
+  margin: 0;
+  flex-shrink: 0;
+}
+.learned-cat-select:focus { outline: none; border-color: var(--primary); }
+
 /* FB-09 (2026-08-07): зведений словник (word-dict-*) — усередині
    #wordDictionaryContent, той самий .profile-content скрол-контейнер, що й
    renderWordProfileList (набори). Легші рядки, ніж .profile-item — тут лише
-   відображення (word→translation+тема), без action-кнопок. */
+   відображення (word→translation+тема), без action-кнопок.
+   2026-08-07 (пізніше того ж дня): User — "не один під одним а один біля
+   одного, бо шукати неможливо" — рядки стали компактними чіпами в CSS grid
+   (.word-dict-group-rows), а не вертикальним списком на всю ширину. */
 .word-dict-group { margin-bottom: 4px; }
 .word-dict-group-title {
   display: flex;
@@ -1550,18 +1591,36 @@ body[data-theme="dark"] .btn-profile-delete { color: #374151; }
   border-radius: 20px;
   padding: 1px 8px;
 }
+.word-dict-group-rows {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+@media (min-width: 400px) {
+  .word-dict-group-rows { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 640px) {
+  .word-dict-group-rows { grid-template-columns: repeat(4, 1fr); }
+}
 .word-dict-row {
   background: #fafafa;
   border: 1.5px solid #e8eaed;
   border-radius: 10px;
-  padding: 9px 12px;
-  margin-bottom: 6px;
+  padding: 8px 10px;
+  min-width: 0;
 }
-.word-dict-pair { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
-.word-dict-word { font-size: 0.85rem; font-weight: 700; color: var(--text); }
-.word-dict-arrow { font-size: 0.75rem; color: #bbb; }
-.word-dict-trans { font-size: 0.85rem; color: var(--text); }
-.word-dict-topic { font-size: 0.68rem; color: #aaa; margin-top: 2px; }
+.word-dict-pair { display: flex; align-items: baseline; gap: 4px; flex-wrap: wrap; }
+.word-dict-word { font-size: 0.8rem; font-weight: 700; color: var(--text); overflow-wrap: anywhere; }
+.word-dict-arrow { font-size: 0.7rem; color: #bbb; flex-shrink: 0; }
+.word-dict-trans { font-size: 0.8rem; color: var(--text); overflow-wrap: anywhere; }
+.word-dict-topic {
+  font-size: 0.62rem;
+  color: #aaa;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 body[data-theme="dark"] .word-dict-row { background: #1f2937; border-color: #2d3748; }
 body[data-theme="dark"] .word-dict-word,
 body[data-theme="dark"] .word-dict-trans { color: #e2e8f0; }
@@ -1837,6 +1896,35 @@ body[data-theme="dark"] .info-popup-close { color: #4a5568; }
 body[data-theme="dark"] .info-popup-close:hover { color: #94a3b8; }
 body[data-theme="dark"] .info-popup-body { color: #94a3b8; opacity: 1; }
 
+/* ===== MOOD POPUP (FB-14, bottom sheet — окремі класи від .mood-pill / notif-prompt,
+   щоб не змішувати 4-варіантний попап з 5-варіантним toggle у profileIdentityScreen) ===== */
+.mood-popup-sheet { text-align: center; }
+.mood-popup-title { font-size: 1.1rem; font-weight: 800; color: var(--text); margin: 0 0 8px; }
+.mood-popup-sub { font-size: 0.88rem; line-height: 1.55; color: var(--text); opacity: 0.78; margin: 0 0 20px; }
+.mood-popup-pills-row { display: flex; gap: 10px; justify-content: center; margin: 0 0 22px; }
+.mood-popup-pill {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--card-bg);
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  transition: all 0.15s;
+}
+.mood-popup-pill:hover { opacity: 1; transform: scale(1.06); border-color: var(--primary); }
+.mood-popup-pill.active { border-color: var(--primary); background: var(--primary-soft); transform: scale(1.08); }
+.mood-popup-actions { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+#moodPopupCta:disabled { opacity: 0.45; cursor: not-allowed; }
+#moodPopupCta:disabled:hover { opacity: 0.45; transform: none; box-shadow: none; }
+body[data-theme="dark"] .mood-popup-title { color: #e2e8f0; }
+body[data-theme="dark"] .mood-popup-sub { color: #94a3b8; opacity: 1; }
+
 /* ===== AUDIO SPEED ROW ===== */
 .audio-speed-row {
   display: flex;
@@ -1890,8 +1978,9 @@ body[data-theme="dark"] .lib-rename-input {
 }
 body[data-theme="dark"] .profile-list-hint { color: #374151; }
 
-/* Cursor pointer on library item body to hint at rename */
-#profileContent .profile-item-body { cursor: pointer; }
+/* Cursor pointer on planned-item body to hint at rename — 2026-08-07: "Плани"
+   переїхали з #profileContent у #progressContent (re-split), selector іде за ними. */
+#progressContent .profile-item-body { cursor: pointer; }
 
 /* ===== MOTIVATION TOAST ===== */
 .motiv-toast {

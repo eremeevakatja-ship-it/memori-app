@@ -93,7 +93,7 @@ const translations = {
         stat_hr: "г", stat_min: "хв",
         notif_prompt: "Нагадати завтра?", notif_time_label: "О котрій:",
         notif_dismiss: "Ні, дякую", notif_body: "Час практикуватись! Не переривай серію 🔥",
-        notif_confirm: "Нагадування увімкнено ✓",
+        notif_confirm: "Нагадування увімкнено ✓", mood_popup_later: "Не зараз",
         instruction_hint: "Прочитайте двічі, повторіть в умі і йдіть далі",
         method_mind: "В умі", method_write: "Письмо", method_audio: "Голосом",
         text_placeholder: "Вставте або введіть текст...",
@@ -112,6 +112,9 @@ const translations = {
         wdict_mastered: "Вивчені",
         wdict_review: "На повторення",
         wdict_unlearned: "Не вивчені",
+        learned_hero_title: "Молодець, ось що вже вивчено! 🌟",
+        learned_group_text_speech: "Текст/промова", learned_group_poem: "Вірші", learned_group_song: "Пісні",
+        learned_cat_text: "Текст", learned_cat_speech: "Промова", learned_cat_poem: "Вірш", learned_cat_song: "Пісня",
         profile_train: "Тренувати",
         profile_empty_progress: "Немає активної сесії",
         profile_empty_learned: "Ще нічого не вивчено. Пройдіть перший текст!",
@@ -268,7 +271,7 @@ const translations = {
         stat_hr: "h", stat_min: "min",
         notif_prompt: "Remind me tomorrow?", notif_time_label: "What time:",
         notif_dismiss: "No thanks", notif_body: "Time to practise! Keep your streak going 🔥",
-        notif_confirm: "Reminder enabled ✓",
+        notif_confirm: "Reminder enabled ✓", mood_popup_later: "Not now",
         instruction_hint: "Read twice, recall in your mind, then continue",
         method_mind: "Mental", method_write: "Write", method_audio: "Voice",
         text_placeholder: "Paste or type your text...",
@@ -287,6 +290,9 @@ const translations = {
         wdict_mastered: "Mastered",
         wdict_review: "In review",
         wdict_unlearned: "Not learned",
+        learned_hero_title: "Nice work — here's what you've already learned! 🌟",
+        learned_group_text_speech: "Text/speech", learned_group_poem: "Poems", learned_group_song: "Songs",
+        learned_cat_text: "Text", learned_cat_speech: "Speech", learned_cat_poem: "Poem", learned_cat_song: "Song",
         profile_train: "Train",
         profile_empty_progress: "No active session",
         profile_empty_learned: "Nothing learned yet. Complete your first text!",
@@ -443,7 +449,7 @@ const translations = {
         stat_hr: "g", stat_min: "min",
         notif_prompt: "Przypomnieć jutro?", notif_time_label: "O której:",
         notif_dismiss: "Nie, dziękuję", notif_body: "Czas na praktykę! Nie przerywaj serii 🔥",
-        notif_confirm: "Przypomnienie włączone ✓",
+        notif_confirm: "Przypomnienie włączone ✓", mood_popup_later: "Nie teraz",
         instruction_hint: "Przeczytaj dwa razy, powtórz w myślach i jedź dalej",
         method_mind: "W myślach", method_write: "Pisanie", method_audio: "Głosem",
         text_placeholder: "Wklej lub wpisz tekst...",
@@ -462,6 +468,9 @@ const translations = {
         wdict_mastered: "Opanowane",
         wdict_review: "W trakcie powtórki",
         wdict_unlearned: "Nieopanowane",
+        learned_hero_title: "Brawo, oto czego już się nauczyłaś! 🌟",
+        learned_group_text_speech: "Tekst/przemówienie", learned_group_poem: "Wiersze", learned_group_song: "Piosenki",
+        learned_cat_text: "Tekst", learned_cat_speech: "Przemówienie", learned_cat_poem: "Wiersz", learned_cat_song: "Piosenka",
         profile_train: "Trenuj",
         profile_empty_progress: "Brak aktywnej sesji",
         profile_empty_learned: "Nic jeszcze nie nauczone. Ukończ pierwszy tekst!",
@@ -618,7 +627,7 @@ const translations = {
         stat_hr: "Std", stat_min: "Min",
         notif_prompt: "Morgen erinnern?", notif_time_label: "Zu welcher Zeit:",
         notif_dismiss: "Nein danke", notif_body: "Zeit zum Üben! Halte deine Serie aufrecht 🔥",
-        notif_confirm: "Erinnerung aktiviert ✓",
+        notif_confirm: "Erinnerung aktiviert ✓", mood_popup_later: "Nicht jetzt",
         instruction_hint: "Zweimal lesen, im Kopf wiederholen, dann weiter",
         method_mind: "Im Kopf", method_write: "Schreiben", method_audio: "Stimme",
         text_placeholder: "Text einfügen oder tippen...",
@@ -637,6 +646,9 @@ const translations = {
         wdict_mastered: "Gelernt",
         wdict_review: "In Wiederholung",
         wdict_unlearned: "Nicht gelernt",
+        learned_hero_title: "Gut gemacht — das hast du schon gelernt! 🌟",
+        learned_group_text_speech: "Text/Rede", learned_group_poem: "Gedichte", learned_group_song: "Lieder",
+        learned_cat_text: "Text", learned_cat_speech: "Rede", learned_cat_poem: "Gedicht", learned_cat_song: "Lied",
         profile_train: "Trainieren",
         profile_empty_progress: "Keine aktive Sitzung",
         profile_empty_learned: "Noch nichts gelernt. Schließe deinen ersten Text ab!",
@@ -793,7 +805,7 @@ const translations = {
         stat_hr: "h", stat_min: "min",
         notif_prompt: "Me rappeler demain ?", notif_time_label: "À quelle heure :",
         notif_dismiss: "Non merci", notif_body: "C'est l'heure de pratiquer ! Gardez votre série 🔥",
-        notif_confirm: "Rappel activé ✓",
+        notif_confirm: "Rappel activé ✓", mood_popup_later: "Pas maintenant",
         instruction_hint: "Lisez deux fois, rappelez-vous mentalement, continuez",
         method_mind: "Mental", method_write: "Écriture", method_audio: "Voix",
         text_placeholder: "Collez ou saisissez votre texte...",
@@ -812,6 +824,9 @@ const translations = {
         wdict_mastered: "Maîtrisés",
         wdict_review: "En révision",
         wdict_unlearned: "Non appris",
+        learned_hero_title: "Bravo, voici ce que tu as déjà appris ! 🌟",
+        learned_group_text_speech: "Texte/discours", learned_group_poem: "Poèmes", learned_group_song: "Chansons",
+        learned_cat_text: "Texte", learned_cat_speech: "Discours", learned_cat_poem: "Poème", learned_cat_song: "Chanson",
         profile_train: "Entraîner",
         profile_empty_progress: "Aucune session active",
         profile_empty_learned: "Rien appris encore. Terminez votre premier texte !",
@@ -968,7 +983,7 @@ const translations = {
         stat_hr: "h", stat_min: "min",
         notif_prompt: "¿Recordarme mañana?", notif_time_label: "¿A qué hora?",
         notif_dismiss: "No, gracias", notif_body: "¡Hora de practicar! Mantén tu racha 🔥",
-        notif_confirm: "Recordatorio activado ✓",
+        notif_confirm: "Recordatorio activado ✓", mood_popup_later: "Ahora no",
         instruction_hint: "Lee dos veces, recuerda mentalmente y continúa",
         method_mind: "Mental", method_write: "Escritura", method_audio: "Voz",
         text_placeholder: "Pega o escribe tu texto...",
@@ -987,6 +1002,9 @@ const translations = {
         wdict_mastered: "Dominadas",
         wdict_review: "En repaso",
         wdict_unlearned: "No aprendidas",
+        learned_hero_title: "¡Bien hecho! Esto es lo que ya has aprendido 🌟",
+        learned_group_text_speech: "Texto/discurso", learned_group_poem: "Poemas", learned_group_song: "Canciones",
+        learned_cat_text: "Texto", learned_cat_speech: "Discurso", learned_cat_poem: "Poema", learned_cat_song: "Canción",
         profile_train: "Entrenar",
         profile_empty_progress: "Sin sesión activa",
         profile_empty_learned: "Nada aprendido aún. ¡Completa tu primer texto!",
@@ -1298,6 +1316,7 @@ function showInputScreen() {
     if (nextBtn) nextBtn.innerText = (t.nextBtn || 'Далі') + ' →';
     checkSavedState();
     checkPendingReminder();
+    checkMoodPopup();
 }
 
 function goToSetup() {
@@ -1895,11 +1914,12 @@ async function shareResult() {
 // відкривається сам із себе, тому одного слота (а не стеку) достатньо.
 let profileReturnFn = null;
 
-// 2026-08-07: profileScreen тепер ЛИШЕ "Бібліотека" (вкладки В роботі/Вивчено/Плани) —
-// hero (фото+ім'я) переїхав у окремий profileIdentityScreen (openProfileIdentity нижче).
-// focus-параметр історичний (раніше вибирав scroll-ціль між hero і вкладками, D-009/
-// D-009 addendum у DECISIONS.md) — тепер нема куди скролити (hero відсутній), сигнатура
-// лишена незмінною, щоб не ламати виклик bottomNavGo('library').
+// 2026-08-07 (re-split): profileScreen тепер ЛИШЕ "Вивчено" — В роботі/Плани
+// переїхали в progressScreen (showProgressScreen нижче), бо User: розподіл
+// Бібліотека/Прогрес мав бути "в роботі + плани" в Прогресі, а Бібліотека =
+// лише завершене. Один список без вкладок — renderLearnedLibrary() нижче.
+// focus-параметр історичний (D-009/D-009 addendum у DECISIONS.md) — нема куди
+// скролити, сигнатура лишена незмінною, щоб не ламати виклик bottomNavGo('library').
 function openProfile(returnFn, focus) {
     profileReturnFn = typeof returnFn === 'function' ? returnFn : showInputScreen;
     showScreen('profileScreen');
@@ -1907,12 +1927,7 @@ function openProfile(returnFn, focus) {
     document.getElementById('profileBackLabel').innerText = t.back_lang || 'Назад';
     const titleEl = document.getElementById('libraryTitleEl');
     if (titleEl) titleEl.innerText = t.library_title || 'Бібліотека';
-    document.getElementById('ptab-progress-lbl').innerText = t.profile_in_progress || 'В роботі';
-    document.getElementById('ptab-learned-lbl').innerText = t.profile_learned || 'Вивчено';
-    document.getElementById('ptab-planned-lbl').innerText = t.profile_planned || 'Плани';
-    currentProfileTab = 'progress';
-    document.querySelectorAll('.profile-tab').forEach((btn, i) => btn.classList.toggle('active', i === 0));
-    renderProfileTab('progress');
+    renderLearnedLibrary();
     updateProfileNavAvatar();
     setBottomNav('text', 'library');
 }
@@ -1921,10 +1936,13 @@ function closeProfile() {
     (profileReturnFn || showInputScreen)();
 }
 
-// ----- [Progress screen]  (2026-08-07, nav split: Бібліотека/Прогрес/Профіль розділені) -----
-// Спільний для Text і Words (той самий memori_stats лічильник, FB-08) — навконтекст
-// береться з уже виставленого navContext (Words/Text hub виставляє його при вході).
+// ----- [Progress screen]  (2026-08-07, розділено; re-split того ж дня: тепер БЕЗ
+// статистики — User попросила прибрати memori_stats з UI зовсім, не переносити.
+// Text-контекст: 2 вкладки В роботі/Плани (переїхали з profileScreen). Words-контекст:
+// 1 секція "За наборами" (переїхала з wordProfileScreen), без вкладок — немає
+// "плани"-еквіваленту для окремих слів. -----
 let progressReturnFn = null;
+let currentProgressTab = 'progress';
 
 function showProgressScreen(returnFn) {
     progressReturnFn = typeof returnFn === 'function' ? returnFn : showInputScreen;
@@ -1933,11 +1951,34 @@ function showProgressScreen(returnFn) {
     document.getElementById('progressBackLabel').innerText = t.back_lang || 'Назад';
     document.getElementById('progressTitleEl').innerText = t.progress_title || 'Прогрес';
     setBottomNav(navContext, 'progress');
-    renderStats();
+    const tabsEl = document.getElementById('progressTabs');
+    if (navContext === 'words') {
+        if (tabsEl) tabsEl.style.display = 'none';
+        renderWordProfileList('progressContent');
+    } else {
+        if (tabsEl) tabsEl.style.display = 'flex';
+        const lbl1 = document.getElementById('prtab-progress-lbl');
+        const lbl2 = document.getElementById('prtab-planned-lbl');
+        if (lbl1) lbl1.innerText = t.profile_in_progress || 'В роботі';
+        if (lbl2) lbl2.innerText = t.profile_planned || 'Плани';
+        currentProgressTab = 'progress';
+        document.querySelectorAll('#progressTabs .profile-tab').forEach((btn, i) => btn.classList.toggle('active', i === 0));
+        renderProfileTab('progress', 'progressContent');
+    }
 }
 
 function closeProgressScreen() {
     (progressReturnFn || showInputScreen)();
+}
+
+// Той самий tab-патерн, що й старий selectProfileTab (тепер видалений разом з
+// табами Library) — окремий скоуп querySelectorAll до #progressTabs, .profile-tab
+// спільний клас з іншими екранами.
+function selectProgressTab(tab, btn) {
+    currentProgressTab = tab;
+    document.querySelectorAll('#progressTabs .profile-tab').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    renderProfileTab(tab, 'progressContent');
 }
 
 // ----- [Profile Identity screen]  (2026-08-07, nav split) -----
@@ -2007,15 +2048,137 @@ function saveProfileAbout(field, input) {
     saveProfile(profile);
 }
 
-function selectProfileTab(tab, btn) {
-    currentProfileTab = tab;
-    document.querySelectorAll('.profile-tab').forEach(b => b.classList.remove('active'));
-    if (btn) btn.classList.add('active');
-    renderProfileTab(tab);
+// ----- [FB-14: щотижневий попап настрою]  (2026-08-07) -----
+// На відміну від profileIdentityScreen (простий toggle, 5 emoji, без історії показу),
+// цей попап САМ виринає раз на ~7 днів на hub-екранах, питаючи настрій. Тригер і
+// зберігання — той самий localStorage-об'єкт memori_profile (loadProfile/saveProfile,
+// state.js), нове поле lastMoodPopupAt (timestamp) — навмисно НЕ окремий ключ, щоб не
+// дублювати read/write-логіку, яка вже є для memori_profile. lastMoodPopupAt
+// оновлюється як при виборі настрою, так і при "Не зараз" — обидві дії однаково
+// "скидають" 7-денний таймер (те саме рішення, що й у checkPendingReminder,
+// state.js:528, для нагадувань).
+//
+// 🔴 Навмисно ОКРЕМИЙ клас `.mood-popup-pill` (не `.mood-pill`) для 4 піллів попапу —
+// `.mood-pill` вже займають profileIdentityScreen (5 варіантів, з 🔥) і їхні
+// selectProfileMood()/renderProfileIdentityFields() роблять
+// `querySelectorAll('.mood-pill')` по ВСЬОМУ документу. Якби попап ділив той самий
+// клас, кожен клік в профілі підсвічував/скидав би і приховані попап-піли, і навпаки —
+// саме той edge case, який тут треба уникнути. Значення mood (emoji-рядок) навмисно
+// однакові з першими 4 профільними ('😄','🙂','😐','😔'), щоб toggle на
+// profileIdentityScreen коректно підсвічував той самий вибір при наступному відкритті.
+const MOOD_POPUP_DAYS = 7;
+const MOOD_POPUP_PHRASES = {
+    uk: [
+        { title: "Тиждень минув! 🌤️", sub: "Мозок точно попрацював — а серце встигало відпочивати? Яким був настрій цього тижня?", cta: "Ось так" },
+        { title: "Ще один тиждень позаду 🌱", sub: "Розкажи, як воно було — не тільки в словах, а й у настрої.", cta: "Ось так" },
+        { title: "Пауза на секунду ☕", sub: "Поки мозок відпочиває від слів — як ти сама? Яким був цей тиждень?", cta: "Ось так" },
+        { title: "7 днів вивчання позаду 🔥", sub: "А як щодо тебе — яким був настрій цього тижня?", cta: "Ось так" }
+    ],
+    en: [
+        { title: "A week's gone by! 🌤️", sub: "Your brain's been busy — but did your heart get some rest too? How was your mood this week?", cta: "There we go" },
+        { title: "Another week behind you 🌱", sub: "Tell us how it went — not just in words, but in mood too.", cta: "There we go" },
+        { title: "Quick pause ☕", sub: "While your brain rests from words — how are you doing? How was this week?", cta: "There we go" },
+        { title: "7 days of learning done 🔥", sub: "But what about you — how was your mood this week?", cta: "There we go" }
+    ],
+    pl: [
+        { title: "Tydzień minął! 🌤️", sub: "Mózg na pewno popracował — a serce zdążyło odpocząć? Jaki był twój nastrój w tym tygodniu?", cta: "O tak" },
+        { title: "Kolejny tydzień za tobą 🌱", sub: "Opowiedz, jak było — nie tylko słowami, ale i nastrojem.", cta: "O tak" },
+        { title: "Chwila przerwy ☕", sub: "Gdy mózg odpoczywa od słów — a jak ty się czujesz? Jaki był ten tydzień?", cta: "O tak" },
+        { title: "7 dni nauki za tobą 🔥", sub: "A co u ciebie — jaki był twój nastrój w tym tygodniu?", cta: "O tak" }
+    ],
+    de: [
+        { title: "Eine Woche ist vergangen! 🌤️", sub: "Dein Gehirn hat sicher gearbeitet — aber hatte dein Herz auch Zeit zum Ausruhen? Wie war deine Stimmung diese Woche?", cta: "So ist es" },
+        { title: "Noch eine Woche geschafft 🌱", sub: "Erzähl uns, wie es war — nicht nur in Worten, sondern auch in der Stimmung.", cta: "So ist es" },
+        { title: "Kurze Pause ☕", sub: "Während dein Gehirn sich von den Wörtern erholt — wie geht's dir? Wie war diese Woche?", cta: "So ist es" },
+        { title: "7 Tage Lernen geschafft 🔥", sub: "Aber wie war's bei dir — wie war deine Stimmung diese Woche?", cta: "So ist es" }
+    ],
+    fr: [
+        { title: "Une semaine s'est écoulée ! 🌤️", sub: "Ton cerveau a bien travaillé — mais ton cœur a-t-il pu se reposer ? Quelle a été ton humeur cette semaine ?", cta: "Voilà" },
+        { title: "Encore une semaine derrière toi 🌱", sub: "Raconte-nous comment ça s'est passé — pas seulement en mots, mais aussi en humeur.", cta: "Voilà" },
+        { title: "Petite pause ☕", sub: "Pendant que ton cerveau se repose des mots — comment vas-tu ? Comment était cette semaine ?", cta: "Voilà" },
+        { title: "7 jours d'apprentissage derrière toi 🔥", sub: "Mais toi, comment ça va — quelle a été ton humeur cette semaine ?", cta: "Voilà" }
+    ],
+    es: [
+        { title: "¡Ha pasado una semana! 🌤️", sub: "Tu cerebro seguro trabajó — ¿pero tu corazón pudo descansar? ¿Cómo estuvo tu ánimo esta semana?", cta: "Así es" },
+        { title: "Otra semana más atrás 🌱", sub: "Cuéntanos cómo fue — no solo con palabras, también con tu ánimo.", cta: "Así es" },
+        { title: "Pausa rápida ☕", sub: "Mientras tu cerebro descansa de las palabras — ¿cómo estás tú? ¿Cómo fue esta semana?", cta: "Así es" },
+        { title: "7 días de aprendizaje completados 🔥", sub: "¿Y tú qué tal? ¿Cómo estuvo tu ánimo esta semana?", cta: "Así es" }
+    ]
+};
+
+let _moodPopupSelected = '';
+
+// Викликається з showInputScreen() (app.js) і showWordLangScreen() (words.js) — той
+// самий hub-boot момент, що й checkPendingReminder() (state.js:528).
+function checkMoodPopup() {
+    const el = document.getElementById('moodPopup');
+    if (!el) return;
+    const profile = loadProfile();
+    if (profile.lastMoodPopupAt) {
+        const elapsedDays = (Date.now() - profile.lastMoodPopupAt) / 86400000;
+        if (elapsedDays < MOOD_POPUP_DAYS) return;
+    }
+    openMoodPopup();
 }
 
-function renderProfileTab(tab) {
-    const container = document.getElementById('profileContent');
+function openMoodPopup() {
+    const t = translations[currentLang];
+    const pool = MOOD_POPUP_PHRASES[currentLang] || MOOD_POPUP_PHRASES.uk;
+    const phrase = pool[Math.floor(Math.random() * pool.length)];
+    document.getElementById('moodPopupTitle').innerText = phrase.title;
+    document.getElementById('moodPopupSub').innerText = phrase.sub;
+    document.getElementById('moodPopupCta').innerText = phrase.cta;
+    document.getElementById('moodPopupLaterBtn').innerText = t.mood_popup_later || 'Не зараз';
+    _moodPopupSelected = '';
+    const ctaBtn = document.getElementById('moodPopupCta');
+    ctaBtn.disabled = true;
+    document.querySelectorAll('.mood-popup-pill').forEach(b => b.classList.remove('active'));
+    const popup = document.getElementById('moodPopup');
+    popup.style.display = 'flex';
+    requestAnimationFrame(() => popup.classList.add('visible'));
+}
+
+function selectMoodPopupPill(mood, btn) {
+    _moodPopupSelected = mood;
+    document.querySelectorAll('.mood-popup-pill').forEach(b => b.classList.toggle('active', b === btn));
+    document.getElementById('moodPopupCta').disabled = false;
+}
+
+function confirmMoodPopup() {
+    if (!_moodPopupSelected) return;
+    const profile = loadProfile();
+    profile.mood = _moodPopupSelected;
+    profile.lastMoodPopupAt = Date.now();
+    saveProfile(profile);
+    // Якщо профіль-екран відкритий/повторно відкриється — той самий вибір підсвітиться і там
+    renderProfileIdentityFields();
+    closeMoodPopupEl();
+}
+
+function dismissMoodPopup() {
+    const profile = loadProfile();
+    profile.lastMoodPopupAt = Date.now();
+    saveProfile(profile);
+    closeMoodPopupEl();
+}
+
+function closeMoodPopupOverlay(event) {
+    if (event && event.target !== document.getElementById('moodPopup')) return;
+    dismissMoodPopup();
+}
+
+function closeMoodPopupEl() {
+    const popup = document.getElementById('moodPopup');
+    popup.classList.remove('visible');
+    setTimeout(() => { popup.style.display = 'none'; }, 260);
+}
+
+// 2026-08-07 (re-split): тепер лише 2 таби — "В роботі"/"Плани" — обидва живуть на
+// progressScreen (selectProgressTab вище). "Вивчено" переїхало на profileScreen
+// (Бібліотека) і більше не таб, а окремий екран — renderLearnedLibrary() нижче.
+function renderProfileTab(tab, containerId) {
+    const container = document.getElementById(containerId || 'profileContent');
+    if (!container) return;
     const t = translations[currentLang];
     container.innerHTML = '';
     const deleteSvg = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>`;
@@ -2042,27 +2205,6 @@ function renderProfileTab(tab) {
             </div>
           </div>`;
 
-    } else if (tab === 'learned') {
-        const arr = loadLearned();
-        if (arr.length === 0) {
-            container.innerHTML = `<p class="profile-empty">${t.profile_empty_learned || 'Ще нічого не вивчено'}</p>`;
-            return;
-        }
-        container.innerHTML = arr.map(entry => {
-            const title = entry.title.length > 60 ? entry.title.slice(0, 60) + '…' : entry.title;
-            const date = new Date(entry.completedAt).toLocaleDateString();
-            return `<div class="profile-item">
-              <div class="profile-item-body">
-                <div class="profile-item-title">${escHtml(title)}</div>
-                <div class="profile-item-meta">${date} · ${entry.blockCount} ${t.finish_blocks || 'блоків'}</div>
-              </div>
-              <div class="profile-item-actions">
-                <button class="btn-profile-action btn-profile-ghost" onclick="profileLearnAgain(${entry.id})">${t.finish_restart || 'Знову'}</button>
-                <button class="btn-profile-delete" onclick="profileDeleteLearned(${entry.id})">${deleteSvg}</button>
-              </div>
-            </div>`;
-        }).join('');
-
     } else if (tab === 'planned') {
         const lib = loadLibrary();
         if (lib.length === 0) {
@@ -2088,16 +2230,96 @@ function renderProfileTab(tab) {
     }
 }
 
+// ===== "ВИВЧЕНО" (profileScreen, Бібліотека, Text-контекст) — 2026-08-07 редизайн =====
+// Категоризація по entry.category ('text'|'speech'|'poem'|'song', state.js addToLearned,
+// дефолт 'text' — той самий принцип, що й pair.pos у Words Mode: вгадати неможливо,
+// ставиться вручну через inline-select на кожному записі). 4 значення показані як
+// 3 підзаголовки — text+speech об'єднані під одним "Текст/промова" (User дозволила
+// або 2 окремі, або об'єднання "text+speech", головне не загубити жодну категорію —
+// обрано об'єднання, бо на маленькому екрані 4 окремі групи для короткого списку
+// виглядали б надлишково дрібно). Порожні групи — без заголовка (той самий принцип,
+// що й renderWordDictionary/word-dict-group, words.js).
+const LEARNED_CATEGORIES = ['text', 'speech', 'poem', 'song'];
+
+function renderLearnedLibrary() {
+    const container = document.getElementById('profileContent');
+    if (!container) return;
+    const t = translations[currentLang];
+    const arr = loadLearned();
+    if (arr.length === 0) {
+        container.innerHTML = `<p class="profile-empty">${t.profile_empty_learned || 'Ще нічого не вивчено'}</p>`;
+        return;
+    }
+    const deleteSvg = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>`;
+
+    const groups = { text_speech: [], poem: [], song: [] };
+    arr.forEach(entry => {
+        const cat = LEARNED_CATEGORIES.includes(entry.category) ? entry.category : 'text';
+        if (cat === 'poem') groups.poem.push(entry);
+        else if (cat === 'song') groups.song.push(entry);
+        else groups.text_speech.push(entry);
+    });
+
+    const catOptions = entry => {
+        const cat = LEARNED_CATEGORIES.includes(entry.category) ? entry.category : 'text';
+        return ['text', 'speech', 'poem', 'song'].map(val => {
+            const labelKey = 'learned_cat_' + val;
+            return `<option value="${val}"${cat === val ? ' selected' : ''}>${escHtml(t[labelKey] || val)}</option>`;
+        }).join('');
+    };
+
+    const renderItem = entry => {
+        const title = entry.title.length > 60 ? entry.title.slice(0, 60) + '…' : entry.title;
+        const date = new Date(entry.completedAt).toLocaleDateString();
+        return `<div class="profile-item profile-item-learned">
+          <div class="profile-item-body">
+            <div class="profile-item-title">${escHtml(title)}</div>
+            <div class="profile-item-meta">${date} · ${entry.blockCount} ${t.finish_blocks || 'блоків'}</div>
+          </div>
+          <div class="profile-item-learned-row2">
+            <select class="learned-cat-select" onchange="changeLearnedCategory(${entry.id}, this.value)">${catOptions(entry)}</select>
+            <div class="profile-item-actions">
+              <button class="btn-profile-action btn-profile-ghost" onclick="profileLearnAgain(${entry.id})">${t.finish_restart || 'Знову'}</button>
+              <button class="btn-profile-delete" onclick="profileDeleteLearned(${entry.id})">${deleteSvg}</button>
+            </div>
+          </div>
+        </div>`;
+    };
+
+    const renderGroup = (label, rows) => rows.length ? `<div class="word-dict-group">
+        <div class="word-dict-group-title">${escHtml(label)}<span class="word-dict-count">${rows.length}</span></div>
+        ${rows.map(renderItem).join('')}
+      </div>` : '';
+
+    const hero = `<p class="learned-hero-title">${escHtml(t.learned_hero_title || 'Молодець, ось що вже вивчено! 🌟')}</p>`;
+    container.innerHTML = hero +
+        renderGroup(t.learned_group_text_speech || 'Текст/промова', groups.text_speech) +
+        renderGroup(t.learned_group_poem || 'Вірші', groups.poem) +
+        renderGroup(t.learned_group_song || 'Пісні', groups.song);
+}
+
+function changeLearnedCategory(id, category) {
+    if (!LEARNED_CATEGORIES.includes(category)) return;
+    const arr = loadLearned();
+    const entry = arr.find(e => e.id === id);
+    if (!entry) return;
+    entry.category = category;
+    saveLearned(arr);
+    renderLearnedLibrary();
+}
 
 // ----- [app: profile text actions (continue/discard/learnAgain/deleteLearned/loadText/deletePlanned)]  (was app.js lines 3510-3549) -----
+// 2026-08-07 (re-split): "В роботі"/"Плани" тепер живуть на progressScreen, тому
+// continue/loadText ховають #progressScreen (не #profileScreen). "Вивчено" лишається
+// на profileScreen (Бібліотека) — learnAgain/deleteLearned без змін цього боку.
 function profileContinue() {
-    document.getElementById('profileScreen').style.display = 'none';
+    document.getElementById('progressScreen').style.display = 'none';
     resumeSession();
 }
 
 function profileDiscardProgress() {
     clearState();
-    renderProfileTab('progress');
+    renderProfileTab('progress', 'progressContent');
 }
 
 function profileLearnAgain(id) {
@@ -2110,7 +2332,7 @@ function profileLearnAgain(id) {
 
 function profileDeleteLearned(id) {
     saveLearned(loadLearned().filter(e => e.id !== id));
-    renderProfileTab('learned');
+    renderLearnedLibrary();
 }
 
 function profileLoadText(id) {
@@ -2119,7 +2341,7 @@ function profileLoadText(id) {
     // порівнюємо як рядки, щоб працювало для обох форматів.
     const entry = loadLibrary().find(e => String(e.id) === String(id));
     if (!entry) return;
-    document.getElementById('profileScreen').style.display = 'none';
+    document.getElementById('progressScreen').style.display = 'none';
     showInputScreen();
     document.getElementById('userText').value = entry.text;
 }
@@ -2127,7 +2349,7 @@ function profileLoadText(id) {
 function profileDeletePlanned(id) {
     saveLibrary(loadLibrary().filter(e => String(e.id) !== String(id)));
     updateLibraryCount();
-    renderProfileTab('planned');
+    renderProfileTab('planned', 'progressContent');
 }
 
 
@@ -2159,7 +2381,7 @@ function startRenameLibEntry(id) {
             lib2[idx].customTitle = newTitle;
             saveLibrary(lib2);
         }
-        renderProfileTab('planned');
+        renderProfileTab('planned', 'progressContent');
     }
 
     input.onblur = save;
