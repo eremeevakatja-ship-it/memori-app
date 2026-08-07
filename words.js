@@ -215,10 +215,29 @@ function showWordVerifyScreen() {
     renderWordChips();
 }
 
+// FB-16: частина мови (pair.pos) потрібна, щоб вправа "🧩 Фраза" (FB-12,
+// hasCollocTemplates/pairsForType) взагалі з'явилась у черзі — але раніше
+// вибрати її можна було ЛИШЕ відкривши повний режим редагування чіпа
+// (editWordChip), що нічого не підказувало і фактично ховало можливість.
+// Тепер компактний inline-<select> прямо на чіпі в звичайному режимі —
+// одразу видимий під час вводу/перевірки слів, окремо від cycle/edit.
+// Ширина 320-375px чіпа вже гранично щільна (word-chip-word навмисно
+// flex-shrink:0 — саме слово ніколи не обрізається); реальний viewport-тест
+// (320px, javascript_tool) показав, що додати ще один елемент без втрат
+// можливо лише прибравши суто декоративну ".chip-edit-icon" (✎ — сам рядок
+// чіпа й так відкриває edit по кліку, іконка була лише візуальною підказкою)
+// і зробивши word-chip-trans елайстично звужуваним (min-width:0 + ellipsis;
+// це заразом ФІКСИТЬ раніше присутній overflow чіпа на 320px для довгих
+// перекладів, не спричинений цією зміною). Позначки в самому <select>
+// свідомо короткі "N/V/Adj" (не повні локалізовані "іменник/дієслово/
+// прикметник" — не влазять навіть скорочено при закритому select) — це
+// рішення без прямої вказівки User; повні локалізовані назви лишаються
+// доступні через title/aria-label і в детальному editWordChip-режимі.
 function renderWordChips() {
     const t = translations[currentLang];
     const noTransLabel = t.wv_no_trans || '+ переклад';
     const altTitle = t.wv_alt_translation || 'Інший варіант перекладу';
+    const posHint = t.wv_pos_hint || 'Частина мови — потрібна для вправи «Фраза» (колокації)';
     const container = document.getElementById('wordChipsContainer');
     container.innerHTML = wordPairs.map((pair, i) => `
         <div class="word-chip${pair.translation ? '' : ' word-chip-empty'}"
@@ -230,10 +249,31 @@ function renderWordChips() {
                 : `<em class="chip-no-trans">${noTransLabel}</em>`}</span>
             <button class="chip-cycle-btn" title="${altTitle}" aria-label="${altTitle}"
                     onclick="event.stopPropagation(); cycleTranslation(${i})">🔁</button>
-            <span class="chip-edit-icon">✎</span>
+            <select class="chip-pos-inline${pair.pos ? ' chip-pos-inline-set' : ''}"
+                    title="${escHtml(posHint)}" aria-label="${escHtml(posHint)}"
+                    onclick="event.stopPropagation()"
+                    onchange="event.stopPropagation(); setWordChipPosInline(${i}, this.value)">
+                <option value=""${!pair.pos ? ' selected' : ''}>—</option>
+                <option value="noun"${pair.pos === 'noun' ? ' selected' : ''}>N</option>
+                <option value="verb"${pair.pos === 'verb' ? ' selected' : ''}>V</option>
+                <option value="adj"${pair.pos === 'adj' ? ' selected' : ''}>Adj</option>
+            </select>
         </div>
     `).join('');
     updateAutoTranslateBtn();
+}
+
+// FB-16 — записує pair.pos напряму в wordPairs (той самий масив, що редагує
+// saveWordChip), без входу в повний edit-режим і без renderWordChips() —
+// select уже показує обране значення сам, зайвий перерендер лише скинув би
+// фокус/скрол списку під час швидкого проставляння частин мови поспіль.
+function setWordChipPosInline(index, value) {
+    const pair = wordPairs[index];
+    if (!pair) return;
+    pair.pos = value || undefined;
+    const chip = document.getElementById('wchip-' + index);
+    const sel = chip ? chip.querySelector('.chip-pos-inline') : null;
+    if (sel) sel.classList.toggle('chip-pos-inline-set', !!value);
 }
 
 function updateAutoTranslateBtn() {
@@ -1406,19 +1446,33 @@ function renderWtMatchExercise(ex) {
     if (!ex.pairHadMistake) ex.pairHadMistake = new Array(ex.pairs.length).fill(false);
     if (!ex.wordOrder) ex.wordOrder = shuffleIndices(ex.pairs.length);
     if (!ex.transOrder) ex.transOrder = shuffleIndices(ex.pairs.length);
+    // doneOrder — порядок ЗАВЕРШЕННЯ пар (FB-15), окремо від wordOrder/transOrder
+    // (порядок показу в нетасованих колонках). Старий збережений прогрес (до
+    // FB-15) має pairResults, але не doneOrder — при першому рендері такого
+    // знімка бекфілимо doneOrder за індексом пари (реальний порядок завершення
+    // для старих даних невідомий, індексний порядок — найкраще наближення,
+    // і жодна пара не губиться/не дублюється в done-області).
+    if (!ex.doneOrder) ex.doneOrder = [];
+    ex.pairResults.forEach((r, i) => {
+        if (r === true && !ex.doneOrder.includes(i)) ex.doneOrder.push(i);
+    });
     wtMatchSelWord = null;
     wtMatchSelTrans = null;
 
     const wordsCol = document.getElementById('wtMatchWordsCol');
     const transCol = document.getElementById('wtMatchTransCol');
-    wordsCol.innerHTML = ex.wordOrder.map(pi => {
-        const done = ex.pairResults[pi] === true;
-        return `<button class="wt-match-chip${done ? ' wt-match-done' : ''}" data-idx="${pi}" ${done ? 'disabled' : ''} onclick="wtMatchSelect('word', ${pi})">${escHtml(ex.pairs[pi].word)}</button>`;
-    }).join('');
-    transCol.innerHTML = ex.transOrder.map(pi => {
-        const done = ex.pairResults[pi] === true;
-        return `<button class="wt-match-chip${done ? ' wt-match-done' : ''}" data-idx="${pi}" ${done ? 'disabled' : ''} onclick="wtMatchSelect('trans', ${pi})">${escHtml(ex.pairs[pi].translation)}</button>`;
-    }).join('');
+    const doneArea = document.getElementById('wtMatchDoneArea');
+    wordsCol.innerHTML = ex.wordOrder.filter(pi => ex.pairResults[pi] !== true).map(pi =>
+        `<button class="wt-match-chip" data-idx="${pi}" onclick="wtMatchSelect('word', ${pi})">${escHtml(ex.pairs[pi].word)}</button>`
+    ).join('');
+    transCol.innerHTML = ex.transOrder.filter(pi => ex.pairResults[pi] !== true).map(pi =>
+        `<button class="wt-match-chip" data-idx="${pi}" onclick="wtMatchSelect('trans', ${pi})">${escHtml(ex.pairs[pi].translation)}</button>`
+    ).join('');
+    if (doneArea) {
+        doneArea.innerHTML = ex.doneOrder.map(pi =>
+            `<div class="wt-match-done-row"><b>${escHtml(ex.pairs[pi].word)}</b><span class="wt-reveal-arrow">→</span>${escHtml(ex.pairs[pi].translation)}</div>`
+        ).join('');
+    }
 
     if (ex.pairResults.every(r => r === true)) wtMatchFinishRound(ex);
 }
@@ -1437,22 +1491,21 @@ function wtMatchSelect(side, pairIdx) {
 
     if (wtMatchSelWord === null || wtMatchSelTrans === null) return;
 
-    const wordBtn = document.querySelector(`#wtMatchWordsCol .wt-match-chip[data-idx="${wtMatchSelWord}"]`);
-    const transBtn = document.querySelector(`#wtMatchTransCol .wt-match-chip[data-idx="${wtMatchSelTrans}"]`);
-
     if (wtMatchSelWord === wtMatchSelTrans) {
         ex.pairResults[wtMatchSelWord] = true;
-        wordBtn.classList.add('wt-match-done');
-        transBtn.classList.add('wt-match-done');
-        wordBtn.classList.remove('wt-match-selected');
-        transBtn.classList.remove('wt-match-selected');
-        wordBtn.disabled = true;
-        transBtn.disabled = true;
+        if (!ex.doneOrder) ex.doneOrder = [];
+        ex.doneOrder.push(wtMatchSelWord);
         wtMatchSelWord = null;
         wtMatchSelTrans = null;
         saveWtProgress();
-        if (ex.pairResults.every(r => r === true)) wtMatchFinishRound(ex);
+        // Повний перерендер — природно "переносить" пару з колонок у
+        // done-область (замість точкового додавання класів, як раніше);
+        // renderWtMatchExercise сама викликає wtMatchFinishRound, коли всі
+        // пари зматчені, тому окремий виклик тут не потрібен.
+        renderWtMatchExercise(ex);
     } else {
+        const wordBtn = document.querySelector(`#wtMatchWordsCol .wt-match-chip[data-idx="${wtMatchSelWord}"]`);
+        const transBtn = document.querySelector(`#wtMatchTransCol .wt-match-chip[data-idx="${wtMatchSelTrans}"]`);
         ex.mistakeCount = (ex.mistakeCount || 0) + 1;
         ex.pairHadMistake[wtMatchSelWord] = true;
         ex.pairHadMistake[wtMatchSelTrans] = true;
@@ -1751,6 +1804,7 @@ function wtGoBack() {
             ex.pairHadMistake = undefined;
             ex.wordOrder = undefined;
             ex.transOrder = undefined;
+            ex.doneOrder = undefined;
             ex.mistakeCount = 0;
             ex.roundScored = false;
             ex.pairs.forEach(p => wtSettledPairs.delete(p));

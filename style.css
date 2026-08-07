@@ -2336,6 +2336,15 @@ body[data-theme="dark"] .word-input-textarea {
   font-size: 0.88rem;
   color: #666;
   flex: 1;
+  /* FB-16 (2026-08-07): min-width:0 + ellipsis lets this shrink below its
+     unbreakable content width when the new .chip-pos-inline select needs the
+     room on a 320px chip — as a side effect this also fixes a pre-existing
+     (not caused by FB-16) overflow for long translations at 320px, which had
+     no truncation safeguard at all before. */
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .chip-no-trans {
   color: var(--primary);
@@ -2363,10 +2372,47 @@ body[data-theme="dark"] .word-input-textarea {
 .chip-cycle-btn.chip-cycle-loading { animation: spin 0.8s linear infinite; opacity: 0.5; pointer-events: none; }
 body[data-theme="dark"] .chip-cycle-btn { color: #64748b; }
 body[data-theme="dark"] .chip-cycle-btn:hover { background: rgba(129,140,248,0.15); color: #818cf8; }
-.chip-edit-icon {
-  font-size: 0.75rem;
-  color: #bbb;
+/* FB-16 (2026-08-07): compact always-visible POS selector on the chip itself
+   (view mode, not just inside editWordChip's full edit form) — replaces the
+   old purely-decorative .chip-edit-icon (✎) spot, since the chip row itself
+   already opens full edit on click regardless; freed width is what makes this
+   control fit at 320px (see .word-chip-trans comment above). Labels are short
+   "N/V/Adj" — the full localized іменник/дієслово/прикметник options (as
+   already used in editWordChip's edit-mode dropdown) don't fit even
+   abbreviated at this width; full wording stays reachable via title/
+   aria-label and the detailed edit mode. */
+.chip-pos-inline {
   flex-shrink: 0;
+  width: 28px;
+  height: 24px;
+  min-width: 28px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--card-bg);
+  color: #999;
+  font-size: 0.68rem;
+  font-family: inherit;
+  text-align: center;
+  padding: 0 1px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.chip-pos-inline.chip-pos-inline-set {
+  border-color: var(--primary);
+  color: var(--primary);
+  font-weight: 700;
+  background: var(--primary-soft);
+}
+body[data-theme="dark"] .chip-pos-inline {
+  background: #0f172a;
+  border-color: #334155;
+  color: #64748b;
+}
+body[data-theme="dark"] .chip-pos-inline.chip-pos-inline-set {
+  border-color: #818cf8;
+  color: #818cf8;
+  background: rgba(129,140,248,0.12);
 }
 .word-chip.chip-editing {
   border-color: var(--primary);
@@ -3036,6 +3082,9 @@ body[data-theme="dark"] .wt-choice.wt-reveal {
   border-color: #059669;
   color: #6ee7b7;
 }
+.wt-match-area-wrap {
+  flex-direction: column;
+}
 .wt-match-area {
   display: flex;
   gap: 10px;
@@ -3110,6 +3159,38 @@ body[data-theme="dark"] .wt-match-chip.wt-match-wrong {
   background: rgba(253,164,175,0.1);
   border-color: #fda4af;
   color: #fda4af;
+}
+/* FB-15 — matched pairs "slide down" out of the two columns into this area,
+   shown together as one row (word → translation) instead of staying scattered
+   at their independent shuffled positions in each column. */
+.wt-match-done-area {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.wt-match-done-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #d1fae5;
+  color: #065f46;
+  font-size: 0.85rem;
+  font-weight: 700;
+  animation: wtMatchDoneIn 0.28s ease;
+}
+@keyframes wtMatchDoneIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wt-match-done-row { animation: none; }
+}
+body[data-theme="dark"] .wt-match-done-row {
+  background: rgba(5,150,105,0.2);
+  color: #6ee7b7;
 }
 .wt-feedback {
   padding: 11px 16px;
