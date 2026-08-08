@@ -46,7 +46,6 @@ function showWordLangScreen() {
     document.getElementById('wlNextBtn').innerText = t.wl_next || 'Далі →';
     document.getElementById('wlSameError').style.display = 'none';
     renderWordLangSelects();
-    checkMoodPopup(); // FB-14: той самий hub-boot момент, що й showInputScreen() (app.js)
 }
 
 function renderWordLangSelects() {
@@ -215,29 +214,16 @@ function showWordVerifyScreen() {
     renderWordChips();
 }
 
-// FB-16: частина мови (pair.pos) потрібна, щоб вправа "🧩 Фраза" (FB-12,
-// hasCollocTemplates/pairsForType) взагалі з'явилась у черзі — але раніше
-// вибрати її можна було ЛИШЕ відкривши повний режим редагування чіпа
-// (editWordChip), що нічого не підказувало і фактично ховало можливість.
-// Тепер компактний inline-<select> прямо на чіпі в звичайному режимі —
-// одразу видимий під час вводу/перевірки слів, окремо від cycle/edit.
-// Ширина 320-375px чіпа вже гранично щільна (word-chip-word навмисно
-// flex-shrink:0 — саме слово ніколи не обрізається); реальний viewport-тест
-// (320px, javascript_tool) показав, що додати ще один елемент без втрат
-// можливо лише прибравши суто декоративну ".chip-edit-icon" (✎ — сам рядок
-// чіпа й так відкриває edit по кліку, іконка була лише візуальною підказкою)
-// і зробивши word-chip-trans елайстично звужуваним (min-width:0 + ellipsis;
-// це заразом ФІКСИТЬ раніше присутній overflow чіпа на 320px для довгих
-// перекладів, не спричинений цією зміною). Позначки в самому <select>
-// свідомо короткі "N/V/Adj" (не повні локалізовані "іменник/дієслово/
-// прикметник" — не влазять навіть скорочено при закритому select) — це
-// рішення без прямої вказівки User; повні локалізовані назви лишаються
-// доступні через title/aria-label і в детальному editWordChip-режимі.
+// FB-20 (2026-08-08): частина мови (pair.pos) — раніше треба було виставляти
+// вручну (FB-16 inline-select), щоб вправа "🧩 Фраза" з'явилась у черзі.
+// User: "не треба ніяка частина мови, це ми автоматично маємо давати" —
+// pos тепер визначається автоматично (detectPosForPairs, мережевий запит)
+// у момент старту тренування, без будь-якого ручного вибору тут. Чіп більше
+// не показує/не питає pos взагалі.
 function renderWordChips() {
     const t = translations[currentLang];
     const noTransLabel = t.wv_no_trans || '+ переклад';
     const altTitle = t.wv_alt_translation || 'Інший варіант перекладу';
-    const posHint = t.wv_pos_hint || 'Частина мови — потрібна для вправи «Фраза» (колокації)';
     const container = document.getElementById('wordChipsContainer');
     container.innerHTML = wordPairs.map((pair, i) => `
         <div class="word-chip${pair.translation ? '' : ' word-chip-empty'}"
@@ -249,31 +235,9 @@ function renderWordChips() {
                 : `<em class="chip-no-trans">${noTransLabel}</em>`}</span>
             <button class="chip-cycle-btn" title="${altTitle}" aria-label="${altTitle}"
                     onclick="event.stopPropagation(); cycleTranslation(${i})">🔁</button>
-            <select class="chip-pos-inline${pair.pos ? ' chip-pos-inline-set' : ''}"
-                    title="${escHtml(posHint)}" aria-label="${escHtml(posHint)}"
-                    onclick="event.stopPropagation()"
-                    onchange="event.stopPropagation(); setWordChipPosInline(${i}, this.value)">
-                <option value=""${!pair.pos ? ' selected' : ''}>—</option>
-                <option value="noun"${pair.pos === 'noun' ? ' selected' : ''}>N</option>
-                <option value="verb"${pair.pos === 'verb' ? ' selected' : ''}>V</option>
-                <option value="adj"${pair.pos === 'adj' ? ' selected' : ''}>Adj</option>
-            </select>
         </div>
     `).join('');
     updateAutoTranslateBtn();
-}
-
-// FB-16 — записує pair.pos напряму в wordPairs (той самий масив, що редагує
-// saveWordChip), без входу в повний edit-режим і без renderWordChips() —
-// select уже показує обране значення сам, зайвий перерендер лише скинув би
-// фокус/скрол списку під час швидкого проставляння частин мови поспіль.
-function setWordChipPosInline(index, value) {
-    const pair = wordPairs[index];
-    if (!pair) return;
-    pair.pos = value || undefined;
-    const chip = document.getElementById('wchip-' + index);
-    const sel = chip ? chip.querySelector('.chip-pos-inline') : null;
-    if (sel) sel.classList.toggle('chip-pos-inline-set', !!value);
 }
 
 function updateAutoTranslateBtn() {
@@ -460,13 +424,6 @@ function editWordChip(index) {
     const chip = document.getElementById('wchip-' + index);
     if (!chip || chip.classList.contains('chip-editing')) return;
     const t = translations[currentLang];
-    const posHint = t.wv_pos_hint || 'Частина мови — потрібна для вправи «Фраза» (колокації)';
-    const posOptions = [
-        ['', t.wv_pos_none || '—'],
-        ['noun', t.wv_pos_noun || 'іменник'],
-        ['verb', t.wv_pos_verb || 'дієслово'],
-        ['adj', t.wv_pos_adj || 'прикметник'],
-    ].map(([val, label]) => `<option value="${val}"${pair.pos === val ? ' selected' : ''}>${escHtml(label)}</option>`).join('');
     chip.classList.add('chip-editing');
     chip.onclick = null;
     chip.innerHTML = `
@@ -476,8 +433,6 @@ function editWordChip(index) {
             <input class="chip-edit-trans" type="text" value="${escHtml(pair.translation || '')}" placeholder="${t.wv_no_trans || 'переклад'}">
         </div>
         <div class="chip-edit-row2">
-            <span class="chip-pos-icon" title="${escHtml(posHint)}">🧩</span>
-            <select class="chip-edit-pos" title="${escHtml(posHint)}">${posOptions}</select>
             <button class="chip-save-btn" onclick="event.stopPropagation(); saveWordChip(${index})">✓</button>
             <button class="chip-delete-btn" onclick="event.stopPropagation(); deleteWordChip(${index})">✕</button>
         </div>
@@ -492,14 +447,16 @@ function editWordChip(index) {
     });
 }
 
+// FB-20: pos більше не читається з UI тут — зберігаємо будь-яке вже
+// авто-визначене pair.pos (могло з'явитись, якщо ці слова вже колись
+// тренували) замість повної заміни об'єкта, яка раніше його б стерла.
 function saveWordChip(index) {
     const chip = document.getElementById('wchip-' + index);
     if (!chip) return;
     const word = (chip.querySelector('.chip-edit-word')?.value || '').trim();
     const trans = (chip.querySelector('.chip-edit-trans')?.value || '').trim();
-    const pos = chip.querySelector('.chip-edit-pos')?.value || '';
     if (!word) { deleteWordChip(index); return; }
-    wordPairs[index] = { word, translation: trans || null, pos: pos || undefined };
+    wordPairs[index] = { ...wordPairs[index], word, translation: trans || null };
     renderWordChips();
 }
 
@@ -725,6 +682,7 @@ function updateWordMastery() {
         byPair.get(ex.pair).push(ex);
     });
     let changed = false;
+    const touchedPairs = [];
     byPair.forEach((exs, pair) => {
         if (wtSettledPairs.has(pair)) return; // вже підбито цієї сесії — не рахувати вдруге
         const resolved = exs.filter(e => e.correct !== undefined);
@@ -735,11 +693,39 @@ function updateWordMastery() {
         const allCorrect = attempted.every(e => e.correct === true);
         pair.masteryScore = allCorrect ? (pair.masteryScore || 0) + 1 : 0;
         changed = true;
+        touchedPairs.push(pair);
     });
     if (!changed) return;
     wtSet.lastTrainedAt = Date.now();
 
     const sets = loadWordSets();
+
+    // FB-19: комбінована сесія (wordSelectScreen) — wtSet.pairs змішує слова з кількох
+    // РІЗНИХ реальних наборів, тому "перезаписати pairs цілого набору" (як нижче для
+    // звичайного випадку) тут не працює — нема одного набору-власника. __originMap
+    // (startSelectedWordTraining) знає, з якого реального set.id і на якій позиції
+    // взято кожен pair-об'єкт цієї сесії — записуємо masteryScore точково, у кожен
+    // реальний набір окремо, а не в неіснуючий "__virtual_selection__".
+    if (wtSet.__virtual && wtSet.__originMap) {
+        const dirtySetIds = new Set();
+        touchedPairs.forEach(pair => {
+            const origin = wtSet.__originMap.get(pair);
+            if (!origin) return;
+            const setIdx = sets.findIndex(s => s.id === origin.setId);
+            if (setIdx < 0) return;
+            const byIdx = (sets[setIdx].pairs || [])[origin.idx];
+            const target = (byIdx && byIdx.word === pair.word && byIdx.translation === pair.translation)
+                ? byIdx
+                : (sets[setIdx].pairs || []).find(p => p.word === pair.word && p.translation === pair.translation);
+            if (!target) return;
+            target.masteryScore = pair.masteryScore;
+            sets[setIdx].lastTrainedAt = wtSet.lastTrainedAt;
+            dirtySetIds.add(origin.setId);
+        });
+        if (dirtySetIds.size) saveWordSets(sets);
+        return;
+    }
+
     const idx = sets.findIndex(s => s.id === wtSet.id);
     if (idx >= 0) {
         sets[idx].pairs = wtSet.pairs;
@@ -823,9 +809,12 @@ async function startWordTraining(set, returnScreenFn) {
 
     // Тип "Речення" доступний на будь-якому рівні — приклади підтягуємо
     // заздалегідь (мережевий запит на пару), інакше чергу нема з чого будувати.
+    // FB-20: те саме для частини мови (colloc) — обидва prefetch йдуть
+    // паралельно (Promise.all), не послідовно, щоб не подвоювати час очікування.
     showScreen('wordTrainingScreen');
     showWtLoading(t.wt_preparing || 'Готую вправи…');
-    await prefetchSentenceExamples(valid);
+    const [, touchedPosPairs] = await Promise.all([prefetchSentenceExamples(valid), prefetchPosTags(valid)]);
+    persistPosChanges(set, touchedPosPairs);
     hideWtLoading();
 
     wtQueue = buildWtQueue(valid, Infinity); // завжди повний прохід усіма типами вправ по кожному слову
@@ -883,6 +872,85 @@ async function prefetchSentenceExamples(pairs) {
 function hasSentenceExamples(pair) {
     const key = `${wordLangFrom}|${pair.word.trim().toLowerCase()}`;
     return !!(wtSentenceExamples[key] && wtSentenceExamples[key].length);
+}
+
+// ===== FB-20 (2026-08-08): авто-визначення частини мови для колокацій =====
+// Раніше pair.pos треба було виставляти вручну (FB-16 inline-select на чіпі) —
+// User: "не треба ніяка частина мови, це ми автоматично маємо давати такі
+// колокації". Той самий Google bilingual-dictionary ендпоінт (dt=bd), що вже
+// використовує fetchTranslationAlternatives — group[0] у відповіді несе
+// частину мови. Свідомо ЗАВЖДИ запитуємо з hl=en (host language): емпірично
+// саме hl (не tl) визначає МОВУ підпису частини мови в цьому неофіційному
+// API — підпис завжди англійський ("noun"/"verb"/"adjective"/...) незалежно
+// від мовної пари слова чи geo-локації користувача, тому мапиться на 3
+// категорії COLLOCATION_TEMPLATES без окремої 6-мовної таблиці підписів.
+// tl обирається лише щоб уникнути self-pair (sl===tl часто взагалі не
+// повертає dt=bd) — сама мова tl підпис не змінює.
+const posDetectCache = {}; // `${lang}|${word}` -> 'noun'|'verb'|'adj'|null (перевірено, нема відповідної категорії)
+
+async function fetchWordPos(word, lang) {
+    try {
+        const tl = lang === 'en' ? 'uk' : 'en';
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${encodeURIComponent(lang)}&tl=${tl}&hl=en&dt=t&dt=bd&q=${encodeURIComponent(word)}`;
+        const res = await fetch(url);
+        if (!res.ok) return null;
+        const data = await res.json();
+        const labels = (data?.[1] || []).map(g => (g?.[0] || '').toLowerCase());
+        if (labels.includes('noun')) return 'noun';
+        if (labels.includes('verb')) return 'verb';
+        if (labels.includes('adjective')) return 'adj';
+        return null; // adverb/pronoun/preposition/... — жодна з 3 категорій, колокації просто не з'являться для цього слова
+    } catch {
+        return null;
+    }
+}
+
+// Пропускає пари, де pos вже є (зокрема раніше визначений і збережений —
+// не перезапитувати щосесії) — повертає лише ЩОЙНО визначені пари, щоб
+// викликач знав, що саме потрібно зберегти назад у localStorage.
+async function prefetchPosTags(pairs) {
+    const touched = [];
+    await Promise.all(pairs.map(async p => {
+        if (p.pos) return;
+        const key = `${wordLangFrom}|${p.word.trim().toLowerCase()}`;
+        if (!(key in posDetectCache)) {
+            posDetectCache[key] = await fetchWordPos(p.word, wordLangFrom);
+        }
+        const detected = posDetectCache[key];
+        if (detected) { p.pos = detected; touched.push(p); }
+    }));
+    return touched;
+}
+
+// Дзеркалить логіку updateWordMastery() для точкового збереження назад:
+// звичайний набір — цілий pairs-масив перезаписується (безпечно, бо це той
+// самий масив з мутованими pos), віртуальна сесія (FB-19, wselectSelection)
+// — кожна змінена пара пишеться в СВІЙ реальний набір-джерело через
+// __originMap, бо wtSet.pairs тут змішує кілька різних реальних наборів.
+function persistPosChanges(set, touchedPairs) {
+    if (!touchedPairs.length) return;
+    const sets = loadWordSets();
+    if (set.__virtual && set.__originMap) {
+        const dirty = new Set();
+        touchedPairs.forEach(pair => {
+            const origin = set.__originMap.get(pair);
+            if (!origin) return;
+            const setIdx = sets.findIndex(s => s.id === origin.setId);
+            if (setIdx < 0) return;
+            const byIdx = (sets[setIdx].pairs || [])[origin.idx];
+            const target = (byIdx && byIdx.word === pair.word && byIdx.translation === pair.translation)
+                ? byIdx
+                : (sets[setIdx].pairs || []).find(p => p.word === pair.word && p.translation === pair.translation);
+            if (target) { target.pos = pair.pos; dirty.add(origin.setId); }
+        });
+        if (dirty.size) saveWordSets(sets);
+        return;
+    }
+    const idx = sets.findIndex(s => s.id === set.id);
+    if (idx >= 0) {
+        sets[idx].pairs = set.pairs;
+        saveWordSets(sets);
+    }
 }
 
 // Груба евристика складності: сортуємо за довжиною (слів) і беремо
@@ -996,17 +1064,17 @@ function buildTrueFalseItem(pair, allPairs) {
 // короткі фрази ("very ___", "want to ___"), що показують з якими
 // прикметниками/дієсловами/прийменниками слово функціонує, а не повні речення.
 //
-// Рішення: шаблони тепер згруповані за частиною мови (noun/verb/adj) на
-// кожну мову, і саме коротка ФРАЗА (не речення) з пропуском — наприклад
+// Рішення: шаблони згруповані за частиною мови (noun/verb/adj) на кожну
+// мову, і саме коротка ФРАЗА (не речення) з пропуском — наприклад
 // noun: "need a ___", verb: "want to ___", adj: "very ___". Яку групу
-// використати, визначає новий необов'язковий `pair.pos`, який користувач
-// ставить при редагуванні чіпа (editWordChip/saveWordChip). Якщо `pos` не
-// вказано — тип 'colloc' просто НЕ трапляється для цієї пари (як і 'sentence'
-// для пар без прикладів, див. hasSentenceExamples/pairsForType вище) — це
-// свідомо краще, ніж вгадувати частину мови евристикою (ненадійно для
-// довільних слів у 6 мовах) або показувати граматично неможливу вправу знову.
-// Раніше збережені набори (без pos) — просто не отримають цей тип, без
-// помилок.
+// використати, визначає `pair.pos` — від FB-20 (2026-08-08) визначається
+// АВТОМАТИЧНО (fetchWordPos/prefetchPosTags, мережевий запит перед стартом
+// тренування), без ручного вибору користувачем (раніше — FB-16 inline-select
+// на чіпі, прибраний). Якщо мережа недоступна/слово не в словнику Google —
+// `pos` лишається невизначеним і тип 'colloc' просто НЕ трапляється для цієї
+// пари цього разу (як і 'sentence' для пар без прикладів, див.
+// hasSentenceExamples/pairsForType вище) — той самий принцип graceful
+// degradation, без помилок і без порожньої вправи.
 //
 // Свідомо НЕ вирішено (як і в v1/v2): pair.word підставляється в БАЗОВІЙ формі
 // без відмінювання/узгодження роду/числа (напр. uk/pl "потрібен ___" вимагає
@@ -2040,7 +2108,14 @@ function renderWordProfileList(containerId) {
         container.innerHTML = `<p class="profile-empty">${t.profile_empty_words || 'Ще немає збережених наборів слів'}</p>`;
         return;
     }
-    container.innerHTML = sets.map(set => {
+    // FB-19: точка входу до вибору окремих слів (з одного чи кількох наборів) для
+    // тренування, замість завжди цілого набору — showWordLangScreen лишається
+    // returnFn для "Назад", той самий hub, з якого сюди потрапляють.
+    const hasSelectableWords = sets.some(s => (s.pairs || []).some(p => p.word && p.translation));
+    const selectBtn = hasSelectableWords
+        ? `<button class="btn-profile-select-words" onclick="openWordSelectScreen(() => showProgressScreen(showWordLangScreen))">${t.profile_select_words || '🎯 Обрати слова'}</button>`
+        : '';
+    container.innerHTML = selectBtn + sets.map(set => {
         const total = (set.pairs || []).length;
         const mastered = (set.pairs || []).filter(p => (p.masteryScore || 0) >= WT_MASTERY_THRESHOLD).length;
         const review = total - mastered;
@@ -2067,6 +2142,168 @@ function renderWordProfileList(containerId) {
     }).join('');
 }
 
+
+// ----- [FB-19: обрати окремі слова з одного чи кількох наборів для тренування] -----
+// На відміну від profileTrainWordSet (завжди весь набір) — тут користувач сам відмічає
+// конкретні слова чекбоксами, або одразу весь набір ("Обрати всі" в заголовку картки).
+// Комбінувати можна лише набори ОДНІЄЇ мовної пари (langFrom/langTo) — уся логіка вправ
+// (wordLangFrom/wordLangTo/wordLevel, буде виставлено з першого обраного слова в
+// startWordTraining) розрахована на один узгоджений напрям навчання за сесію; вибір
+// слова з іншої пари відхиляється з тостом, а не мовчки ламає чергу вправ.
+let wselectSelection = new Map(); // key `${setId}:${idx}` -> {setId, idx, pair, langFrom, langTo, level}
+let wselectActiveLangPair = null; // {from, to} — виставляється по першому обраному слову
+let wselectReturnScreen = null;
+
+function openWordSelectScreen(returnFn) {
+    wselectReturnScreen = typeof returnFn === 'function' ? returnFn : showWordLangScreen;
+    wselectSelection = new Map();
+    wselectActiveLangPair = null;
+    showScreen('wordSelectScreen');
+    const t = translations[currentLang];
+    document.getElementById('wselectBackLabel').innerText = t.back_lang || 'Назад';
+    document.getElementById('wselectTitleEl').innerText = t.wselect_title || 'Обрати слова';
+    renderWordSelectList();
+    updateWselectBar();
+}
+
+function closeWordSelectScreen() {
+    (wselectReturnScreen || showWordLangScreen)();
+}
+
+function renderWordSelectList() {
+    const t = translations[currentLang];
+    const container = document.getElementById('wselectContent');
+    if (!container) return;
+    const sets = loadWordSets();
+    const rendered = sets.map(set => {
+        const pairs = set.pairs || [];
+        const rows = pairs.map((p, i) => {
+            if (!p.word || !p.translation) return '';
+            const key = set.id + ':' + i;
+            const checked = wselectSelection.has(key);
+            return `<label class="wselect-checkbox-row wselect-word-row">
+              <input type="checkbox" ${checked ? 'checked' : ''} onchange="toggleWordSelect(${set.id}, ${i}, this.checked)">
+              <span class="wselect-word-text">${escHtml(p.word)} → ${escHtml(p.translation)}</span>
+            </label>`;
+        }).join('');
+        if (!rows) return '';
+        const validCount = pairs.filter(p => p.word && p.translation).length;
+        const selectedInSet = [...wselectSelection.values()].filter(v => v.setId === set.id).length;
+        const allChecked = validCount > 0 && selectedInSet === validCount;
+        const rawTitle = set.topic || '—';
+        const title = rawTitle.length > 60 ? rawTitle.slice(0, 60) + '…' : rawTitle;
+        const langPair = `${(set.langFrom || '').toUpperCase()} → ${(set.langTo || '').toUpperCase()}`;
+        return `<div class="wselect-set-card">
+          <div class="wselect-set-header">
+            <label class="wselect-checkbox-row wselect-set-all">
+              <input type="checkbox" ${allChecked ? 'checked' : ''} onchange="toggleSetSelectAll(${set.id}, this.checked)">
+              <span class="wselect-set-title">${escHtml(title)}</span>
+            </label>
+            <span class="wselect-set-meta">${langPair}</span>
+          </div>
+          <div class="wselect-word-list">${rows}</div>
+        </div>`;
+    }).join('');
+    container.innerHTML = rendered || `<p class="profile-empty">${t.profile_empty_words || 'Ще немає збережених наборів слів'}</p>`;
+}
+
+function updateWselectBar() {
+    const t = translations[currentLang];
+    const n = wselectSelection.size;
+    const countEl = document.getElementById('wselectCount');
+    const btn = document.getElementById('wselectStartBtn');
+    if (countEl) countEl.innerText = (t.wselect_selected || 'Обрано: {n}').replace('{n}', n);
+    if (btn) {
+        btn.innerText = (t.wselect_start_btn || 'Тренувати ({n})').replace('{n}', n);
+        btn.disabled = n === 0;
+    }
+}
+
+function toggleWordSelect(setId, idx, checked) {
+    const set = loadWordSets().find(s => s.id === setId);
+    if (!set) return;
+    const pair = (set.pairs || [])[idx];
+    if (!pair) return;
+    const key = setId + ':' + idx;
+    if (checked) {
+        const pairLang = { from: set.langFrom || 'en', to: set.langTo || 'uk' };
+        if (wselectActiveLangPair && (wselectActiveLangPair.from !== pairLang.from || wselectActiveLangPair.to !== pairLang.to)) {
+            showMotivToast(translations[currentLang].wselect_diff_lang_toast || 'Можна обирати слова лише в межах однієї мовної пари за раз');
+            renderWordSelectList(); // знімає щойно позначений браузером чекбокс — вибір не зберігся в мапі
+            updateWselectBar();
+            return;
+        }
+        wselectActiveLangPair = pairLang;
+        wselectSelection.set(key, { setId, idx, pair, langFrom: pairLang.from, langTo: pairLang.to, level: set.level || 1 });
+    } else {
+        wselectSelection.delete(key);
+        if (wselectSelection.size === 0) wselectActiveLangPair = null;
+    }
+    updateWselectBar();
+}
+
+function toggleSetSelectAll(setId, checked) {
+    const set = loadWordSets().find(s => s.id === setId);
+    if (!set) return;
+    const pairLang = { from: set.langFrom || 'en', to: set.langTo || 'uk' };
+    if (checked && wselectActiveLangPair && (wselectActiveLangPair.from !== pairLang.from || wselectActiveLangPair.to !== pairLang.to)) {
+        showMotivToast(translations[currentLang].wselect_diff_lang_toast || 'Можна обирати слова лише в межах однієї мовної пари за раз');
+        renderWordSelectList();
+        updateWselectBar();
+        return;
+    }
+    (set.pairs || []).forEach((p, i) => {
+        if (!p.word || !p.translation) return;
+        const key = setId + ':' + i;
+        if (checked) {
+            wselectSelection.set(key, { setId, idx: i, pair: p, langFrom: pairLang.from, langTo: pairLang.to, level: set.level || 1 });
+        } else {
+            wselectSelection.delete(key);
+        }
+    });
+    if (checked) wselectActiveLangPair = pairLang;
+    else if (wselectSelection.size === 0) wselectActiveLangPair = null;
+    renderWordSelectList();
+    updateWselectBar();
+}
+
+// Будує "віртуальний" набір з обраних слів (можливо з кількох реальних наборів) і
+// запускає ним звичайний startWordTraining. __originMap — pair-об'єкт → {setId, idx} —
+// дозволяє updateWordMastery() записати прогрес точково назад у КОЖЕН реальний набір
+// (див. коментар там), а не в неіснуючий id "__virtual_selection__".
+function startSelectedWordTraining() {
+    const t = translations[currentLang];
+    if (!wselectSelection.size) {
+        showMotivToast(t.wselect_none_toast || 'Оберіть хоча б одне слово');
+        return;
+    }
+    const sets = loadWordSets();
+    const originMap = new Map();
+    const virtualPairs = [];
+    let langFrom, langTo, level;
+    wselectSelection.forEach(sel => {
+        const set = sets.find(s => s.id === sel.setId);
+        if (!set) return;
+        const pair = (set.pairs || [])[sel.idx];
+        if (!pair || !pair.word || !pair.translation) return;
+        if (langFrom === undefined) { langFrom = set.langFrom || 'en'; langTo = set.langTo || 'uk'; level = set.level || 1; }
+        virtualPairs.push(pair);
+        originMap.set(pair, { setId: set.id, idx: sel.idx });
+    });
+    if (!virtualPairs.length) {
+        showMotivToast(t.wselect_none_toast || 'Оберіть хоча б одне слово');
+        return;
+    }
+    const virtualSet = {
+        id: '__virtual_selection__',
+        __virtual: true,
+        __originMap: originMap,
+        topic: t.wselect_title || 'Обрані слова',
+        langFrom, langTo, level,
+        pairs: virtualPairs
+    };
+    startWordTraining(virtualSet, () => openWordSelectScreen(wselectReturnScreen));
+}
 
 // ----- [W2 profileTrainWordSet/profileDeleteWordSet]  (was app.js lines 3550-3559) -----
 function profileTrainWordSet(id) {

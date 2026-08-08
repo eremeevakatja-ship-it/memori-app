@@ -278,12 +278,11 @@ function addToLearned(text, blockCount) {
         title: text.replace(/\n/g, ' ').slice(0, 70),
         text, blockCount,
         completedAt: Date.now(),
-        // 2026-08-07: тип завченого матеріалу — ставиться вручну в "Вивчено"
-        // (renderLearnedLibrary/changeLearnedCategory, app.js), той самий принцип,
-        // що й pair.pos у Words Mode — вгадати автоматично неможливо. Старі записи
-        // без цього поля читаються з фолбеком entry.category || 'text' скрізь, де
-        // категорія використовується — не ламаються.
-        category: 'text'
+        // FB-22 (2026-08-08): авто-визначення за римою (detectHasRhyme, app.js) —
+        // 2 категорії: 'poem_song' (римований текст) чи 'text_speech' (звичайний).
+        // Груба евристика (збіг закінчень рядків, не фонетичний аналіз) — можна
+        // виправити вручну в "Вивчено" (changeLearnedCategory), якщо помилилась.
+        category: detectHasRhyme(text) ? 'poem_song' : 'text_speech'
     });
     if (arr.length > 50) arr.pop();
     saveLearned(arr);

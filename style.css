@@ -1282,7 +1282,7 @@ body[data-theme="dark"] .theme-card.active { background: rgba(129,140,248,0.15);
 /* ===== THEME TOGGLE FAB ===== */
 .theme-toggle-fab {
   position: fixed;
-  bottom: 24px;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
   right: 24px;
   width: 44px;
   height: 44px;
@@ -1525,6 +1525,82 @@ body[data-theme="dark"] .btn-profile-ghost { background: transparent; border-col
 body[data-theme="dark"] .btn-profile-ghost:hover { background: rgba(129,140,248,0.15); }
 body[data-theme="dark"] .btn-profile-delete { color: #374151; }
 
+/* ===== FB-19: Word Select screen — обрати окремі слова (можливо з кількох наборів
+   однієї мовної пари) для тренування ===== */
+.btn-profile-select-words {
+  width: 100%;
+  background: transparent;
+  border: 1.5px dashed var(--primary);
+  color: var(--primary);
+  padding: 11px 12px;
+  border-radius: 12px;
+  font-size: 0.83rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin: 0 0 4px;
+  transition: background 0.15s;
+}
+.btn-profile-select-words:hover { background: var(--primary-soft); opacity: 1; transform: none; }
+.wselect-content { max-height: 480px; }
+.wselect-set-card {
+  background: #fafafa;
+  border: 1.5px solid #e8eaed;
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+.wselect-set-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.wselect-set-meta { font-size: 0.68rem; color: #aaa; white-space: nowrap; flex-shrink: 0; }
+.wselect-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+  margin: 0;
+  min-width: 0;
+}
+.wselect-checkbox-row input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  accent-color: var(--primary);
+  cursor: pointer;
+  margin: 0;
+}
+.wselect-set-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wselect-word-list { display: flex; flex-direction: column; gap: 2px; }
+.wselect-word-row { padding: 5px 2px; border-radius: 8px; transition: background 0.12s; }
+.wselect-word-row:hover { background: var(--primary-soft); }
+.wselect-word-text { font-size: 0.8rem; color: var(--text); opacity: 0.85; }
+.wselect-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 2px 4px;
+  margin-top: 4px;
+  border-top: 1px solid var(--border);
+}
+.wselect-count { font-size: 0.8rem; font-weight: 600; color: var(--text); opacity: 0.75; white-space: nowrap; }
+.wselect-bottom-bar .btn-start-main { width: auto; flex: 1; margin: 0; }
+.wselect-bottom-bar .btn-start-main:disabled { opacity: 0.4; cursor: not-allowed; }
+body[data-theme="dark"] .wselect-set-card { background: #1f2937; border-color: #2d3748; }
+body[data-theme="dark"] .wselect-set-meta { color: #4a5568; }
+
 /* 2026-08-07 (Library/Progress re-split): "Вивчено" (profileScreen) — теплий
    заголовок екрану + категоризовані групи (renderLearnedLibrary, app.js).
    Group-заголовки перевикористовують .word-dict-group/-group-title/-count
@@ -1753,7 +1829,7 @@ body[data-theme="dark"] .profile-name-empty { color: #374151; }
 body[data-theme="dark"] .profile-name-input { color: #e2e8f0; border-color: #818cf8 !important; }
 body[data-theme="dark"] .profile-hero-stats { color: #374151; }
 
-/* ===== PROFILE IDENTITY — mood + about-you fields (2026-08-07, nav split) =====
+/* ===== PROFILE IDENTITY — about-you fields (2026-08-07, nav split; mood toggle removed 2026-08-08, D-010) =====
    Усі кольори через var(--card-bg)/var(--border)/var(--text)/var(--primary*), які вже
    самі перевизначаються під body[data-theme="dark"] (див. :root/dark блок вище у файлі)
    — окремих dark-правил тут не треба, той самий принцип що й .stat-val/.stat-chip. */
@@ -1767,24 +1843,14 @@ body[data-theme="dark"] .profile-hero-stats { color: #374151; }
   margin: 18px 0 10px;
 }
 .profile-about-label:first-child { margin-top: 0; }
-.mood-pills-row { display: flex; gap: 8px; justify-content: center; }
-.mood-pill {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  border: 1.5px solid var(--border);
-  background: var(--card-bg);
-  font-size: 1.3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  margin: 0;
-  padding: 0;
-  transition: all 0.15s;
+.profile-optional-note {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text);
+  opacity: 0.7;
+  text-align: center;
+  margin: 0 0 18px;
 }
-.mood-pill:hover { opacity: 1; transform: scale(1.06); border-color: var(--primary); }
-.mood-pill.active { border-color: var(--primary); background: var(--primary-soft); }
 .profile-about-row { display: flex; gap: 8px; }
 .profile-about-row .profile-about-input { flex: 1; }
 .profile-about-input {
@@ -1895,35 +1961,6 @@ body[data-theme="dark"] .info-popup-title { color: #e2e8f0; }
 body[data-theme="dark"] .info-popup-close { color: #4a5568; }
 body[data-theme="dark"] .info-popup-close:hover { color: #94a3b8; }
 body[data-theme="dark"] .info-popup-body { color: #94a3b8; opacity: 1; }
-
-/* ===== MOOD POPUP (FB-14, bottom sheet — окремі класи від .mood-pill / notif-prompt,
-   щоб не змішувати 4-варіантний попап з 5-варіантним toggle у profileIdentityScreen) ===== */
-.mood-popup-sheet { text-align: center; }
-.mood-popup-title { font-size: 1.1rem; font-weight: 800; color: var(--text); margin: 0 0 8px; }
-.mood-popup-sub { font-size: 0.88rem; line-height: 1.55; color: var(--text); opacity: 0.78; margin: 0 0 20px; }
-.mood-popup-pills-row { display: flex; gap: 10px; justify-content: center; margin: 0 0 22px; }
-.mood-popup-pill {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: 1.5px solid var(--border);
-  background: var(--card-bg);
-  font-size: 1.4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  margin: 0;
-  padding: 0;
-  transition: all 0.15s;
-}
-.mood-popup-pill:hover { opacity: 1; transform: scale(1.06); border-color: var(--primary); }
-.mood-popup-pill.active { border-color: var(--primary); background: var(--primary-soft); transform: scale(1.08); }
-.mood-popup-actions { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-#moodPopupCta:disabled { opacity: 0.45; cursor: not-allowed; }
-#moodPopupCta:disabled:hover { opacity: 0.45; transform: none; box-shadow: none; }
-body[data-theme="dark"] .mood-popup-title { color: #e2e8f0; }
-body[data-theme="dark"] .mood-popup-sub { color: #94a3b8; opacity: 1; }
 
 /* ===== AUDIO SPEED ROW ===== */
 .audio-speed-row {
@@ -2336,11 +2373,6 @@ body[data-theme="dark"] .word-input-textarea {
   font-size: 0.88rem;
   color: #666;
   flex: 1;
-  /* FB-16 (2026-08-07): min-width:0 + ellipsis lets this shrink below its
-     unbreakable content width when the new .chip-pos-inline select needs the
-     room on a 320px chip — as a side effect this also fixes a pre-existing
-     (not caused by FB-16) overflow for long translations at 320px, which had
-     no truncation safeguard at all before. */
   min-width: 0;
   overflow: hidden;
   white-space: nowrap;
@@ -2372,48 +2404,6 @@ body[data-theme="dark"] .word-input-textarea {
 .chip-cycle-btn.chip-cycle-loading { animation: spin 0.8s linear infinite; opacity: 0.5; pointer-events: none; }
 body[data-theme="dark"] .chip-cycle-btn { color: #64748b; }
 body[data-theme="dark"] .chip-cycle-btn:hover { background: rgba(129,140,248,0.15); color: #818cf8; }
-/* FB-16 (2026-08-07): compact always-visible POS selector on the chip itself
-   (view mode, not just inside editWordChip's full edit form) — replaces the
-   old purely-decorative .chip-edit-icon (✎) spot, since the chip row itself
-   already opens full edit on click regardless; freed width is what makes this
-   control fit at 320px (see .word-chip-trans comment above). Labels are short
-   "N/V/Adj" — the full localized іменник/дієслово/прикметник options (as
-   already used in editWordChip's edit-mode dropdown) don't fit even
-   abbreviated at this width; full wording stays reachable via title/
-   aria-label and the detailed edit mode. */
-.chip-pos-inline {
-  flex-shrink: 0;
-  width: 28px;
-  height: 24px;
-  min-width: 28px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: var(--card-bg);
-  color: #999;
-  font-size: 0.68rem;
-  font-family: inherit;
-  text-align: center;
-  padding: 0 1px;
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-}
-.chip-pos-inline.chip-pos-inline-set {
-  border-color: var(--primary);
-  color: var(--primary);
-  font-weight: 700;
-  background: var(--primary-soft);
-}
-body[data-theme="dark"] .chip-pos-inline {
-  background: #0f172a;
-  border-color: #334155;
-  color: #64748b;
-}
-body[data-theme="dark"] .chip-pos-inline.chip-pos-inline-set {
-  border-color: #818cf8;
-  color: #818cf8;
-  background: rgba(129,140,248,0.12);
-}
 .word-chip.chip-editing {
   border-color: var(--primary);
   background: var(--primary-soft);
@@ -2443,26 +2433,6 @@ body[data-theme="dark"] .chip-pos-inline.chip-pos-inline-set {
 }
 .chip-edit-word:focus,
 .chip-edit-trans:focus {
-  outline: none;
-  border-color: var(--primary);
-}
-.chip-pos-icon {
-  flex-shrink: 0;
-  font-size: 0.9rem;
-  line-height: 1;
-}
-.chip-edit-pos {
-  flex: 1;
-  min-width: 0;
-  border: 1px solid var(--border);
-  border-radius: 7px;
-  padding: 5px 6px;
-  font-size: 0.82rem;
-  background: var(--card-bg);
-  color: var(--text);
-  font-family: inherit;
-}
-.chip-edit-pos:focus {
   outline: none;
   border-color: var(--primary);
 }
@@ -2543,8 +2513,7 @@ body[data-theme="dark"] .word-chip.chip-editing {
   border-color: #818cf8;
 }
 body[data-theme="dark"] .chip-edit-word,
-body[data-theme="dark"] .chip-edit-trans,
-body[data-theme="dark"] .chip-edit-pos {
+body[data-theme="dark"] .chip-edit-trans {
   background: #0f172a;
   border-color: #334155;
   color: #e2e8f0;
@@ -2742,7 +2711,7 @@ body[data-theme="dark"] .screen-subtitle { color: #64748b; }
 .bottom-nav {
   position: fixed;
   left: 50%;
-  bottom: 18px;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
   transform: translateX(-50%);
   display: flex;
   gap: 2px;
@@ -2772,6 +2741,7 @@ body[data-theme="dark"] .screen-subtitle { color: #64748b; }
   width: auto;
   font-size: 0.65rem;
   font-weight: 600;
+  white-space: nowrap;
   transition: all 0.2s;
 }
 .bottom-nav-item svg { display: block; }
@@ -2788,12 +2758,16 @@ body[data-theme="dark"] .bottom-nav {
 body[data-theme="dark"] .bottom-nav-item { color: #4a5568; }
 body[data-theme="dark"] .bottom-nav-item.active { color: #818cf8; background: rgba(129,140,248,0.15); }
 
-/* Місце під плаваючий бар знизу картки + піднімаємо theme/support FAB над ним, щоб не
-   накладались (обидва FAB — position:fixed bottom:24px, той самий рівень, що й бар). */
+/* Місце під плаваючий бар знизу картки + піднімаємо theme/support FAB (і підказку-бульбашку
+   підтримки) над ним, щоб не накладались (FAB — position:fixed bottom:24px, бульбашка —
+   bottom:78px, бар — bottom:18px; усі підняті пропорційно, з запасом, коли бар видимий). */
 body.nav-visible .card { padding-bottom: 132px; }
 body.nav-visible .theme-toggle-fab,
 body.nav-visible .support-fab-wrap {
-  bottom: 90px;
+  bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+}
+body.nav-visible .support-hint-bubble {
+  bottom: calc(160px + env(safe-area-inset-bottom, 0px));
 }
 
 /* ===== WORD TRAINING ===== */
@@ -3462,7 +3436,7 @@ body[data-theme="dark"] .btn-wt-skip-word:hover { color: #cbd5e1; border-color: 
    для круглого кадрування картинки, який раніше й обрізав бейдж). */
 .support-fab-wrap {
   position: fixed;
-  bottom: 24px;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
   left: 24px;
   width: 44px;
   height: 44px;
@@ -3587,7 +3561,7 @@ body[data-theme="dark"] .support-fab-badge { border-color: #1f2937; }
 /* Одноразова підказка-хмаринка над кнопкою — з'являється раз на пристрій */
 .support-hint-bubble {
   position: fixed;
-  bottom: 78px;
+  bottom: calc(78px + env(safe-area-inset-bottom, 0px));
   left: 24px;
   max-width: 210px;
   background: var(--primary);

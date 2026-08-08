@@ -115,7 +115,15 @@ const translations = {
         learned_hero_title: "Молодець, ось що вже вивчено! 🌟",
         learned_group_text_speech: "Текст/промова", learned_group_poem: "Вірші", learned_group_song: "Пісні",
         learned_cat_text: "Текст", learned_cat_speech: "Промова", learned_cat_poem: "Вірш", learned_cat_song: "Пісня",
+        learned_group_poem_song: "Вірші/пісні", learned_cat_text_speech: "Текст/промова", learned_cat_poem_song: "Вірш/пісня",
         profile_train: "Тренувати",
+        profile_select_words: "🎯 Обрати слова",
+        wselect_title: "Обрати слова для тренування",
+        wselect_select_all: "Обрати всі",
+        wselect_selected: "Обрано: {n}",
+        wselect_start_btn: "Тренувати ({n})",
+        wselect_diff_lang_toast: "Можна обирати слова лише в межах однієї мовної пари за раз",
+        wselect_none_toast: "Оберіть хоча б одне слово",
         profile_empty_progress: "Немає активної сесії",
         profile_empty_learned: "Ще нічого не вивчено. Пройдіть перший текст!",
         profile_load: "Завантажити",
@@ -200,6 +208,7 @@ const translations = {
         wt_topic_subtitle: 'Назва допоможе швидко знайти цей набір у профілі',
         library_title: 'Бібліотека', progress_title: 'Прогрес',
         profile_mood: 'Настрій зараз', profile_about: 'Про тебе',
+        profile_optional_note: 'Усе нижче — суто за бажанням 💛 Заповнюй, що хочеш, решту сміливо пропускай.',
         profile_country: 'Країна', profile_city: 'Місто', profile_age: 'Вік', profile_email: 'Пошта'
     },
     en: {
@@ -293,7 +302,15 @@ const translations = {
         learned_hero_title: "Nice work — here's what you've already learned! 🌟",
         learned_group_text_speech: "Text/speech", learned_group_poem: "Poems", learned_group_song: "Songs",
         learned_cat_text: "Text", learned_cat_speech: "Speech", learned_cat_poem: "Poem", learned_cat_song: "Song",
+        learned_group_poem_song: "Poems/songs", learned_cat_text_speech: "Text/speech", learned_cat_poem_song: "Poem/song",
         profile_train: "Train",
+        profile_select_words: "🎯 Pick words",
+        wselect_title: "Choose words to train",
+        wselect_select_all: "Select all",
+        wselect_selected: "Selected: {n}",
+        wselect_start_btn: "Train ({n})",
+        wselect_diff_lang_toast: "You can only pick words from one language pair at a time",
+        wselect_none_toast: "Pick at least one word",
         profile_empty_progress: "No active session",
         profile_empty_learned: "Nothing learned yet. Complete your first text!",
         profile_load: "Load",
@@ -378,6 +395,7 @@ const translations = {
         wt_topic_subtitle: 'A name helps you find this set again later',
         library_title: 'Library', progress_title: 'Progress',
         profile_mood: 'Mood right now', profile_about: 'About you',
+        profile_optional_note: 'Everything below is totally optional 💛 Fill in what you like, skip the rest.',
         profile_country: 'Country', profile_city: 'City', profile_age: 'Age', profile_email: 'Email'
     },
     pl: {
@@ -471,7 +489,15 @@ const translations = {
         learned_hero_title: "Brawo, oto czego już się nauczyłaś! 🌟",
         learned_group_text_speech: "Tekst/przemówienie", learned_group_poem: "Wiersze", learned_group_song: "Piosenki",
         learned_cat_text: "Tekst", learned_cat_speech: "Przemówienie", learned_cat_poem: "Wiersz", learned_cat_song: "Piosenka",
+        learned_group_poem_song: "Wiersze/piosenki", learned_cat_text_speech: "Tekst/przemówienie", learned_cat_poem_song: "Wiersz/piosenka",
         profile_train: "Trenuj",
+        profile_select_words: "🎯 Wybierz słowa",
+        wselect_title: "Wybierz słowa do treningu",
+        wselect_select_all: "Zaznacz wszystkie",
+        wselect_selected: "Wybrano: {n}",
+        wselect_start_btn: "Trenuj ({n})",
+        wselect_diff_lang_toast: "Możesz wybierać słowa tylko z jednej pary językowej naraz",
+        wselect_none_toast: "Wybierz co najmniej jedno słowo",
         profile_empty_progress: "Brak aktywnej sesji",
         profile_empty_learned: "Nic jeszcze nie nauczone. Ukończ pierwszy tekst!",
         profile_load: "Załaduj",
@@ -556,6 +582,7 @@ const translations = {
         wt_topic_subtitle: 'Nazwa pomoże szybko znaleźć ten zestaw w profilu',
         library_title: 'Biblioteka', progress_title: 'Postęp',
         profile_mood: 'Nastrój teraz', profile_about: 'O tobie',
+        profile_optional_note: 'Wszystko poniżej jest całkowicie opcjonalne 💛 Wypełnij, co chcesz, resztę śmiało pomiń.',
         profile_country: 'Kraj', profile_city: 'Miasto', profile_age: 'Wiek', profile_email: 'E-mail'
     },
     de: {
@@ -649,7 +676,15 @@ const translations = {
         learned_hero_title: "Gut gemacht — das hast du schon gelernt! 🌟",
         learned_group_text_speech: "Text/Rede", learned_group_poem: "Gedichte", learned_group_song: "Lieder",
         learned_cat_text: "Text", learned_cat_speech: "Rede", learned_cat_poem: "Gedicht", learned_cat_song: "Lied",
+        learned_group_poem_song: "Gedichte/Lieder", learned_cat_text_speech: "Text/Rede", learned_cat_poem_song: "Gedicht/Lied",
         profile_train: "Trainieren",
+        profile_select_words: "🎯 Wörter wählen",
+        wselect_title: "Wörter fürs Training wählen",
+        wselect_select_all: "Alle auswählen",
+        wselect_selected: "Ausgewählt: {n}",
+        wselect_start_btn: "Trainieren ({n})",
+        wselect_diff_lang_toast: "Du kannst nur Wörter aus einem Sprachpaar gleichzeitig wählen",
+        wselect_none_toast: "Wähle mindestens ein Wort",
         profile_empty_progress: "Keine aktive Sitzung",
         profile_empty_learned: "Noch nichts gelernt. Schließe deinen ersten Text ab!",
         profile_load: "Laden",
@@ -734,6 +769,7 @@ const translations = {
         wt_topic_subtitle: 'Ein Name hilft dir, dieses Set später im Profil wiederzufinden',
         library_title: 'Bibliothek', progress_title: 'Fortschritt',
         profile_mood: 'Aktuelle Stimmung', profile_about: 'Über dich',
+        profile_optional_note: 'Alles hier unten ist völlig freiwillig 💛 Trag ein, was du magst, den Rest lässt du einfach weg.',
         profile_country: 'Land', profile_city: 'Stadt', profile_age: 'Alter', profile_email: 'E-Mail'
     },
     fr: {
@@ -827,7 +863,15 @@ const translations = {
         learned_hero_title: "Bravo, voici ce que tu as déjà appris ! 🌟",
         learned_group_text_speech: "Texte/discours", learned_group_poem: "Poèmes", learned_group_song: "Chansons",
         learned_cat_text: "Texte", learned_cat_speech: "Discours", learned_cat_poem: "Poème", learned_cat_song: "Chanson",
+        learned_group_poem_song: "Poèmes/chansons", learned_cat_text_speech: "Texte/discours", learned_cat_poem_song: "Poème/chanson",
         profile_train: "Entraîner",
+        profile_select_words: "🎯 Choisir des mots",
+        wselect_title: "Choisir des mots à s'entraîner",
+        wselect_select_all: "Tout sélectionner",
+        wselect_selected: "Sélectionnés : {n}",
+        wselect_start_btn: "S'entraîner ({n})",
+        wselect_diff_lang_toast: "Vous ne pouvez choisir des mots que d'une seule paire de langues à la fois",
+        wselect_none_toast: "Choisissez au moins un mot",
         profile_empty_progress: "Aucune session active",
         profile_empty_learned: "Rien appris encore. Terminez votre premier texte !",
         profile_load: "Charger",
@@ -912,6 +956,7 @@ const translations = {
         wt_topic_subtitle: 'Un nom vous aidera à retrouver cet ensemble dans votre profil',
         library_title: 'Bibliothèque', progress_title: 'Progrès',
         profile_mood: 'Humeur du moment', profile_about: 'À propos de toi',
+        profile_optional_note: 'Tout ce qui suit est entièrement facultatif 💛 Remplis ce que tu veux, laisse le reste de côté.',
         profile_country: 'Pays', profile_city: 'Ville', profile_age: 'Âge', profile_email: 'E-mail'
     },
     es: {
@@ -1005,7 +1050,15 @@ const translations = {
         learned_hero_title: "¡Bien hecho! Esto es lo que ya has aprendido 🌟",
         learned_group_text_speech: "Texto/discurso", learned_group_poem: "Poemas", learned_group_song: "Canciones",
         learned_cat_text: "Texto", learned_cat_speech: "Discurso", learned_cat_poem: "Poema", learned_cat_song: "Canción",
+        learned_group_poem_song: "Poemas/canciones", learned_cat_text_speech: "Texto/discurso", learned_cat_poem_song: "Poema/canción",
         profile_train: "Entrenar",
+        profile_select_words: "🎯 Elegir palabras",
+        wselect_title: "Elige palabras para entrenar",
+        wselect_select_all: "Seleccionar todo",
+        wselect_selected: "Seleccionadas: {n}",
+        wselect_start_btn: "Entrenar ({n})",
+        wselect_diff_lang_toast: "Solo puedes elegir palabras de un par de idiomas a la vez",
+        wselect_none_toast: "Elige al menos una palabra",
         profile_empty_progress: "Sin sesión activa",
         profile_empty_learned: "Nada aprendido aún. ¡Completa tu primer texto!",
         profile_load: "Cargar",
@@ -1090,6 +1143,7 @@ const translations = {
         wt_topic_subtitle: 'Un nombre te ayudará a encontrar este conjunto en tu perfil',
         library_title: 'Biblioteca', progress_title: 'Progreso',
         profile_mood: 'Estado de ánimo', profile_about: 'Sobre ti',
+        profile_optional_note: 'Todo lo de abajo es totalmente opcional 💛 Rellena lo que quieras, omite el resto.',
         profile_country: 'País', profile_city: 'Ciudad', profile_age: 'Edad', profile_email: 'Correo'
     }
 };
@@ -1169,7 +1223,7 @@ function showMotivToast(msg) {
 
 // ----- [app: SCREEN MANAGER]  (was app.js lines 1922-2045) -----
 // ===== SCREEN MANAGER =====
-const SCREENS = ['langScreen','modeScreen','inputScreen','setupScreen','learningScreen','restScreen','sessionPauseScreen','finalScreen','profileScreen','wordProfileScreen','progressScreen','profileIdentityScreen','wordLangScreen','wordInputScreen','wordVerifyScreen','wordTopicScreen','wordTrainingScreen','wordResultsScreen'];
+const SCREENS = ['langScreen','modeScreen','inputScreen','setupScreen','learningScreen','restScreen','sessionPauseScreen','finalScreen','profileScreen','wordProfileScreen','progressScreen','wordSelectScreen','profileIdentityScreen','wordLangScreen','wordInputScreen','wordVerifyScreen','wordTopicScreen','wordTrainingScreen','wordResultsScreen'];
 // modeScreen/wordLangScreen/wordTopicScreen додано сюди 2026-08-05 (Playful Premium composition
 // pass) — раніше короткий контент цих 3 екранів просто прилипав до верху картки, лишаючи ~50%
 // картки порожньою внизу. FLEX_SCREENS вже мав готовий механізм (display:flex + min-height +
@@ -1316,7 +1370,6 @@ function showInputScreen() {
     if (nextBtn) nextBtn.innerText = (t.nextBtn || 'Далі') + ' →';
     checkSavedState();
     checkPendingReminder();
-    checkMoodPopup();
 }
 
 function goToSetup() {
@@ -1993,10 +2046,10 @@ function openProfileIdentity(returnFn) {
     const t = translations[currentLang];
     document.getElementById('identityBackLabel').innerText = t.back_lang || 'Назад';
     document.getElementById('identityTitleEl').innerText = t.profile_title || 'Профіль';
-    const moodLbl = document.getElementById('profileMoodLabel');
     const aboutLbl = document.getElementById('profileAboutLabel');
     const emailLbl = document.getElementById('profileEmailLabel');
-    if (moodLbl) moodLbl.innerText = t.profile_mood || 'Настрій зараз';
+    const optionalNoteLbl = document.getElementById('profileOptionalNote');
+    if (optionalNoteLbl) optionalNoteLbl.innerText = t.profile_optional_note || '';
     if (aboutLbl) aboutLbl.innerText = t.profile_about || 'Про тебе';
     if (emailLbl) emailLbl.innerText = t.profile_email || 'Пошта';
     const countryEl = document.getElementById('profileCountryInput');
@@ -2019,9 +2072,6 @@ function closeProfileIdentity() {
 
 function renderProfileIdentityFields() {
     const profile = loadProfile();
-    document.querySelectorAll('.mood-pill').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.mood === profile.mood);
-    });
     const countryEl = document.getElementById('profileCountryInput');
     const cityEl = document.getElementById('profileCityInput');
     const ageEl = document.getElementById('profileAgeInput');
@@ -2032,145 +2082,11 @@ function renderProfileIdentityFields() {
     if (emailEl) emailEl.value = profile.email || '';
 }
 
-// Простий toggle: клік на активний настрій знову — знімає вибір. Без історії/попапу
-// (FB-14 — окрема майбутня задача).
-function selectProfileMood(mood, btn) {
-    const profile = loadProfile();
-    profile.mood = (profile.mood === mood) ? '' : mood;
-    saveProfile(profile);
-    document.querySelectorAll('.mood-pill').forEach(b => b.classList.toggle('active', b.dataset.mood === profile.mood));
-}
-
 function saveProfileAbout(field, input) {
     const profile = loadProfile();
     const maxLen = field === 'age' ? 3 : (field === 'email' ? 80 : 60);
     profile[field] = input.value.trim().slice(0, maxLen);
     saveProfile(profile);
-}
-
-// ----- [FB-14: щотижневий попап настрою]  (2026-08-07) -----
-// На відміну від profileIdentityScreen (простий toggle, 5 emoji, без історії показу),
-// цей попап САМ виринає раз на ~7 днів на hub-екранах, питаючи настрій. Тригер і
-// зберігання — той самий localStorage-об'єкт memori_profile (loadProfile/saveProfile,
-// state.js), нове поле lastMoodPopupAt (timestamp) — навмисно НЕ окремий ключ, щоб не
-// дублювати read/write-логіку, яка вже є для memori_profile. lastMoodPopupAt
-// оновлюється як при виборі настрою, так і при "Не зараз" — обидві дії однаково
-// "скидають" 7-денний таймер (те саме рішення, що й у checkPendingReminder,
-// state.js:528, для нагадувань).
-//
-// 🔴 Навмисно ОКРЕМИЙ клас `.mood-popup-pill` (не `.mood-pill`) для 4 піллів попапу —
-// `.mood-pill` вже займають profileIdentityScreen (5 варіантів, з 🔥) і їхні
-// selectProfileMood()/renderProfileIdentityFields() роблять
-// `querySelectorAll('.mood-pill')` по ВСЬОМУ документу. Якби попап ділив той самий
-// клас, кожен клік в профілі підсвічував/скидав би і приховані попап-піли, і навпаки —
-// саме той edge case, який тут треба уникнути. Значення mood (emoji-рядок) навмисно
-// однакові з першими 4 профільними ('😄','🙂','😐','😔'), щоб toggle на
-// profileIdentityScreen коректно підсвічував той самий вибір при наступному відкритті.
-const MOOD_POPUP_DAYS = 7;
-const MOOD_POPUP_PHRASES = {
-    uk: [
-        { title: "Тиждень минув! 🌤️", sub: "Мозок точно попрацював — а серце встигало відпочивати? Яким був настрій цього тижня?", cta: "Ось так" },
-        { title: "Ще один тиждень позаду 🌱", sub: "Розкажи, як воно було — не тільки в словах, а й у настрої.", cta: "Ось так" },
-        { title: "Пауза на секунду ☕", sub: "Поки мозок відпочиває від слів — як ти сама? Яким був цей тиждень?", cta: "Ось так" },
-        { title: "7 днів вивчання позаду 🔥", sub: "А як щодо тебе — яким був настрій цього тижня?", cta: "Ось так" }
-    ],
-    en: [
-        { title: "A week's gone by! 🌤️", sub: "Your brain's been busy — but did your heart get some rest too? How was your mood this week?", cta: "There we go" },
-        { title: "Another week behind you 🌱", sub: "Tell us how it went — not just in words, but in mood too.", cta: "There we go" },
-        { title: "Quick pause ☕", sub: "While your brain rests from words — how are you doing? How was this week?", cta: "There we go" },
-        { title: "7 days of learning done 🔥", sub: "But what about you — how was your mood this week?", cta: "There we go" }
-    ],
-    pl: [
-        { title: "Tydzień minął! 🌤️", sub: "Mózg na pewno popracował — a serce zdążyło odpocząć? Jaki był twój nastrój w tym tygodniu?", cta: "O tak" },
-        { title: "Kolejny tydzień za tobą 🌱", sub: "Opowiedz, jak było — nie tylko słowami, ale i nastrojem.", cta: "O tak" },
-        { title: "Chwila przerwy ☕", sub: "Gdy mózg odpoczywa od słów — a jak ty się czujesz? Jaki był ten tydzień?", cta: "O tak" },
-        { title: "7 dni nauki za tobą 🔥", sub: "A co u ciebie — jaki był twój nastrój w tym tygodniu?", cta: "O tak" }
-    ],
-    de: [
-        { title: "Eine Woche ist vergangen! 🌤️", sub: "Dein Gehirn hat sicher gearbeitet — aber hatte dein Herz auch Zeit zum Ausruhen? Wie war deine Stimmung diese Woche?", cta: "So ist es" },
-        { title: "Noch eine Woche geschafft 🌱", sub: "Erzähl uns, wie es war — nicht nur in Worten, sondern auch in der Stimmung.", cta: "So ist es" },
-        { title: "Kurze Pause ☕", sub: "Während dein Gehirn sich von den Wörtern erholt — wie geht's dir? Wie war diese Woche?", cta: "So ist es" },
-        { title: "7 Tage Lernen geschafft 🔥", sub: "Aber wie war's bei dir — wie war deine Stimmung diese Woche?", cta: "So ist es" }
-    ],
-    fr: [
-        { title: "Une semaine s'est écoulée ! 🌤️", sub: "Ton cerveau a bien travaillé — mais ton cœur a-t-il pu se reposer ? Quelle a été ton humeur cette semaine ?", cta: "Voilà" },
-        { title: "Encore une semaine derrière toi 🌱", sub: "Raconte-nous comment ça s'est passé — pas seulement en mots, mais aussi en humeur.", cta: "Voilà" },
-        { title: "Petite pause ☕", sub: "Pendant que ton cerveau se repose des mots — comment vas-tu ? Comment était cette semaine ?", cta: "Voilà" },
-        { title: "7 jours d'apprentissage derrière toi 🔥", sub: "Mais toi, comment ça va — quelle a été ton humeur cette semaine ?", cta: "Voilà" }
-    ],
-    es: [
-        { title: "¡Ha pasado una semana! 🌤️", sub: "Tu cerebro seguro trabajó — ¿pero tu corazón pudo descansar? ¿Cómo estuvo tu ánimo esta semana?", cta: "Así es" },
-        { title: "Otra semana más atrás 🌱", sub: "Cuéntanos cómo fue — no solo con palabras, también con tu ánimo.", cta: "Así es" },
-        { title: "Pausa rápida ☕", sub: "Mientras tu cerebro descansa de las palabras — ¿cómo estás tú? ¿Cómo fue esta semana?", cta: "Así es" },
-        { title: "7 días de aprendizaje completados 🔥", sub: "¿Y tú qué tal? ¿Cómo estuvo tu ánimo esta semana?", cta: "Así es" }
-    ]
-};
-
-let _moodPopupSelected = '';
-
-// Викликається з showInputScreen() (app.js) і showWordLangScreen() (words.js) — той
-// самий hub-boot момент, що й checkPendingReminder() (state.js:528).
-function checkMoodPopup() {
-    const el = document.getElementById('moodPopup');
-    if (!el) return;
-    const profile = loadProfile();
-    if (profile.lastMoodPopupAt) {
-        const elapsedDays = (Date.now() - profile.lastMoodPopupAt) / 86400000;
-        if (elapsedDays < MOOD_POPUP_DAYS) return;
-    }
-    openMoodPopup();
-}
-
-function openMoodPopup() {
-    const t = translations[currentLang];
-    const pool = MOOD_POPUP_PHRASES[currentLang] || MOOD_POPUP_PHRASES.uk;
-    const phrase = pool[Math.floor(Math.random() * pool.length)];
-    document.getElementById('moodPopupTitle').innerText = phrase.title;
-    document.getElementById('moodPopupSub').innerText = phrase.sub;
-    document.getElementById('moodPopupCta').innerText = phrase.cta;
-    document.getElementById('moodPopupLaterBtn').innerText = t.mood_popup_later || 'Не зараз';
-    _moodPopupSelected = '';
-    const ctaBtn = document.getElementById('moodPopupCta');
-    ctaBtn.disabled = true;
-    document.querySelectorAll('.mood-popup-pill').forEach(b => b.classList.remove('active'));
-    const popup = document.getElementById('moodPopup');
-    popup.style.display = 'flex';
-    requestAnimationFrame(() => popup.classList.add('visible'));
-}
-
-function selectMoodPopupPill(mood, btn) {
-    _moodPopupSelected = mood;
-    document.querySelectorAll('.mood-popup-pill').forEach(b => b.classList.toggle('active', b === btn));
-    document.getElementById('moodPopupCta').disabled = false;
-}
-
-function confirmMoodPopup() {
-    if (!_moodPopupSelected) return;
-    const profile = loadProfile();
-    profile.mood = _moodPopupSelected;
-    profile.lastMoodPopupAt = Date.now();
-    saveProfile(profile);
-    // Якщо профіль-екран відкритий/повторно відкриється — той самий вибір підсвітиться і там
-    renderProfileIdentityFields();
-    closeMoodPopupEl();
-}
-
-function dismissMoodPopup() {
-    const profile = loadProfile();
-    profile.lastMoodPopupAt = Date.now();
-    saveProfile(profile);
-    closeMoodPopupEl();
-}
-
-function closeMoodPopupOverlay(event) {
-    if (event && event.target !== document.getElementById('moodPopup')) return;
-    dismissMoodPopup();
-}
-
-function closeMoodPopupEl() {
-    const popup = document.getElementById('moodPopup');
-    popup.classList.remove('visible');
-    setTimeout(() => { popup.style.display = 'none'; }, 260);
 }
 
 // 2026-08-07 (re-split): тепер лише 2 таби — "В роботі"/"Плани" — обидва живуть на
@@ -2230,16 +2146,22 @@ function renderProfileTab(tab, containerId) {
     }
 }
 
-// ===== "ВИВЧЕНО" (profileScreen, Бібліотека, Text-контекст) — 2026-08-07 редизайн =====
-// Категоризація по entry.category ('text'|'speech'|'poem'|'song', state.js addToLearned,
-// дефолт 'text' — той самий принцип, що й pair.pos у Words Mode: вгадати неможливо,
-// ставиться вручну через inline-select на кожному записі). 4 значення показані як
-// 3 підзаголовки — text+speech об'єднані під одним "Текст/промова" (User дозволила
-// або 2 окремі, або об'єднання "text+speech", головне не загубити жодну категорію —
-// обрано об'єднання, бо на маленькому екрані 4 окремі групи для короткого списку
-// виглядали б надлишково дрібно). Порожні групи — без заголовка (той самий принцип,
-// що й renderWordDictionary/word-dict-group, words.js).
-const LEARNED_CATEGORIES = ['text', 'speech', 'poem', 'song'];
+// ===== "ВИВЧЕНО" (profileScreen, Бібліотека, Text-контекст) =====
+// FB-22 (2026-08-08): звели до 2 категорій — "Текст/промова" і "Вірш/пісня" —
+// АВТО-визначених за римою (detectHasRhyme, нижче) при addToLearned() (state.js),
+// замість попередніх 4 значень, які ставились вручну (2026-08-07: "вгадати
+// автоматично неможливо" — рішення переглянуте User 2026-08-08). Старі записи
+// зі значеннями 'text'/'speech'/'poem'/'song' і далі коректно читаються —
+// normalizeLearnedCategory() мапить legacy-значення на нові 2 категорії
+// (дані не мігруються, лише трактуються на льоту). Ручний перевибір
+// (changeLearnedCategory) лишається доступним — евристика рими недосконала,
+// виправити одним кліком простіше, ніж намагатись розпізнати ідеально.
+const LEARNED_CATEGORIES = ['text_speech', 'poem_song'];
+
+function normalizeLearnedCategory(raw) {
+    if (raw === 'poem' || raw === 'song' || raw === 'poem_song') return 'poem_song';
+    return 'text_speech'; // 'text' | 'speech' | 'text_speech' | відсутнє/легасі
+}
 
 function renderLearnedLibrary() {
     const container = document.getElementById('profileContent');
@@ -2252,17 +2174,12 @@ function renderLearnedLibrary() {
     }
     const deleteSvg = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>`;
 
-    const groups = { text_speech: [], poem: [], song: [] };
-    arr.forEach(entry => {
-        const cat = LEARNED_CATEGORIES.includes(entry.category) ? entry.category : 'text';
-        if (cat === 'poem') groups.poem.push(entry);
-        else if (cat === 'song') groups.song.push(entry);
-        else groups.text_speech.push(entry);
-    });
+    const groups = { text_speech: [], poem_song: [] };
+    arr.forEach(entry => groups[normalizeLearnedCategory(entry.category)].push(entry));
 
     const catOptions = entry => {
-        const cat = LEARNED_CATEGORIES.includes(entry.category) ? entry.category : 'text';
-        return ['text', 'speech', 'poem', 'song'].map(val => {
+        const cat = normalizeLearnedCategory(entry.category);
+        return LEARNED_CATEGORIES.map(val => {
             const labelKey = 'learned_cat_' + val;
             return `<option value="${val}"${cat === val ? ' selected' : ''}>${escHtml(t[labelKey] || val)}</option>`;
         }).join('');
@@ -2294,8 +2211,47 @@ function renderLearnedLibrary() {
     const hero = `<p class="learned-hero-title">${escHtml(t.learned_hero_title || 'Молодець, ось що вже вивчено! 🌟')}</p>`;
     container.innerHTML = hero +
         renderGroup(t.learned_group_text_speech || 'Текст/промова', groups.text_speech) +
-        renderGroup(t.learned_group_poem || 'Вірші', groups.poem) +
-        renderGroup(t.learned_group_song || 'Пісні', groups.song);
+        renderGroup(t.learned_group_poem_song || 'Вірші/пісні', groups.poem_song);
+}
+
+// FB-22 (2026-08-08): груба евристика рими для авто-категоризації "Вивчено" —
+// НЕ лінгвістичний/фонетичний аналіз (для цього потрібен словник вимови на
+// 6 мов), лише збіг закінчень рядків (останні 2 символи останнього слова
+// кожного непорожнього рядка, без пунктуації) — той самий клас компромісу,
+// що й pickSentenceForLevel (words.js): орієнтир, не точна оцінка. Перевіряє
+// і сусідні рядки (схема AABB), і через рядок (ABAB) — дві найпоширеніші
+// римувальні схеми. Поріг: мінімум 2 пари, що "римуються" за цією евристикою,
+// і мінімум 3 значущі рядки — інакше вважаємо звичайним текстом/промовою.
+// Хибні спрацювання виправні вручну (changeLearnedCategory) — не критично.
+// Поріг навмисно низький (1 пара, не 2) — орфографічна нерегулярність
+// англійської (high/sky звучать римовано, пишуться геть по-різному) означає,
+// що навіть у справжньому вірші/пісні друга пара часто НЕ збігається за цією
+// евристикою; вимога 2 пар пропускала занадто багато реальних віршів.
+function learnedLineEnding(line) {
+    const words = line.trim().replace(/[.,!?;:"'()—–…]/g, '').split(/\s+/).filter(Boolean);
+    if (!words.length) return '';
+    let last = words[words.length - 1].toLowerCase();
+    // Груба нормалізація "німого" e (care/name/like) — без цього кроку
+    // орфографічно різні, але римовані закінчення (напр. англ. "star"/"care")
+    // не збіглись би взагалі. Стосується здебільшого англійської; для решти
+    // 5 мов цей патерн (приголосна+e в кінці слова) трапляється рідше і
+    // нешкідливо, якщо збіг все одно не знайдеться.
+    if (last.length >= 3 && last.endsWith('e') && !/[aeiouy]/.test(last[last.length - 2])) {
+        last = last.slice(0, -1);
+    }
+    return last.length >= 2 ? last.slice(-2) : last;
+}
+
+function detectHasRhyme(text) {
+    const lines = (text || '').split('\n').map(l => l.trim()).filter(Boolean);
+    if (lines.length < 3) return false;
+    const endings = lines.map(learnedLineEnding);
+    let rhymingPairs = 0;
+    for (let i = 0; i < endings.length - 1; i++) {
+        if (endings[i] && endings[i] === endings[i + 1]) rhymingPairs++; // AABB — сусідні рядки
+        if (i < endings.length - 2 && endings[i] && endings[i] === endings[i + 2]) rhymingPairs++; // ABAB — через рядок
+    }
+    return rhymingPairs >= 1;
 }
 
 function changeLearnedCategory(id, category) {

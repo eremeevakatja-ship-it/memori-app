@@ -832,11 +832,6 @@ function showFinal() {
     const el = document.getElementById('finalScreen');
     document.getElementById('finalIcon').innerHTML = '<span class="icon-badge icon-badge-xl icon-c-rose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2"/><path d="M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2"/><path d="M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3"/><path d="M4 22h16"/><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/><path d="M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3"/></svg></span>';
     const allDone = currentStepIndex >= learningQueue.length;
-    if (allDone) {
-        clearState();
-        addToLearned(currentRawText || document.getElementById('userText').value.trim(), blocks.length);
-    }
-    document.getElementById('finalTitle').innerText = allDone ? t.finish_all_title : t.finish_title;
     // FB-05: на достроковому завершенні (allDone === false — так само і для вже
     // існуючого pauseFinish(), не тільки нового finishLearningHere()) показуємо
     // реально пройдені блоки (newBlocksShownInSession), а не blocks.length (розмір
@@ -844,6 +839,16 @@ function showFinal() {
     // блок отримує рівно один 'new'-крок), тому це нічого не міняє для існуючого
     // фінального екрану — лише виправляє неточність для раннього виходу.
     const blocksReached = allDone ? blocks.length : Math.min(newBlocksShownInSession, blocks.length);
+    // FB-21: showFinal() завжди означає "сесія закінчена" — природне проходження,
+    // "Завершити тут" (finishLearningHere) і завершення через пауза-екран (pauseFinish)
+    // усі ведуть сюди. Раніше clearState()/addToLearned() викликались лише при
+    // allDone===true — дострокове завершення лишало STATE_KEY активним, і застаріла
+    // сесія спливала як resume-banner ще до 24г навіть після подальшої активності.
+    // Тепер стан завжди чиститься тут, а в Learned потрапляє реально пройдена
+    // кількість блоків (blocksReached), а не весь текст.
+    clearState();
+    addToLearned(currentRawText || document.getElementById('userText').value.trim(), blocksReached);
+    document.getElementById('finalTitle').innerText = allDone ? t.finish_all_title : t.finish_title;
     document.getElementById('finalBlocks').innerText = `${blocksReached} ${t.finish_blocks}`;
     document.getElementById('finalTime').innerText = `${t.finish_time}: ${timeStr}`;
     document.getElementById('finalRestartBtn').innerText = t.finish_restart;
