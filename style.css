@@ -2760,14 +2760,18 @@ body[data-theme="dark"] .bottom-nav-item.active { color: #818cf8; background: rg
 
 /* Місце під плаваючий бар знизу картки + піднімаємо theme/support FAB (і підказку-бульбашку
    підтримки) над ним, щоб не накладались (FAB — position:fixed bottom:24px, бульбашка —
-   bottom:78px, бар — bottom:18px; усі підняті пропорційно, з запасом, коли бар видимий). */
+   bottom:78px, бар — bottom:18px; усі підняті пропорційно, з запасом, коли бар видимий).
+   FB-23 (2026-08-09): --nav-fab-offset рахується в JS (syncNavFabOffset, app.js) з реальної
+   висоти #bottomNav замість фіксованого 96px — інакше масштабування шрифту ОС може розтягнути
+   бар по висоті понад буфер і звести його з FAB. 96px — фолбек, поки JS ще не виставив змінну
+   (наприклад, якщо !important-стилі чи старий кеш прибрали виклик). */
 body.nav-visible .card { padding-bottom: 132px; }
 body.nav-visible .theme-toggle-fab,
 body.nav-visible .support-fab-wrap {
-  bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(var(--nav-fab-offset, 96px) + env(safe-area-inset-bottom, 0px));
 }
 body.nav-visible .support-hint-bubble {
-  bottom: calc(160px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(var(--nav-fab-offset, 96px) + 64px + env(safe-area-inset-bottom, 0px));
 }
 
 /* ===== WORD TRAINING ===== */
@@ -2829,29 +2833,6 @@ body[data-theme="dark"] .wt-type-badge {
 .wt-tf-eq { font-size: 1rem; font-weight: 400; color: #999; margin: 2px 0; }
 .wt-tf-trans { font-size: 1.5rem; color: var(--primary); }
 body[data-theme="dark"] .wt-tf-eq { color: #4a5568; }
-.wt-colloc-blank {
-  display: inline-block;
-  min-width: 60px;
-  border-bottom: 2.5px solid var(--primary);
-  color: var(--primary);
-}
-/* FB-03 (2026-08-07): 3 короткі фрази одночасно замість 1 — рендериться
-   всередині #wtQuestion (font-size 1.45rem/weight 800 успадкувались би без
-   явного оверрайду тут), тому .wt-colloc-line свідомо менший і легший, щоб
-   3 рядки читались як список, а не як 3 "заголовки". Перевірено на 375px —
-   3 рядки типової довжини вміщуються без горизонтального скролу.  */
-.wt-colloc-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  text-align: center;
-}
-.wt-colloc-line {
-  font-size: 1.02rem;
-  font-weight: 600;
-  line-height: 1.4;
-  word-break: break-word;
-}
 .wt-listen-area { margin-bottom: 16px; }
 .wt-listen-grid {
   display: grid;

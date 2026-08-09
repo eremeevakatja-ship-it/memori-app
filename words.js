@@ -214,12 +214,6 @@ function showWordVerifyScreen() {
     renderWordChips();
 }
 
-// FB-20 (2026-08-08): частина мови (pair.pos) — раніше треба було виставляти
-// вручну (FB-16 inline-select), щоб вправа "🧩 Фраза" з'явилась у черзі.
-// User: "не треба ніяка частина мови, це ми автоматично маємо давати" —
-// pos тепер визначається автоматично (detectPosForPairs, мережевий запит)
-// у момент старту тренування, без будь-якого ручного вибору тут. Чіп більше
-// не показує/не питає pos взагалі.
 function renderWordChips() {
     const t = translations[currentLang];
     const noTransLabel = t.wv_no_trans || '+ переклад';
@@ -447,9 +441,6 @@ function editWordChip(index) {
     });
 }
 
-// FB-20: pos більше не читається з UI тут — зберігаємо будь-яке вже
-// авто-визначене pair.pos (могло з'явитись, якщо ці слова вже колись
-// тренували) замість повної заміни об'єкта, яка раніше його б стерла.
 function saveWordChip(index) {
     const chip = document.getElementById('wchip-' + index);
     if (!chip) return;
@@ -747,9 +738,16 @@ function applyWtSavedProgress(set, saved) {
     // JSON.parse, а не ті самі референси, що в set.pairs. Прив'язуємо
     // назад до реальних об'єктів пар цього набору (за word+translation),
     // щоб masteryScore і надалі писався в правильне місце.
+    // FB-17: match/listen тримають КІЛЬКА пар в ex.pairs (масив), решта типів —
+    // одну в ex.pair. Код нижче раніше скрізь читав лише ex.pair.word, що падало
+    // (TypeError, ex.pair === undefined) для цих 2 типів при 24h-autoresume чи
+    // ручному "Продовжити" — знайдено QA під час тестування FB-15, не виправлено.
+    const rebind = p => set.pairs.find(sp => sp.word === p.word && sp.translation === p.translation) || p;
     wtQueue = saved.wtQueue.map(ex => {
-        const match = set.pairs.find(p => p.word === ex.pair.word && p.translation === ex.pair.translation);
-        return { ...ex, pair: match || ex.pair };
+        if (ex.type === 'match' || ex.type === 'listen') {
+            return Array.isArray(ex.pairs) ? { ...ex, pairs: ex.pairs.map(rebind) } : ex;
+        }
+        return { ...ex, pair: rebind(ex.pair) };
     });
     wtIndex = saved.wtIndex;
     wtCorrect = saved.wtCorrect || 0;
@@ -758,10 +756,15 @@ function applyWtSavedProgress(set, saved) {
     // Пари, чиї всі наявні на момент збереження вправи вже отримали
     // відповідь, вже підбили masteryScore ДО перезапуску (інкрементальне
     // збереження) — позначаємо їх settled, щоб updateWordMastery() не
-    // нарахувала той самий "чистий прохід" вдруге.
+    // нарахувала той самий "чистий прохід" вдруге. match/listen (ex.pairs,
+    // не ex.pair) свідомо пропускаються тут — точне повторення логіки
+    // "чистого проходу" для раундів з кількох слів живе лише в
+    // updateWordMastery(), не дублюємо тут; гірший випадок — той самий
+    // раунд рахується ще раз після resume, а не крах.
     wtSettledPairs = new Set();
     const byPair = new Map();
     wtQueue.forEach(ex => {
+        if (!ex.pair) return;
         if (!byPair.has(ex.pair)) byPair.set(ex.pair, []);
         byPair.get(ex.pair).push(ex);
     });
@@ -809,12 +812,9 @@ async function startWordTraining(set, returnScreenFn) {
 
     // Тип "Речення" доступний на будь-якому рівні — приклади підтягуємо
     // заздалегідь (мережевий запит на пару), інакше чергу нема з чого будувати.
-    // FB-20: те саме для частини мови (colloc) — обидва prefetch йдуть
-    // паралельно (Promise.all), не послідовно, щоб не подвоювати час очікування.
     showScreen('wordTrainingScreen');
     showWtLoading(t.wt_preparing || 'Готую вправи…');
-    const [, touchedPosPairs] = await Promise.all([prefetchSentenceExamples(valid), prefetchPosTags(valid)]);
-    persistPosChanges(set, touchedPosPairs);
+    await prefetchSentenceExamples(valid);
     hideWtLoading();
 
     wtQueue = buildWtQueue(valid, Infinity); // завжди повний прохід усіма типами вправ по кожному слову
@@ -872,85 +872,6 @@ async function prefetchSentenceExamples(pairs) {
 function hasSentenceExamples(pair) {
     const key = `${wordLangFrom}|${pair.word.trim().toLowerCase()}`;
     return !!(wtSentenceExamples[key] && wtSentenceExamples[key].length);
-}
-
-// ===== FB-20 (2026-08-08): авто-визначення частини мови для колокацій =====
-// Раніше pair.pos треба було виставляти вручну (FB-16 inline-select на чіпі) —
-// User: "не треба ніяка частина мови, це ми автоматично маємо давати такі
-// колокації". Той самий Google bilingual-dictionary ендпоінт (dt=bd), що вже
-// використовує fetchTranslationAlternatives — group[0] у відповіді несе
-// частину мови. Свідомо ЗАВЖДИ запитуємо з hl=en (host language): емпірично
-// саме hl (не tl) визначає МОВУ підпису частини мови в цьому неофіційному
-// API — підпис завжди англійський ("noun"/"verb"/"adjective"/...) незалежно
-// від мовної пари слова чи geo-локації користувача, тому мапиться на 3
-// категорії COLLOCATION_TEMPLATES без окремої 6-мовної таблиці підписів.
-// tl обирається лише щоб уникнути self-pair (sl===tl часто взагалі не
-// повертає dt=bd) — сама мова tl підпис не змінює.
-const posDetectCache = {}; // `${lang}|${word}` -> 'noun'|'verb'|'adj'|null (перевірено, нема відповідної категорії)
-
-async function fetchWordPos(word, lang) {
-    try {
-        const tl = lang === 'en' ? 'uk' : 'en';
-        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${encodeURIComponent(lang)}&tl=${tl}&hl=en&dt=t&dt=bd&q=${encodeURIComponent(word)}`;
-        const res = await fetch(url);
-        if (!res.ok) return null;
-        const data = await res.json();
-        const labels = (data?.[1] || []).map(g => (g?.[0] || '').toLowerCase());
-        if (labels.includes('noun')) return 'noun';
-        if (labels.includes('verb')) return 'verb';
-        if (labels.includes('adjective')) return 'adj';
-        return null; // adverb/pronoun/preposition/... — жодна з 3 категорій, колокації просто не з'являться для цього слова
-    } catch {
-        return null;
-    }
-}
-
-// Пропускає пари, де pos вже є (зокрема раніше визначений і збережений —
-// не перезапитувати щосесії) — повертає лише ЩОЙНО визначені пари, щоб
-// викликач знав, що саме потрібно зберегти назад у localStorage.
-async function prefetchPosTags(pairs) {
-    const touched = [];
-    await Promise.all(pairs.map(async p => {
-        if (p.pos) return;
-        const key = `${wordLangFrom}|${p.word.trim().toLowerCase()}`;
-        if (!(key in posDetectCache)) {
-            posDetectCache[key] = await fetchWordPos(p.word, wordLangFrom);
-        }
-        const detected = posDetectCache[key];
-        if (detected) { p.pos = detected; touched.push(p); }
-    }));
-    return touched;
-}
-
-// Дзеркалить логіку updateWordMastery() для точкового збереження назад:
-// звичайний набір — цілий pairs-масив перезаписується (безпечно, бо це той
-// самий масив з мутованими pos), віртуальна сесія (FB-19, wselectSelection)
-// — кожна змінена пара пишеться в СВІЙ реальний набір-джерело через
-// __originMap, бо wtSet.pairs тут змішує кілька різних реальних наборів.
-function persistPosChanges(set, touchedPairs) {
-    if (!touchedPairs.length) return;
-    const sets = loadWordSets();
-    if (set.__virtual && set.__originMap) {
-        const dirty = new Set();
-        touchedPairs.forEach(pair => {
-            const origin = set.__originMap.get(pair);
-            if (!origin) return;
-            const setIdx = sets.findIndex(s => s.id === origin.setId);
-            if (setIdx < 0) return;
-            const byIdx = (sets[setIdx].pairs || [])[origin.idx];
-            const target = (byIdx && byIdx.word === pair.word && byIdx.translation === pair.translation)
-                ? byIdx
-                : (sets[setIdx].pairs || []).find(p => p.word === pair.word && p.translation === pair.translation);
-            if (target) { target.pos = pair.pos; dirty.add(origin.setId); }
-        });
-        if (dirty.size) saveWordSets(sets);
-        return;
-    }
-    const idx = sets.findIndex(s => s.id === set.id);
-    if (idx >= 0) {
-        sets[idx].pairs = set.pairs;
-        saveWordSets(sets);
-    }
 }
 
 // Груба евристика складності: сортуємо за довжиною (слів) і беремо
@@ -1050,86 +971,6 @@ function buildTrueFalseItem(pair, allPairs) {
     return { pair, type: 'truefalse', tfCorrect: false, tfShown: decoy.translation };
 }
 
-// ===== COLLOCATIONS (type: 'colloc') =====
-// User свідомо обрала варіант "без зовнішніх даних" (raніше пробували тягнути
-// приклади речень з Google Translate dt=ex для типу 'sentence' — вимкнено,
-// якість недостатня, див. коментар вище).
-//
-// v3 (FB-12, 2026-08-07) — виправлення реальної скарги User: v1/v2 templates
-// були ПОВНИМИ РЕЧЕННЯМИ ("I need ___.", "Do you have ___?"), розрахованими на
-// іменник-додаток. Слово підставлялось в базовій формі БЕЗ урахування частини
-// мови — для дієслів/прикметників/фраз речення ставали граматично
-// неможливими, тож вправу не можна було виконати правильно взагалі не через
-// помилку рендеру, а через саму механіку. User: потрібні саме КОЛОКАЦІЇ —
-// короткі фрази ("very ___", "want to ___"), що показують з якими
-// прикметниками/дієсловами/прийменниками слово функціонує, а не повні речення.
-//
-// Рішення: шаблони згруповані за частиною мови (noun/verb/adj) на кожну
-// мову, і саме коротка ФРАЗА (не речення) з пропуском — наприклад
-// noun: "need a ___", verb: "want to ___", adj: "very ___". Яку групу
-// використати, визначає `pair.pos` — від FB-20 (2026-08-08) визначається
-// АВТОМАТИЧНО (fetchWordPos/prefetchPosTags, мережевий запит перед стартом
-// тренування), без ручного вибору користувачем (раніше — FB-16 inline-select
-// на чіпі, прибраний). Якщо мережа недоступна/слово не в словнику Google —
-// `pos` лишається невизначеним і тип 'colloc' просто НЕ трапляється для цієї
-// пари цього разу (як і 'sentence' для пар без прикладів, див.
-// hasSentenceExamples/pairsForType вище) — той самий принцип graceful
-// degradation, без помилок і без порожньої вправи.
-//
-// Свідомо НЕ вирішено (як і в v1/v2): pair.word підставляється в БАЗОВІЙ формі
-// без відмінювання/узгодження роду/числа (напр. uk/pl "потрібен ___" вимагає
-// чоловічого роду, "a lot of ___" — множини) — фрази обрані так, щоб мінімум
-// половина категорії була граматично безпечною (adj-фрази найбезпечніші,
-// article-free noun-фрази де можливо), решта — прийнятий компроміс, той самий
-// принцип, що і в решті застосунку без бекенду/словника відмінків.
-const COLLOCATION_TEMPLATES = {
-    en: {
-        noun: ['need a ___', 'kind of ___', 'a lot of ___', 'talk about ___', 'think about ___', 'new ___'],
-        verb: ['want to ___', 'try to ___', 'start to ___', "can't ___", 'love to ___', 'never ___'],
-        adj: ['very ___', 'so ___', 'too ___', 'quite ___', 'really ___', 'not ___'],
-    },
-    uk: {
-        noun: ['потрібен ___', 'багато ___', 'говорити про ___', 'подумати про ___', 'новий ___', 'вид ___'],
-        verb: ['хочу ___', 'треба ___', 'спробувати ___', 'не можу ___', 'почати ___', 'люблю ___'],
-        adj: ['дуже ___', 'такий ___', 'зовсім не ___', 'справді ___', 'надто ___', 'досить ___'],
-    },
-    pl: {
-        noun: ['potrzebuję ___', 'dużo ___', 'mówić o ___', 'pomyśleć o ___', 'nowy ___', 'rodzaj ___'],
-        verb: ['chcę ___', 'trzeba ___', 'spróbować ___', 'nie mogę ___', 'zacząć ___', 'lubię ___'],
-        adj: ['bardzo ___', 'taki ___', 'wcale nie ___', 'naprawdę ___', 'zbyt ___', 'dość ___'],
-    },
-    de: {
-        noun: ['ich brauche ___', 'viel ___', 'reden über ___', 'denk an ___', 'Art von ___', 'zeig mir ___'],
-        verb: ['ich möchte ___', 'versuchen zu ___', 'anfangen zu ___', 'ich kann nicht ___', 'ich will ___', 'ich muss ___'],
-        adj: ['sehr ___', 'ganz ___', 'zu ___', 'wirklich ___', 'nicht ___', 'so ___'],
-    },
-    fr: {
-        noun: ["j'ai besoin de ___", 'beaucoup de ___', 'parler de ___', 'penser à ___', 'montre-moi ___', 'type de ___'],
-        verb: ['je veux ___', 'essayer de ___', 'commencer à ___', 'je ne peux pas ___', "j'aime ___", 'je dois ___'],
-        adj: ['très ___', 'trop ___', 'vraiment ___', 'pas ___', 'assez ___', 'si ___'],
-    },
-    es: {
-        noun: ['necesito ___', 'mucho ___', 'hablar de ___', 'pensar en ___', 'un tipo de ___', 'muéstrame ___'],
-        verb: ['quiero ___', 'intentar ___', 'empezar a ___', 'no puedo ___', 'me gusta ___', 'tengo que ___'],
-        adj: ['muy ___', 'demasiado ___', 'realmente ___', 'no ___', 'bastante ___', 'tan ___'],
-    },
-};
-
-// Пара має пройти цю перевірку, щоб тип 'colloc' взагалі трапився для неї
-// (див. pairsForType у buildWtQueue) — без pos шаблон обрати нема з чого.
-function hasCollocTemplates(pair) {
-    const langTemplates = COLLOCATION_TEMPLATES[wordLangFrom] || COLLOCATION_TEMPLATES.en;
-    const list = pair.pos && langTemplates[pair.pos];
-    return !!(list && list.length >= 3);
-}
-
-function buildCollocItem(pair) {
-    const langTemplates = COLLOCATION_TEMPLATES[wordLangFrom] || COLLOCATION_TEMPLATES.en;
-    const templates = (pair.pos && langTemplates[pair.pos]) || langTemplates.noun;
-    const shuffled = [...templates].sort(() => Math.random() - 0.5);
-    return { pair, type: 'colloc', collocTemplates: shuffled.slice(0, 3) };
-}
-
 function buildWtQueue(pairs, timeMinutes = Infinity) {
     const rnd = arr => [...arr].sort(() => Math.random() - 0.5);
     const hasSpeech = 'speechSynthesis' in window;
@@ -1146,15 +987,12 @@ function buildWtQueue(pairs, timeMinutes = Infinity) {
     // Час — єдине, що визначає РОЗМІР черги (менше часу = менше вправ).
     // 'sentence' тимчасово вимкнено — якість речень з Google Translate
     // недостатня; повернути, коли буде нормальна генерація (див. AI-бекенд)
-    const pool = ['w2t', 't2w', ttsWordOk ? 'audio' : null, 'spell', ttsWordOk ? 'dictation' : null, 'truefalse', 'colloc'].filter(Boolean);
+    const pool = ['w2t', 't2w', ttsWordOk ? 'audio' : null, 'spell', ttsWordOk ? 'dictation' : null, 'truefalse'].filter(Boolean);
 
-    // "sentence" доступний лише для пар з реально знайденими прикладами,
-    // "colloc" — лише для пар із вказаною частиною мови (pair.pos, див.
-    // hasCollocTemplates вище) — фільтруємо саме ці типи по конкретному
-    // раунду пар, інші типи без змін.
+    // "sentence" доступний лише для пар з реально знайденими прикладами —
+    // фільтруємо саме цей тип по конкретному раунду пар, інші типи без змін.
     const pairsForType = (type, list) =>
         type === 'sentence' ? list.filter(hasSentenceExamples) :
-        type === 'colloc' ? list.filter(hasCollocTemplates) :
         list;
 
     const q = [];
@@ -1162,7 +1000,6 @@ function buildWtQueue(pairs, timeMinutes = Infinity) {
         // Повний прохід — по одному раунду кожного розблокованого типу
         pool.forEach(type => pairsForType(type, rnd(pairs)).forEach(p => q.push(
             type === 'truefalse' ? buildTrueFalseItem(p, pairs) :
-            type === 'colloc' ? buildCollocItem(p) :
             { pair: p, type })));
         buildMatchRounds(pairs).forEach(group => q.push({
             type: 'match', pairs: group, pairResults: undefined, pairHadMistake: undefined,
@@ -1193,13 +1030,11 @@ function buildWtQueue(pairs, timeMinutes = Infinity) {
 // і так триває, поки не буде відповіді правильно.
 function requeueWtExercise(ex) {
     const insertAt = Math.min(wtIndex + 3, wtQueue.length);
-    // truefalse/colloc несуть дані поза pair/type (tfCorrect/tfShown,
-    // collocTemplate) — плейн {pair,type} загубив би їх.
+    // truefalse несе дані поза pair/type (tfCorrect/tfShown) — плейн
+    // {pair,type} загубив би їх.
     let item;
     if (ex.type === 'truefalse') {
         item = buildTrueFalseItem(ex.pair, wtSet.pairs.filter(p => p.word && p.translation));
-    } else if (ex.type === 'colloc') {
-        item = buildCollocItem(ex.pair);
     } else {
         item = { pair: ex.pair, type: ex.type };
     }
@@ -1236,7 +1071,6 @@ function renderWtExercise() {
         sentence: t.wt_type_sentence || '📝 Речення',
         match: t.wt_type_match || '🔗 Пари',
         truefalse: t.wt_type_truefalse || '✓✗ Правда чи ні',
-        colloc: t.wt_type_colloc || '🧩 Фраза',
         listen: t.wt_type_listen || '🎧 Слухай і познач',
     };
     document.getElementById('wtTypeBadge').innerText = badges[type] || type;
@@ -1293,28 +1127,6 @@ function renderWtExercise() {
         choicesEl.innerHTML =
             `<button class="wt-choice" data-correct="${tfEx.tfCorrect === true}" onclick="wtSelectChoice(this, ${tfEx.tfCorrect === true})">${escHtml(t.wt_true || '✓ Правда')}</button>` +
             `<button class="wt-choice" data-correct="${tfEx.tfCorrect === false}" onclick="wtSelectChoice(this, ${tfEx.tfCorrect === false})">${escHtml(t.wt_false || '✗ Неправда')}</button>`;
-        return;
-    }
-
-    if (type === 'colloc') {
-        const collocEx = wtQueue[wtIndex];
-        audioWrap.style.display = 'none';
-        typeArea.style.display = 'none';
-        choicesEl.style.display = 'grid';
-        // collocTemplates — новий формат (масив 3 шаблонів, FB-03 2026-08-07).
-        // collocTemplate (однина) — фолбек для прогресу, збереженого ДО цієї
-        // зміни (applyWtSavedProgress відновлює вправу з localStorage як є).
-        const templates = collocEx.collocTemplates || (collocEx.collocTemplate ? [collocEx.collocTemplate] : []);
-        qEl.innerHTML = `<div class="wt-colloc-list">` + templates.map(tpl =>
-            `<div class="wt-colloc-line">${escHtml(tpl).replace('___', '<span class="wt-colloc-blank">___</span>')}</div>`
-        ).join('') + `</div>`;
-        // "до 3" — вимога User: максимум 1 правильне + 2 дистрактори, незалежно від розміру набору
-        const distractors = getWtDistractors(pair, validPairs, 't2w', Math.min(2, choiceCount - 1));
-        const choices = [pair.word, ...distractors].sort(() => Math.random() - 0.5);
-        choicesEl.className = 'wt-choices' + (choices.length === 2 ? ' wt-choices-col1' : '');
-        choicesEl.innerHTML = choices.map(ch =>
-            `<button class="wt-choice" data-correct="${ch === pair.word}" onclick="wtSelectChoice(this, ${ch === pair.word})">${escHtml(ch)}</button>`
-        ).join('');
         return;
     }
 
@@ -1975,7 +1787,7 @@ function showWordResults() {
     // один блок у Text Mode — це один смисловий шматок контенту, який студент
     // вивчив, а не кожен окремий повтор/прохід по ньому. Аналогічно тут —
     // одиниця вивченого контенту це слово, а не одна з ~5-9 вправ-форматів
-    // (w2t/t2w/audio/spell/dictation/truefalse/colloc/match/listen), якими це
+    // (w2t/t2w/audio/spell/dictation/truefalse/match/listen), якими це
     // саме слово практикується в одному повному проході. Рахувати wtQueue.length
     // напряму завищило б "блоки" в рази порівняно з Text Mode й спотворило б
     // сенс лічильника на statsBar. updateStats() сама виходить рано, якщо N<=0.
@@ -2068,8 +1880,19 @@ function renderWordDictionary() {
         });
     });
 
+    // FB-19 (переїхало з progressContent за вказівкою User, 2026-08-09: вибір
+    // слів на тренування — дія над бібліотекою слів, а не над прогресом) —
+    // точка входу до вибору окремих слів (з одного чи кількох наборів) для
+    // тренування, замість завжди цілого набору. profileReturnFn — той самий
+    // слот, яким openWordProfile відкрили цей екран, щоб "Назад" з вибору слів
+    // повертав саме сюди (Бібліотека), а не на wordLangScreen напряму.
+    const hasSelectableWords = sets.some(s => (s.pairs || []).some(p => p.word && p.translation));
+    const selectBtn = hasSelectableWords
+        ? `<button class="btn-profile-select-words" onclick="openWordSelectScreen(() => openWordProfile(profileReturnFn))">${t.profile_select_words || '🎯 Обрати слова'}</button>`
+        : '';
+
     if (!mastered.length && !review.length && !unlearned.length) {
-        container.innerHTML = `<p class="profile-empty">${t.profile_empty_words || 'Ще немає збережених наборів слів'}</p>`;
+        container.innerHTML = selectBtn + `<p class="profile-empty">${t.profile_empty_words || 'Ще немає збережених наборів слів'}</p>`;
         return;
     }
 
@@ -2088,7 +1911,7 @@ function renderWordDictionary() {
         <div class="word-dict-group-rows">${rows.map(renderRow).join('')}</div>
       </div>` : '';
 
-    container.innerHTML =
+    container.innerHTML = selectBtn +
         renderGroup(t.wdict_mastered || 'Вивчені', mastered) +
         renderGroup(t.wdict_review || 'На повторення', review) +
         renderGroup(t.wdict_unlearned || 'Не вивчені', unlearned);
@@ -2108,14 +1931,7 @@ function renderWordProfileList(containerId) {
         container.innerHTML = `<p class="profile-empty">${t.profile_empty_words || 'Ще немає збережених наборів слів'}</p>`;
         return;
     }
-    // FB-19: точка входу до вибору окремих слів (з одного чи кількох наборів) для
-    // тренування, замість завжди цілого набору — showWordLangScreen лишається
-    // returnFn для "Назад", той самий hub, з якого сюди потрапляють.
-    const hasSelectableWords = sets.some(s => (s.pairs || []).some(p => p.word && p.translation));
-    const selectBtn = hasSelectableWords
-        ? `<button class="btn-profile-select-words" onclick="openWordSelectScreen(() => showProgressScreen(showWordLangScreen))">${t.profile_select_words || '🎯 Обрати слова'}</button>`
-        : '';
-    container.innerHTML = selectBtn + sets.map(set => {
+    container.innerHTML = sets.map(set => {
         const total = (set.pairs || []).length;
         const mastered = (set.pairs || []).filter(p => (p.masteryScore || 0) >= WT_MASTERY_THRESHOLD).length;
         const review = total - mastered;

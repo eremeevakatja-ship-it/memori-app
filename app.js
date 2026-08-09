@@ -180,9 +180,7 @@ const translations = {
         wt_correct: '✓ Правильно!', wt_wrong: 'Упс, спробуйте ще раз',
         wt_save_word: 'Зберегти', wt_skip: 'Пропустити', wt_finish: 'Завершити',
         wt_type_spell: '✏️ Напиши', wt_type_dictation: '🎧 Диктант', wt_type_sentence: '📝 Речення',
-        wt_type_match: '🔗 Пари', wt_type_truefalse: '✓✗ Правда чи ні', wt_type_colloc: '🧩 Фраза', wt_type_listen: '🎧 Слухай і познач',
-        wv_pos_hint: 'Частина мови — потрібна для вправи «Фраза» (колокації)', wv_pos_none: '—',
-        wv_pos_noun: 'іменник', wv_pos_verb: 'дієслово', wv_pos_adj: 'прикметник',
+        wt_type_match: '🔗 Пари', wt_type_truefalse: '✓✗ Правда чи ні', wt_type_listen: '🎧 Слухай і познач',
         wt_match_prompt: 'Знайдіть пари: слово — переклад', wt_match_mistakes: 'Готово, але були помилки',
         wt_true: '✓ Правда', wt_false: '✗ Неправда',
         wt_listen_pick_prompt: 'Прослухайте і відмітьте слова, які прозвучали',
@@ -367,9 +365,7 @@ const translations = {
         wt_correct: '✓ Correct!', wt_wrong: 'Oops, try again',
         wt_save_word: 'Save word', wt_skip: 'Skip', wt_finish: 'Finish',
         wt_type_spell: '✏️ Spell it', wt_type_dictation: '🎧 Dictation', wt_type_sentence: '📝 Sentence',
-        wt_type_match: '🔗 Match', wt_type_truefalse: '✓✗ True or false', wt_type_colloc: '🧩 Phrase', wt_type_listen: '🎧 Listen & pick',
-        wv_pos_hint: 'Part of speech — needed for the "Phrase" exercise (collocations)', wv_pos_none: '—',
-        wv_pos_noun: 'noun', wv_pos_verb: 'verb', wv_pos_adj: 'adjective',
+        wt_type_match: '🔗 Match', wt_type_truefalse: '✓✗ True or false', wt_type_listen: '🎧 Listen & pick',
         wt_match_prompt: 'Match the words with their translations', wt_match_mistakes: 'Done, but with some mistakes',
         wt_true: '✓ True', wt_false: '✗ False',
         wt_listen_pick_prompt: 'Listen and mark the words you heard',
@@ -554,9 +550,7 @@ const translations = {
         wt_correct: '✓ Dobrze!', wt_wrong: 'Ups, spróbuj jeszcze raz',
         wt_save_word: 'Zapisz słowo', wt_skip: 'Pomiń', wt_finish: 'Zakończ',
         wt_type_spell: '✏️ Napisz', wt_type_dictation: '🎧 Dyktando', wt_type_sentence: '📝 Zdanie',
-        wt_type_match: '🔗 Pary', wt_type_truefalse: '✓✗ Prawda czy fałsz', wt_type_colloc: '🧩 Fraza', wt_type_listen: '🎧 Słuchaj i zaznacz',
-        wv_pos_hint: 'Część mowy — potrzebna do ćwiczenia „Fraza” (kolokacje)', wv_pos_none: '—',
-        wv_pos_noun: 'rzeczownik', wv_pos_verb: 'czasownik', wv_pos_adj: 'przymiotnik',
+        wt_type_match: '🔗 Pary', wt_type_truefalse: '✓✗ Prawda czy fałsz', wt_type_listen: '🎧 Słuchaj i zaznacz',
         wt_match_prompt: 'Dopasuj słowa do tłumaczeń', wt_match_mistakes: 'Gotowe, ale były błędy',
         wt_true: '✓ Prawda', wt_false: '✗ Fałsz',
         wt_listen_pick_prompt: 'Posłuchaj i zaznacz słowa, które usłyszałeś',
@@ -741,9 +735,7 @@ const translations = {
         wt_correct: '✓ Richtig!', wt_wrong: 'Ups, versuch es nochmal',
         wt_save_word: 'Wort merken', wt_skip: 'Überspringen', wt_finish: 'Beenden',
         wt_type_spell: '✏️ Schreiben', wt_type_dictation: '🎧 Diktat', wt_type_sentence: '📝 Satz',
-        wt_type_match: '🔗 Paare', wt_type_truefalse: '✓✗ Wahr oder falsch', wt_type_colloc: '🧩 Phrase', wt_type_listen: '🎧 Hören & markieren',
-        wv_pos_hint: 'Wortart — nötig für die Übung „Phrase“ (Kollokationen)', wv_pos_none: '—',
-        wv_pos_noun: 'Substantiv', wv_pos_verb: 'Verb', wv_pos_adj: 'Adjektiv',
+        wt_type_match: '🔗 Paare', wt_type_truefalse: '✓✗ Wahr oder falsch', wt_type_listen: '🎧 Hören & markieren',
         wt_match_prompt: 'Ordne die Wörter ihren Übersetzungen zu', wt_match_mistakes: 'Fertig, aber mit Fehlern',
         wt_true: '✓ Wahr', wt_false: '✗ Falsch',
         wt_listen_pick_prompt: 'Hör zu und markiere die Wörter, die du gehört hast',
@@ -928,9 +920,7 @@ const translations = {
         wt_correct: '✓ Correct !', wt_wrong: 'Oups, réessaie',
         wt_save_word: 'Garder le mot', wt_skip: 'Ignorer', wt_finish: 'Terminer',
         wt_type_spell: '✏️ Écrire', wt_type_dictation: '🎧 Dictée', wt_type_sentence: '📝 Phrase',
-        wt_type_match: '🔗 Paires', wt_type_truefalse: '✓✗ Vrai ou faux', wt_type_colloc: '🧩 Expression', wt_type_listen: '🎧 Écoute et coche',
-        wv_pos_hint: "Nature du mot — nécessaire pour l'exercice « Expression » (collocations)", wv_pos_none: '—',
-        wv_pos_noun: 'nom', wv_pos_verb: 'verbe', wv_pos_adj: 'adjectif',
+        wt_type_match: '🔗 Paires', wt_type_truefalse: '✓✗ Vrai ou faux', wt_type_listen: '🎧 Écoute et coche',
         wt_match_prompt: 'Associez les mots à leur traduction', wt_match_mistakes: 'Terminé, mais avec des erreurs',
         wt_true: '✓ Vrai', wt_false: '✗ Faux',
         wt_listen_pick_prompt: 'Écoutez et cochez les mots que vous avez entendus',
@@ -1115,9 +1105,7 @@ const translations = {
         wt_correct: '✓ ¡Correcto!', wt_wrong: 'Ups, inténtalo de nuevo',
         wt_save_word: 'Guardar palabra', wt_skip: 'Omitir', wt_finish: 'Terminar',
         wt_type_spell: '✏️ Escribir', wt_type_dictation: '🎧 Dictado', wt_type_sentence: '📝 Frase',
-        wt_type_match: '🔗 Parejas', wt_type_truefalse: '✓✗ Verdadero o falso', wt_type_colloc: '🧩 Expresión', wt_type_listen: '🎧 Escucha y marca',
-        wv_pos_hint: 'Categoría gramatical — necesaria para el ejercicio "Expresión" (colocaciones)', wv_pos_none: '—',
-        wv_pos_noun: 'sustantivo', wv_pos_verb: 'verbo', wv_pos_adj: 'adjetivo',
+        wt_type_match: '🔗 Parejas', wt_type_truefalse: '✓✗ Verdadero o falso', wt_type_listen: '🎧 Escucha y marca',
         wt_match_prompt: 'Empareja las palabras con su traducción', wt_match_mistakes: 'Listo, pero con errores',
         wt_true: '✓ Verdadero', wt_false: '✗ Falso',
         wt_listen_pick_prompt: 'Escucha y marca las palabras que oíste',
@@ -1271,7 +1259,31 @@ function updateBottomNavVisibility(id) {
     const show = BOTTOM_NAV_SCREENS.includes(id);
     nav.style.display = show ? 'flex' : 'none';
     document.body.classList.toggle('nav-visible', show);
+    if (show) syncNavFabOffset();
 }
+
+// FB-23 (2026-08-09): буфер під FAB/бульбашку підтримки раніше був фіксованим
+// 96px, розрахованим на припущену висоту бару ~59.6px (1 рядок тексту). User
+// повідомила, що нав-бар все одно перекриває кнопку підтримки — ймовірна
+// причина: масштабування шрифту ОС (accessibility "більший текст") розтягує
+// `.bottom-nav-item` по висоті понад цей запас, і фіксований буфер його не
+// наздоганяє. Тепер висота бару читається напряму з DOM (offsetHeight) замість
+// припущення, тож FAB завжди підіймається рівно на nav-висота+18px, незалежно
+// від масштабу шрифту, довжини перекладу мітки чи розміру екрана.
+function syncNavFabOffset() {
+    const nav = document.getElementById('bottomNav');
+    if (!nav) return;
+    // 18px — власний відступ бару від низу екрана (.bottom-nav bottom:18px), ще
+    // 18px — видимий проміжок понад верхній край бару. Разом: FAB підіймається
+    // на nav.offsetHeight + 36px від низу екрана.
+    const navBottomOffset = 18;
+    const visibleGap = 18;
+    document.documentElement.style.setProperty('--nav-fab-offset', (nav.offsetHeight + navBottomOffset + visibleGap) + 'px');
+}
+
+window.addEventListener('resize', () => {
+    if (document.body.classList.contains('nav-visible')) syncNavFabOffset();
+});
 
 function setBottomNav(context, tab) {
     navContext = context;

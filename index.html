@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=89" />
+    <link rel="stylesheet" href="style.css?v=91" />
   </head>
   <body>
     <div class="container">
@@ -445,7 +445,8 @@
 
         <!-- Word Select Screen — FB-19: обрати конкретні слова (з одного чи кількох наборів
              ОДНІЄЇ мовної пари) для тренування, замість завжди цілого набору. Відкривається
-             з "🎯 Обрати слова" на progressContent (Words-контекст, renderWordProfileList). -->
+             з "🎯 Обрати слова" на wordDictionaryContent (Words-контекст, Бібліотека,
+             renderWordDictionary) — переїхало з progressContent за вказівкою User, 2026-08-09. -->
         <div id="wordSelectScreen" style="display:none;">
           <div class="input-topbar">
             <button onclick="closeWordSelectScreen()" class="btn-back">
@@ -802,8 +803,8 @@
     <script src="state.js?v=8"></script>
     <script src="audio.js?v=2"></script>
     <script src="learning.js?v=11"></script>
-    <script src="words.js?v=15"></script>
-    <script src="app.js?v=103"></script>
+    <script src="words.js?v=17"></script>
+    <script src="app.js?v=105"></script>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});
