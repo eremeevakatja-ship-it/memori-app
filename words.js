@@ -826,6 +826,11 @@ async function startWordTraining(set, returnScreenFn) {
     clearWtProgress();
     showScreen('wordTrainingScreen');
     renderWtExercise();
+    // Той самий пробіл, що і в startLearning() (Text Mode, QA 2026-08-09):
+    // saveWtProgress() раніше викликався лише ПІСЛЯ першої відповіді — закриття
+    // вкладки на першій вправі (жодної відповіді ще не дано) не залишало
+    // прогресу в localStorage, 24h-resume не міг спрацювати взагалі.
+    saveWtProgress();
 }
 
 function showWtLoading(text) {
@@ -2164,6 +2169,7 @@ function startQuickRound(set) {
     clearWtProgress();
     showScreen('wordTrainingScreen');
     renderWtExercise();
+    saveWtProgress(); // те саме, що і в startWordTraining() вище — див. коментар там
 }
 
 function profileDeleteWordSet(id) {

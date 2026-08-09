@@ -183,6 +183,12 @@ function startLearning() {
     showScreen('learningScreen');
     if (btn) btn.disabled = false;
     showStep();
+    // QA-знахідка 2026-08-09: saveState() раніше викликався лише ПІСЛЯ першого
+    // завершеного кроку (currentStepIndex++) або на явний вихід (Назад/Дім).
+    // Закриття вкладки на самому першому блоці (жодної відповіді ще не дано)
+    // не залишало жодного стану в localStorage — resume-банер не міг з'явитись
+    // взагалі, весь вставлений текст губився без жодного способу повернутись.
+    saveState();
 }
 
 function generateQueue() {
