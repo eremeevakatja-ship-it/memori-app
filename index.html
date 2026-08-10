@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=92" />
+    <link rel="stylesheet" href="style.css?v=93" />
   </head>
   <body>
     <div class="container">
@@ -145,9 +145,6 @@
                 <button type="button" id="ocrBtn" onclick="triggerOCR()" class="btn-ocr">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
                   <span id="ocrBtnLabel">Файл</span>
-                </button>
-                <button type="button" id="saveToPlannedBtn" onclick="saveToLibrary()" class="btn-save-planned" title="">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
                 </button>
               </div>
             </div>
@@ -800,11 +797,11 @@
     </div>
 
 
-    <script src="state.js?v=8"></script>
+    <script src="state.js?v=9"></script>
     <script src="audio.js?v=2"></script>
     <script src="learning.js?v=12"></script>
-    <script src="words.js?v=18"></script>
-    <script src="app.js?v=105"></script>
+    <script src="words.js?v=19"></script>
+    <script src="app.js?v=107"></script>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});

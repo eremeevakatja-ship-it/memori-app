@@ -2714,18 +2714,21 @@ body[data-theme="dark"] .screen-subtitle { color: #64748b; }
    Видима лише на hub/профіль-екранах — BOTTOM_NAV_SCREENS в app.js. */
 .bottom-nav {
   position: fixed;
-  left: 50%;
-  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 440px;
   display: flex;
   gap: 2px;
   background: var(--card-bg);
   border: 1.5px solid var(--border);
-  border-radius: 20px;
-  box-shadow: 0 10px 30px -8px rgba(15,42,30,0.25), 0 2px 8px rgba(15,42,30,0.08);
-  padding: 6px;
+  border-bottom: none;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -10px 30px -8px rgba(15,42,30,0.25), 0 -2px 8px rgba(15,42,30,0.08);
+  padding: 6px 6px calc(6px + env(safe-area-inset-bottom, 0px)) 6px;
   z-index: 9998;
-  max-width: calc(100vw - 24px);
 }
 .bottom-nav-item {
   display: flex;
@@ -2733,16 +2736,16 @@ body[data-theme="dark"] .screen-subtitle { color: #64748b; }
   align-items: center;
   justify-content: center;
   gap: 3px;
-  min-width: 64px;
+  flex: 1;
+  min-width: 0;
   min-height: 46px;
-  padding: 6px 12px;
+  padding: 6px 4px;
   border: none;
   background: transparent;
   border-radius: 14px;
   color: #999;
   cursor: pointer;
   margin: 0;
-  width: auto;
   font-size: 0.65rem;
   font-weight: 600;
   white-space: nowrap;
@@ -2762,9 +2765,9 @@ body[data-theme="dark"] .bottom-nav {
 body[data-theme="dark"] .bottom-nav-item { color: #4a5568; }
 body[data-theme="dark"] .bottom-nav-item.active { color: #818cf8; background: rgba(129,140,248,0.15); }
 
-/* Місце під плаваючий бар знизу картки + піднімаємо theme/support FAB (і підказку-бульбашку
+/* Місце під full-width бар знизу картки + піднімаємо theme/support FAB (і підказку-бульбашку
    підтримки) над ним, щоб не накладались (FAB — position:fixed bottom:24px, бульбашка —
-   bottom:78px, бар — bottom:18px; усі підняті пропорційно, з запасом, коли бар видимий).
+   bottom:78px, бар — bottom:0, full-width; усі підняті пропорційно, з запасом, коли бар видимий).
    FB-23 (2026-08-09): --nav-fab-offset рахується в JS (syncNavFabOffset, app.js) з реальної
    висоти #bottomNav замість фіксованого 96px — інакше масштабування шрифту ОС може розтягнути
    бар по висоті понад буфер і звести його з FAB. 96px — фолбек, поки JS ще не виставив змінну

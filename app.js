@@ -1273,10 +1273,10 @@ function updateBottomNavVisibility(id) {
 function syncNavFabOffset() {
     const nav = document.getElementById('bottomNav');
     if (!nav) return;
-    // 18px — власний відступ бару від низу екрана (.bottom-nav bottom:18px), ще
-    // 18px — видимий проміжок понад верхній край бару. Разом: FAB підіймається
-    // на nav.offsetHeight + 36px від низу екрана.
-    const navBottomOffset = 18;
+    // Бар тепер full-width і впритул до низу екрана (.bottom-nav bottom:0),
+    // тому власного відступу немає — лише видимий проміжок над верхнім краєм бару.
+    // Разом: FAB підіймається на nav.offsetHeight + 18px від низу екрана.
+    const navBottomOffset = 0;
     const visibleGap = 18;
     document.documentElement.style.setProperty('--nav-fab-offset', (nav.offsetHeight + navBottomOffset + visibleGap) + 'px');
 }
@@ -1375,8 +1375,6 @@ function showInputScreen() {
     const savedOcrLang = localStorage.getItem('memori_ocr_lang_pref');
     document.getElementById('ocrLang').value = savedOcrLang || tessLang[currentLang] || 'eng';
     document.getElementById('userText').placeholder = t.text_placeholder;
-    const savePlannedBtn = document.getElementById('saveToPlannedBtn');
-    if (savePlannedBtn) savePlannedBtn.title = t.library_save;
     document.getElementById('inputLabel').innerText = t.inputLabel;
     const nextBtn = document.getElementById('nextToSetupBtn');
     if (nextBtn) nextBtn.innerText = (t.nextBtn || 'Далі') + ' →';
@@ -1402,6 +1400,7 @@ function goToSetup() {
         return;
     }
     clearValidation();
+    saveToLibrary(text);
     showSetupScreen();
 }
 

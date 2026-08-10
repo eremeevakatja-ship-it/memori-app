@@ -158,23 +158,17 @@ function parseWordPairs(rawText) {
         if (m) { result.push({ word: m[1].trim(), translation: m[2].trim() }); continue; }
         m = seg.match(/^(.+?)\t(.+)$/);
         if (m) { result.push({ word: m[1].trim(), translation: m[2].trim() }); continue; }
-        // 3+ пробіл-розділених токенів без роздільника: якщо одна мова —
-        // це просто список окремих слів; якщо дві мови — межа скриптів
-        // відділяє слово від (можливо багатослівного) перекладу
-        const tokens = seg.split(/\s+/).filter(Boolean);
-        if (tokens.length >= 3) {
-            const hasCyr = /[а-яА-ЯіІїЇєЄ'ʼ]/.test(seg);
-            const hasLat = /[a-zA-Z]/.test(seg);
-            if (hasCyr && hasLat) {
-                const bnd = findWordBoundary(seg);
-                result.push({ word: seg.slice(0, bnd).trim(), translation: seg.slice(bnd).trim() || null });
-            } else {
-                tokens.forEach(w => result.push({ word: w, translation: null }));
-            }
+        // Без явного роздільника: якщо рядок змішує два скрипти (напр. кирилиця+латиниця) —
+        // це слово+переклад, межа скриптів їх розділяє. Інакше — це фраза/ідіома/фразове
+        // дієслово в одній мові (напр. "to give up", "look after"), рядок лишається ОДНИМ
+        // словом-фразою без перекладу, а не розбивається на окремі токени.
+        const hasCyr = /[а-яА-ЯіІїЇєЄ'ʼ]/.test(seg);
+        const hasLat = /[a-zA-Z]/.test(seg);
+        if (hasCyr && hasLat) {
+            const bnd = findWordBoundary(seg);
+            result.push({ word: seg.slice(0, bnd).trim(), translation: seg.slice(bnd).trim() || null });
             continue;
         }
-        m = seg.match(/^(\S+)\s+(.+)$/);
-        if (m) { result.push({ word: m[1].trim(), translation: m[2].trim() }); continue; }
         result.push({ word: seg.trim(), translation: null });
     }
 

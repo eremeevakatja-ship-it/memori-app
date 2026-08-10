@@ -228,34 +228,17 @@ function renderAudioSpeedRow() {
     ).join('');
 }
 
-function saveToLibrary() {
-    const text = document.getElementById('userText').value.trim();
-    const t = translations[currentLang];
-    const btn = document.getElementById('saveToPlannedBtn');
-    if (!btn || text.length < 10) return;
-
+// 2026-08-10: раніше зберігав текст у Бібліотеку лише по кліку на окрему кнопку
+// (прибрана — незрозуміла функція для User). Тепер викликається автоматично
+// з goToSetup() при переході від вводу тексту до налаштувань — без кнопки,
+// без тосту, без очищення textarea (текст ще потрібен на екрані налаштувань).
+function saveToLibrary(text) {
+    if (!text || text.length < 10) return;
     const lib = loadLibrary();
-    if (lib.find(e => e.text === text)) {
-        btn.title = t.library_duplicate;
-        btn.style.color = 'var(--primary)';
-        setTimeout(() => { btn.style.color = ''; btn.title = t.library_save; }, 1800);
-        return;
-    }
+    if (lib.find(e => e.text === text)) return;
     lib.unshift({ id: Date.now() + '-' + Math.random().toString(36).slice(2, 8), title: text.replace(/\n/g, ' ').slice(0, 70), text, savedAt: Date.now() });
     if (lib.length > MAX_LIBRARY) lib.pop();
     saveLibrary(lib);
-    // Очистити textarea одразу після збереження — інакше наступний вставлений
-    // текст лишається змішаним зі старим (курсор/значення нікуди не ділись).
-    document.getElementById('userText').value = '';
-    clearValidation();
-    // Visual feedback — bookmark fills green briefly
-    btn.style.color = 'var(--primary)';
-    btn.querySelector('svg').setAttribute('fill', 'currentColor');
-    setTimeout(() => {
-        btn.style.color = '';
-        btn.querySelector('svg').setAttribute('fill', 'none');
-        btn.title = t.library_save;
-    }, 1800);
 }
 
 // ===== LEARNED TEXTS =====
