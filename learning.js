@@ -845,15 +845,20 @@ function showFinal() {
     // блок отримує рівно один 'new'-крок), тому це нічого не міняє для існуючого
     // фінального екрану — лише виправляє неточність для раннього виходу.
     const blocksReached = allDone ? blocks.length : Math.min(newBlocksShownInSession, blocks.length);
-    // FB-21: showFinal() завжди означає "сесія закінчена" — природне проходження,
-    // "Завершити тут" (finishLearningHere) і завершення через пауза-екран (pauseFinish)
-    // усі ведуть сюди. Раніше clearState()/addToLearned() викликались лише при
-    // allDone===true — дострокове завершення лишало STATE_KEY активним, і застаріла
-    // сесія спливала як resume-banner ще до 24г навіть після подальшої активності.
-    // Тепер стан завжди чиститься тут, а в Learned потрапляє реально пройдена
-    // кількість блоків (blocksReached), а не весь текст.
+    // FB-21 (2026-08-08) зробив clearState() безумовним, щоб застаріла сесія не
+    // спливала resume-банером ще до 24г після дострокового виходу — це лишається
+    // правильним і тут не чіпається. Але FB-21 заразом зробив addToLearned() теж
+    // безумовним, що виявилось окремою помилкою (FB-34, 2026-08-11, User): "Завершити
+    // тут" на 1-2 блоках з нового тексту миттєво архівував його як "Вивчено" з
+    // фейковим blockCount — текст зникав із "В роботі"/"Плани" (Прогрес) і з'являвся
+    // в Бібліотеці як нібито завершений, хоча користувач лише призупинив навчання.
+    // Виправлення: addToLearned() — лише при allDone===true (справжнє природне
+    // завершення). При достроковому виході текст лишається в "Плани" (він уже там —
+    // saveToLibrary() при goToSetup) як незавершений, доступний для повторного
+    // відкриття; STATE_KEY все одно чиститься, тож нав'язливий resume-банер
+    // (проблема FB-21) не повертається.
     clearState();
-    addToLearned(currentRawText || document.getElementById('userText').value.trim(), blocksReached);
+    if (allDone) addToLearned(currentRawText || document.getElementById('userText').value.trim(), blocksReached);
     document.getElementById('finalTitle').innerText = allDone ? t.finish_all_title : t.finish_title;
     document.getElementById('finalBlocks').innerText = `${blocksReached} ${t.finish_blocks}`;
     document.getElementById('finalTime').innerText = `${t.finish_time}: ${timeStr}`;

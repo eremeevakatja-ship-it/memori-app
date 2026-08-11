@@ -31,6 +31,7 @@ const TTS_VERIFIED_LANGS = ['en', 'de'];
 
 // ----- [W4 Words Mode screens flow + translation fetching]  (was app.js lines 3681-4256) -----
 function showWordLangScreen() {
+    editingSetId = null; // FB-35: звичайний старт створення набору — не редагування
     const t = translations[currentLang];
     showScreen('wordLangScreen');
     updateProfileNavAvatar();
@@ -191,6 +192,24 @@ function goWordInputNext() {
         errEl.style.display = 'block';
         return;
     }
+    showWordVerifyScreen();
+}
+
+// FB-35 (2026-08-11, User): "прямо в списку" — один клік з "За наборами"
+// (renderWordProfileList, нижче) відкриває ТУ Ж chip-based верифікацію/тему, що
+// вже існує для створення нового набору (wordVerifyScreen → wordTopicScreen),
+// замість дублювання окремого inline-редактора для декількох слів одразу.
+// Пропускає wordLangScreen/wordInputScreen (мовна пара й пари слів уже є) —
+// editingSetId сигналізує saveWordSetAndStart() оновити існуючий набір, а не
+// створити новий.
+function editWordSet(id) {
+    const set = loadWordSets().find(s => s.id === id);
+    if (!set) return;
+    editingSetId = id;
+    wordLangFrom = set.langFrom || 'en';
+    wordLangTo = set.langTo || 'uk';
+    wordLevel = set.level || 1;
+    wordPairs = (set.pairs || []).map(p => ({ ...p })); // клон — не чіпати збережений набір, поки не збережено
     showWordVerifyScreen();
 }
 
@@ -480,10 +499,17 @@ function showWordTopicScreen() {
     if (wtSubEl) wtSubEl.innerText = t.wt_topic_subtitle || '';
     document.getElementById('wordTopicInput').placeholder = t.wt_placeholder || 'Наприклад: Тварини';
     document.getElementById('wtAutoBtn').innerText = t.wt_auto || '✨ Підібрати автоматично';
-    document.getElementById('wtSaveBtn').innerText = t.wt_save || 'Зберегти →';
-    // Always auto-suggest based on current wordPairs (prevents stale previous topic)
-    document.getElementById('wordTopicInput').value = '';
-    autoSuggestTopic();
+    // FB-35: при редагуванні існуючого набору (editingSetId) — тема вже задана
+    // раніше User свідомо, не переписувати авто-підбором наново; лише при
+    // створенні нового набору тема завжди чиста + авто-suggest (як і раніше).
+    const editingSet = editingSetId ? loadWordSets().find(s => s.id === editingSetId) : null;
+    document.getElementById('wtSaveBtn').innerText = editingSet ? (t.wt_save_edit || 'Зберегти зміни') : (t.wt_save || 'Зберегти →');
+    if (editingSet) {
+        document.getElementById('wordTopicInput').value = editingSet.topic || '';
+    } else {
+        document.getElementById('wordTopicInput').value = '';
+        autoSuggestTopic();
+    }
 }
 
 const TOPIC_CATEGORIES = [
@@ -595,6 +621,30 @@ function saveWordSetAndStart() {
     const t = translations[currentLang];
     const topicInput = document.getElementById('wordTopicInput').value.trim();
     const topic = topicInput || wordPairs.slice(0, 2).map(p => p.word).join(', ');
+
+    // FB-35 (2026-08-11): редагування існуючого набору (editWordSet вище) —
+    // оновити на місці й повернутись у "За наборами", а не створювати новий
+    // набір і форсувати тренування (як для звичайного створення нижче).
+    if (editingSetId) {
+        const sets = loadWordSets();
+        const idx = sets.findIndex(s => s.id === editingSetId);
+        if (idx >= 0) {
+            const oldPairs = sets[idx].pairs || [];
+            // Зберегти masteryScore для пар, що не змінились (той самий
+            // word+translation, що й раніше) — інакше правка ОДНОГО слова
+            // скидала б прогрес по ВСІХ інших словах набору.
+            const mergedPairs = wordPairs.map(p => {
+                const prev = oldPairs.find(op => op.word === p.word && op.translation === p.translation);
+                return { ...p, masteryScore: prev ? (prev.masteryScore || 0) : 0 };
+            });
+            sets[idx] = { ...sets[idx], topic, langFrom: wordLangFrom, langTo: wordLangTo, pairs: mergedPairs };
+            saveWordSets(sets);
+        }
+        editingSetId = null;
+        showProgressScreen(progressReturnFn);
+        return;
+    }
+
     const newSet = {
         id: Date.now(),
         topic,
@@ -1704,6 +1754,16 @@ function wtGoBack() {
 }
 
 // ── Smart answer matching ──────────────────────────────────
+// FB-39 (2026-08-11, User): фраза/речення набране без розділових знаків (крапка
+// в кінці, тире, кома тощо) мало зараховуватись правильним, якщо решта збігається
+// — раніше нормалізація знімала лише дужки/лапки, розділові знаки лишались і
+// ламали збіг. `.,;:!?…` та лапки-ялинки просто прибираються (не несуть сенсу для
+// правильності відповіді); тире/дефіс замінюється на пробіл, а не прибирається
+// зовсім — щоб "well-known" (типовий приклад) не злипався у "wellknown", коли
+// користувач набирає його через пробіл.
+const PUNCT_STRIP_RE = /[.,;:!?…"«»""]/g;
+const PUNCT_DASH_RE = /[–—-]/g;
+
 function normalizeAnswer(str) {
     // Removes parenthetical content entirely: "rub (the paste) into" → "rub into"
     return str
@@ -1712,6 +1772,8 @@ function normalizeAnswer(str) {
         .replace(/\s*\([^)]*\)/g, '')
         .replace(/\s*\[[^\]]*\]/g, '')
         .replace(/[''`]/g, "'")
+        .replace(PUNCT_STRIP_RE, '')
+        .replace(PUNCT_DASH_RE, ' ')
         .replace(/\s+/g, ' ')
         .trim();
 }
@@ -1723,6 +1785,8 @@ function normalizeNoParens(str) {
         .toLowerCase()
         .replace(/[()[\]]/g, '')
         .replace(/[''`]/g, "'")
+        .replace(PUNCT_STRIP_RE, '')
+        .replace(PUNCT_DASH_RE, ' ')
         .replace(/\s+/g, ' ')
         .trim();
 }
@@ -1860,19 +1924,52 @@ function openWordProfile(returnFn, focus) {
 // треба буде додати timestamp на pair (напр. виставляти в updateWordMastery(),
 // words.js ~636) і саме тоді переробити цю функцію — навмисно НЕ робиться
 // зараз, але й нічого тут не заважає додати поле пізніше.
+// FB-37/FB-38 (2026-08-11, User): "і пошук по слову і фільтр за темою/набором" +
+// мовний фільтр — Словник зростатиме зі списком, без структури важко буде
+// щось знайти. 3 незалежні фільтри (search AND topic AND lang), персистентні
+// на екрані (module-level, не скидаються на кожен рендер).
+let wdictSearch = '';
+let wdictTopicFilter = null;
+let wdictLangFilter = null;
+function updateWdictSearch(value) {
+    wdictSearch = value;
+    renderWordDictionary();
+    // Пошук триґерить повний re-render контейнера (той самий innerHTML-патерн,
+    // що й усюди в цьому файлі) — без ручного повернення фокусу/каретки інпут
+    // втрачав би фокус на кожному символі, бо стара DOM-нода знищується.
+    const inp = document.getElementById('wdictSearchInput');
+    if (inp) { inp.focus(); inp.setSelectionRange(inp.value.length, inp.value.length); }
+}
+function setWdictTopicFilter(topic) {
+    wdictTopicFilter = topic || null;
+    renderWordDictionary();
+}
+function setWdictLangFilter(code) {
+    wdictLangFilter = code;
+    renderWordDictionary();
+}
+
 function renderWordDictionary() {
     const t = translations[currentLang];
     const container = document.getElementById('wordDictionaryContent');
     const sets = loadWordSets();
 
+    const allTopics = [...new Set(sets.map(s => s.topic).filter(Boolean))];
+    const availableLangs = [...new Set(sets.map(s => s.langFrom).filter(Boolean))];
+    const q = wdictSearch.trim().toLowerCase();
+
     const mastered = [];
     const review = [];
     const unlearned = [];
     sets.forEach(set => {
+        if (wdictTopicFilter && set.topic !== wdictTopicFilter) return;
+        if (wdictLangFilter && set.langFrom !== wdictLangFilter) return;
         (set.pairs || []).forEach(p => {
             if (!p.word || !p.translation) return;
+            const topic = set.topic || '—';
+            if (q && !p.word.toLowerCase().includes(q) && !p.translation.toLowerCase().includes(q) && !topic.toLowerCase().includes(q)) return;
             const score = p.masteryScore || 0;
-            const row = { word: p.word, translation: p.translation, topic: set.topic || '—' };
+            const row = { word: p.word, translation: p.translation, topic, lang: set.langFrom };
             if (score >= WT_MASTERY_THRESHOLD) mastered.push(row);
             else if (score > 0) review.push(row);
             else unlearned.push(row);
@@ -1890,8 +1987,20 @@ function renderWordDictionary() {
         ? `<button class="btn-profile-select-words" onclick="openWordSelectScreen(() => openWordProfile(profileReturnFn))">${t.profile_select_words || '🎯 Обрати слова'}</button>`
         : '';
 
-    if (!mastered.length && !review.length && !unlearned.length) {
+    if (!sets.length) {
         container.innerHTML = selectBtn + `<p class="profile-empty">${t.profile_empty_words || 'Ще немає збережених наборів слів'}</p>`;
+        return;
+    }
+
+    const topicOptions = `<option value=""${wdictTopicFilter ? '' : ' selected'}>${t.wdict_all_topics || 'Усі теми'}</option>` +
+        allTopics.map(tp => `<option value="${escHtml(tp)}"${wdictTopicFilter === tp ? ' selected' : ''}>${escHtml(tp)}</option>`).join('');
+    const controls = `<div class="word-dict-controls">
+        <input type="text" id="wdictSearchInput" class="word-dict-search" placeholder="${t.wdict_search_placeholder || '🔍 Пошук слова...'}" value="${escHtml(wdictSearch)}" oninput="updateWdictSearch(this.value)">
+        ${allTopics.length > 1 ? `<select class="word-dict-topic-select" onchange="setWdictTopicFilter(this.value)">${topicOptions}</select>` : ''}
+      </div>` + renderLangFilterBar(wdictLangFilter, availableLangs, 'setWdictLangFilter');
+
+    if (!mastered.length && !review.length && !unlearned.length) {
+        container.innerHTML = selectBtn + controls + `<p class="profile-empty">${t.wdict_no_matches || 'Нічого не знайдено'}</p>`;
         return;
     }
 
@@ -1901,7 +2010,7 @@ function renderWordDictionary() {
     // review/unlearned) без змін.
     const renderRow = row => `<div class="word-dict-row">
         <div class="word-dict-pair"><span class="word-dict-word">${escHtml(row.word)}</span><span class="word-dict-arrow">→</span><span class="word-dict-trans">${escHtml(row.translation)}</span></div>
-        <div class="word-dict-topic">${escHtml(row.topic)}</div>
+        <div class="word-dict-topic">${LANG_FLAGS[row.lang] ? LANG_FLAGS[row.lang] + ' ' : ''}${escHtml(row.topic)}</div>
     </div>`;
 
     // Порожні групи — жодного заголовка взагалі (вимога User), не "0 слів".
@@ -1910,7 +2019,7 @@ function renderWordDictionary() {
         <div class="word-dict-group-rows">${rows.map(renderRow).join('')}</div>
       </div>` : '';
 
-    container.innerHTML = selectBtn +
+    container.innerHTML = selectBtn + controls +
         renderGroup(t.wdict_mastered || 'Вивчені', mastered) +
         renderGroup(t.wdict_review || 'На повторення', review) +
         renderGroup(t.wdict_unlearned || 'Не вивчені', unlearned);
@@ -1919,18 +2028,34 @@ function renderWordDictionary() {
 // 2026-08-07 (re-split): переїхав з wordProfileScreen у progressScreen (Words-контекст,
 // "За наборами" тепер частина Прогресу) — containerId тому обов'язковий параметр,
 // дефолту на неіснуючий #wordProfileContent більше немає сенсу тримати.
+// FB-38 (2026-08-11): мовний фільтр для "За наборами" — за set.langFrom (мова, яку
+// вчать), не langTo (рідна/перекладна) — той самий напрям, що вже показаний у
+// langPair-мета-рядку кожного набору (EN → UK тощо) нижче.
+let wordSetsLangFilter = null;
+function setWordSetsLangFilter(code) {
+    wordSetsLangFilter = code;
+    renderWordProfileList('progressContent');
+}
+
 function renderWordProfileList(containerId) {
     const t = translations[currentLang];
     const container = document.getElementById(containerId);
     if (!container) return;
     const deleteSvg = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>`;
 
-    const sets = loadWordSets();
-    if (sets.length === 0) {
+    const allSets = loadWordSets();
+    if (allSets.length === 0) {
         container.innerHTML = `<p class="profile-empty">${t.profile_empty_words || 'Ще немає збережених наборів слів'}</p>`;
         return;
     }
-    container.innerHTML = sets.map(set => {
+    const availableLangs = [...new Set(allSets.map(s => s.langFrom).filter(Boolean))];
+    const filterBar = renderLangFilterBar(wordSetsLangFilter, availableLangs, 'setWordSetsLangFilter');
+    const sets = wordSetsLangFilter ? allSets.filter(s => s.langFrom === wordSetsLangFilter) : allSets;
+    if (sets.length === 0) {
+        container.innerHTML = filterBar + `<p class="profile-empty">${t.profile_empty_words || 'Ще немає збережених наборів слів'}</p>`;
+        return;
+    }
+    container.innerHTML = filterBar + sets.map(set => {
         const total = (set.pairs || []).length;
         const mastered = (set.pairs || []).filter(p => (p.masteryScore || 0) >= WT_MASTERY_THRESHOLD).length;
         const review = total - mastered;
@@ -1951,6 +2076,7 @@ function renderWordProfileList(containerId) {
           <div class="profile-item-actions">
             <button class="btn-profile-action" onclick="profileTrainWordSet(${set.id})">${t.profile_train || 'Тренувати'}</button>
             ${quickBtn}
+            <button class="btn-profile-action btn-profile-ghost" onclick="editWordSet(${set.id})">${t.profile_edit_text || '✎ Редагувати'}</button>
             <button class="btn-profile-delete" onclick="profileDeleteWordSet(${set.id})">${deleteSvg}</button>
           </div>
         </div>`;

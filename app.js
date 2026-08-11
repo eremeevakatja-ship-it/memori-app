@@ -112,6 +112,9 @@ const translations = {
         wdict_mastered: "Вивчені",
         wdict_review: "На повторення",
         wdict_unlearned: "Не вивчені",
+        wdict_search_placeholder: "🔍 Пошук слова...",
+        wdict_all_topics: "Усі теми",
+        wdict_no_matches: "Нічого не знайдено",
         learned_hero_title: "Молодець, ось що вже вивчено! 🌟",
         learned_group_text_speech: "Текст/промова", learned_group_poem: "Вірші", learned_group_song: "Пісні",
         learned_cat_text: "Текст", learned_cat_speech: "Промова", learned_cat_poem: "Вірш", learned_cat_song: "Пісня",
@@ -127,6 +130,7 @@ const translations = {
         profile_empty_progress: "Немає активної сесії",
         profile_empty_learned: "Ще нічого не вивчено. Пройдіть перший текст!",
         profile_load: "Завантажити",
+        profile_edit_text: "✎ Редагувати",
         profile_name_placeholder: "Ваше ім'я",
         profile_settings: "Налаштування",
         share_btn: "Поділитись результатом",
@@ -173,7 +177,7 @@ const translations = {
         wv_alt_info_body: 'Багато слів мають кілька значень або перекладаються по-різному залежно від контексту. Натисніть 🔁 біля будь-якої пари стільки разів, скільки потрібно — кожен клік підставляє інший варіант перекладу цього слова. Якщо жоден варіант не підійшов — просто натисніть на саму пару і впишіть переклад вручну.',
         wv_alt_wrapped: 'Це всі варіанти — можна ввести свій, якщо жоден не підійшов',
         wt_title: 'Назвіть тему', wt_placeholder: 'Наприклад: Тварини',
-        wt_auto: '✨ Підібрати автоматично', wt_save: 'Зберегти →',
+        wt_auto: '✨ Підібрати автоматично', wt_save: 'Зберегти →', wt_save_edit: 'Зберегти зміни',
         words_saved: 'Набір збережено!',
         wt_type_w2t: '→ Переклад', wt_type_t2w: '→ Слово', wt_type_audio: '🔊 Аудіо',
         wt_listen_prompt: 'Прослухайте та оберіть слово', wt_listen_btn: 'Прослухати',
@@ -297,6 +301,9 @@ const translations = {
         wdict_mastered: "Mastered",
         wdict_review: "In review",
         wdict_unlearned: "Not learned",
+        wdict_search_placeholder: "🔍 Search a word...",
+        wdict_all_topics: "All topics",
+        wdict_no_matches: "No matches found",
         learned_hero_title: "Nice work — here's what you've already learned! 🌟",
         learned_group_text_speech: "Text/speech", learned_group_poem: "Poems", learned_group_song: "Songs",
         learned_cat_text: "Text", learned_cat_speech: "Speech", learned_cat_poem: "Poem", learned_cat_song: "Song",
@@ -312,6 +319,7 @@ const translations = {
         profile_empty_progress: "No active session",
         profile_empty_learned: "Nothing learned yet. Complete your first text!",
         profile_load: "Load",
+        profile_edit_text: "✎ Edit",
         profile_name_placeholder: "Your name",
         profile_settings: "Settings",
         share_btn: "Share result",
@@ -358,7 +366,7 @@ const translations = {
         wv_alt_info_body: 'Many words have several meanings or are translated differently depending on context. Tap 🔁 next to any pair as many times as you need — each tap swaps in another translation for that word. If none of them fit, just tap the pair itself and type your own translation.',
         wv_alt_wrapped: 'That\'s all the options — type your own if none fit',
         wt_title: 'Name this topic', wt_placeholder: 'e.g. Animals',
-        wt_auto: '✨ Suggest automatically', wt_save: 'Save →',
+        wt_auto: '✨ Suggest automatically', wt_save: 'Save →', wt_save_edit: 'Save changes',
         words_saved: 'Word set saved!',
         wt_type_w2t: '→ Translation', wt_type_t2w: '→ Word', wt_type_audio: '🔊 Audio',
         wt_listen_prompt: 'Listen and choose the word', wt_listen_btn: 'Listen',
@@ -482,6 +490,9 @@ const translations = {
         wdict_mastered: "Opanowane",
         wdict_review: "W trakcie powtórki",
         wdict_unlearned: "Nieopanowane",
+        wdict_search_placeholder: "🔍 Szukaj słowa...",
+        wdict_all_topics: "Wszystkie tematy",
+        wdict_no_matches: "Nic nie znaleziono",
         learned_hero_title: "Brawo, oto czego już się nauczyłaś! 🌟",
         learned_group_text_speech: "Tekst/przemówienie", learned_group_poem: "Wiersze", learned_group_song: "Piosenki",
         learned_cat_text: "Tekst", learned_cat_speech: "Przemówienie", learned_cat_poem: "Wiersz", learned_cat_song: "Piosenka",
@@ -497,6 +508,7 @@ const translations = {
         profile_empty_progress: "Brak aktywnej sesji",
         profile_empty_learned: "Nic jeszcze nie nauczone. Ukończ pierwszy tekst!",
         profile_load: "Załaduj",
+        profile_edit_text: "✎ Edytuj",
         profile_name_placeholder: "Twoje imię",
         profile_settings: "Ustawienia",
         share_btn: "Udostępnij wynik",
@@ -543,7 +555,7 @@ const translations = {
         wv_alt_info_body: 'Wiele słów ma kilka znaczeń albo tłumaczy się różnie w zależności od kontekstu. Dotknij 🔁 przy dowolnej parze tyle razy, ile potrzeba — każde dotknięcie podstawia inny wariant tłumaczenia. Jeśli żaden nie pasuje — po prostu dotknij pary i wpisz tłumaczenie ręcznie.',
         wv_alt_wrapped: 'To wszystkie opcje — możesz wpisać własne, jeśli żadna nie pasuje',
         wt_title: 'Nazwij temat', wt_placeholder: 'np. Zwierzęta',
-        wt_auto: '✨ Zasugeruj automatycznie', wt_save: 'Zapisz →',
+        wt_auto: '✨ Zasugeruj automatycznie', wt_save: 'Zapisz →', wt_save_edit: 'Zapisz zmiany',
         words_saved: 'Zestaw zapisany!',
         wt_type_w2t: '→ Tłumaczenie', wt_type_t2w: '→ Słowo', wt_type_audio: '🔊 Audio',
         wt_listen_prompt: 'Posłuchaj i wybierz słowo', wt_listen_btn: 'Posłuchaj',
@@ -667,6 +679,9 @@ const translations = {
         wdict_mastered: "Gelernt",
         wdict_review: "In Wiederholung",
         wdict_unlearned: "Nicht gelernt",
+        wdict_search_placeholder: "🔍 Wort suchen...",
+        wdict_all_topics: "Alle Themen",
+        wdict_no_matches: "Nichts gefunden",
         learned_hero_title: "Gut gemacht — das hast du schon gelernt! 🌟",
         learned_group_text_speech: "Text/Rede", learned_group_poem: "Gedichte", learned_group_song: "Lieder",
         learned_cat_text: "Text", learned_cat_speech: "Rede", learned_cat_poem: "Gedicht", learned_cat_song: "Lied",
@@ -682,6 +697,7 @@ const translations = {
         profile_empty_progress: "Keine aktive Sitzung",
         profile_empty_learned: "Noch nichts gelernt. Schließe deinen ersten Text ab!",
         profile_load: "Laden",
+        profile_edit_text: "✎ Bearbeiten",
         profile_name_placeholder: "Dein Name",
         profile_settings: "Einstellungen",
         share_btn: "Ergebnis teilen",
@@ -728,7 +744,7 @@ const translations = {
         wv_alt_info_body: 'Viele Wörter haben mehrere Bedeutungen oder werden je nach Kontext unterschiedlich übersetzt. Tippe so oft wie nötig auf 🔁 neben einem Paar — jedes Tippen setzt eine andere Übersetzung ein. Passt keine davon, tippe einfach auf das Paar und gib deine eigene Übersetzung ein.',
         wv_alt_wrapped: 'Das sind alle Optionen — gib deine eigene ein, wenn keine passt',
         wt_title: 'Thema benennen', wt_placeholder: 'z.B. Tiere',
-        wt_auto: '✨ Automatisch vorschlagen', wt_save: 'Speichern →',
+        wt_auto: '✨ Automatisch vorschlagen', wt_save: 'Speichern →', wt_save_edit: 'Änderungen speichern',
         words_saved: 'Wortset gespeichert!',
         wt_type_w2t: '→ Übersetzung', wt_type_t2w: '→ Wort', wt_type_audio: '🔊 Audio',
         wt_listen_prompt: 'Hör zu und wähle das Wort', wt_listen_btn: 'Anhören',
@@ -852,6 +868,9 @@ const translations = {
         wdict_mastered: "Maîtrisés",
         wdict_review: "En révision",
         wdict_unlearned: "Non appris",
+        wdict_search_placeholder: "🔍 Rechercher un mot...",
+        wdict_all_topics: "Tous les sujets",
+        wdict_no_matches: "Aucun résultat",
         learned_hero_title: "Bravo, voici ce que tu as déjà appris ! 🌟",
         learned_group_text_speech: "Texte/discours", learned_group_poem: "Poèmes", learned_group_song: "Chansons",
         learned_cat_text: "Texte", learned_cat_speech: "Discours", learned_cat_poem: "Poème", learned_cat_song: "Chanson",
@@ -867,6 +886,7 @@ const translations = {
         profile_empty_progress: "Aucune session active",
         profile_empty_learned: "Rien appris encore. Terminez votre premier texte !",
         profile_load: "Charger",
+        profile_edit_text: "✎ Modifier",
         profile_name_placeholder: "Votre prénom",
         profile_settings: "Paramètres",
         share_btn: "Partager le résultat",
@@ -913,7 +933,7 @@ const translations = {
         wv_alt_info_body: 'Beaucoup de mots ont plusieurs sens ou se traduisent différemment selon le contexte. Appuyez sur 🔁 à côté d\'une paire autant de fois que nécessaire — chaque appui propose une autre traduction. Si aucune ne convient, appuyez simplement sur la paire et saisissez votre propre traduction.',
         wv_alt_wrapped: 'Ce sont toutes les options — saisissez la vôtre si aucune ne convient',
         wt_title: 'Nommer le thème', wt_placeholder: 'ex. Animaux',
-        wt_auto: '✨ Suggérer automatiquement', wt_save: 'Enregistrer →',
+        wt_auto: '✨ Suggérer automatiquement', wt_save: 'Enregistrer →', wt_save_edit: 'Enregistrer les modifications',
         words_saved: 'Ensemble sauvegardé !',
         wt_type_w2t: '→ Traduction', wt_type_t2w: '→ Mot', wt_type_audio: '🔊 Audio',
         wt_listen_prompt: 'Écoutez et choisissez le mot', wt_listen_btn: 'Écouter',
@@ -1037,6 +1057,9 @@ const translations = {
         wdict_mastered: "Dominadas",
         wdict_review: "En repaso",
         wdict_unlearned: "No aprendidas",
+        wdict_search_placeholder: "🔍 Buscar una palabra...",
+        wdict_all_topics: "Todos los temas",
+        wdict_no_matches: "No se encontraron resultados",
         learned_hero_title: "¡Bien hecho! Esto es lo que ya has aprendido 🌟",
         learned_group_text_speech: "Texto/discurso", learned_group_poem: "Poemas", learned_group_song: "Canciones",
         learned_cat_text: "Texto", learned_cat_speech: "Discurso", learned_cat_poem: "Poema", learned_cat_song: "Canción",
@@ -1052,6 +1075,7 @@ const translations = {
         profile_empty_progress: "Sin sesión activa",
         profile_empty_learned: "Nada aprendido aún. ¡Completa tu primer texto!",
         profile_load: "Cargar",
+        profile_edit_text: "✎ Editar",
         profile_name_placeholder: "Tu nombre",
         profile_settings: "Ajustes",
         share_btn: "Compartir resultado",
@@ -1098,7 +1122,7 @@ const translations = {
         wv_alt_info_body: 'Muchas palabras tienen varios significados o se traducen de forma distinta según el contexto. Toca 🔁 junto a cualquier par tantas veces como necesites — cada toque muestra otra traducción de esa palabra. Si ninguna encaja, simplemente toca el par y escribe tu propia traducción.',
         wv_alt_wrapped: 'Estas son todas las opciones — escribe la tuya si ninguna encaja',
         wt_title: 'Nombrar el tema', wt_placeholder: 'p.ej. Animales',
-        wt_auto: '✨ Sugerir automáticamente', wt_save: 'Guardar →',
+        wt_auto: '✨ Sugerir automáticamente', wt_save: 'Guardar →', wt_save_edit: 'Guardar cambios',
         words_saved: '¡Conjunto guardado!',
         wt_type_w2t: '→ Traducción', wt_type_t2w: '→ Palabra', wt_type_audio: '🔊 Audio',
         wt_listen_prompt: 'Escucha y elige la palabra', wt_listen_btn: 'Escuchar',
@@ -2007,6 +2031,12 @@ function closeProfile() {
 // "плани"-еквіваленту для окремих слів. -----
 let progressReturnFn = null;
 let currentProgressTab = 'progress';
+// FB-38 (2026-08-11): мовний фільтр для таба "Плани" — null = 🌐 Всі.
+let plannedLangFilter = null;
+function setPlannedLangFilter(code) {
+    plannedLangFilter = code;
+    renderProfileTab('planned', 'progressContent');
+}
 
 function showProgressScreen(returnFn) {
     progressReturnFn = typeof returnFn === 'function' ? returnFn : showInputScreen;
@@ -2133,23 +2163,35 @@ function renderProfileTab(tab, containerId) {
           </div>`;
 
     } else if (tab === 'planned') {
-        const lib = loadLibrary();
-        if (lib.length === 0) {
+        const allLib = loadLibrary();
+        if (allLib.length === 0) {
             container.innerHTML = `<p class="profile-empty">${t.library_empty || 'Бібліотека порожня'}</p>`;
             return;
         }
+        // FB-38: доступні прапори — лише мови, що реально є серед записів; фільтр
+        // персистентний на цьому екрані (plannedLangFilter, скидається лише вручну
+        // через 🌐), не на кожен рендер.
+        const availableLangs = [...new Set(allLib.map(e => e.lang).filter(Boolean))];
+        const filterBar = renderLangFilterBar(plannedLangFilter, availableLangs, 'setPlannedLangFilter');
+        const lib = plannedLangFilter ? allLib.filter(e => e.lang === plannedLangFilter) : allLib;
+        if (lib.length === 0) {
+            container.innerHTML = filterBar + `<p class="profile-empty">${t.library_empty || 'Бібліотека порожня'}</p>`;
+            return;
+        }
         const hint = `<p class="profile-list-hint">${t.lib_rename_hint || 'Натисніть на назву щоб перейменувати'}</p>`;
-        container.innerHTML = hint + lib.map(entry => {
+        container.innerHTML = filterBar + hint + lib.map(entry => {
             const rawTitle = entry.customTitle || entry.title;
             const title = rawTitle.length > 60 ? rawTitle.slice(0, 60) + '…' : rawTitle;
             const date = new Date(entry.savedAt).toLocaleDateString();
+            const flag = LANG_FLAGS[entry.lang] || '';
             return `<div class="profile-item" id="lib-item-${entry.id}">
               <div class="profile-item-body" onclick="startRenameLibEntry('${entry.id}')">
-                <div class="profile-item-title" id="lib-title-${entry.id}">${escHtml(title)}</div>
+                <div class="profile-item-title" id="lib-title-${entry.id}">${flag ? flag + ' ' : ''}${escHtml(title)}</div>
                 <div class="profile-item-meta">${date}</div>
               </div>
               <div class="profile-item-actions">
                 <button class="btn-profile-action" onclick="profileLoadText('${entry.id}')">${t.profile_load || 'Завантажити'}</button>
+                <button class="btn-profile-action btn-profile-ghost" onclick="editPlannedText('${entry.id}')">${t.profile_edit_text || '✎ Редагувати'}</button>
                 <button class="btn-profile-delete" onclick="profileDeletePlanned('${entry.id}')">${deleteSvg}</button>
               </div>
             </div>`;
@@ -2174,15 +2216,25 @@ function normalizeLearnedCategory(raw) {
     return 'text_speech'; // 'text' | 'speech' | 'text_speech' | відсутнє/легасі
 }
 
+// FB-38 (2026-08-11): мовний фільтр для "Вивчено" — null = 🌐 Всі.
+let learnedLangFilter = null;
+function setLearnedLangFilter(code) {
+    learnedLangFilter = code;
+    renderLearnedLibrary();
+}
+
 function renderLearnedLibrary() {
     const container = document.getElementById('profileContent');
     if (!container) return;
     const t = translations[currentLang];
-    const arr = loadLearned();
-    if (arr.length === 0) {
+    const allArr = loadLearned();
+    if (allArr.length === 0) {
         container.innerHTML = `<p class="profile-empty">${t.profile_empty_learned || 'Ще нічого не вивчено'}</p>`;
         return;
     }
+    const availableLangs = [...new Set(allArr.map(e => e.lang).filter(Boolean))];
+    const filterBar = renderLangFilterBar(learnedLangFilter, availableLangs, 'setLearnedLangFilter');
+    const arr = learnedLangFilter ? allArr.filter(e => e.lang === learnedLangFilter) : allArr;
     const deleteSvg = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>`;
 
     const groups = { text_speech: [], poem_song: [] };
@@ -2199,9 +2251,10 @@ function renderLearnedLibrary() {
     const renderItem = entry => {
         const title = entry.title.length > 60 ? entry.title.slice(0, 60) + '…' : entry.title;
         const date = new Date(entry.completedAt).toLocaleDateString();
+        const flag = LANG_FLAGS[entry.lang] || '';
         return `<div class="profile-item profile-item-learned">
           <div class="profile-item-body">
-            <div class="profile-item-title">${escHtml(title)}</div>
+            <div class="profile-item-title">${flag ? flag + ' ' : ''}${escHtml(title)}</div>
             <div class="profile-item-meta">${date} · ${entry.blockCount} ${t.finish_blocks || 'блоків'}</div>
           </div>
           <div class="profile-item-learned-row2">
@@ -2220,7 +2273,11 @@ function renderLearnedLibrary() {
       </div>` : '';
 
     const hero = `<p class="learned-hero-title">${escHtml(t.learned_hero_title || 'Молодець, ось що вже вивчено! 🌟')}</p>`;
-    container.innerHTML = hero +
+    if (arr.length === 0) {
+        container.innerHTML = filterBar + hero + `<p class="profile-empty">${t.profile_empty_learned || 'Ще нічого не вивчено'}</p>`;
+        return;
+    }
+    container.innerHTML = filterBar + hero +
         renderGroup(t.learned_group_text_speech || 'Текст/промова', groups.text_speech) +
         renderGroup(t.learned_group_poem_song || 'Вірші/пісні', groups.poem_song);
 }
@@ -2356,6 +2413,47 @@ function startRenameLibEntry(id) {
         if (e.key === 'Enter') input.blur();
         if (e.key === 'Escape') { input.value = currentTitle; input.blur(); }
     };
+}
+
+// FB-35 (2026-08-11, User): "прямо в списку" — редагування ВМІСТУ тексту (не лише
+// назви, як startRenameLibEntry вище) inline, без переходу на окремий екран.
+// Замінює тіло+дії картки на textarea + ✓/✕ (той самий іконно-кнопковий патерн,
+// що й chip-save-btn/chip-delete-btn у editWordChip, words.js).
+function editPlannedText(id) {
+    const item = document.getElementById('lib-item-' + id);
+    if (!item || item.classList.contains('editing-text')) return;
+    const lib = loadLibrary();
+    const entry = lib.find(e => String(e.id) === String(id));
+    if (!entry) return;
+    const t = translations[currentLang];
+    item.classList.add('editing-text');
+    item.innerHTML = `
+        <textarea class="lib-edit-textarea">${escHtml(entry.text)}</textarea>
+        <div class="profile-item-actions">
+            <button class="chip-save-btn" onclick="savePlannedTextEdit('${id}')">✓</button>
+            <button class="chip-delete-btn" onclick="renderProfileTab('planned','progressContent')">✕</button>
+        </div>`;
+    const ta = item.querySelector('.lib-edit-textarea');
+    ta.focus();
+}
+
+function savePlannedTextEdit(id) {
+    const item = document.getElementById('lib-item-' + id);
+    const ta = item ? item.querySelector('.lib-edit-textarea') : null;
+    if (!ta) return;
+    const newText = ta.value.trim();
+    if (!newText) { renderProfileTab('planned', 'progressContent'); return; }
+    const lib = loadLibrary();
+    const idx = lib.findIndex(e => String(e.id) === String(id));
+    if (idx >= 0) {
+        lib[idx].text = newText;
+        // Автозаголовок оновлюється лише якщо User не задавала свій вручну
+        // (customTitle) — той самий принцип, що й у profileLearnAgain нижче:
+        // явний ручний вибір не затирається автоматикою.
+        if (!lib[idx].customTitle) lib[idx].title = newText.replace(/\n/g, ' ').slice(0, 70);
+        saveLibrary(lib);
+    }
+    renderProfileTab('planned', 'progressContent');
 }
 
 // ===== BOOT-TIME AUTO-RESUME (24h) =====

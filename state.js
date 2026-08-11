@@ -65,6 +65,13 @@ let wordLangFrom = 'en';
 let wordLangTo = 'uk';
 let wordLevel = 1;
 let wordPairs = []; // [{word, translation}]
+// FB-35 (2026-08-11): не null, коли wordVerifyScreen/wordTopicScreen відкриті
+// для РЕДАГУВАННЯ вже збереженого набору (editWordSet, words.js), а не для
+// створення нового — saveWordSetAndStart() перевіряє це, щоб оновити існуючий
+// набір замість створення нового. Скидається на початку звичайного флоу
+// створення (showWordLangScreen/showWordInputScreen), щоб не "протекти" в
+// наступну сесію створення набору, якщо User вийшла з редагування напівдорозі.
+let editingSetId = null;
 
 // Word Training State
 let wtSet = null;
@@ -228,6 +235,33 @@ function renderAudioSpeedRow() {
     ).join('');
 }
 
+// FB-38 (2026-08-11, User): "фільтр типу все... і по мовах обирають" — той самий
+// прапор-чіп патерн у всіх 4 списках (Плани/Вивчено — Text; За наборами/Словник —
+// Words). 🌐 = "Всі" (без перекладу — як і прапори, самопояснювальний символ,
+// той самий принцип, що вже є в #ocrLang/langScreen). Показуються лише прапори
+// мов, що РЕАЛЬНО зустрічаються серед поточних записів (availableCodes) — не всі
+// 6 завжди, щоб не засмічувати рядок чіпами без жодного запису під ними.
+const LANG_FLAGS = { uk: '🇺🇦', en: '🇬🇧', pl: '🇵🇱', de: '🇩🇪', fr: '🇫🇷', es: '🇪🇸' };
+function renderLangFilterBar(activeCode, availableCodes, onSelectFnName) {
+    if (!availableCodes.length) return '';
+    const chip = (code, label) => `<button class="lang-filter-chip${activeCode === code ? ' active' : ''}" onclick="${onSelectFnName}(${code === null ? 'null' : `'${code}'`})">${label}</button>`;
+    return `<div class="lang-filter-bar">${chip(null, '🌐')}${availableCodes.map(c => chip(c, LANG_FLAGS[c] || '❔')).join('')}</div>`;
+}
+
+// FB-38 (2026-08-11, User): мова тексту для фільтра Прогрес/Бібліотека по мовах —
+// НЕ евристика/мережевий детект, а той самий прапор (#ocrLang), що User уже й так
+// обирає на inputScreen поруч з текстовим полем ("Мова тексту", раніше — лише для
+// OCR). За словами User, це і є "прапор якої мови вносять текст" — найнадійніше
+// джерело, бо це явний вибір, а не здогад. tessLang (audio.js) мапить app-код
+// (uk/en/pl/de/fr/es) → tesseract-код (ukr/eng/...); тут — обернена мапа.
+function currentTextLangCode() {
+    const sel = document.getElementById('ocrLang');
+    const tessCode = sel ? sel.value : null;
+    if (!tessCode) return null;
+    for (const [appCode, tc] of Object.entries(tessLang)) if (tc === tessCode) return appCode;
+    return null;
+}
+
 // 2026-08-10: раніше зберігав текст у Бібліотеку лише по кліку на окрему кнопку
 // (прибрана — незрозуміла функція для User). Тепер викликається автоматично
 // з goToSetup() при переході від вводу тексту до налаштувань — без кнопки,
@@ -236,7 +270,7 @@ function saveToLibrary(text) {
     if (!text || text.length < 10) return;
     const lib = loadLibrary();
     if (lib.find(e => e.text === text)) return;
-    lib.unshift({ id: Date.now() + '-' + Math.random().toString(36).slice(2, 8), title: text.replace(/\n/g, ' ').slice(0, 70), text, savedAt: Date.now() });
+    lib.unshift({ id: Date.now() + '-' + Math.random().toString(36).slice(2, 8), title: text.replace(/\n/g, ' ').slice(0, 70), text, savedAt: Date.now(), lang: currentTextLangCode() });
     if (lib.length > MAX_LIBRARY) lib.pop();
     saveLibrary(lib);
 }
@@ -265,7 +299,12 @@ function addToLearned(text, blockCount) {
         // 2 категорії: 'poem_song' (римований текст) чи 'text_speech' (звичайний).
         // Груба евристика (збіг закінчень рядків, не фонетичний аналіз) — можна
         // виправити вручну в "Вивчено" (changeLearnedCategory), якщо помилилась.
-        category: detectHasRhyme(text) ? 'poem_song' : 'text_speech'
+        category: detectHasRhyme(text) ? 'poem_song' : 'text_speech',
+        // FB-38: той самий прапор мови тексту, що й у saveToLibrary() вище —
+        // якщо запис уже існував у "Плани" з lang, тут перечитується заново з
+        // #ocrLang (той самий DOM-стан протягом усього проходження тексту),
+        // не переноситься зі старого library-запису, щоб не дублювати джерело правди.
+        lang: currentTextLangCode()
     });
     if (arr.length > 50) arr.pop();
     saveLearned(arr);
