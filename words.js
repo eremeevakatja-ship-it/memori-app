@@ -1593,29 +1593,18 @@ function wtShowHint() {
         hintBtn.disabled = true;
         hintBtn.classList.add('wt-hint-used');
     } else {
-        // Multi-word phrase: look at what user already typed and reveal next word
-        const typedNorm = normalizeAnswer(input.value || '');
-        const typedTokens = typedNorm.split(' ').filter(Boolean);
-
-        // Count correctly matched words from the start
-        let matchedCount = 0;
-        for (let i = 0; i < typedTokens.length && i < correctTokens.length; i++) {
-            if (typedTokens[i] === correctTokens[i]) {
-                matchedCount = i + 1;
-            } else {
-                break;
-            }
-        }
-
-        const showCount = Math.min(matchedCount + 1, correctTokens.length);
-        hint = correctTokens.slice(0, showCount).join(' ');
-
+        // FB-40 (2026-08-11, User): раніше підказка для фрази була ПРОГРЕСИВНОЮ —
+        // кожне повторне натискання відкривало ще одне слово, і при кількох
+        // натисканнях (природний рух, коли одного слова не досить, щоб згадати
+        // решту) підказка врешті видавала ВСЮ фразу цілком. User: "не має
+        // показувати всю тільки частину а далі вже сам має додумати" — той самий
+        // принцип, що вже діє для одного слова вище (перші 2 літери, кнопка
+        // одразу вимикається, ще раз не натиснути). Тепер і фраза: лише ПЕРШЕ
+        // слово, кнопка одразу деактивується — решту треба додумати самостійно.
+        hint = correctTokens[0];
         ex.hintUsed = true;
-        if (hint === normalized) {
-            hintBtn.disabled = true;
-            hintBtn.classList.add('wt-hint-used');
-        }
-        // else keep button enabled so user can reveal next words one by one
+        hintBtn.disabled = true;
+        hintBtn.classList.add('wt-hint-used');
     }
 
     input.value = hint;
