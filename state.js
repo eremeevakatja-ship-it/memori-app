@@ -270,9 +270,35 @@ function saveToLibrary(text) {
     if (!text || text.length < 10) return;
     const lib = loadLibrary();
     if (lib.find(e => e.text === text)) return;
-    lib.unshift({ id: Date.now() + '-' + Math.random().toString(36).slice(2, 8), title: text.replace(/\n/g, ' ').slice(0, 70), text, savedAt: Date.now(), lang: currentTextLangCode() });
+    lib.unshift({ id: Date.now() + '-' + Math.random().toString(36).slice(2, 8), title: text.replace(/\n/g, ' ').slice(0, 70), text, savedAt: Date.now(), lang: currentTextLangCode(), passCount: 0 });
     if (lib.length > MAX_LIBRARY) lib.pop();
     saveLibrary(lib);
+}
+
+// FB-41 (2026-08-11, User): "вірш який давно вчила і також не довчила" опинявся
+// в Бібліотеці — бо ОДИН природний прохід тексту до кінця (allDone) вважався
+// "вивчено", хоча для User "реально вивчила" = "кілька вдалих проходжень"
+// (підтверджено прямим запитанням). Раніше showFinal() (learning.js) викликав
+// addToLearned() напряму при allDone===true; тепер — через цю функцію, яка
+// рахує проходження і архівує в Learned лише після TEXT_MASTERY_THRESHOLD.
+// Той самий принцип, що вже є в Words Mode (WT_MASTERY_THRESHOLD=2 чистих
+// проходжень слова, words.js) — узгоджено на тому самому числі.
+const TEXT_MASTERY_THRESHOLD = 2;
+function registerTextPass(text, blockCount) {
+    if (!text || text.length < 10) return false;
+    const lib = loadLibrary();
+    const idx = lib.findIndex(e => e.text === text);
+    const passCount = idx >= 0 ? (lib[idx].passCount || 0) + 1 : 1;
+    if (idx >= 0) {
+        lib[idx].passCount = passCount;
+        lib[idx].lastPracticedAt = Date.now();
+    }
+    if (passCount >= TEXT_MASTERY_THRESHOLD) {
+        addToLearned(text, blockCount); // сам прибирає запис з Плани, якщо він там є
+        return true;
+    }
+    saveLibrary(lib);
+    return false;
 }
 
 // ===== LEARNED TEXTS =====
@@ -312,6 +338,23 @@ function addToLearned(text, blockCount) {
     const lib = loadLibrary().filter(e => e.text !== text);
     saveLibrary(lib);
     updateLibraryCount();
+}
+
+// FB-41 (2026-08-11, User): записи, що потрапили в "Вивчено" ДО впровадження
+// TEXT_MASTERY_THRESHOLD (за старим правилом "1 прохід=вивчено") — не
+// перераховуються заднім числом (неможливо надійно визначити, скільки
+// проходжень насправді було). User сама повертає такий запис у Прогрес —
+// ручне коригування, той самий принцип, що й changeLearnedCategory (app.js).
+function demoteLearnedEntry(id) {
+    const arr = loadLearned();
+    const entry = arr.find(e => String(e.id) === String(id));
+    if (!entry) return;
+    saveLearned(arr.filter(e => String(e.id) !== String(id)));
+    const lib = loadLibrary();
+    if (!lib.find(e => e.text === entry.text)) {
+        lib.unshift({ id: Date.now() + '-' + Math.random().toString(36).slice(2, 8), title: entry.title, text: entry.text, savedAt: Date.now(), lang: entry.lang, passCount: TEXT_MASTERY_THRESHOLD - 1 });
+        saveLibrary(lib);
+    }
 }
 
 // ===== USER PROFILE (avatar + name) =====

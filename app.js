@@ -71,6 +71,7 @@ const translations = {
         session_pause_continue: "Продовжити зараз",
         session_pause_finish: "Закінчити на сьогодні",
         finish_all_title: "Текст вивчено!",
+        finish_pass_title: "Чудовий прохід! Ще один — і вивчено 🌱",
         finish_all_body: "Ви пройшли всі блоки. Чудова робота!",
         validation_no_text: "Будь ласка, вставте текст для вивчення",
         validation_too_short: "Текст занадто короткий — потрібно мінімум 4 слова",
@@ -116,6 +117,7 @@ const translations = {
         wdict_all_topics: "Усі теми",
         wdict_no_matches: "Нічого не знайдено",
         learned_hero_title: "Молодець, ось що вже вивчено! 🌟",
+        learned_not_yet: "Ще не вивчено — повернути в Прогрес",
         learned_group_text_speech: "Текст/промова", learned_group_poem: "Вірші", learned_group_song: "Пісні",
         learned_cat_text: "Текст", learned_cat_speech: "Промова", learned_cat_poem: "Вірш", learned_cat_song: "Пісня",
         learned_group_poem_song: "Вірші/пісні", learned_cat_text_speech: "Текст/промова", learned_cat_poem_song: "Вірш/пісня",
@@ -128,6 +130,10 @@ const translations = {
         wselect_diff_lang_toast: "Можна обирати слова лише в межах однієї мовної пари за раз",
         wselect_none_toast: "Оберіть хоча б одне слово",
         profile_empty_progress: "Немає активної сесії",
+        progress_empty: "Ще нічого не в роботі — встав текст і почни вчити! 🌱",
+        progress_stage_start: "🌱 Перші кроки",
+        progress_stage_halfway: "🌿 На півдорозі!",
+        progress_stage_almost: "🌳 Ще трішки — і вивчено!",
         profile_empty_learned: "Ще нічого не вивчено. Пройдіть перший текст!",
         profile_load: "Завантажити",
         profile_edit_text: "✎ Редагувати",
@@ -260,6 +266,7 @@ const translations = {
         session_pause_continue: "Continue now",
         session_pause_finish: "Finish for today",
         finish_all_title: "Text learned!",
+        finish_pass_title: "Great run-through! One more pass and it's learned 🌱",
         finish_all_body: "You've completed all blocks. Great work!",
         validation_no_text: "Please paste some text to memorize",
         validation_too_short: "Text is too short — minimum 4 words required",
@@ -305,6 +312,7 @@ const translations = {
         wdict_all_topics: "All topics",
         wdict_no_matches: "No matches found",
         learned_hero_title: "Nice work — here's what you've already learned! 🌟",
+        learned_not_yet: "Not learned yet — move back to Progress",
         learned_group_text_speech: "Text/speech", learned_group_poem: "Poems", learned_group_song: "Songs",
         learned_cat_text: "Text", learned_cat_speech: "Speech", learned_cat_poem: "Poem", learned_cat_song: "Song",
         learned_group_poem_song: "Poems/songs", learned_cat_text_speech: "Text/speech", learned_cat_poem_song: "Poem/song",
@@ -317,6 +325,10 @@ const translations = {
         wselect_diff_lang_toast: "You can only pick words from one language pair at a time",
         wselect_none_toast: "Pick at least one word",
         profile_empty_progress: "No active session",
+        progress_empty: "Nothing in progress yet — paste a text and start learning! 🌱",
+        progress_stage_start: "🌱 First steps",
+        progress_stage_halfway: "🌿 Halfway there!",
+        progress_stage_almost: "🌳 Almost there — one more pass!",
         profile_empty_learned: "Nothing learned yet. Complete your first text!",
         profile_load: "Load",
         profile_edit_text: "✎ Edit",
@@ -449,6 +461,7 @@ const translations = {
         session_pause_continue: "Kontynuuj teraz",
         session_pause_finish: "Zakończ na dziś",
         finish_all_title: "Tekst opanowany!",
+        finish_pass_title: "Świetne przejście! Jeszcze raz — i opanowane 🌱",
         finish_all_body: "Ukończyliście wszystkie bloki. Świetna robota!",
         validation_no_text: "Wklej tekst do nauki",
         validation_too_short: "Tekst jest za krótki — minimum 4 słowa",
@@ -494,6 +507,7 @@ const translations = {
         wdict_all_topics: "Wszystkie tematy",
         wdict_no_matches: "Nic nie znaleziono",
         learned_hero_title: "Brawo, oto czego już się nauczyłaś! 🌟",
+        learned_not_yet: "Jeszcze nieopanowane — wróć do Postępu",
         learned_group_text_speech: "Tekst/przemówienie", learned_group_poem: "Wiersze", learned_group_song: "Piosenki",
         learned_cat_text: "Tekst", learned_cat_speech: "Przemówienie", learned_cat_poem: "Wiersz", learned_cat_song: "Piosenka",
         learned_group_poem_song: "Wiersze/piosenki", learned_cat_text_speech: "Tekst/przemówienie", learned_cat_poem_song: "Wiersz/piosenka",
@@ -506,6 +520,10 @@ const translations = {
         wselect_diff_lang_toast: "Możesz wybierać słowa tylko z jednej pary językowej naraz",
         wselect_none_toast: "Wybierz co najmniej jedno słowo",
         profile_empty_progress: "Brak aktywnej sesji",
+        progress_empty: "Jeszcze nic w trakcie — wklej tekst i zacznij się uczyć! 🌱",
+        progress_stage_start: "🌱 Pierwsze kroki",
+        progress_stage_halfway: "🌿 W połowie drogi!",
+        progress_stage_almost: "🌳 Jeszcze trochę — i opanowane!",
         profile_empty_learned: "Nic jeszcze nie nauczone. Ukończ pierwszy tekst!",
         profile_load: "Załaduj",
         profile_edit_text: "✎ Edytuj",
@@ -638,6 +656,7 @@ const translations = {
         session_pause_continue: "Jetzt weitermachen",
         session_pause_finish: "Für heute beenden",
         finish_all_title: "Text gelernt!",
+        finish_pass_title: "Toller Durchgang! Noch einmal — und gelernt 🌱",
         finish_all_body: "Sie haben alle Blöcke abgeschlossen. Großartig!",
         validation_no_text: "Bitte fügen Sie Text zum Lernen ein",
         validation_too_short: "Text zu kurz — mindestens 4 Wörter erforderlich",
@@ -683,6 +702,7 @@ const translations = {
         wdict_all_topics: "Alle Themen",
         wdict_no_matches: "Nichts gefunden",
         learned_hero_title: "Gut gemacht — das hast du schon gelernt! 🌟",
+        learned_not_yet: "Noch nicht gelernt — zurück zum Fortschritt",
         learned_group_text_speech: "Text/Rede", learned_group_poem: "Gedichte", learned_group_song: "Lieder",
         learned_cat_text: "Text", learned_cat_speech: "Rede", learned_cat_poem: "Gedicht", learned_cat_song: "Lied",
         learned_group_poem_song: "Gedichte/Lieder", learned_cat_text_speech: "Text/Rede", learned_cat_poem_song: "Gedicht/Lied",
@@ -695,6 +715,10 @@ const translations = {
         wselect_diff_lang_toast: "Du kannst nur Wörter aus einem Sprachpaar gleichzeitig wählen",
         wselect_none_toast: "Wähle mindestens ein Wort",
         profile_empty_progress: "Keine aktive Sitzung",
+        progress_empty: "Noch nichts in Arbeit — füge einen Text ein und leg los! 🌱",
+        progress_stage_start: "🌱 Erste Schritte",
+        progress_stage_halfway: "🌿 Auf halbem Weg!",
+        progress_stage_almost: "🌳 Noch ein bisschen — gleich gelernt!",
         profile_empty_learned: "Noch nichts gelernt. Schließe deinen ersten Text ab!",
         profile_load: "Laden",
         profile_edit_text: "✎ Bearbeiten",
@@ -827,6 +851,7 @@ const translations = {
         session_pause_continue: "Continuer maintenant",
         session_pause_finish: "Finir pour aujourd'hui",
         finish_all_title: "Texte appris !",
+        finish_pass_title: "Beau parcours ! Encore une fois — et c'est appris 🌱",
         finish_all_body: "Vous avez complété tous les blocs. Excellent travail !",
         validation_no_text: "Veuillez coller du texte à mémoriser",
         validation_too_short: "Texte trop court — minimum 4 mots requis",
@@ -872,6 +897,7 @@ const translations = {
         wdict_all_topics: "Tous les sujets",
         wdict_no_matches: "Aucun résultat",
         learned_hero_title: "Bravo, voici ce que tu as déjà appris ! 🌟",
+        learned_not_yet: "Pas encore appris — remettre en Progrès",
         learned_group_text_speech: "Texte/discours", learned_group_poem: "Poèmes", learned_group_song: "Chansons",
         learned_cat_text: "Texte", learned_cat_speech: "Discours", learned_cat_poem: "Poème", learned_cat_song: "Chanson",
         learned_group_poem_song: "Poèmes/chansons", learned_cat_text_speech: "Texte/discours", learned_cat_poem_song: "Poème/chanson",
@@ -884,6 +910,10 @@ const translations = {
         wselect_diff_lang_toast: "Vous ne pouvez choisir des mots que d'une seule paire de langues à la fois",
         wselect_none_toast: "Choisissez au moins un mot",
         profile_empty_progress: "Aucune session active",
+        progress_empty: "Rien en cours pour l'instant — colle un texte et commence à apprendre ! 🌱",
+        progress_stage_start: "🌱 Premiers pas",
+        progress_stage_halfway: "🌿 À mi-chemin !",
+        progress_stage_almost: "🌳 Presque là — encore un peu !",
         profile_empty_learned: "Rien appris encore. Terminez votre premier texte !",
         profile_load: "Charger",
         profile_edit_text: "✎ Modifier",
@@ -1016,6 +1046,7 @@ const translations = {
         session_pause_continue: "Continuar ahora",
         session_pause_finish: "Terminar por hoy",
         finish_all_title: "¡Texto aprendido!",
+        finish_pass_title: "¡Buen recorrido! Una vez más y estará aprendido 🌱",
         finish_all_body: "Han completado todos los bloques. ¡Excelente trabajo!",
         validation_no_text: "Por favor, pega texto para memorizar",
         validation_too_short: "Texto demasiado corto — mínimo 4 palabras",
@@ -1061,6 +1092,7 @@ const translations = {
         wdict_all_topics: "Todos los temas",
         wdict_no_matches: "No se encontraron resultados",
         learned_hero_title: "¡Bien hecho! Esto es lo que ya has aprendido 🌟",
+        learned_not_yet: "Aún no aprendido — volver a Progreso",
         learned_group_text_speech: "Texto/discurso", learned_group_poem: "Poemas", learned_group_song: "Canciones",
         learned_cat_text: "Texto", learned_cat_speech: "Discurso", learned_cat_poem: "Poema", learned_cat_song: "Canción",
         learned_group_poem_song: "Poemas/canciones", learned_cat_text_speech: "Texto/discurso", learned_cat_poem_song: "Poema/canción",
@@ -1073,6 +1105,10 @@ const translations = {
         wselect_diff_lang_toast: "Solo puedes elegir palabras de un par de idiomas a la vez",
         wselect_none_toast: "Elige al menos una palabra",
         profile_empty_progress: "Sin sesión activa",
+        progress_empty: "Nada en progreso todavía — pega un texto y empieza a aprender! 🌱",
+        progress_stage_start: "🌱 Primeros pasos",
+        progress_stage_halfway: "🌿 A mitad de camino!",
+        progress_stage_almost: "🌳 Casi lo tienes — un poco más!",
         profile_empty_learned: "Nada aprendido aún. ¡Completa tu primer texto!",
         profile_load: "Cargar",
         profile_edit_text: "✎ Editar",
@@ -2026,16 +2062,17 @@ function closeProfile() {
 
 // ----- [Progress screen]  (2026-08-07, розділено; re-split того ж дня: тепер БЕЗ
 // статистики — User попросила прибрати memori_stats з UI зовсім, не переносити.
-// Text-контекст: 2 вкладки В роботі/Плани (переїхали з profileScreen). Words-контекст:
-// 1 секція "За наборами" (переїхала з wordProfileScreen), без вкладок — немає
-// "плани"-еквіваленту для окремих слів. -----
+// FB-41 (2026-08-11, User): "плани не потрібні" — 2 таби В роботі/Плани злиті в
+// ОДИН список (renderTextProgress нижче): усе, що ще не досягло
+// TEXT_MASTERY_THRESHOLD проходжень (state.js), з творчою позначкою стадії.
+// Words-контекст: 1 секція "За наборами" (переїхала з wordProfileScreen), без
+// вкладок — немає "плани"-еквіваленту для окремих слів. -----
 let progressReturnFn = null;
-let currentProgressTab = 'progress';
-// FB-38 (2026-08-11): мовний фільтр для таба "Плани" — null = 🌐 Всі.
-let plannedLangFilter = null;
-function setPlannedLangFilter(code) {
-    plannedLangFilter = code;
-    renderProfileTab('planned', 'progressContent');
+// FB-38 (2026-08-11): мовний фільтр для об'єднаного списку Прогресу — null = 🌐 Всі.
+let progressLangFilter = null;
+function setProgressLangFilter(code) {
+    progressLangFilter = code;
+    renderTextProgress('progressContent');
 }
 
 function showProgressScreen(returnFn) {
@@ -2045,34 +2082,15 @@ function showProgressScreen(returnFn) {
     document.getElementById('progressBackLabel').innerText = t.back_lang || 'Назад';
     document.getElementById('progressTitleEl').innerText = t.progress_title || 'Прогрес';
     setBottomNav(navContext, 'progress');
-    const tabsEl = document.getElementById('progressTabs');
     if (navContext === 'words') {
-        if (tabsEl) tabsEl.style.display = 'none';
         renderWordProfileList('progressContent');
     } else {
-        if (tabsEl) tabsEl.style.display = 'flex';
-        const lbl1 = document.getElementById('prtab-progress-lbl');
-        const lbl2 = document.getElementById('prtab-planned-lbl');
-        if (lbl1) lbl1.innerText = t.profile_in_progress || 'В роботі';
-        if (lbl2) lbl2.innerText = t.profile_planned || 'Плани';
-        currentProgressTab = 'progress';
-        document.querySelectorAll('#progressTabs .profile-tab').forEach((btn, i) => btn.classList.toggle('active', i === 0));
-        renderProfileTab('progress', 'progressContent');
+        renderTextProgress('progressContent');
     }
 }
 
 function closeProgressScreen() {
     (progressReturnFn || showInputScreen)();
-}
-
-// Той самий tab-патерн, що й старий selectProfileTab (тепер видалений разом з
-// табами Library) — окремий скоуп querySelectorAll до #progressTabs, .profile-tab
-// спільний клас з іншими екранами.
-function selectProgressTab(tab, btn) {
-    currentProgressTab = tab;
-    document.querySelectorAll('#progressTabs .profile-tab').forEach(b => b.classList.remove('active'));
-    if (btn) btn.classList.add('active');
-    renderProfileTab(tab, 'progressContent');
 }
 
 // ----- [Profile Identity screen]  (2026-08-07, nav split) -----
@@ -2130,73 +2148,85 @@ function saveProfileAbout(field, input) {
     saveProfile(profile);
 }
 
-// 2026-08-07 (re-split): тепер лише 2 таби — "В роботі"/"Плани" — обидва живуть на
-// progressScreen (selectProgressTab вище). "Вивчено" переїхало на profileScreen
-// (Бібліотека) і більше не таб, а окремий екран — renderLearnedLibrary() нижче.
-function renderProfileTab(tab, containerId) {
-    const container = document.getElementById(containerId || 'profileContent');
+// FB-41 (2026-08-11, User): "плани не потрібні" — колишні 2 таби В роботі/Плани
+// злиті в ОДИН список. Кожен запис Плани (loadLibrary, state.js) тепер несе
+// passCount (скільки повних проходжень уже було) — TEXT_MASTERY_THRESHOLD
+// проходжень і запис сам переїжджає в Learned (registerTextPass, state.js).
+// Тут — лише відображення поточної стадії з творчим підписом, замість дублю
+// "В роботі"/"Плани" з різними списками для того самого тексту.
+function textProgressStage(entry, activeState) {
+    const passCount = entry.passCount || 0;
+    if (passCount >= 1) return 'almost'; // ще один прохід — і вивчено
+    if (activeState && activeState.rawText === entry.text && activeState.blocks && activeState.blocks.length) {
+        const pct = (activeState.newBlocksShown || 0) / activeState.blocks.length;
+        if (pct >= 0.5) return 'halfway';
+    }
+    return 'start';
+}
+
+function renderTextProgress(containerId) {
+    const container = document.getElementById(containerId || 'progressContent');
     if (!container) return;
     const t = translations[currentLang];
-    container.innerHTML = '';
     const deleteSvg = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>`;
 
-    if (tab === 'progress') {
-        const s = loadState();
-        if (!s || !s.blocks || !s.blocks.length) {
-            container.innerHTML = `<p class="profile-empty">${t.profile_empty_progress || 'Немає активної сесії'}</p>`;
-            return;
-        }
-        const raw = (s.rawText || '').replace(/\n/g, ' ');
-        const title = (raw.length > 60 ? raw.slice(0, 60) + '…' : raw) || '—';
-        const date = new Date(s.savedAt).toLocaleDateString();
-        const done = s.newBlocksShown || 0;
-        container.innerHTML = `
-          <div class="profile-item">
-            <div class="profile-item-body">
-              <div class="profile-item-title">${escHtml(title)}</div>
-              <div class="profile-item-meta">${date} · ${done} / ${s.blocks.length} ${t.finish_blocks || 'блоків'}</div>
-            </div>
-            <div class="profile-item-actions">
-              <button class="btn-profile-action" onclick="profileContinue()">${t.resume_continue || 'Продовжити'}</button>
-              <button class="btn-profile-delete" onclick="profileDiscardProgress()">${deleteSvg}</button>
-            </div>
-          </div>`;
+    const activeState = loadState();
+    const allLib = loadLibrary();
+    // Захисний фолбек: активна сесія завжди мала б уже бути в Плани (saveToLibrary
+    // при goToSetup), але якщо запис звідкись зник (напр. видалений вручну в іншій
+    // вкладці) — не ховати активний прогрес, показати синтетичний запис.
+    const entries = activeState && activeState.rawText && !allLib.find(e => e.text === activeState.rawText)
+        ? [{ id: '__active__', title: (activeState.rawText || '').replace(/\n/g, ' ').slice(0, 70), text: activeState.rawText, savedAt: activeState.savedAt, lang: null, passCount: 0 }, ...allLib]
+        : allLib;
 
-    } else if (tab === 'planned') {
-        const allLib = loadLibrary();
-        if (allLib.length === 0) {
-            container.innerHTML = `<p class="profile-empty">${t.library_empty || 'Бібліотека порожня'}</p>`;
-            return;
-        }
-        // FB-38: доступні прапори — лише мови, що реально є серед записів; фільтр
-        // персистентний на цьому екрані (plannedLangFilter, скидається лише вручну
-        // через 🌐), не на кожен рендер.
-        const availableLangs = [...new Set(allLib.map(e => e.lang).filter(Boolean))];
-        const filterBar = renderLangFilterBar(plannedLangFilter, availableLangs, 'setPlannedLangFilter');
-        const lib = plannedLangFilter ? allLib.filter(e => e.lang === plannedLangFilter) : allLib;
-        if (lib.length === 0) {
-            container.innerHTML = filterBar + `<p class="profile-empty">${t.library_empty || 'Бібліотека порожня'}</p>`;
-            return;
-        }
-        const hint = `<p class="profile-list-hint">${t.lib_rename_hint || 'Натисніть на назву щоб перейменувати'}</p>`;
-        container.innerHTML = filterBar + hint + lib.map(entry => {
-            const rawTitle = entry.customTitle || entry.title;
-            const title = rawTitle.length > 60 ? rawTitle.slice(0, 60) + '…' : rawTitle;
-            const date = new Date(entry.savedAt).toLocaleDateString();
-            const flag = LANG_FLAGS[entry.lang] || '';
-            return `<div class="profile-item" id="lib-item-${entry.id}">
-              <div class="profile-item-body" onclick="startRenameLibEntry('${entry.id}')">
-                <div class="profile-item-title" id="lib-title-${entry.id}">${flag ? flag + ' ' : ''}${escHtml(title)}</div>
-                <div class="profile-item-meta">${date}</div>
-              </div>
-              <div class="profile-item-actions">
-                <button class="btn-profile-action" onclick="profileLoadText('${entry.id}')">${t.profile_load || 'Завантажити'}</button>
-                <button class="btn-profile-action btn-profile-ghost" onclick="editPlannedText('${entry.id}')">${t.profile_edit_text || '✎ Редагувати'}</button>
-                <button class="btn-profile-delete" onclick="profileDeletePlanned('${entry.id}')">${deleteSvg}</button>
-              </div>
-            </div>`;
-        }).join('');
+    if (entries.length === 0) {
+        container.innerHTML = `<p class="profile-empty">${t.progress_empty || 'Ще нічого не в роботі — встав текст на головному екрані 🌱'}</p>`;
+        return;
     }
+
+    const availableLangs = [...new Set(entries.map(e => e.lang).filter(Boolean))];
+    const filterBar = renderLangFilterBar(progressLangFilter, availableLangs, 'setProgressLangFilter');
+    const filtered = progressLangFilter ? entries.filter(e => e.lang === progressLangFilter) : entries;
+    if (filtered.length === 0) {
+        container.innerHTML = filterBar + `<p class="profile-empty">${t.progress_empty || 'Ще нічого не в роботі — встав текст на головному екрані 🌱'}</p>`;
+        return;
+    }
+
+    const stageMeta = {
+        start:   { cls: 'stage-start',   label: t.progress_stage_start   || '🌱 Перші кроки' },
+        halfway: { cls: 'stage-halfway', label: t.progress_stage_halfway || '🌿 На півдорозі!' },
+        almost:  { cls: 'stage-almost',  label: t.progress_stage_almost  || '🌳 Ще трішки — і вивчено!' },
+    };
+
+    const hint = `<p class="profile-list-hint">${t.lib_rename_hint || 'Натисніть на назву щоб перейменувати'}</p>`;
+    container.innerHTML = filterBar + hint + filtered.map(entry => {
+        const isActive = activeState && activeState.rawText === entry.text;
+        const rawTitle = entry.customTitle || entry.title;
+        const title = rawTitle.length > 60 ? rawTitle.slice(0, 60) + '…' : rawTitle;
+        const date = new Date(entry.savedAt).toLocaleDateString();
+        const flag = LANG_FLAGS[entry.lang] || '';
+        const stage = stageMeta[textProgressStage(entry, activeState)];
+        const isSynthetic = entry.id === '__active__';
+        const mainBtn = isActive
+            ? `<button class="btn-profile-action" onclick="profileContinue()">${t.resume_continue || 'Продовжити'}</button>`
+            : `<button class="btn-profile-action" onclick="profileLoadText('${entry.id}')">${t.profile_load || 'Завантажити'}</button>`;
+        const editBtn = isSynthetic ? '' : `<button class="btn-profile-action btn-profile-ghost" onclick="editPlannedText('${entry.id}')">${t.profile_edit_text || '✎ Редагувати'}</button>`;
+        const deleteBtn = isSynthetic
+            ? `<button class="btn-profile-delete" onclick="profileDiscardProgress()">${deleteSvg}</button>`
+            : `<button class="btn-profile-delete" onclick="profileDeletePlanned('${entry.id}')">${deleteSvg}</button>`;
+        return `<div class="profile-item" id="lib-item-${entry.id}">
+          <div class="profile-item-body" ${isSynthetic ? '' : `onclick="startRenameLibEntry('${entry.id}')"`}>
+            <span class="progress-stage-badge ${stage.cls}">${stage.label}</span>
+            <div class="profile-item-title" id="lib-title-${entry.id}">${flag ? flag + ' ' : ''}${escHtml(title)}</div>
+            <div class="profile-item-meta">${date}</div>
+          </div>
+          <div class="profile-item-actions">
+            ${mainBtn}
+            ${editBtn}
+            ${deleteBtn}
+          </div>
+        </div>`;
+    }).join('');
 }
 
 // ===== "ВИВЧЕНО" (profileScreen, Бібліотека, Text-контекст) =====
@@ -2222,6 +2252,15 @@ function setLearnedLangFilter(code) {
     learnedLangFilter = code;
     renderLearnedLibrary();
 }
+// FB-41 (2026-08-11, User): "в бібліотеці... фільтр про мові та по слову/словах" —
+// той самий пошук-патерн, що вже є в Словнику слів (updateWdictSearch, words.js).
+let learnedSearch = '';
+function updateLearnedSearch(value) {
+    learnedSearch = value;
+    renderLearnedLibrary();
+    const inp = document.getElementById('learnedSearchInput');
+    if (inp) { inp.focus(); inp.setSelectionRange(inp.value.length, inp.value.length); }
+}
 
 function renderLearnedLibrary() {
     const container = document.getElementById('profileContent');
@@ -2234,8 +2273,14 @@ function renderLearnedLibrary() {
     }
     const availableLangs = [...new Set(allArr.map(e => e.lang).filter(Boolean))];
     const filterBar = renderLangFilterBar(learnedLangFilter, availableLangs, 'setLearnedLangFilter');
-    const arr = learnedLangFilter ? allArr.filter(e => e.lang === learnedLangFilter) : allArr;
+    const q = learnedSearch.trim().toLowerCase();
+    let arr = learnedLangFilter ? allArr.filter(e => e.lang === learnedLangFilter) : allArr;
+    if (q) arr = arr.filter(e => (e.customTitle || e.title || '').toLowerCase().includes(q) || (e.text || '').toLowerCase().includes(q));
+    const searchBar = allArr.length > 3
+        ? `<input type="text" id="learnedSearchInput" class="word-dict-search" placeholder="${t.wdict_search_placeholder || '🔍 Пошук слова...'}" value="${escHtml(learnedSearch)}" oninput="updateLearnedSearch(this.value)">`
+        : '';
     const deleteSvg = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>`;
+    const undoSvg = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M3 13a9 9 0 1 0 3-7"/></svg>`;
 
     const groups = { text_speech: [], poem_song: [] };
     arr.forEach(entry => groups[normalizeLearnedCategory(entry.category)].push(entry));
@@ -2261,6 +2306,7 @@ function renderLearnedLibrary() {
             <select class="learned-cat-select" onchange="changeLearnedCategory(${entry.id}, this.value)">${catOptions(entry)}</select>
             <div class="profile-item-actions">
               <button class="btn-profile-action btn-profile-ghost" onclick="profileLearnAgain(${entry.id})">${t.finish_restart || 'Знову'}</button>
+              <button class="btn-profile-action btn-profile-ghost" title="${t.learned_not_yet || 'Ще не вивчено — повернути в Прогрес'}" onclick="demoteLearnedEntry(${entry.id}); renderLearnedLibrary();">${undoSvg}</button>
               <button class="btn-profile-delete" onclick="profileDeleteLearned(${entry.id})">${deleteSvg}</button>
             </div>
           </div>
@@ -2274,10 +2320,10 @@ function renderLearnedLibrary() {
 
     const hero = `<p class="learned-hero-title">${escHtml(t.learned_hero_title || 'Молодець, ось що вже вивчено! 🌟')}</p>`;
     if (arr.length === 0) {
-        container.innerHTML = filterBar + hero + `<p class="profile-empty">${t.profile_empty_learned || 'Ще нічого не вивчено'}</p>`;
+        container.innerHTML = filterBar + searchBar + hero + `<p class="profile-empty">${t.wdict_no_matches || 'Нічого не знайдено'}</p>`;
         return;
     }
-    container.innerHTML = filterBar + hero +
+    container.innerHTML = filterBar + searchBar + hero +
         renderGroup(t.learned_group_text_speech || 'Текст/промова', groups.text_speech) +
         renderGroup(t.learned_group_poem_song || 'Вірші/пісні', groups.poem_song);
 }
@@ -2343,7 +2389,7 @@ function profileContinue() {
 
 function profileDiscardProgress() {
     clearState();
-    renderProfileTab('progress', 'progressContent');
+    renderTextProgress('progressContent');
 }
 
 function profileLearnAgain(id) {
@@ -2371,9 +2417,17 @@ function profileLoadText(id) {
 }
 
 function profileDeletePlanned(id) {
+    const entry = loadLibrary().find(e => String(e.id) === String(id));
+    // Захист: якщо запис, що видаляється, — водночас активна сесія (STATE_KEY),
+    // чистимо і її — інакше лишається "осиротіла" резюмована сесія на текст,
+    // якого вже нема в Прогресі (24h auto-resume міг би її повернути нізвідки).
+    if (entry) {
+        const s = loadState();
+        if (s && s.rawText === entry.text) clearState();
+    }
     saveLibrary(loadLibrary().filter(e => String(e.id) !== String(id)));
     updateLibraryCount();
-    renderProfileTab('planned', 'progressContent');
+    renderTextProgress('progressContent');
 }
 
 
@@ -2405,7 +2459,7 @@ function startRenameLibEntry(id) {
             lib2[idx].customTitle = newTitle;
             saveLibrary(lib2);
         }
-        renderProfileTab('planned', 'progressContent');
+        renderTextProgress('progressContent');
     }
 
     input.onblur = save;
@@ -2431,7 +2485,7 @@ function editPlannedText(id) {
         <textarea class="lib-edit-textarea">${escHtml(entry.text)}</textarea>
         <div class="profile-item-actions">
             <button class="chip-save-btn" onclick="savePlannedTextEdit('${id}')">✓</button>
-            <button class="chip-delete-btn" onclick="renderProfileTab('planned','progressContent')">✕</button>
+            <button class="chip-delete-btn" onclick="renderTextProgress('progressContent')">✕</button>
         </div>`;
     const ta = item.querySelector('.lib-edit-textarea');
     ta.focus();
@@ -2442,7 +2496,7 @@ function savePlannedTextEdit(id) {
     const ta = item ? item.querySelector('.lib-edit-textarea') : null;
     if (!ta) return;
     const newText = ta.value.trim();
-    if (!newText) { renderProfileTab('planned', 'progressContent'); return; }
+    if (!newText) { renderTextProgress('progressContent'); return; }
     const lib = loadLibrary();
     const idx = lib.findIndex(e => String(e.id) === String(id));
     if (idx >= 0) {
@@ -2453,7 +2507,7 @@ function savePlannedTextEdit(id) {
         if (!lib[idx].customTitle) lib[idx].title = newText.replace(/\n/g, ' ').slice(0, 70);
         saveLibrary(lib);
     }
-    renderProfileTab('planned', 'progressContent');
+    renderTextProgress('progressContent');
 }
 
 // ===== BOOT-TIME AUTO-RESUME (24h) =====

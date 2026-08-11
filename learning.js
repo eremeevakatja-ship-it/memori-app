@@ -857,9 +857,15 @@ function showFinal() {
     // saveToLibrary() при goToSetup) як незавершений, доступний для повторного
     // відкриття; STATE_KEY все одно чиститься, тож нав'язливий resume-банер
     // (проблема FB-21) не повертається.
+    // FB-41 (2026-08-11, User): один природний прохід (allDone) теж не є "реально
+    // вивчила" для User — підтвердила прямим питанням, що це "кілька вдалих
+    // проходжень". registerTextPass() (state.js) рахує проходження і архівує
+    // в Learned лише після TEXT_MASTERY_THRESHOLD — до того тексту лишається
+    // видимим у Прогресі з позначкою стадії (renderTextProgress, app.js).
+    let justMastered = false;
     clearState();
-    if (allDone) addToLearned(currentRawText || document.getElementById('userText').value.trim(), blocksReached);
-    document.getElementById('finalTitle').innerText = allDone ? t.finish_all_title : t.finish_title;
+    if (allDone) justMastered = registerTextPass(currentRawText || document.getElementById('userText').value.trim(), blocksReached);
+    document.getElementById('finalTitle').innerText = allDone ? (justMastered ? t.finish_all_title : (t.finish_pass_title || t.finish_all_title)) : t.finish_title;
     document.getElementById('finalBlocks').innerText = `${blocksReached} ${t.finish_blocks}`;
     document.getElementById('finalTime').innerText = `${t.finish_time}: ${timeStr}`;
     document.getElementById('finalRestartBtn').innerText = t.finish_restart;

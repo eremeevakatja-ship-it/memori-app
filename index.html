@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=95" />
+    <link rel="stylesheet" href="style.css?v=96" />
   </head>
   <body>
     <div class="container">
@@ -425,18 +425,6 @@
             </button>
           </div>
           <h2 id="progressTitleEl" class="setup-title">Прогрес</h2>
-
-          <!-- Text-only: 2 вкладки. Words-контекст ховає цей блок цілком (showProgressScreen). -->
-          <div id="progressTabs" class="profile-tabs" style="display:none;">
-            <button class="profile-tab active" onclick="selectProgressTab('progress',this)">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-              <span id="prtab-progress-lbl">В роботі</span>
-            </button>
-            <button class="profile-tab" onclick="selectProgressTab('planned',this)">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-              <span id="prtab-planned-lbl">Плани</span>
-            </button>
-          </div>
           <div id="progressContent" class="profile-content"></div>
         </div>
 
@@ -797,11 +785,11 @@
     </div>
 
 
-    <script src="state.js?v=11"></script>
+    <script src="state.js?v=12"></script>
     <script src="audio.js?v=2"></script>
-    <script src="learning.js?v=13"></script>
+    <script src="learning.js?v=14"></script>
     <script src="words.js?v=23"></script>
-    <script src="app.js?v=109"></script>
+    <script src="app.js?v=110"></script>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});

@@ -1483,6 +1483,23 @@ body[data-theme="dark"] .profile-empty { color: #374151; }
 }
 .profile-item:hover { border-color: var(--primary); }
 .profile-item-body { flex: 1; min-width: 0; }
+/* FB-41 (2026-08-11): стадія проходження тексту в об'єднаному Прогресі
+   (renderTextProgress, app.js) — той самий pill-бейдж патерн, що й
+   .word-dict-count/.step-badge, кольорова прогресія 🌱→🌿→🌳. */
+.progress-stage-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  border-radius: 20px;
+  padding: 1px 9px;
+  margin-bottom: 4px;
+}
+.progress-stage-badge.stage-start { background: #f1f5f9; color: #64748b; }
+.progress-stage-badge.stage-halfway { background: rgba(56,189,248,0.15); color: #0284c7; }
+.progress-stage-badge.stage-almost { background: var(--primary-soft); color: var(--primary); }
+body[data-theme="dark"] .progress-stage-badge.stage-start { background: #1f2937; color: #64748b; }
+body[data-theme="dark"] .progress-stage-badge.stage-halfway { background: rgba(56,189,248,0.15); color: #38bdf8; }
+body[data-theme="dark"] .progress-stage-badge.stage-almost { background: rgba(129,140,248,0.15); color: #818cf8; }
 .profile-item-title {
   font-size: 0.83rem;
   font-weight: 600;
