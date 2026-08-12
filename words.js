@@ -2053,9 +2053,6 @@ function renderWordProfileList(containerId) {
         const title = rawTitle.length > 60 ? rawTitle.slice(0, 60) + '…' : rawTitle;
         const langPair = `${(set.langFrom || '').toUpperCase()} → ${(set.langTo || '').toUpperCase()}`;
         const meta = `${langPair} · ${total} ${t.profile_words_total || 'слів'} · ${mastered} ${t.profile_words_mastered || 'вивчено'} · ${review} ${t.profile_words_review || 'повторити'}`;
-        const quickBtn = mastered >= 2
-            ? `<button class="btn-profile-action btn-profile-ghost" onclick="profileQuickRoundWordSet(${set.id})">${t.profile_quick_round || '⚡ Швидко'}</button>`
-            : '';
         return `<div class="profile-item">
           <div class="profile-item-body">
             <div class="profile-item-title">${escHtml(title)}</div>
@@ -2064,7 +2061,6 @@ function renderWordProfileList(containerId) {
           </div>
           <div class="profile-item-actions">
             <button class="btn-profile-action" onclick="profileTrainWordSet(${set.id})">${t.profile_train || 'Тренувати'}</button>
-            ${quickBtn}
             <button class="btn-profile-action btn-profile-ghost" onclick="editWordSet(${set.id})">${t.profile_edit_text || '✎ Редагувати'}</button>
             <button class="btn-profile-delete" onclick="profileDeleteWordSet(${set.id})">${deleteSvg}</button>
           </div>
@@ -2240,45 +2236,6 @@ function profileTrainWordSet(id) {
     const set = loadWordSets().find(s => s.id === id);
     if (!set) return;
     startWordTraining(set); // showScreen('wordTrainingScreen') всередині ховає поточний екран самостійно
-}
-
-function profileQuickRoundWordSet(id) {
-    const set = loadWordSets().find(s => s.id === id);
-    if (!set) return;
-    startQuickRound(set);
-}
-
-// ===== ШВИДКИЙ РАУНД (type: 'w2t', лише вже вивчені слова) =====
-// Короткий тайм-атакний прохід для закріплення того, що вже "вивчено"
-// (masteryScore >= WT_MASTERY_THRESHOLD) — не повний цикл усіх типів вправ,
-// а лише w2t-впізнавання, до WT_QUICK_ROUND_SIZE слів. Повністю перевикористовує
-// wordTrainingScreen/renderWtExercise (w2t вже вміє рендеритись) — тут лише
-// власна побудова черги й точка входу.
-const WT_QUICK_ROUND_SIZE = 15;
-
-function startQuickRound(set) {
-    const t = translations[currentLang];
-    const mastered = (set.pairs || []).filter(p => p.word && p.translation && (p.masteryScore || 0) >= WT_MASTERY_THRESHOLD);
-    if (mastered.length < 2) {
-        showMotivToast(t.wt_quick_not_enough || 'Замало вивчених слів для швидкого раунду');
-        return;
-    }
-    const rnd = arr => [...arr].sort(() => Math.random() - 0.5);
-    wtReturnScreen = null;
-    wtSet = set;
-    wordLangFrom = set.langFrom || 'en';
-    wordLangTo = set.langTo || 'uk';
-    wordLevel = set.level || 1;
-    wtQueue = rnd(mastered).slice(0, WT_QUICK_ROUND_SIZE).map(p => ({ pair: p, type: 'w2t' }));
-    wtIndex = 0;
-    wtCorrect = 0;
-    wtCurrentAudioPair = null;
-    wtSettledPairs = new Set();
-    wtSessionStartTime = Date.now();
-    clearWtProgress();
-    showScreen('wordTrainingScreen');
-    renderWtExercise();
-    saveWtProgress(); // те саме, що і в startWordTraining() вище — див. коментар там
 }
 
 function profileDeleteWordSet(id) {

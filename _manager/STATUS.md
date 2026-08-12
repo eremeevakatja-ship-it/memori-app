@@ -1203,3 +1203,18 @@ User ще не обрала варіант — рішення відкрите, 
 - **"У бібліотеці не мають бути недовчені тексти"**: перевірено код — `addToLearned()` (`state.js`) має єдину точку виклику (`registerTextPass()` ← `learning.js:867`, лише при `allDone===true`), і `registerTextPass` вже вимагає `TEXT_MASTERY_THRESHOLD=2` повних проходжень тексту перед тим, як запис потрапляє у Вивчено/Бібліотеку — обхідних шляхів у коді не знайдено. Якщо User все ж бачить недовчений текст у Бібліотеці — це не відтворюється аналізом коду, потрібен конкретний приклад (який текст, скільки разів проходила) для діагностики.
 
 Файли: `app.js` (`?v=` 110→111, новий `progress_stage_all` у 6 мов + `renderStageFilterBar`/`setProgressStageFilter`), `style.css` (`?v=` 96→98). **НЕ закомічено** — готую коміт, чекає підтвердження User (і рішення по "Швидко" перед комітом чи окремим комітом пізніше).
+
+
+---
+
+## 2026-08-12 (продовження) — "Швидко" видалено
+
+User підтвердила: прибрати "⚡ Швидко" повністю (не лишати як опцію). Видалено:
+- Кнопка в картці набору (`renderWordProfileList`, `words.js`) — `quickBtn` разом з умовою `mastered >= 2`.
+- `profileQuickRoundWordSet()` і `startQuickRound()` (`words.js`), константа `WT_QUICK_ROUND_SIZE`.
+- i18n-ключі `profile_quick_round` / `wt_quick_not_enough` — з усіх 6 мов (`app.js`).
+- Коментар у `state.js` (`wtSessionStartTime`), що згадував `startQuickRound()` як 3-тю точку входу — виправлено на 2 точки входу.
+
+**Перевірено `javascript_tool`** (не скріншотом): картка набору тепер має лише "Тренувати"/"✎ Редагувати" (без "⚡ Швидко"); `typeof profileQuickRoundWordSet` і `typeof startQuickRound` — обидва `"undefined"` (функції справді видалені, не просто прибрана кнопка); `grep` по всьому проєкту на `Quick|quick_round|startQuickRound|profileQuickRound` — 0 збігів. Консоль: ті самі 4 старі "unknown error fetching the script" (не нові, не з локальних файлів).
+
+Файли: `words.js` (`?v=` 23→24), `app.js` (`?v=` 111→112, без зміни i18n-структури — лише видалення ключів), `state.js` (коментар, без `?v=` — логіки не чіпали).

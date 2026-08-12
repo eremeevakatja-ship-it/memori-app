@@ -91,9 +91,9 @@ let wtSettledPairs = new Set();
 // щоб showWordResults() (words.js) могла порахувати реальний час сесії й
 // передати його в updateStats() (FB-08). Виставляється в 3 точках входу:
 // startWordTraining() (свіжий старт), applyWtSavedProgress() (продовження
-// збереженого прогресу — і явне, і тихе boot-resume), startQuickRound()
-// (швидкий раунд). Скидається щоразу, щоб час "заморожений" закритою
-// вкладкою між сесіями не потрапляв у підрахунок.
+// збереженого прогресу — і явне, і тихе boot-resume). Скидається щоразу,
+// щоб час "заморожений" закритою вкладкою між сесіями не потрапляв у
+// підрахунок.
 let wtSessionStartTime = null;
 
 // ----- [S3 updateBlockMastery/getBlockStatus]  (was app.js lines 1038-1053) -----
