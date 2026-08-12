@@ -131,6 +131,7 @@ const translations = {
         wselect_none_toast: "Оберіть хоча б одне слово",
         profile_empty_progress: "Немає активної сесії",
         progress_empty: "Ще нічого не в роботі — встав текст і почни вчити! 🌱",
+        progress_stage_all: "Усі",
         progress_stage_start: "🌱 Перші кроки",
         progress_stage_halfway: "🌿 На півдорозі!",
         progress_stage_almost: "🌳 Ще трішки — і вивчено!",
@@ -326,6 +327,7 @@ const translations = {
         wselect_none_toast: "Pick at least one word",
         profile_empty_progress: "No active session",
         progress_empty: "Nothing in progress yet — paste a text and start learning! 🌱",
+        progress_stage_all: "All",
         progress_stage_start: "🌱 First steps",
         progress_stage_halfway: "🌿 Halfway there!",
         progress_stage_almost: "🌳 Almost there — one more pass!",
@@ -521,6 +523,7 @@ const translations = {
         wselect_none_toast: "Wybierz co najmniej jedno słowo",
         profile_empty_progress: "Brak aktywnej sesji",
         progress_empty: "Jeszcze nic w trakcie — wklej tekst i zacznij się uczyć! 🌱",
+        progress_stage_all: "Wszystkie",
         progress_stage_start: "🌱 Pierwsze kroki",
         progress_stage_halfway: "🌿 W połowie drogi!",
         progress_stage_almost: "🌳 Jeszcze trochę — i opanowane!",
@@ -716,6 +719,7 @@ const translations = {
         wselect_none_toast: "Wähle mindestens ein Wort",
         profile_empty_progress: "Keine aktive Sitzung",
         progress_empty: "Noch nichts in Arbeit — füge einen Text ein und leg los! 🌱",
+        progress_stage_all: "Alle",
         progress_stage_start: "🌱 Erste Schritte",
         progress_stage_halfway: "🌿 Auf halbem Weg!",
         progress_stage_almost: "🌳 Noch ein bisschen — gleich gelernt!",
@@ -911,6 +915,7 @@ const translations = {
         wselect_none_toast: "Choisissez au moins un mot",
         profile_empty_progress: "Aucune session active",
         progress_empty: "Rien en cours pour l'instant — colle un texte et commence à apprendre ! 🌱",
+        progress_stage_all: "Tous",
         progress_stage_start: "🌱 Premiers pas",
         progress_stage_halfway: "🌿 À mi-chemin !",
         progress_stage_almost: "🌳 Presque là — encore un peu !",
@@ -1106,6 +1111,7 @@ const translations = {
         wselect_none_toast: "Elige al menos una palabra",
         profile_empty_progress: "Sin sesión activa",
         progress_empty: "Nada en progreso todavía — pega un texto y empieza a aprender! 🌱",
+        progress_stage_all: "Todos",
         progress_stage_start: "🌱 Primeros pasos",
         progress_stage_halfway: "🌿 A mitad de camino!",
         progress_stage_almost: "🌳 Casi lo tienes — un poco más!",
@@ -2074,6 +2080,22 @@ function setProgressLangFilter(code) {
     progressLangFilter = code;
     renderTextProgress('progressContent');
 }
+// (2026-08-12, User): стадія проходження (🌱/🌿/🌳, вже показана як бейдж на
+// кожній картці) винесена окремим рядком чіпів під мовним фільтром — той самий
+// renderLangFilterBar-патерн (.lang-filter-bar/.lang-filter-chip), null = усі стадії.
+let progressStageFilter = null;
+function setProgressStageFilter(stage) {
+    progressStageFilter = stage;
+    renderTextProgress('progressContent');
+}
+const PROGRESS_STAGE_ORDER = ['start', 'halfway', 'almost'];
+function renderStageFilterBar(activeStage, availableStages, stageMeta) {
+    const t = translations[currentLang];
+    const present = PROGRESS_STAGE_ORDER.filter(s => availableStages.includes(s));
+    if (present.length < 2) return ''; // нема сенсу фільтрувати, якщо всі записи в одній стадії
+    const chip = (val, label) => `<button class="lang-filter-chip${activeStage === val ? ' active' : ''}" onclick="setProgressStageFilter(${val === null ? 'null' : `'${val}'`})">${label}</button>`;
+    return `<div class="lang-filter-bar">${chip(null, t.progress_stage_all || 'Усі')}${present.map(s => chip(s, stageMeta[s].label)).join('')}</div>`;
+}
 
 function showProgressScreen(returnFn) {
     progressReturnFn = typeof returnFn === 'function' ? returnFn : showInputScreen;
@@ -2184,19 +2206,26 @@ function renderTextProgress(containerId) {
         return;
     }
 
-    const availableLangs = [...new Set(entries.map(e => e.lang).filter(Boolean))];
-    const filterBar = renderLangFilterBar(progressLangFilter, availableLangs, 'setProgressLangFilter');
-    const filtered = progressLangFilter ? entries.filter(e => e.lang === progressLangFilter) : entries;
-    if (filtered.length === 0) {
-        container.innerHTML = filterBar + `<p class="profile-empty">${t.progress_empty || 'Ще нічого не в роботі — встав текст на головному екрані 🌱'}</p>`;
-        return;
-    }
-
     const stageMeta = {
         start:   { cls: 'stage-start',   label: t.progress_stage_start   || '🌱 Перші кроки' },
         halfway: { cls: 'stage-halfway', label: t.progress_stage_halfway || '🌿 На півдорозі!' },
         almost:  { cls: 'stage-almost',  label: t.progress_stage_almost  || '🌳 Ще трішки — і вивчено!' },
     };
+
+    const availableLangs = [...new Set(entries.map(e => e.lang).filter(Boolean))];
+    const langFilterBar = renderLangFilterBar(progressLangFilter, availableLangs, 'setProgressLangFilter');
+    const byLang = progressLangFilter ? entries.filter(e => e.lang === progressLangFilter) : entries;
+
+    const withStage = byLang.map(entry => ({ entry, stage: textProgressStage(entry, activeState) }));
+    const availableStages = [...new Set(withStage.map(x => x.stage))];
+    const stageFilterBar = renderStageFilterBar(progressStageFilter, availableStages, stageMeta);
+    const filterBar = langFilterBar + stageFilterBar;
+    const filtered = (progressStageFilter ? withStage.filter(x => x.stage === progressStageFilter) : withStage).map(x => x.entry);
+
+    if (filtered.length === 0) {
+        container.innerHTML = filterBar + `<p class="profile-empty">${t.progress_empty || 'Ще нічого не в роботі — встав текст на головному екрані 🌱'}</p>`;
+        return;
+    }
 
     const hint = `<p class="profile-list-hint">${t.lib_rename_hint || 'Натисніть на назву щоб перейменувати'}</p>`;
     container.innerHTML = filterBar + hint + filtered.map(entry => {

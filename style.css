@@ -1474,6 +1474,7 @@ body[data-theme="dark"] .profile-empty { color: #374151; }
 .profile-item {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
   background: #fafafa;
   border: 1.5px solid #e8eaed;
@@ -1482,7 +1483,11 @@ body[data-theme="dark"] .profile-empty { color: #374151; }
   transition: border-color 0.2s;
 }
 .profile-item:hover { border-color: var(--primary); }
-.profile-item-body { flex: 1; min-width: 0; }
+/* flex-basis (не лише flex:1) — без неї на вузьких екранах ряд кнопок
+   (.profile-item-actions, flex-shrink:0) стискав це поле майже до 0px,
+   і довгий рядок метаданих (мова · слів · вивчено · повторити) розбивався
+   по слову на кожен рядок замість переносу кнопок нижче. */
+.profile-item-body { flex: 1 1 160px; min-width: 0; }
 /* FB-41 (2026-08-11): стадія проходження тексту в об'єднаному Прогресі
    (renderTextProgress, app.js) — той самий pill-бейдж патерн, що й
    .word-dict-count/.step-badge, кольорова прогресія 🌱→🌿→🌳. */
@@ -1511,7 +1516,7 @@ body[data-theme="dark"] .progress-stage-badge.stage-almost { background: rgba(12
 }
 .profile-item-meta { font-size: 0.7rem; color: #aaa; }
 .profile-item .progress-bar { margin: 6px 0 0; height: 4px; }
-.profile-item-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.profile-item-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; flex-shrink: 0; max-width: 100%; }
 .btn-profile-action {
   background: var(--primary);
   color: white;
