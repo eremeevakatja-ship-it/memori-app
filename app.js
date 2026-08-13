@@ -92,9 +92,10 @@ const translations = {
         library_save: "Зберегти текст", library_saved: "Збережено ✓", library_duplicate: "Вже збережено",
         stat_streak_lbl: "дні поспіль", stat_blocks_lbl: "блоків", stat_time_lbl: "часу",
         stat_hr: "г", stat_min: "хв",
-        notif_prompt: "Нагадати завтра?", notif_time_label: "О котрій:",
+        notif_prompt: "Нагадати тобі завтра? 😊", notif_time_label: "О котрій:",
         notif_dismiss: "Ні, дякую", notif_body: "Час практикуватись! Не переривай серію 🔥",
         notif_confirm: "Нагадування увімкнено ✓", mood_popup_later: "Не зараз",
+        inactivity_title: "А хто тут у нас? 👀", inactivity_body: "Ми так сумували! Зайди на один текст — і серія знову оживе 🌱",
         instruction_hint: "Прочитайте двічі, повторіть в умі і йдіть далі",
         method_mind: "В умі", method_write: "Письмо", method_audio: "Голосом",
         text_placeholder: "Вставте або введіть текст...",
@@ -135,7 +136,7 @@ const translations = {
         progress_stage_start: "🌱 Перші кроки",
         progress_stage_halfway: "🌿 На півдорозі!",
         progress_stage_almost: "🌳 Ще трішки — і вивчено!",
-        profile_empty_learned: "Ще нічого не вивчено. Пройдіть перший текст!",
+        profile_empty_learned: "Тут поки порожньо, але це ненадовго 🌱 Довчи перший текст — і він оселиться в бібліотеці.",
         profile_load: "Завантажити",
         profile_edit_text: "✎ Редагувати",
         profile_name_placeholder: "Ваше ім'я",
@@ -190,13 +191,14 @@ const translations = {
         wt_listen_prompt: 'Прослухайте та оберіть слово', wt_listen_btn: 'Прослухати',
         wt_correct: '✓ Правильно!', wt_wrong: 'Упс, спробуйте ще раз',
         wt_save_word: 'Зберегти', wt_skip: 'Пропустити', wt_finish: 'Завершити',
-        wt_type_spell: '✏️ Напиши', wt_type_dictation: '🎧 Диктант', wt_type_sentence: '📝 Речення',
+        wt_type_spell: '✏️ Напиши', wt_type_dictation: '🎧 Диктант', wt_type_sentence: '📝 Речення', wt_type_speak: '🗣️ Скажи',
         wt_type_match: '🔗 Пари', wt_type_truefalse: '✓✗ Правда чи ні', wt_type_listen: '🎧 Слухай і познач',
         wt_match_prompt: 'Знайдіть пари: слово — переклад', wt_match_mistakes: 'Готово, але були помилки',
         wt_true: '✓ Правда', wt_false: '✗ Неправда',
         wt_listen_pick_prompt: 'Прослухайте і відмітьте слова, які прозвучали',
         wt_spell_prompt: 'Напишіть слово мовою навчання',
         wt_dictation_prompt: 'Прослухайте та напишіть слово',
+        wt_speak_prompt: 'Скажіть переклад цього слова', wt_speak_record: '🎙 Записати', wt_speak_said: 'Ви сказали:',
         wt_sentence_prompt: 'Впишіть пропущене слово',
         wt_sentence_no_examples: 'Для цих слів поки немає прикладів речень',
         wt_preparing: 'Готую вправи…',
@@ -217,7 +219,7 @@ const translations = {
         library_title: 'Бібліотека', progress_title: 'Прогрес',
         profile_mood: 'Настрій зараз', profile_about: 'Про тебе',
         profile_optional_note: 'Усе нижче — суто за бажанням 💛 Заповнюй, що хочеш, решту сміливо пропускай.',
-        profile_country: 'Країна', profile_city: 'Місто', profile_age: 'Вік', profile_email: 'Пошта'
+        profile_country: 'Країна', profile_city: 'Місто', profile_age: 'Вік', profile_email: 'Пошта', profile_birthdate: 'Дата народження'
     },
     en: {
         welcome: "Welcome. Let's learn without stress.",
@@ -290,6 +292,7 @@ const translations = {
         notif_prompt: "Remind me tomorrow?", notif_time_label: "What time:",
         notif_dismiss: "No thanks", notif_body: "Time to practise! Keep your streak going 🔥",
         notif_confirm: "Reminder enabled ✓", mood_popup_later: "Not now",
+        inactivity_title: "Well, look who's here! 👀", inactivity_body: "We missed you! One quick text and we're back in business 🌱",
         instruction_hint: "Read twice, recall in your mind, then continue",
         method_mind: "Mental", method_write: "Write", method_audio: "Voice",
         text_placeholder: "Paste or type your text...",
@@ -330,7 +333,7 @@ const translations = {
         progress_stage_start: "🌱 First steps",
         progress_stage_halfway: "🌿 Halfway there!",
         progress_stage_almost: "🌳 Almost there — one more pass!",
-        profile_empty_learned: "Nothing learned yet. Complete your first text!",
+        profile_empty_learned: "Empty for now, but not for long 🌱 Finish learning a text and it'll move in here.",
         profile_load: "Load",
         profile_edit_text: "✎ Edit",
         profile_name_placeholder: "Your name",
@@ -385,13 +388,14 @@ const translations = {
         wt_listen_prompt: 'Listen and choose the word', wt_listen_btn: 'Listen',
         wt_correct: '✓ Correct!', wt_wrong: 'Oops, try again',
         wt_save_word: 'Save word', wt_skip: 'Skip', wt_finish: 'Finish',
-        wt_type_spell: '✏️ Spell it', wt_type_dictation: '🎧 Dictation', wt_type_sentence: '📝 Sentence',
+        wt_type_spell: '✏️ Spell it', wt_type_dictation: '🎧 Dictation', wt_type_sentence: '📝 Sentence', wt_type_speak: '🗣️ Say it',
         wt_type_match: '🔗 Match', wt_type_truefalse: '✓✗ True or false', wt_type_listen: '🎧 Listen & pick',
         wt_match_prompt: 'Match the words with their translations', wt_match_mistakes: 'Done, but with some mistakes',
         wt_true: '✓ True', wt_false: '✗ False',
         wt_listen_pick_prompt: 'Listen and mark the words you heard',
         wt_spell_prompt: 'Write the word in the learning language',
         wt_dictation_prompt: 'Listen and write the word',
+        wt_speak_prompt: 'Say the translation of this word', wt_speak_record: '🎙 Record', wt_speak_said: 'You said:',
         wt_sentence_prompt: 'Fill in the missing word',
         wt_sentence_no_examples: 'No example sentences yet for these words',
         wt_preparing: 'Preparing exercises…',
@@ -412,7 +416,7 @@ const translations = {
         library_title: 'Library', progress_title: 'Progress',
         profile_mood: 'Mood right now', profile_about: 'About you',
         profile_optional_note: 'Everything below is totally optional 💛 Fill in what you like, skip the rest.',
-        profile_country: 'Country', profile_city: 'City', profile_age: 'Age', profile_email: 'Email'
+        profile_country: 'Country', profile_city: 'City', profile_age: 'Age', profile_email: 'Email', profile_birthdate: 'Date of birth'
     },
     pl: {
         welcome: "Witamy. Zacznijmy naukę bez stresu.",
@@ -485,6 +489,7 @@ const translations = {
         notif_prompt: "Przypomnieć jutro?", notif_time_label: "O której:",
         notif_dismiss: "Nie, dziękuję", notif_body: "Czas na praktykę! Nie przerywaj serii 🔥",
         notif_confirm: "Przypomnienie włączone ✓", mood_popup_later: "Nie teraz",
+        inactivity_title: "O, kto to do nas zawitał! 👀", inactivity_body: "Tęskniliśmy! Wpadnij na jeden tekst — i wracamy do gry 🌱",
         instruction_hint: "Przeczytaj dwa razy, powtórz w myślach i jedź dalej",
         method_mind: "W myślach", method_write: "Pisanie", method_audio: "Głosem",
         text_placeholder: "Wklej lub wpisz tekst...",
@@ -525,7 +530,7 @@ const translations = {
         progress_stage_start: "🌱 Pierwsze kroki",
         progress_stage_halfway: "🌿 W połowie drogi!",
         progress_stage_almost: "🌳 Jeszcze trochę — i opanowane!",
-        profile_empty_learned: "Nic jeszcze nie nauczone. Ukończ pierwszy tekst!",
+        profile_empty_learned: "Na razie tu pusto, ale to się zmieni 🌱 Naucz się pierwszego tekstu — i on tu zamieszka.",
         profile_load: "Załaduj",
         profile_edit_text: "✎ Edytuj",
         profile_name_placeholder: "Twoje imię",
@@ -580,7 +585,7 @@ const translations = {
         wt_listen_prompt: 'Posłuchaj i wybierz słowo', wt_listen_btn: 'Posłuchaj',
         wt_correct: '✓ Dobrze!', wt_wrong: 'Ups, spróbuj jeszcze raz',
         wt_save_word: 'Zapisz słowo', wt_skip: 'Pomiń', wt_finish: 'Zakończ',
-        wt_type_spell: '✏️ Napisz', wt_type_dictation: '🎧 Dyktando', wt_type_sentence: '📝 Zdanie',
+        wt_type_spell: '✏️ Napisz', wt_type_dictation: '🎧 Dyktando', wt_type_sentence: '📝 Zdanie', wt_type_speak: '🗣️ Powiedz',
         wt_type_match: '🔗 Pary', wt_type_truefalse: '✓✗ Prawda czy fałsz', wt_type_listen: '🎧 Słuchaj i zaznacz',
         wt_match_prompt: 'Dopasuj słowa do tłumaczeń', wt_match_mistakes: 'Gotowe, ale były błędy',
         wt_true: '✓ Prawda', wt_false: '✗ Fałsz',
@@ -590,6 +595,7 @@ const translations = {
         wt_sentence_no_examples: 'Brak jeszcze przykładowych zdań dla tych słów',
         wt_preparing: 'Przygotowuję ćwiczenia…',
         wt_dictation_prompt: 'Posłuchaj i napisz słowo',
+        wt_speak_prompt: 'Powiedz tłumaczenie tego słowa', wt_speak_record: '🎙 Nagraj', wt_speak_said: 'Powiedziałeś/aś:',
         wt_check: 'Sprawdź', wt_type_placeholder: 'Wpisz odpowiedź...', wt_hint: 'Podpowiedź',
         wt_wrong_answer_was: 'Poprawnie:',
         wt_result_perfect: '🌟 Idealnie!', wt_result_great: '🎉 Świetnie!',
@@ -607,7 +613,7 @@ const translations = {
         library_title: 'Biblioteka', progress_title: 'Postęp',
         profile_mood: 'Nastrój teraz', profile_about: 'O tobie',
         profile_optional_note: 'Wszystko poniżej jest całkowicie opcjonalne 💛 Wypełnij, co chcesz, resztę śmiało pomiń.',
-        profile_country: 'Kraj', profile_city: 'Miasto', profile_age: 'Wiek', profile_email: 'E-mail'
+        profile_country: 'Kraj', profile_city: 'Miasto', profile_age: 'Wiek', profile_email: 'E-mail', profile_birthdate: 'Data urodzenia'
     },
     de: {
         welcome: "Willkommen. Lernen ohne Stress.",
@@ -680,6 +686,7 @@ const translations = {
         notif_prompt: "Morgen erinnern?", notif_time_label: "Zu welcher Zeit:",
         notif_dismiss: "Nein danke", notif_body: "Zeit zum Üben! Halte deine Serie aufrecht 🔥",
         notif_confirm: "Erinnerung aktiviert ✓", mood_popup_later: "Nicht jetzt",
+        inactivity_title: "Schau mal, wer da ist! 👀", inactivity_body: "Wir haben dich vermisst! Ein Text reicht, und wir sind wieder im Spiel 🌱",
         instruction_hint: "Zweimal lesen, im Kopf wiederholen, dann weiter",
         method_mind: "Im Kopf", method_write: "Schreiben", method_audio: "Stimme",
         text_placeholder: "Text einfügen oder tippen...",
@@ -720,7 +727,7 @@ const translations = {
         progress_stage_start: "🌱 Erste Schritte",
         progress_stage_halfway: "🌿 Auf halbem Weg!",
         progress_stage_almost: "🌳 Noch ein bisschen — gleich gelernt!",
-        profile_empty_learned: "Noch nichts gelernt. Schließe deinen ersten Text ab!",
+        profile_empty_learned: "Noch ist es hier leer — aber nicht mehr lange 🌱 Lerne deinen ersten Text, und er zieht hier ein.",
         profile_load: "Laden",
         profile_edit_text: "✎ Bearbeiten",
         profile_name_placeholder: "Dein Name",
@@ -775,7 +782,7 @@ const translations = {
         wt_listen_prompt: 'Hör zu und wähle das Wort', wt_listen_btn: 'Anhören',
         wt_correct: '✓ Richtig!', wt_wrong: 'Ups, versuch es nochmal',
         wt_save_word: 'Wort merken', wt_skip: 'Überspringen', wt_finish: 'Beenden',
-        wt_type_spell: '✏️ Schreiben', wt_type_dictation: '🎧 Diktat', wt_type_sentence: '📝 Satz',
+        wt_type_spell: '✏️ Schreiben', wt_type_dictation: '🎧 Diktat', wt_type_sentence: '📝 Satz', wt_type_speak: '🗣️ Sag es',
         wt_type_match: '🔗 Paare', wt_type_truefalse: '✓✗ Wahr oder falsch', wt_type_listen: '🎧 Hören & markieren',
         wt_match_prompt: 'Ordne die Wörter ihren Übersetzungen zu', wt_match_mistakes: 'Fertig, aber mit Fehlern',
         wt_true: '✓ Wahr', wt_false: '✗ Falsch',
@@ -785,6 +792,7 @@ const translations = {
         wt_sentence_no_examples: 'Für diese Wörter gibt es noch keine Beispielsätze',
         wt_preparing: 'Übungen werden vorbereitet…',
         wt_dictation_prompt: 'Höre zu und schreibe das Wort',
+        wt_speak_prompt: 'Sag die Übersetzung dieses Wortes', wt_speak_record: '🎙 Aufnehmen', wt_speak_said: 'Du hast gesagt:',
         wt_check: 'Prüfen', wt_type_placeholder: 'Antwort eingeben...', wt_hint: 'Hinweis',
         wt_wrong_answer_was: 'Richtig:',
         wt_result_perfect: '🌟 Perfekt!', wt_result_great: '🎉 Super!',
@@ -802,7 +810,7 @@ const translations = {
         library_title: 'Bibliothek', progress_title: 'Fortschritt',
         profile_mood: 'Aktuelle Stimmung', profile_about: 'Über dich',
         profile_optional_note: 'Alles hier unten ist völlig freiwillig 💛 Trag ein, was du magst, den Rest lässt du einfach weg.',
-        profile_country: 'Land', profile_city: 'Stadt', profile_age: 'Alter', profile_email: 'E-Mail'
+        profile_country: 'Land', profile_city: 'Stadt', profile_age: 'Alter', profile_email: 'E-Mail', profile_birthdate: 'Geburtsdatum'
     },
     fr: {
         welcome: "Bienvenue. Apprenons sans stress.",
@@ -875,6 +883,7 @@ const translations = {
         notif_prompt: "Me rappeler demain ?", notif_time_label: "À quelle heure :",
         notif_dismiss: "Non merci", notif_body: "C'est l'heure de pratiquer ! Gardez votre série 🔥",
         notif_confirm: "Rappel activé ✓", mood_popup_later: "Pas maintenant",
+        inactivity_title: "Regarde qui voilà ! 👀", inactivity_body: "Tu nous as manqué ! Un petit texte et c'est reparti 🌱",
         instruction_hint: "Lisez deux fois, rappelez-vous mentalement, continuez",
         method_mind: "Mental", method_write: "Écriture", method_audio: "Voix",
         text_placeholder: "Collez ou saisissez votre texte...",
@@ -915,7 +924,7 @@ const translations = {
         progress_stage_start: "🌱 Premiers pas",
         progress_stage_halfway: "🌿 À mi-chemin !",
         progress_stage_almost: "🌳 Presque là — encore un peu !",
-        profile_empty_learned: "Rien appris encore. Terminez votre premier texte !",
+        profile_empty_learned: "Encore vide, mais plus pour longtemps 🌱 Termine ton premier texte et il s'installera ici.",
         profile_load: "Charger",
         profile_edit_text: "✎ Modifier",
         profile_name_placeholder: "Votre prénom",
@@ -970,7 +979,7 @@ const translations = {
         wt_listen_prompt: 'Écoutez et choisissez le mot', wt_listen_btn: 'Écouter',
         wt_correct: '✓ Correct !', wt_wrong: 'Oups, réessaie',
         wt_save_word: 'Garder le mot', wt_skip: 'Ignorer', wt_finish: 'Terminer',
-        wt_type_spell: '✏️ Écrire', wt_type_dictation: '🎧 Dictée', wt_type_sentence: '📝 Phrase',
+        wt_type_spell: '✏️ Écrire', wt_type_dictation: '🎧 Dictée', wt_type_sentence: '📝 Phrase', wt_type_speak: '🗣️ Dites-le',
         wt_type_match: '🔗 Paires', wt_type_truefalse: '✓✗ Vrai ou faux', wt_type_listen: '🎧 Écoute et coche',
         wt_match_prompt: 'Associez les mots à leur traduction', wt_match_mistakes: 'Terminé, mais avec des erreurs',
         wt_true: '✓ Vrai', wt_false: '✗ Faux',
@@ -980,6 +989,7 @@ const translations = {
         wt_sentence_no_examples: 'Pas encore de phrases d\'exemple pour ces mots',
         wt_preparing: 'Préparation des exercices…',
         wt_dictation_prompt: 'Écoutez et écrivez le mot',
+        wt_speak_prompt: 'Dites la traduction de ce mot', wt_speak_record: '🎙 Enregistrer', wt_speak_said: 'Vous avez dit :',
         wt_check: 'Vérifier', wt_type_placeholder: 'Tapez votre réponse...', wt_hint: 'Indice',
         wt_wrong_answer_was: 'Correct :',
         wt_result_perfect: '🌟 Parfait !', wt_result_great: '🎉 Excellent !',
@@ -997,7 +1007,7 @@ const translations = {
         library_title: 'Bibliothèque', progress_title: 'Progrès',
         profile_mood: 'Humeur du moment', profile_about: 'À propos de toi',
         profile_optional_note: 'Tout ce qui suit est entièrement facultatif 💛 Remplis ce que tu veux, laisse le reste de côté.',
-        profile_country: 'Pays', profile_city: 'Ville', profile_age: 'Âge', profile_email: 'E-mail'
+        profile_country: 'Pays', profile_city: 'Ville', profile_age: 'Âge', profile_email: 'E-mail', profile_birthdate: 'Date de naissance'
     },
     es: {
         welcome: "Bienvenido. Aprendamos sin estrés.",
@@ -1070,6 +1080,7 @@ const translations = {
         notif_prompt: "¿Recordarme mañana?", notif_time_label: "¿A qué hora?",
         notif_dismiss: "No, gracias", notif_body: "¡Hora de practicar! Mantén tu racha 🔥",
         notif_confirm: "Recordatorio activado ✓", mood_popup_later: "Ahora no",
+        inactivity_title: "¡Mira quién ha vuelto! 👀", inactivity_body: "¡Te echábamos de menos! Con un texto ya estamos de vuelta 🌱",
         instruction_hint: "Lee dos veces, recuerda mentalmente y continúa",
         method_mind: "Mental", method_write: "Escritura", method_audio: "Voz",
         text_placeholder: "Pega o escribe tu texto...",
@@ -1110,7 +1121,7 @@ const translations = {
         progress_stage_start: "🌱 Primeros pasos",
         progress_stage_halfway: "🌿 A mitad de camino!",
         progress_stage_almost: "🌳 Casi lo tienes — un poco más!",
-        profile_empty_learned: "Nada aprendido aún. ¡Completa tu primer texto!",
+        profile_empty_learned: "Todavía vacío, pero no por mucho tiempo 🌱 Aprende tu primer texto y se instalará aquí.",
         profile_load: "Cargar",
         profile_edit_text: "✎ Editar",
         profile_name_placeholder: "Tu nombre",
@@ -1165,7 +1176,7 @@ const translations = {
         wt_listen_prompt: 'Escucha y elige la palabra', wt_listen_btn: 'Escuchar',
         wt_correct: '✓ ¡Correcto!', wt_wrong: 'Ups, inténtalo de nuevo',
         wt_save_word: 'Guardar palabra', wt_skip: 'Omitir', wt_finish: 'Terminar',
-        wt_type_spell: '✏️ Escribir', wt_type_dictation: '🎧 Dictado', wt_type_sentence: '📝 Frase',
+        wt_type_spell: '✏️ Escribir', wt_type_dictation: '🎧 Dictado', wt_type_sentence: '📝 Frase', wt_type_speak: '🗣️ Dilo',
         wt_type_match: '🔗 Parejas', wt_type_truefalse: '✓✗ Verdadero o falso', wt_type_listen: '🎧 Escucha y marca',
         wt_match_prompt: 'Empareja las palabras con su traducción', wt_match_mistakes: 'Listo, pero con errores',
         wt_true: '✓ Verdadero', wt_false: '✗ Falso',
@@ -1175,6 +1186,7 @@ const translations = {
         wt_sentence_no_examples: 'Todavía no hay frases de ejemplo para estas palabras',
         wt_preparing: 'Preparando ejercicios…',
         wt_dictation_prompt: 'Escucha y escribe la palabra',
+        wt_speak_prompt: 'Di la traducción de esta palabra', wt_speak_record: '🎙 Grabar', wt_speak_said: 'Dijiste:',
         wt_check: 'Comprobar', wt_type_placeholder: 'Escribe tu respuesta...', wt_hint: 'Pista',
         wt_wrong_answer_was: 'Correcto:',
         wt_result_perfect: '🌟 ¡Perfecto!', wt_result_great: '🎉 ¡Genial!',
@@ -1192,7 +1204,7 @@ const translations = {
         library_title: 'Biblioteca', progress_title: 'Progreso',
         profile_mood: 'Estado de ánimo', profile_about: 'Sobre ti',
         profile_optional_note: 'Todo lo de abajo es totalmente opcional 💛 Rellena lo que quieras, omite el resto.',
-        profile_country: 'País', profile_city: 'Ciudad', profile_age: 'Edad', profile_email: 'Correo'
+        profile_country: 'País', profile_city: 'Ciudad', profile_age: 'Edad', profile_email: 'Correo', profile_birthdate: 'Fecha de nacimiento'
     }
 };
 
@@ -2133,7 +2145,9 @@ function openProfileIdentity(returnFn) {
     const emailEl = document.getElementById('profileEmailInput');
     if (countryEl) countryEl.placeholder = t.profile_country || 'Країна';
     if (cityEl) cityEl.placeholder = t.profile_city || 'Місто';
-    if (ageEl) ageEl.placeholder = t.profile_age || 'Вік';
+    const ageLbl = document.getElementById('profileAgeLabel');
+    if (ageLbl) ageLbl.childNodes[0].textContent = (t.profile_birthdate || 'Дата народження') + ' ';
+    if (ageEl) ageEl.max = new Date().toISOString().slice(0, 10);
     if (emailEl) emailEl.placeholder = t.profile_email || 'Пошта';
     renderProfileHero();
     renderProfileIdentityFields();
@@ -2153,15 +2167,24 @@ function renderProfileIdentityFields() {
     const emailEl = document.getElementById('profileEmailInput');
     if (countryEl) countryEl.value = profile.country || '';
     if (cityEl) cityEl.value = profile.city || '';
-    if (ageEl) ageEl.value = profile.age || '';
+    if (ageEl) ageEl.value = profile.birthdate || '';
     if (emailEl) emailEl.value = profile.email || '';
+    renderProfileAgeDisplay(profile.birthdate);
+}
+
+function renderProfileAgeDisplay(birthdateStr) {
+    const disp = document.getElementById('profileAgeDisplay');
+    if (!disp) return;
+    const age = calcAge(birthdateStr);
+    disp.innerText = age === null ? '' : `· ${age}`;
 }
 
 function saveProfileAbout(field, input) {
     const profile = loadProfile();
-    const maxLen = field === 'age' ? 3 : (field === 'email' ? 80 : 60);
+    const maxLen = field === 'email' ? 80 : 60;
     profile[field] = input.value.trim().slice(0, maxLen);
     saveProfile(profile);
+    if (field === 'birthdate') renderProfileAgeDisplay(profile.birthdate);
 }
 
 // FB-41 (2026-08-11, User): "плани не потрібні" — колишні 2 таби В роботі/Плани
@@ -2559,4 +2582,5 @@ function checkAppBootResume() {
     }
 }
 checkAppBootResume();
+checkInactivityPopup();
 

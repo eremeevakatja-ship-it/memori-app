@@ -369,6 +369,21 @@ function saveProfile(p) {
     try { localStorage.setItem(PROFILE_KEY, JSON.stringify(p)); } catch {}
 }
 
+// FB-44 (2026-08-13): вік рахується від дати народження замість статичного
+// числа, щоб лишався актуальним з часом. Повертає null, якщо дата не задана
+// або в майбутньому (birthdate-поле має max=сьогодні, але про всяк випадок).
+function calcAge(birthdateStr) {
+    if (!birthdateStr) return null;
+    const birth = new Date(birthdateStr);
+    if (isNaN(birth.getTime())) return null;
+    const today = new Date();
+    if (birth > today) return null;
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) age--;
+    return age;
+}
+
 function updateProfileNavAvatar() {
     // Клас-селектор замість id — профіль-кнопка тепер живе і на inputScreen, і на wordLangScreen.
     const profile = loadProfile();
@@ -620,6 +635,27 @@ async function checkPendingReminder() {
     }
 }
 
+
+// FB-47 (2026-08-13): попап "скучили", якщо User не заходила 30+ днів. На
+// відміну від checkPendingReminder() — це не push-нотифікація (не потребує
+// Notification permission), а звичайний openInfoPopup() (app.js) на старті
+// застосунку. INACTIVITY_NOTIFIED_KEY зберігає lastDate, за яким уже
+// показали попап — щоб не показувати повторно щодня, поки User не
+// попрактикується знову (після чого stats.lastDate зміниться і лічильник
+// природно скинеться).
+const INACTIVITY_NOTIFIED_KEY = 'memori_inactivity_notified';
+function checkInactivityPopup() {
+    const stats = loadStats();
+    if (!stats.lastDate) return; // ще жодного разу не практикувались — нема з чим порівнювати
+    const daysSince = Math.floor((Date.now() - new Date(stats.lastDate).getTime()) / (24 * 60 * 60 * 1000));
+    if (daysSince < 30) return;
+    let notified = null;
+    try { notified = localStorage.getItem(INACTIVITY_NOTIFIED_KEY); } catch {}
+    if (notified === stats.lastDate) return;
+    try { localStorage.setItem(INACTIVITY_NOTIFIED_KEY, stats.lastDate); } catch {}
+    const t = translations[currentLang] || translations.en;
+    openInfoPopup(t.inactivity_title || 'А хто тут у нас? 👀', t.inactivity_body || 'Ми так сумували! 🌱');
+}
 
 // ----- [S9 Words Mode sets + wt-progress persistence]  (was app.js lines 3625-3664) -----
 const WORDS_SETS_KEY = 'memoriWords_sets';

@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=100" />
+    <link rel="stylesheet" href="style.css?v=101" />
   </head>
   <body>
     <div class="container">
@@ -494,7 +494,8 @@
               <input id="profileCountryInput" class="profile-about-input" type="text" maxlength="60" onblur="saveProfileAbout('country', this)">
               <input id="profileCityInput" class="profile-about-input" type="text" maxlength="60" onblur="saveProfileAbout('city', this)">
             </div>
-            <input id="profileAgeInput" class="profile-about-input" type="text" inputmode="numeric" maxlength="3" onblur="saveProfileAbout('age', this)">
+            <label id="profileAgeLabel" class="profile-about-label">Дата народження <span id="profileAgeDisplay" class="profile-age-hint"></span></label>
+            <input id="profileAgeInput" class="profile-about-input" type="date" onblur="saveProfileAbout('birthdate', this)" onchange="saveProfileAbout('birthdate', this)">
 
             <label id="profileEmailLabel" class="profile-about-label">Пошта</label>
             <input id="profileEmailInput" class="profile-about-input" type="text" maxlength="80" onblur="saveProfileAbout('email', this)">
@@ -567,6 +568,20 @@
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
               <span id="wtHintLabel">Підказка</span>
             </button>
+          </div>
+
+          <!-- Speak area (say the translation aloud, ASR) -->
+          <div id="wtSpeakWrap" style="display:none" class="wt-speak-wrap">
+            <button id="wtSpeakRecordBtn" onclick="wtStartSpeak()" class="btn-wt-audio">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+              <span id="wtSpeakRecordLabel"></span>
+            </button>
+            <div id="wtMicRecording" style="display:none;" class="mic-recording">
+              <div class="mic-pulse-wrap">
+                <span class="mic-pulse-img icon-c-coral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></span>
+              </div>
+              <p id="wtSpeakStatus" class="audio-status"></p>
+            </div>
           </div>
 
           <div id="wtFeedback" class="wt-feedback" style="display:none"></div>
@@ -785,11 +800,11 @@
     </div>
 
 
-    <script src="state.js?v=13"></script>
+    <script src="state.js?v=14"></script>
     <script src="audio.js?v=2"></script>
     <script src="learning.js?v=14"></script>
-    <script src="words.js?v=24"></script>
-    <script src="app.js?v=112"></script>
+    <script src="words.js?v=25"></script>
+    <script src="app.js?v=113"></script>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});

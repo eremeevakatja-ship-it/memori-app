@@ -1031,12 +1031,19 @@ function buildWtQueue(pairs, timeMinutes = Infinity) {
     const ttsWordOk = hasSpeech &&
         (TTS_VERIFIED_LANGS.includes(wordLangFrom) || wordLangFrom === 'es');
 
+    // FB-48 (2026-08-13): "скажи переклад" — ASR-аналог до "spell" (там пишуть
+    // слово, тут кажуть переклад). На відміну від TTS (ttsWordOk вище) — ASR
+    // у цьому застосунку свідомо НЕ обмежується списком мов (D-008 addendum,
+    // DECISIONS.md): розпізнавання мовлення однаково доступне для будь-якої
+    // мови браузера, гейт лише по наявності самого API.
+    const hasASR = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+
     // Рівень НЕ впливає на те, які типи вправ трапляються — усі типи доступні
     // на будь-якому рівні (лише фічі браузера/наявність прикладів фільтрують пул).
     // Час — єдине, що визначає РОЗМІР черги (менше часу = менше вправ).
     // 'sentence' тимчасово вимкнено — якість речень з Google Translate
     // недостатня; повернути, коли буде нормальна генерація (див. AI-бекенд)
-    const pool = ['w2t', 't2w', ttsWordOk ? 'audio' : null, 'spell', ttsWordOk ? 'dictation' : null, 'truefalse'].filter(Boolean);
+    const pool = ['w2t', 't2w', ttsWordOk ? 'audio' : null, 'spell', ttsWordOk ? 'dictation' : null, hasASR ? 'speak' : null, 'truefalse'].filter(Boolean);
 
     // "sentence" доступний лише для пар з реально знайденими прикладами —
     // фільтруємо саме цей тип по конкретному раунду пар, інші типи без змін.
@@ -1118,6 +1125,7 @@ function renderWtExercise() {
         spell: t.wt_type_spell || '✏️ Напиши',
         dictation: t.wt_type_dictation || '🎧 Диктант',
         sentence: t.wt_type_sentence || '📝 Речення',
+        speak: t.wt_type_speak || '🗣️ Скажи',
         match: t.wt_type_match || '🔗 Пари',
         truefalse: t.wt_type_truefalse || '✓✗ Правда чи ні',
         listen: t.wt_type_listen || '🎧 Слухай і познач',
@@ -1145,6 +1153,7 @@ function renderWtExercise() {
         typeArea.style.display = 'none';
         listenArea.style.display = 'none';
         matchArea.style.display = 'flex';
+        document.getElementById('wtSpeakWrap').style.display = 'none';
         if (skipBtn) skipBtn.style.display = 'none'; // "пропустити слово" не має сенсу для раунду з кількох пар
         qEl.innerText = t.wt_match_prompt || 'Знайдіть пари: слово — переклад';
         renderWtMatchExercise(wtQueue[wtIndex]);
@@ -1157,6 +1166,7 @@ function renderWtExercise() {
         choicesEl.style.display = 'none';
         typeArea.style.display = 'none';
         listenArea.style.display = 'block';
+        document.getElementById('wtSpeakWrap').style.display = 'none';
         if (skipBtn) skipBtn.style.display = 'none'; // так само, як match — раунд з кількох слів
         qEl.innerText = t.wt_listen_pick_prompt || 'Прослухайте і відмітьте слова, які прозвучали';
         renderWtListenExercise(wtQueue[wtIndex]);
@@ -1168,6 +1178,7 @@ function renderWtExercise() {
         const tfEx = wtQueue[wtIndex];
         audioWrap.style.display = 'none';
         typeArea.style.display = 'none';
+        document.getElementById('wtSpeakWrap').style.display = 'none';
         choicesEl.style.display = 'grid';
         qEl.innerHTML = `<div class="wt-tf-word">${escHtml(pair.word)}</div>` +
             `<div class="wt-tf-eq">=</div>` +
@@ -1178,6 +1189,20 @@ function renderWtExercise() {
             `<button class="wt-choice" data-correct="${tfEx.tfCorrect === false}" onclick="wtSelectChoice(this, ${tfEx.tfCorrect === false})">${escHtml(t.wt_false || '✗ Неправда')}</button>`;
         return;
     }
+
+    if (type === 'speak') {
+        audioWrap.style.display = 'none';
+        choicesEl.style.display = 'none';
+        typeArea.style.display = 'none';
+        document.getElementById('wtSpeakWrap').style.display = 'flex';
+        qEl.innerHTML = `<div class="wt-sentence-prompt">${escHtml(t.wt_speak_prompt || 'Скажіть переклад цього слова')}</div>${escHtml(pair.word)}`;
+        document.getElementById('wtSpeakRecordLabel').innerText = t.wt_speak_record || '🎙 Записати';
+        document.getElementById('wtSpeakRecordBtn').style.display = 'flex';
+        document.getElementById('wtSpeakRecordBtn').disabled = false;
+        document.getElementById('wtMicRecording').style.display = 'none';
+        return;
+    }
+    document.getElementById('wtSpeakWrap').style.display = 'none';
 
     const isTyping = (type === 'spell' || type === 'dictation' || type === 'sentence');
 
@@ -1617,6 +1642,113 @@ function wtShowHint() {
     if (wrap) wrap.classList.remove('wt-wrap-wrong');
     const fb = document.getElementById('wtFeedback');
     if (fb) fb.style.display = 'none';
+}
+
+// FB-48 (2026-08-13): "🗣️ Скажи" — ASR-аналог до "✏️ Напиши" (spell). Там
+// показують переклад і просять написати слово мовою навчання; тут показують
+// слово і просять СКАЗАТИ переклад (розпізнається мовою wordLangTo, а не
+// wordLangFrom — бо кажуть саме переклад). Той самий мікрофонний флоу, що й
+// startVoiceRecord() у audio.js (Text Mode "Голосом"), але зав'язаний на
+// Words Mode DOM (#wtSpeakWrap/#wtMicRecording) і на wtCheckSpoken() замість
+// showWritingResult() — рахунок і фідбек мають виглядати як в інших wt-вправах.
+async function wtStartSpeak() {
+    const t = translations[currentLang];
+    const ex = wtQueue[wtIndex];
+    if (!ex) return;
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const feedback = document.getElementById('wtFeedback');
+    const recordBtn = document.getElementById('wtSpeakRecordBtn');
+    const micWrap = document.getElementById('wtMicRecording');
+
+    const showMicError = (msg) => {
+        micWrap.style.display = 'none';
+        recordBtn.style.display = 'flex';
+        feedback.className = 'wt-feedback wt-fb-wrong';
+        feedback.innerText = msg;
+        feedback.style.display = 'block';
+    };
+
+    if (!SR) { showMicError(t.audio_record_noapi || 'Запис голосу не підтримується браузером.'); return; }
+
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        stream.getTracks().forEach(track => track.stop()); // release immediately
+    } catch (err) {
+        const msg = (err.name === 'NotFoundError' || err.name === 'DevicesNotFoundError')
+            ? (t.audio_record_nomic || '🎙 Мікрофон не знайдено.')
+            : (t.audio_record_denied || '🎙 Дозвольте доступ до мікрофона в налаштуваннях браузера.');
+        showMicError(msg);
+        return;
+    }
+
+    feedback.style.display = 'none';
+    recordBtn.style.display = 'none';
+    micWrap.style.display = 'flex';
+    document.getElementById('wtSpeakStatus').innerText = t.audio_recording || 'Слухаю вас...';
+
+    const recognition = new SR();
+    recognition.lang = WT_TTS_LANG[wordLangTo] || langToSpeech[wordLangTo] || 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 3;
+
+    recognition.onresult = (event) => {
+        const spoken = event.results[0][0].transcript;
+        micWrap.style.display = 'none';
+        wtCheckSpoken(spoken);
+    };
+
+    recognition.onerror = (event) => {
+        const errType = event.error;
+        const msg = (errType === 'not-allowed' || errType === 'permission-denied') ? (t.audio_record_denied || '🎙 Дозвольте доступ до мікрофона в налаштуваннях браузера.')
+                  : errType === 'no-speech' ? (t.audio_record_nospeech || '🎙 Нічого не почуто. Говоріть голосніше.')
+                  : (errType === 'audio-capture' || errType === 'not-found') ? (t.audio_record_nomic || '🎙 Мікрофон не знайдено.')
+                  : (t.audio_record_error || 'Не вдалося. Спробуйте ще.');
+        showMicError(msg);
+    };
+
+    recognition.onend = () => {
+        if (micWrap.style.display !== 'none') showMicError(t.audio_record_error || 'Не вдалося. Спробуйте ще.');
+    };
+
+    try {
+        recognition.start();
+    } catch (e) {
+        showMicError(t.audio_record_noapi || 'Запис голосу не підтримується браузером.');
+    }
+}
+
+function wtCheckSpoken(spoken) {
+    const t = translations[currentLang];
+    const ex = wtQueue[wtIndex];
+    if (!ex) return;
+
+    const isCorrect = isAnswerCorrect(spoken, ex.pair.translation);
+    const feedback = document.getElementById('wtFeedback');
+    const skipBtn = document.getElementById('wtSkipWordBtn');
+    const nextBtn = document.getElementById('wtNextBtn');
+    const recordBtn = document.getElementById('wtSpeakRecordBtn');
+
+    if (isCorrect) {
+        if (!ex.hadWrongSpoken) wtCorrect++;
+        feedback.className = 'wt-feedback wt-fb-correct';
+        feedback.innerHTML = (t.wt_correct || '✓ Правильно!') +
+            `<div class="wt-reveal-word"><b>${escHtml(spoken)}</b></div>`;
+        feedback.style.display = 'block';
+        recordBtn.style.display = 'none';
+        if (skipBtn) skipBtn.style.display = 'none';
+        nextBtn.innerText = (wtIndex + 1 < wtQueue.length) ? (t.next || 'Далі') + ' →' : (t.done || 'Готово');
+        nextBtn.style.display = 'block';
+        ex.correct = !ex.hadWrongSpoken;
+    } else {
+        ex.hadWrongSpoken = true;
+        ex.correct = false;
+        feedback.className = 'wt-feedback wt-fb-wrong';
+        feedback.innerHTML = (t.wt_wrong || 'Упс, спробуйте ще раз') +
+            `<div class="wt-reveal-word wt-reveal-word-wrong">${escHtml(t.wt_speak_said || 'Ви сказали:')} <b>${escHtml(spoken)}</b><span class="wt-reveal-arrow">→</span>${escHtml(ex.pair.translation)}</div>`;
+        feedback.style.display = 'block';
+        // Лишаємо кнопку запису — можна спробувати ще раз, той самий принцип retry, що й wtCheckTyped
+        recordBtn.style.display = 'flex';
+    }
 }
 
 function wtCheckTyped() {
