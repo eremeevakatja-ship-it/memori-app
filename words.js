@@ -1044,7 +1044,16 @@ function buildWtQueue(pairs, timeMinutes = Infinity) {
     // Час — єдине, що визначає РОЗМІР черги (менше часу = менше вправ).
     // 'sentence' тимчасово вимкнено — якість речень з Google Translate
     // недостатня; повернути, коли буде нормальна генерація (див. AI-бекенд)
-    const pool = ['w2t', 't2w', ttsWordOk ? 'audio' : null, 'spell', ttsWordOk ? 'dictation' : null, hasASR ? 'speak' : null, 'truefalse'].filter(Boolean);
+    const pool = ['w2t', 't2w', ttsWordOk ? 'audio' : null, 'spell', ttsWordOk ? 'dictation' : null, 'truefalse'].filter(Boolean);
+
+    // FB-48 addendum (2026-08-13, User): "🗣️ Скажи" — найважча вправа
+    // (мовлення + пригадування перекладу одночасно, без жодних підказок-
+    // варіантів на екрані) — завжди йде ОСТАННЬОЮ, і в повному проході
+    // (додається окремо нижче, після match/listen — не через `pool`, бо
+    // `pool` визначає порядок ТІЛЬКИ основного forEach), і в round-робіні
+    // коротких сесій (додано в кінець `poolWithSpeak`, round-робін заповнює
+    // типи по порядку — те саме "востаннє" в межах кожного раунду).
+    const poolWithSpeak = hasASR ? [...pool, 'speak'] : pool;
 
     // "sentence" доступний лише для пар з реально знайденими прикладами —
     // фільтруємо саме цей тип по конкретному раунду пар, інші типи без змін.
@@ -1063,6 +1072,7 @@ function buildWtQueue(pairs, timeMinutes = Infinity) {
             mistakeCount: 0, roundScored: false,
         }));
         if (ttsWordOk) buildListenRounds(pairs).forEach(round => q.push(round));
+        if (hasASR) rnd(pairs).forEach(p => q.push({ pair: p, type: 'speak' }));
         return q;
     }
 
@@ -1073,7 +1083,7 @@ function buildWtQueue(pairs, timeMinutes = Infinity) {
     let stalled = false;
     while (q.length < target && !stalled) {
         stalled = true;
-        for (const type of pool) {
+        for (const type of poolWithSpeak) {
             const list = pairsForType(type, rnd(pairs));
             if (list.length) stalled = false;
             list.forEach(p => q.push({ pair: p, type }));
@@ -1733,8 +1743,12 @@ function wtCheckSpoken(spoken) {
     if (isCorrect) {
         if (!ex.hadWrongSpoken) wtCorrect++;
         feedback.className = 'wt-feedback wt-fb-correct';
+        // User (2026-08-13): навіть при правильній відповіді показати саме
+        // слово + переклад — той самий reveal, що й у dictation навіть на
+        // "правильно" (wtCheckTyped), бо могли вгадати/пригадати звучання,
+        // не пам'ятаючи сам переклад напам'ять.
         feedback.innerHTML = (t.wt_correct || '✓ Правильно!') +
-            `<div class="wt-reveal-word"><b>${escHtml(spoken)}</b></div>`;
+            `<div class="wt-reveal-word"><b>${escHtml(ex.pair.word)}</b><span class="wt-reveal-arrow">→</span>${escHtml(ex.pair.translation)}</div>`;
         feedback.style.display = 'block';
         recordBtn.style.display = 'none';
         if (skipBtn) skipBtn.style.display = 'none';
