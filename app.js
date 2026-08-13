@@ -2145,9 +2145,7 @@ function openProfileIdentity(returnFn) {
     const emailEl = document.getElementById('profileEmailInput');
     if (countryEl) countryEl.placeholder = t.profile_country || 'Країна';
     if (cityEl) cityEl.placeholder = t.profile_city || 'Місто';
-    const ageLbl = document.getElementById('profileAgeLabel');
-    if (ageLbl) ageLbl.childNodes[0].textContent = (t.profile_birthdate || 'Дата народження') + ' ';
-    if (ageEl) ageEl.max = new Date().toISOString().slice(0, 10);
+    if (ageEl) ageEl.placeholder = (t.profile_birthdate || 'Дата народження') + ' (ДД.ММ.РРРР)';
     if (emailEl) emailEl.placeholder = t.profile_email || 'Пошта';
     renderProfileHero();
     renderProfileIdentityFields();
@@ -2167,7 +2165,7 @@ function renderProfileIdentityFields() {
     const emailEl = document.getElementById('profileEmailInput');
     if (countryEl) countryEl.value = profile.country || '';
     if (cityEl) cityEl.value = profile.city || '';
-    if (ageEl) ageEl.value = profile.birthdate || '';
+    if (ageEl) ageEl.value = formatBirthdateForDisplay(profile.birthdate);
     if (emailEl) emailEl.value = profile.email || '';
     renderProfileAgeDisplay(profile.birthdate);
 }
@@ -2181,10 +2179,17 @@ function renderProfileAgeDisplay(birthdateStr) {
 
 function saveProfileAbout(field, input) {
     const profile = loadProfile();
+    if (field === 'birthdate') {
+        const iso = parseBirthdateInput(input.value);
+        profile.birthdate = iso; // null (нерозпізнаний формат/порожньо) — просто не зберігаємо
+        input.value = formatBirthdateForDisplay(iso);
+        saveProfile(profile);
+        renderProfileAgeDisplay(iso);
+        return;
+    }
     const maxLen = field === 'email' ? 80 : 60;
     profile[field] = input.value.trim().slice(0, maxLen);
     saveProfile(profile);
-    if (field === 'birthdate') renderProfileAgeDisplay(profile.birthdate);
 }
 
 // FB-41 (2026-08-11, User): "плани не потрібні" — колишні 2 таби В роботі/Плани

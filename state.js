@@ -384,6 +384,30 @@ function calcAge(birthdateStr) {
     return age;
 }
 
+// FB-44 addendum (2026-08-13): User повідомила, що нативний date-picker
+// (`type="date"`) "не працює" на її телефоні — той самий клас проблем, що вже
+// траплявся в цьому застосунку з нативною Android-поведінкою (нотифікації,
+// flexbox), тому надійніше не покладатись на нативний UI взагалі. Поле —
+// звичайний текст (ДД.ММ.РРРР, як прийнято в укр./європ. форматі), той самий
+// патерн, що й Країна/Місто/Пошта. Зберігаємо в profile.birthdate як і раніше
+// ISO (yyyy-mm-dd) — calcAge() і решта коду не змінюються.
+function parseBirthdateInput(str) {
+    if (!str || !str.trim()) return null;
+    const m = str.trim().match(/^(\d{1,2})[.\/\-](\d{1,2})[.\/\-](\d{4})$/);
+    if (!m) return null;
+    const [, d, mo, y] = m;
+    if (+mo < 1 || +mo > 12 || +d < 1 || +d > 31) return null;
+    const iso = `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`;
+    const date = new Date(iso);
+    if (isNaN(date.getTime()) || date > new Date()) return null;
+    return iso;
+}
+function formatBirthdateForDisplay(iso) {
+    if (!iso) return '';
+    const [y, mo, d] = iso.split('-');
+    return `${d}.${mo}.${y}`;
+}
+
 function updateProfileNavAvatar() {
     // Клас-селектор замість id — профіль-кнопка тепер живе і на inputScreen, і на wordLangScreen.
     const profile = loadProfile();
@@ -629,7 +653,15 @@ async function checkPendingReminder() {
     const body = (translations[currentLang] || translations.en).notif_body || 'Time to practise! 🔥';
     try {
         const reg = await navigator.serviceWorker.ready;
-        reg.showNotification('Memori 🌿', { body, icon: './icon-192.png', badge: './icon-192.png' });
+        // FB-43 addendum (2026-08-13): "icon" (велика картинка в шторці сповіщень) і
+        // "badge" (крихітна іконка в статус-барі, зверху екрана) — це РІЗНІ речі з
+        // РІЗНИМИ вимогами. FB-43 замінив SVG→PNG для обох і виправив шторку, але
+        // статус-бар лишився порожнім кружечком (User показала скріншот) — бо Android
+        // сам обрізає "badge" по alpha-каналу до силуету; звичайна кольорова іконка
+        // (непрозорий квадрат-лист icon-192.png) не має прозорого фону, тому Android
+        // не може витягнути форму і показує пустий блок. icon-badge.png — окремий
+        // моноколірний (білий силует листка на прозорому фоні) файл спеціально під це.
+        reg.showNotification('Memori 🌿', { body, icon: './icon-192.png', badge: './icon-badge.png' });
     } catch {
         try { new Notification('Memori 🌿', { body, icon: './icon-192.png' }); } catch {}
     }

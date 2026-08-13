@@ -1973,7 +1973,7 @@ body[data-theme="dark"] .profile-hero-stats { color: #374151; }
   font-family: inherit;
 }
 .profile-about-input:focus { outline: none; border-color: var(--primary); }
-.profile-age-hint { font-weight: 600; opacity: 0.7; }
+.profile-age-hint { display: block; font-size: 0.8rem; font-weight: 600; opacity: 0.7; margin: -4px 0 10px 2px; }
 
 /* ===== SETTINGS TOGGLE ===== */
 .settings-toggle {

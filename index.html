@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=101" />
+    <link rel="stylesheet" href="style.css?v=102" />
   </head>
   <body>
     <div class="container">
@@ -494,8 +494,8 @@
               <input id="profileCountryInput" class="profile-about-input" type="text" maxlength="60" onblur="saveProfileAbout('country', this)">
               <input id="profileCityInput" class="profile-about-input" type="text" maxlength="60" onblur="saveProfileAbout('city', this)">
             </div>
-            <label id="profileAgeLabel" class="profile-about-label">Дата народження <span id="profileAgeDisplay" class="profile-age-hint"></span></label>
-            <input id="profileAgeInput" class="profile-about-input" type="date" onblur="saveProfileAbout('birthdate', this)" onchange="saveProfileAbout('birthdate', this)">
+            <input id="profileAgeInput" class="profile-about-input" type="text" inputmode="numeric" maxlength="10" onblur="saveProfileAbout('birthdate', this)">
+            <span id="profileAgeDisplay" class="profile-age-hint"></span>
 
             <label id="profileEmailLabel" class="profile-about-label">Пошта</label>
             <input id="profileEmailInput" class="profile-about-input" type="text" maxlength="80" onblur="saveProfileAbout('email', this)">
@@ -800,11 +800,11 @@
     </div>
 
 
-    <script src="state.js?v=14"></script>
+    <script src="state.js?v=15"></script>
     <script src="audio.js?v=2"></script>
     <script src="learning.js?v=14"></script>
     <script src="words.js?v=26"></script>
-    <script src="app.js?v=114"></script>
+    <script src="app.js?v=115"></script>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});
