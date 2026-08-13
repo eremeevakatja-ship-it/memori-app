@@ -1031,8 +1031,9 @@ function buildWtQueue(pairs, timeMinutes = Infinity) {
     const ttsWordOk = hasSpeech &&
         (TTS_VERIFIED_LANGS.includes(wordLangFrom) || wordLangFrom === 'es');
 
-    // FB-48 (2026-08-13): "скажи переклад" — ASR-аналог до "spell" (там пишуть
-    // слово, тут кажуть переклад). На відміну від TTS (ttsWordOk вище) — ASR
+    // FB-48 (2026-08-13): "🗣️ Скажи" — ASR-аналог до "spell", той самий
+    // напрямок (переклад показано, слово мовою навчання — відповідь), лише
+    // голосом замість клавіатури. На відміну від TTS (ttsWordOk вище) — ASR
     // у цьому застосунку свідомо НЕ обмежується списком мов (D-008 addendum,
     // DECISIONS.md): розпізнавання мовлення однаково доступне для будь-якої
     // мови браузера, гейт лише по наявності самого API.
@@ -1195,7 +1196,7 @@ function renderWtExercise() {
         choicesEl.style.display = 'none';
         typeArea.style.display = 'none';
         document.getElementById('wtSpeakWrap').style.display = 'flex';
-        qEl.innerHTML = `<div class="wt-sentence-prompt">${escHtml(t.wt_speak_prompt || 'Скажіть переклад цього слова')}</div>${escHtml(pair.word)}`;
+        qEl.innerHTML = `<div class="wt-sentence-prompt">${escHtml(t.wt_speak_prompt || 'Скажіть це слово мовою, яку вивчаєте')}</div>${escHtml(pair.translation)}`;
         document.getElementById('wtSpeakRecordLabel').innerText = t.wt_speak_record || '🎙 Записати';
         document.getElementById('wtSpeakRecordBtn').style.display = 'flex';
         document.getElementById('wtSpeakRecordBtn').disabled = false;
@@ -1644,13 +1645,14 @@ function wtShowHint() {
     if (fb) fb.style.display = 'none';
 }
 
-// FB-48 (2026-08-13): "🗣️ Скажи" — ASR-аналог до "✏️ Напиши" (spell). Там
-// показують переклад і просять написати слово мовою навчання; тут показують
-// слово і просять СКАЗАТИ переклад (розпізнається мовою wordLangTo, а не
-// wordLangFrom — бо кажуть саме переклад). Той самий мікрофонний флоу, що й
-// startVoiceRecord() у audio.js (Text Mode "Голосом"), але зав'язаний на
-// Words Mode DOM (#wtSpeakWrap/#wtMicRecording) і на wtCheckSpoken() замість
-// showWritingResult() — рахунок і фідбек мають виглядати як в інших wt-вправах.
+// FB-48 (2026-08-13): "🗣️ Скажи" — ASR-аналог до "✏️ Напиши" (spell), той
+// самий напрямок: показують переклад (рідною мовою), просять відповісти
+// словом мовою навчання — тільки голосом замість клавіатури. Розпізнається
+// мовою wordLangFrom (мова навчання, бо кажуть саме слово, не переклад).
+// Той самий мікрофонний флоу, що й startVoiceRecord() у audio.js (Text Mode
+// "Голосом"), але зав'язаний на Words Mode DOM (#wtSpeakWrap/#wtMicRecording)
+// і на wtCheckSpoken() замість showWritingResult() — рахунок і фідбек мають
+// виглядати як в інших wt-вправах.
 async function wtStartSpeak() {
     const t = translations[currentLang];
     const ex = wtQueue[wtIndex];
@@ -1687,7 +1689,7 @@ async function wtStartSpeak() {
     document.getElementById('wtSpeakStatus').innerText = t.audio_recording || 'Слухаю вас...';
 
     const recognition = new SR();
-    recognition.lang = WT_TTS_LANG[wordLangTo] || langToSpeech[wordLangTo] || 'en-US';
+    recognition.lang = WT_TTS_LANG[wordLangFrom] || langToSpeech[wordLangFrom] || 'en-US';
     recognition.interimResults = false;
     recognition.maxAlternatives = 3;
 
@@ -1722,7 +1724,7 @@ function wtCheckSpoken(spoken) {
     const ex = wtQueue[wtIndex];
     if (!ex) return;
 
-    const isCorrect = isAnswerCorrect(spoken, ex.pair.translation);
+    const isCorrect = isAnswerCorrect(spoken, ex.pair.word);
     const feedback = document.getElementById('wtFeedback');
     const skipBtn = document.getElementById('wtSkipWordBtn');
     const nextBtn = document.getElementById('wtNextBtn');
@@ -1744,7 +1746,7 @@ function wtCheckSpoken(spoken) {
         ex.correct = false;
         feedback.className = 'wt-feedback wt-fb-wrong';
         feedback.innerHTML = (t.wt_wrong || 'Упс, спробуйте ще раз') +
-            `<div class="wt-reveal-word wt-reveal-word-wrong">${escHtml(t.wt_speak_said || 'Ви сказали:')} <b>${escHtml(spoken)}</b><span class="wt-reveal-arrow">→</span>${escHtml(ex.pair.translation)}</div>`;
+            `<div class="wt-reveal-word wt-reveal-word-wrong">${escHtml(t.wt_speak_said || 'Ви сказали:')} <b>${escHtml(spoken)}</b><span class="wt-reveal-arrow">→</span>${escHtml(ex.pair.word)}</div>`;
         feedback.style.display = 'block';
         // Лишаємо кнопку запису — можна спробувати ще раз, той самий принцип retry, що й wtCheckTyped
         recordBtn.style.display = 'flex';
