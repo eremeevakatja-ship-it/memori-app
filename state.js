@@ -764,12 +764,23 @@ const MEMORY_GROUPS = ['5-7', '8-9', '10-12', '13-17', '18+'];
 // на таск-менеджер (див. "Що НЕ робимо" у специфікації MT-02).
 const MEMORY_MAX_INTENTIONS = 3;
 
+// Поля, які додають вправи (ex/palace/recalls), мають ПЕРЕЖИВАТИ читання-запис.
+// Перша версія повертала лише {group, intentions} — і кожне збереження тихо
+// стирало палац, лічильники й відкладені пригадування. Тому тут розширюємо
+// збережений об'єкт, а не будуємо новий з двох полів.
 function loadMemoryState() {
+    const empty = { group: null, intentions: [], ex: {}, palace: [], recalls: [] };
     try {
         const s = JSON.parse(localStorage.getItem(MEMORY_KEY));
-        if (!s || typeof s !== 'object') return { group: null, intentions: [] };
-        return { group: s.group || null, intentions: Array.isArray(s.intentions) ? s.intentions : [] };
-    } catch { return { group: null, intentions: [] }; }
+        if (!s || typeof s !== 'object') return empty;
+        return Object.assign({}, empty, s, {
+            group: s.group || null,
+            intentions: Array.isArray(s.intentions) ? s.intentions : [],
+            ex: (s.ex && typeof s.ex === 'object') ? s.ex : {},
+            palace: Array.isArray(s.palace) ? s.palace : [],
+            recalls: Array.isArray(s.recalls) ? s.recalls : []
+        });
+    } catch { return empty; }
 }
 
 function saveMemoryState(s) {
@@ -876,4 +887,89 @@ function getMemoryStats() {
         worked: all.filter(i => i.result === 'yes').length,
         active: all.filter(i => !i.checkedAt).length
     };
+}
+
+
+// ----- [S4] Фокуси пам'яті: стан решти вправ (MT-01/03/05/08, 2026-08-15) -----
+
+// 🔴 Ключове правило віку живе тут, щоб кожна вправа не винаходила його заново:
+// до 8 років рахуємо ВИКОНАННЯ техніки, а не результат пригадування. Тому
+// лічильники двох типів — done (скільки разів зробив) і scored (скільки згадав).
+// Для 5-7 у UI показуємо лише перший.
+function bumpMemoryExercise(exId, recalled, total) {
+    const s = loadMemoryState();
+    s.ex = s.ex || {};
+    const e = s.ex[exId] || { done: 0, bestRecalled: 0, lastAt: 0 };
+    e.done += 1;
+    e.lastAt = Date.now();
+    if (!memoryScoreByExecution() && typeof recalled === 'number') {
+        e.bestRecalled = Math.max(e.bestRecalled, recalled);
+        e.lastRecalled = recalled;
+        e.lastTotal = total;
+    }
+    s.ex[exId] = e;
+    saveMemoryState(s);
+    return e;
+}
+
+function getMemoryExercise(exId) {
+    const s = loadMemoryState();
+    return (s.ex && s.ex[exId]) || { done: 0, bestRecalled: 0, lastAt: 0 };
+}
+
+// ---- Палац пам'яті: локації користувача (MT-05) ----
+// Зберігаються окремо й перевикористовуються: сенс палацу саме в тому, що
+// маршрут один і той самий, а предмети на ньому змінюються.
+function getPalaceLocations() {
+    const s = loadMemoryState();
+    return Array.isArray(s.palace) ? s.palace : [];
+}
+
+function savePalaceLocations(list) {
+    const s = loadMemoryState();
+    s.palace = list.filter(x => (x || '').trim()).map(x => x.trim()).slice(0, 10);
+    saveMemoryState(s);
+}
+
+// ---- Відкладене пригадування (MT-01) ----
+// Застосунок без бекенду не має планувальника, тому "через 20 хвилин" і
+// "наступного дня" перевіряються тоді, коли користувач сам відкриває режим —
+// той самий підхід, що й у намірів та в checkPendingReminder().
+const MEM_DELAY_SHORT_MS = 20 * 60 * 1000;
+
+function addRecallSet(words, immediateRecalled) {
+    const s = loadMemoryState();
+    s.recalls = Array.isArray(s.recalls) ? s.recalls : [];
+    s.recalls.push({
+        id: 'rc_' + Date.now(),
+        words: words,
+        createdAt: Date.now(),
+        immediate: immediateRecalled,
+        short: null,   // результат перевірки через 20 хв
+        long: null     // результат перевірки наступного дня
+    });
+    // Тримаємо тільки останні 20 — це тренування, не архів
+    if (s.recalls.length > 20) s.recalls = s.recalls.slice(-20);
+    saveMemoryState(s);
+}
+
+// Який етап перевірки зараз настав для набору: 'short', 'long' або null
+function recallStageDue(rc) {
+    const age = Date.now() - rc.createdAt;
+    if (rc.short === null && age >= MEM_DELAY_SHORT_MS) return 'short';
+    if (rc.short !== null && rc.long === null && age >= 20 * 60 * 60 * 1000) return 'long';
+    return null;
+}
+
+function getRecallsDue() {
+    const s = loadMemoryState();
+    return (s.recalls || []).filter(rc => recallStageDue(rc) !== null);
+}
+
+function saveRecallResult(id, stage, recalled) {
+    const s = loadMemoryState();
+    const rc = (s.recalls || []).find(r => r.id === id);
+    if (!rc) return;
+    rc[stage] = recalled;
+    saveMemoryState(s);
 }

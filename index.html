@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=105" />
+    <link rel="stylesheet" href="style.css?v=106" />
   </head>
   <body>
     <div class="container">
@@ -151,6 +151,17 @@
             </button>
           </div>
           <div id="memIntentBody"></div>
+        </div>
+
+        <!-- Memory Exercise Screen — спільний каркас для всіх вправ режиму -->
+        <div id="memoryExScreen" style="display:none;">
+          <div class="input-topbar">
+            <button onclick="openMemoryScreen()" class="btn-back">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <span id="memExBackLabel">Назад</span>
+            </button>
+          </div>
+          <div id="memExBody"></div>
         </div>
 
         <!-- Memory Log Screen — "Спрацювало" / "В роботі" (FB-52) -->
@@ -870,11 +881,12 @@
     </div>
 
 
-    <script src="state.js?v=16"></script>
+    <script src="state.js?v=18"></script>
     <script src="audio.js?v=2"></script>
     <script src="learning.js?v=14"></script>
     <script src="words.js?v=27"></script>
-    <script src="app.js?v=118"></script>
+    <script src="app.js?v=120"></script>
+    <script src="memory.js?v=1"></script>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});

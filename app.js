@@ -214,6 +214,50 @@ const translations = {
         mode_words_label: 'Слова та Фрази', mode_words_desc: 'Нова лексика, переклади, словник',
         // MT-02 (2026-08-15) — режим "Фокуси пам'яті"
         mode_memory_label: 'Фокуси пам\'яті',
+        mem_ex_intent_title: 'Якщо-то',
+        mem_ex_intent_desc: 'Прийом проти «збирався і забув»',
+        mem_ex_recall_title: 'Повернення',
+        mem_ex_recall_desc: 'Слова, про які спитаємо ще раз — пізніше',
+        mem_ex_chain_title: 'Ланцюжок',
+        mem_ex_chain_desc: 'Зв\'язати слова в одну безглузду історію',
+        mem_ex_imagery_title: 'Разом',
+        mem_ex_imagery_desc: 'Придумати, що два предмети роблять разом',
+        mem_ex_palace_title: 'Палац пам\'яті',
+        mem_ex_palace_desc: 'Розкласти предмети по своїх кімнатах',
+        mem_done_times: 'Зроблено разів: {n}',
+        mem_best_recall: 'Найкраще: {n} з {total}',
+        mem_done_toast: 'Готово 🌿',
+        mem_recall_result: 'Згадано {n} з {total}',
+        mem_recall_show_q: 'Запам\'ятай ці слова',
+        mem_recall_show_hint: 'Не поспішай. Головне буде потім — ми спитаємо про них ще раз через 20 хвилин і завтра',
+        mem_recall_ready: 'Запам\'ятав',
+        mem_recall_pick_q: 'Які слова тут були?',
+        mem_recall_pick_hint: 'Половина слів зайві — тисни лише ті, що бачив',
+        mem_recall_due_q: 'Час повернутись 🌿',
+        mem_recall_due_sub: 'Слів було {n}. Згадаєш?',
+        mem_recall_check_btn: 'Перевірити',
+        mem_chain_counter: '{n}/{total}',
+        mem_chain_first: 'Уяви це якнайяскравіше',
+        mem_chain_link: '«{prev}» і «{next}» — що між ними коїться?',
+        mem_chain_hint: 'Чим безглуздіше й яскравіше — тим краще тримається. Нудне забувається',
+        mem_chain_recall_btn: 'Тепер згадаємо',
+        mem_chain_recall_q: 'Які слова були в історії?',
+        mem_chain_recall_hint: 'Прокрути історію з початку — слова підуть самі',
+        mem_chain_done_kid: 'Історію склав 🌿',
+        mem_imagery_q: 'Що вони роблять разом?',
+        mem_imagery_hint: 'Не поруч, а саме разом: слон їсть ложкою, парасолька катає кавун',
+        mem_imagery_done: 'Придумав',
+        mem_rehearsal_q: 'Повтори всі слова вголос',
+        mem_rehearsal_hint: 'Щоразу з самого початку — саме це й тренує',
+        mem_palace_setup_q: 'Назви місця у своєму домі',
+        mem_palace_setup_hint: 'По порядку, як ідеш: двері, вішалка, кухня... Маршрут задається один раз і далі працює завжди. Мінімум 5',
+        mem_palace_loc_ph: 'Місце {n}',
+        mem_palace_need5: 'Потрібно хоча б 5 місць',
+        mem_palace_place: '{item} → {loc}',
+        mem_palace_q: 'Постав це туди подумки',
+        mem_palace_hint: 'Не просто поклади — нехай предмет зробить щось дивне саме в цьому місці',
+        mem_palace_recall_q: 'Пройди маршрут',
+        mem_palace_recall_hint: 'Що лежало в кожному місці?',
         mem_nav_worked: 'Спрацювало',
         mem_nav_active: 'В роботі',
         mem_log_worked_title: 'Спрацювало',
@@ -227,8 +271,6 @@ const translations = {
         mem_subtitle: 'Тут тренуємо саму пам\'ять — не текст і не слова',
         mem_pick_age: 'Оберіть вік — у різному віці працюють різні прийоми',
         mem_group_label: 'Вправи для віку',
-        mem_ex_intent_title: 'Якщо-то',
-        mem_ex_intent_desc: 'Прийом проти «збирався і забув»',
         mem_ex_intent_full: 'Зараз тренуємо три наміри — більше не варто. Перевір їх, і зможеш додати новий',
         mem_worked_count: 'Спрацювало разів: {n} 🌿',
         mem_step: 'Крок {n} з 3',
@@ -458,6 +500,50 @@ const translations = {
         mode_words_label: 'Words & Phrases', mode_words_desc: 'New vocabulary, translations, flashcards',
         // MT-02 (2026-08-15) — режим "Фокуси пам'яті"
         mode_memory_label: 'Memory Tricks',
+        mem_ex_intent_title: 'If-Then',
+        mem_ex_intent_desc: 'The trick against “I meant to, and forgot”',
+        mem_ex_recall_title: 'Coming back',
+        mem_ex_recall_desc: 'Words we will ask about again — later',
+        mem_ex_chain_title: 'The chain',
+        mem_ex_chain_desc: 'Link words into one ridiculous story',
+        mem_ex_imagery_title: 'Together',
+        mem_ex_imagery_desc: 'Imagine what two things do together',
+        mem_ex_palace_title: 'Memory palace',
+        mem_ex_palace_desc: 'Place things around your own rooms',
+        mem_done_times: 'Done {n} time(s)',
+        mem_best_recall: 'Best: {n} of {total}',
+        mem_done_toast: 'Done 🌿',
+        mem_recall_result: 'Recalled {n} of {total}',
+        mem_recall_show_q: 'Remember these words',
+        mem_recall_show_hint: 'Take your time. The real part comes later — we will ask again in 20 minutes and tomorrow',
+        mem_recall_ready: 'Got them',
+        mem_recall_pick_q: 'Which words were here?',
+        mem_recall_pick_hint: 'Half of these are extra — tap only the ones you saw',
+        mem_recall_due_q: 'Time to come back 🌿',
+        mem_recall_due_sub: 'There were {n} words. Still there?',
+        mem_recall_check_btn: 'Check',
+        mem_chain_counter: '{n}/{total}',
+        mem_chain_first: 'Picture it as vividly as you can',
+        mem_chain_link: '“{prev}” and “{next}” — what happens between them?',
+        mem_chain_hint: 'The sillier and brighter, the better it sticks. Boring slips away',
+        mem_chain_recall_btn: 'Now let\'s recall',
+        mem_chain_recall_q: 'Which words were in the story?',
+        mem_chain_recall_hint: 'Replay the story from the start — the words will follow',
+        mem_chain_done_kid: 'Story made 🌿',
+        mem_imagery_q: 'What are they doing together?',
+        mem_imagery_hint: 'Not side by side — together: the elephant eats with the spoon, the umbrella rolls the melon',
+        mem_imagery_done: 'Got it',
+        mem_rehearsal_q: 'Say all the words out loud',
+        mem_rehearsal_hint: 'From the very beginning each time — that is the exercise',
+        mem_palace_setup_q: 'Name places in your home',
+        mem_palace_setup_hint: 'In walking order: door, coat hook, kitchen... You set the route once and reuse it forever. At least 5',
+        mem_palace_loc_ph: 'Place {n}',
+        mem_palace_need5: 'At least 5 places are needed',
+        mem_palace_place: '{item} → {loc}',
+        mem_palace_q: 'Put it there in your mind',
+        mem_palace_hint: 'Don\'t just place it — let it do something odd right there',
+        mem_palace_recall_q: 'Walk the route',
+        mem_palace_recall_hint: 'What was in each place?',
         mem_nav_worked: 'Worked',
         mem_nav_active: 'In progress',
         mem_log_worked_title: 'Worked',
@@ -471,8 +557,6 @@ const translations = {
         mem_subtitle: 'Here we train memory itself — not a text, not words',
         mem_pick_age: 'Pick an age — different techniques work at different ages',
         mem_group_label: 'Exercises for age',
-        mem_ex_intent_title: 'If-Then',
-        mem_ex_intent_desc: 'The trick against “I meant to, and forgot”',
         mem_ex_intent_full: 'Three intentions is enough for now. Check them and you can add another',
         mem_worked_count: 'Times it worked: {n} 🌿',
         mem_step: 'Step {n} of 3',
@@ -702,6 +786,50 @@ const translations = {
         mode_words_label: 'Słowa i Frazy', mode_words_desc: 'Nowe słownictwo, tłumaczenia, fiszki',
         // MT-02 (2026-08-15) — режим "Фокуси пам'яті"
         mode_memory_label: 'Sztuczki pamięci',
+        mem_ex_intent_title: 'Jeśli-to',
+        mem_ex_intent_desc: 'Technika przeciw „chciałem i zapomniałem”',
+        mem_ex_recall_title: 'Powrót',
+        mem_ex_recall_desc: 'Słowa, o które zapytamy jeszcze raz — później',
+        mem_ex_chain_title: 'Łańcuch',
+        mem_ex_chain_desc: 'Połącz słowa w jedną absurdalną historię',
+        mem_ex_imagery_title: 'Razem',
+        mem_ex_imagery_desc: 'Wymyśl, co dwie rzeczy robią razem',
+        mem_ex_palace_title: 'Pałac pamięci',
+        mem_ex_palace_desc: 'Rozłóż rzeczy po własnych pokojach',
+        mem_done_times: 'Wykonane razy: {n}',
+        mem_best_recall: 'Najlepiej: {n} z {total}',
+        mem_done_toast: 'Gotowe 🌿',
+        mem_recall_result: 'Przypomniane {n} z {total}',
+        mem_recall_show_q: 'Zapamiętaj te słowa',
+        mem_recall_show_hint: 'Bez pośpiechu. Najważniejsze będzie później — zapytamy znowu za 20 minut i jutro',
+        mem_recall_ready: 'Zapamiętane',
+        mem_recall_pick_q: 'Które słowa tu były?',
+        mem_recall_pick_hint: 'Połowa jest zbędna — kliknij tylko te, które widziałeś',
+        mem_recall_due_q: 'Czas wrócić 🌿',
+        mem_recall_due_sub: 'Słów było {n}. Pamiętasz?',
+        mem_recall_check_btn: 'Sprawdź',
+        mem_chain_counter: '{n}/{total}',
+        mem_chain_first: 'Wyobraź to sobie jak najżywiej',
+        mem_chain_link: '„{prev}” i „{next}” — co się między nimi dzieje?',
+        mem_chain_hint: 'Im bardziej absurdalnie i wyraziście, tym lepiej się trzyma. Nudne ucieka',
+        mem_chain_recall_btn: 'Teraz przypomnijmy',
+        mem_chain_recall_q: 'Które słowa były w historii?',
+        mem_chain_recall_hint: 'Przewiń historię od początku — słowa pójdą same',
+        mem_chain_done_kid: 'Historia ułożona 🌿',
+        mem_imagery_q: 'Co one robią razem?',
+        mem_imagery_hint: 'Nie obok siebie, ale razem: słoń je łyżką, parasol toczy arbuza',
+        mem_imagery_done: 'Wymyśliłem',
+        mem_rehearsal_q: 'Powtórz wszystkie słowa na głos',
+        mem_rehearsal_hint: 'Za każdym razem od początku — to właśnie jest ćwiczenie',
+        mem_palace_setup_q: 'Nazwij miejsca w swoim domu',
+        mem_palace_setup_hint: 'Po kolei, jak idziesz: drzwi, wieszak, kuchnia... Trasę ustalasz raz i działa zawsze. Minimum 5',
+        mem_palace_loc_ph: 'Miejsce {n}',
+        mem_palace_need5: 'Potrzeba przynajmniej 5 miejsc',
+        mem_palace_place: '{item} → {loc}',
+        mem_palace_q: 'Umieść to tam w wyobraźni',
+        mem_palace_hint: 'Nie po prostu połóż — niech zrobi tam coś dziwnego',
+        mem_palace_recall_q: 'Przejdź trasę',
+        mem_palace_recall_hint: 'Co leżało w każdym miejscu?',
         mem_nav_worked: 'Zadziałało',
         mem_nav_active: 'W trakcie',
         mem_log_worked_title: 'Zadziałało',
@@ -715,8 +843,6 @@ const translations = {
         mem_subtitle: 'Tutaj trenujemy samą pamięć — nie tekst i nie słowa',
         mem_pick_age: 'Wybierz wiek — w różnym wieku działają różne techniki',
         mem_group_label: 'Ćwiczenia dla wieku',
-        mem_ex_intent_title: 'Jeśli-to',
-        mem_ex_intent_desc: 'Technika przeciw „chciałem i zapomniałem”',
         mem_ex_intent_full: 'Trzy zamiary na razie wystarczą. Sprawdź je, a dodasz kolejny',
         mem_worked_count: 'Zadziałało razy: {n} 🌿',
         mem_step: 'Krok {n} z 3',
@@ -946,6 +1072,50 @@ const translations = {
         mode_words_label: 'Wörter & Phrasen', mode_words_desc: 'Neues Vokabular, Übersetzungen, Karteikarten',
         // MT-02 (2026-08-15) — режим "Фокуси пам'яті"
         mode_memory_label: 'Gedächtnistricks',
+        mem_ex_intent_title: 'Wenn-Dann',
+        mem_ex_intent_desc: 'Der Trick gegen „ich wollte und hab\'s vergessen“',
+        mem_ex_recall_title: 'Rückkehr',
+        mem_ex_recall_desc: 'Wörter, nach denen wir später noch einmal fragen',
+        mem_ex_chain_title: 'Die Kette',
+        mem_ex_chain_desc: 'Wörter zu einer absurden Geschichte verbinden',
+        mem_ex_imagery_title: 'Zusammen',
+        mem_ex_imagery_desc: 'Ausdenken, was zwei Dinge zusammen tun',
+        mem_ex_palace_title: 'Gedächtnispalast',
+        mem_ex_palace_desc: 'Dinge in den eigenen Räumen ablegen',
+        mem_done_times: 'Gemacht: {n}-mal',
+        mem_best_recall: 'Bestes: {n} von {total}',
+        mem_done_toast: 'Fertig 🌿',
+        mem_recall_result: 'Erinnert: {n} von {total}',
+        mem_recall_show_q: 'Merk dir diese Wörter',
+        mem_recall_show_hint: 'Lass dir Zeit. Das Eigentliche kommt später — wir fragen in 20 Minuten und morgen noch einmal',
+        mem_recall_ready: 'Gemerkt',
+        mem_recall_pick_q: 'Welche Wörter waren hier?',
+        mem_recall_pick_hint: 'Die Hälfte ist überflüssig — tippe nur die, die du gesehen hast',
+        mem_recall_due_q: 'Zeit zurückzukommen 🌿',
+        mem_recall_due_sub: 'Es waren {n} Wörter. Noch da?',
+        mem_recall_check_btn: 'Prüfen',
+        mem_chain_counter: '{n}/{total}',
+        mem_chain_first: 'Stell es dir so lebendig wie möglich vor',
+        mem_chain_link: '„{prev}“ und „{next}“ — was passiert zwischen ihnen?',
+        mem_chain_hint: 'Je alberner und bunter, desto besser hält es. Langweiliges verschwindet',
+        mem_chain_recall_btn: 'Jetzt erinnern',
+        mem_chain_recall_q: 'Welche Wörter waren in der Geschichte?',
+        mem_chain_recall_hint: 'Spiel die Geschichte von vorn ab — die Wörter kommen von selbst',
+        mem_chain_done_kid: 'Geschichte gebaut 🌿',
+        mem_imagery_q: 'Was tun sie zusammen?',
+        mem_imagery_hint: 'Nicht nebeneinander, sondern zusammen: der Elefant isst mit dem Löffel, der Schirm rollt die Melone',
+        mem_imagery_done: 'Hab\'s',
+        mem_rehearsal_q: 'Sag alle Wörter laut',
+        mem_rehearsal_hint: 'Jedes Mal von ganz vorn — genau das ist die Übung',
+        mem_palace_setup_q: 'Nenne Orte in deinem Zuhause',
+        mem_palace_setup_hint: 'In Gehreihenfolge: Tür, Garderobe, Küche... Die Route legst du einmal fest und nutzt sie immer wieder. Mindestens 5',
+        mem_palace_loc_ph: 'Ort {n}',
+        mem_palace_need5: 'Mindestens 5 Orte werden gebraucht',
+        mem_palace_place: '{item} → {loc}',
+        mem_palace_q: 'Leg es dort in Gedanken ab',
+        mem_palace_hint: 'Nicht einfach hinlegen — lass es dort etwas Seltsames tun',
+        mem_palace_recall_q: 'Geh die Route ab',
+        mem_palace_recall_hint: 'Was lag an jedem Ort?',
         mem_nav_worked: 'Geklappt',
         mem_nav_active: 'Laufend',
         mem_log_worked_title: 'Geklappt',
@@ -959,8 +1129,6 @@ const translations = {
         mem_subtitle: 'Hier trainieren wir das Gedächtnis selbst — keinen Text, keine Wörter',
         mem_pick_age: 'Wähle ein Alter — in jedem Alter wirken andere Techniken',
         mem_group_label: 'Übungen für Alter',
-        mem_ex_intent_title: 'Wenn-Dann',
-        mem_ex_intent_desc: 'Der Trick gegen „ich wollte und hab’s vergessen“',
         mem_ex_intent_full: 'Drei Vorhaben reichen erst mal. Prüfe sie, dann geht ein neues',
         mem_worked_count: 'So oft hat es geklappt: {n} 🌿',
         mem_step: 'Schritt {n} von 3',
@@ -1190,6 +1358,50 @@ const translations = {
         mode_words_label: 'Mots & Phrases', mode_words_desc: 'Nouveau vocabulaire, traductions, fiches',
         // MT-02 (2026-08-15) — режим "Фокуси пам'яті"
         mode_memory_label: 'Tours de mémoire',
+        mem_ex_intent_title: 'Si-Alors',
+        mem_ex_intent_desc: 'La technique contre « je voulais, et j\'ai oublié »',
+        mem_ex_recall_title: 'Le retour',
+        mem_ex_recall_desc: 'Des mots sur lesquels on reviendra — plus tard',
+        mem_ex_chain_title: 'La chaîne',
+        mem_ex_chain_desc: 'Relier les mots en une seule histoire absurde',
+        mem_ex_imagery_title: 'Ensemble',
+        mem_ex_imagery_desc: 'Imaginer ce que deux objets font ensemble',
+        mem_ex_palace_title: 'Palais de mémoire',
+        mem_ex_palace_desc: 'Ranger des objets dans tes propres pièces',
+        mem_done_times: 'Fait {n} fois',
+        mem_best_recall: 'Meilleur : {n} sur {total}',
+        mem_done_toast: 'Terminé 🌿',
+        mem_recall_result: 'Retrouvés : {n} sur {total}',
+        mem_recall_show_q: 'Retiens ces mots',
+        mem_recall_show_hint: 'Prends ton temps. L\'essentiel vient après — on les redemandera dans 20 minutes et demain',
+        mem_recall_ready: 'C\'est retenu',
+        mem_recall_pick_q: 'Quels mots étaient là ?',
+        mem_recall_pick_hint: 'La moitié sont en trop — touche seulement ceux que tu as vus',
+        mem_recall_due_q: 'Il est temps de revenir 🌿',
+        mem_recall_due_sub: 'Il y avait {n} mots. Toujours là ?',
+        mem_recall_check_btn: 'Vérifier',
+        mem_chain_counter: '{n}/{total}',
+        mem_chain_first: 'Imagine-le le plus vivement possible',
+        mem_chain_link: '« {prev} » et « {next} » — que se passe-t-il entre eux ?',
+        mem_chain_hint: 'Plus c\'est absurde et vif, mieux ça tient. L\'ennuyeux s\'échappe',
+        mem_chain_recall_btn: 'Maintenant, on se rappelle',
+        mem_chain_recall_q: 'Quels mots étaient dans l\'histoire ?',
+        mem_chain_recall_hint: 'Rejoue l\'histoire depuis le début — les mots viendront seuls',
+        mem_chain_done_kid: 'Histoire construite 🌿',
+        mem_imagery_q: 'Que font-ils ensemble ?',
+        mem_imagery_hint: 'Pas côte à côte, mais ensemble : l\'éléphant mange avec la cuillère, le parapluie roule le melon',
+        mem_imagery_done: 'Trouvé',
+        mem_rehearsal_q: 'Dis tous les mots à voix haute',
+        mem_rehearsal_hint: 'Depuis le tout début à chaque fois — c\'est ça, l\'exercice',
+        mem_palace_setup_q: 'Nomme des endroits chez toi',
+        mem_palace_setup_hint: 'Dans l\'ordre du parcours : porte, portemanteau, cuisine... Le trajet se définit une fois et resservira toujours. Au moins 5',
+        mem_palace_loc_ph: 'Endroit {n}',
+        mem_palace_need5: 'Il faut au moins 5 endroits',
+        mem_palace_place: '{item} → {loc}',
+        mem_palace_q: 'Pose-le là, en pensée',
+        mem_palace_hint: 'Ne le pose pas simplement — qu\'il y fasse quelque chose d\'étrange',
+        mem_palace_recall_q: 'Parcours le trajet',
+        mem_palace_recall_hint: 'Qu\'y avait-il à chaque endroit ?',
         mem_nav_worked: 'A marché',
         mem_nav_active: 'En cours',
         mem_log_worked_title: 'A marché',
@@ -1203,8 +1415,6 @@ const translations = {
         mem_subtitle: 'Ici on entraîne la mémoire elle-même — ni texte, ni mots',
         mem_pick_age: 'Choisis un âge — les techniques efficaces changent avec l’âge',
         mem_group_label: 'Exercices pour l’âge',
-        mem_ex_intent_title: 'Si-Alors',
-        mem_ex_intent_desc: 'La technique contre « je voulais, et j’ai oublié »',
         mem_ex_intent_full: 'Trois intentions suffisent pour l’instant. Vérifie-les et tu pourras en ajouter',
         mem_worked_count: 'Ça a marché : {n} fois 🌿',
         mem_step: 'Étape {n} sur 3',
@@ -1434,6 +1644,50 @@ const translations = {
         mode_words_label: 'Palabras y Frases', mode_words_desc: 'Nuevo vocabulario, traducciones, tarjetas',
         // MT-02 (2026-08-15) — режим "Фокуси пам'яті"
         mode_memory_label: 'Trucos de memoria',
+        mem_ex_intent_title: 'Si-Entonces',
+        mem_ex_intent_desc: 'La técnica contra «iba a hacerlo y se me olvidó»',
+        mem_ex_recall_title: 'La vuelta',
+        mem_ex_recall_desc: 'Palabras por las que preguntaremos otra vez — más tarde',
+        mem_ex_chain_title: 'La cadena',
+        mem_ex_chain_desc: 'Unir palabras en una sola historia absurda',
+        mem_ex_imagery_title: 'Juntos',
+        mem_ex_imagery_desc: 'Imaginar qué hacen dos cosas juntas',
+        mem_ex_palace_title: 'Palacio de memoria',
+        mem_ex_palace_desc: 'Colocar cosas por tus propias habitaciones',
+        mem_done_times: 'Hecho {n} veces',
+        mem_best_recall: 'Mejor: {n} de {total}',
+        mem_done_toast: 'Listo 🌿',
+        mem_recall_result: 'Recordadas {n} de {total}',
+        mem_recall_show_q: 'Memoriza estas palabras',
+        mem_recall_show_hint: 'Sin prisa. Lo importante viene después — preguntaremos otra vez en 20 minutos y mañana',
+        mem_recall_ready: 'Memorizadas',
+        mem_recall_pick_q: '¿Qué palabras estaban aquí?',
+        mem_recall_pick_hint: 'La mitad sobran — pulsa solo las que viste',
+        mem_recall_due_q: 'Hora de volver 🌿',
+        mem_recall_due_sub: 'Eran {n} palabras. ¿Siguen ahí?',
+        mem_recall_check_btn: 'Comprobar',
+        mem_chain_counter: '{n}/{total}',
+        mem_chain_first: 'Imagínalo lo más vivo posible',
+        mem_chain_link: '«{prev}» y «{next}» — ¿qué pasa entre ellos?',
+        mem_chain_hint: 'Cuanto más absurdo y vivo, mejor se queda. Lo aburrido se escapa',
+        mem_chain_recall_btn: 'Ahora recordemos',
+        mem_chain_recall_q: '¿Qué palabras había en la historia?',
+        mem_chain_recall_hint: 'Repasa la historia desde el principio — las palabras vendrán solas',
+        mem_chain_done_kid: 'Historia construida 🌿',
+        mem_imagery_q: '¿Qué hacen juntos?',
+        mem_imagery_hint: 'No al lado, sino juntos: el elefante come con la cuchara, el paraguas rueda el melón',
+        mem_imagery_done: 'Ya está',
+        mem_rehearsal_q: 'Di todas las palabras en voz alta',
+        mem_rehearsal_hint: 'Desde el principio cada vez — en eso consiste el ejercicio',
+        mem_palace_setup_q: 'Nombra lugares de tu casa',
+        mem_palace_setup_hint: 'En el orden en que caminas: puerta, perchero, cocina... La ruta se define una vez y sirve siempre. Mínimo 5',
+        mem_palace_loc_ph: 'Lugar {n}',
+        mem_palace_need5: 'Hacen falta al menos 5 lugares',
+        mem_palace_place: '{item} → {loc}',
+        mem_palace_q: 'Colócalo ahí mentalmente',
+        mem_palace_hint: 'No lo dejes sin más — que haga algo raro justo ahí',
+        mem_palace_recall_q: 'Recorre la ruta',
+        mem_palace_recall_hint: '¿Qué había en cada lugar?',
         mem_nav_worked: 'Funcionó',
         mem_nav_active: 'En curso',
         mem_log_worked_title: 'Funcionó',
@@ -1447,8 +1701,6 @@ const translations = {
         mem_subtitle: 'Aquí entrenamos la memoria en sí — ni texto, ni palabras',
         mem_pick_age: 'Elige una edad — a cada edad le funcionan técnicas distintas',
         mem_group_label: 'Ejercicios para la edad',
-        mem_ex_intent_title: 'Si-Entonces',
-        mem_ex_intent_desc: 'La técnica contra «iba a hacerlo y se me olvidó»',
         mem_ex_intent_full: 'Con tres intenciones basta por ahora. Revísalas y podrás añadir otra',
         mem_worked_count: 'Veces que funcionó: {n} 🌿',
         mem_step: 'Paso {n} de 3',
@@ -1565,7 +1817,7 @@ function showMotivToast(msg) {
 
 // ----- [app: SCREEN MANAGER]  (was app.js lines 1922-2045) -----
 // ===== SCREEN MANAGER =====
-const SCREENS = ['langScreen','modeScreen','memoryScreen','memoryIntentScreen','memoryLogScreen','inputScreen','setupScreen','learningScreen','restScreen','sessionPauseScreen','finalScreen','profileScreen','wordProfileScreen','progressScreen','wordSelectScreen','profileIdentityScreen','wordLangScreen','wordInputScreen','wordVerifyScreen','wordTopicScreen','wordTrainingScreen','wordResultsScreen'];
+const SCREENS = ['langScreen','modeScreen','memoryScreen','memoryIntentScreen','memoryExScreen','memoryLogScreen','inputScreen','setupScreen','learningScreen','restScreen','sessionPauseScreen','finalScreen','profileScreen','wordProfileScreen','progressScreen','wordSelectScreen','profileIdentityScreen','wordLangScreen','wordInputScreen','wordVerifyScreen','wordTopicScreen','wordTrainingScreen','wordResultsScreen'];
 // modeScreen/wordLangScreen/wordTopicScreen додано сюди 2026-08-05 (Playful Premium composition
 // pass) — раніше короткий контент цих 3 екранів просто прилипав до верху картки, лишаючи ~50%
 // картки порожньою внизу. FLEX_SCREENS вже мав готовий механізм (display:flex + min-height +
@@ -2885,249 +3137,3 @@ function checkAppBootResume() {
 }
 checkAppBootResume();
 checkInactivityPopup();
-
-
-
-// ===== [A3] Фокуси пам'яті — екрани режиму (MT-02, 2026-08-15) =====
-// Третій режим: тренуємо саму пам'ять, а не матеріал. Стан — state.js [S3].
-// Правила, реалізовані тут, які НЕ можна тихо прибрати при рефакторингу:
-//   • 5-7 років — прогрес за виконанням техніки, без балів (utilization deficiency)
-//   • тригер "якщо-то" для 5-9 — тільки з готового списку фізичних подій
-//   • максимум 3 активні наміри: ми тренуємо формулу, а не ведемо список справ
-// Джерела — _manager/MEMORY-TRAINING-RESEARCH.md, правила — AGENTS/memory-trainer/
-
-// Готові фізичні тригери для 5-9. Саме фізичні, бо дитині потрібна помітна подія,
-// а не контекст ("коли будеш у школі" не спрацює, "коли відкриєш пенал" спрацює).
-const MEM_KID_TRIGGERS = ['trg_pencil', 'trg_dinner', 'trg_shoes', 'trg_teeth', 'trg_bag'];
-
-let memIntentDraft = { text: '', trigger: '', step: 1 };
-
-function openMemoryScreen() {
-    showScreen('memoryScreen');
-    setBottomNav('memory', 'learn');
-    updateThemeToggleFab();
-    updateProfileNavAvatar();
-    renderMemoryScreen();
-}
-
-function renderMemoryScreen() {
-    const t = translations[currentLang] || translations.en;
-    const group = getMemoryGroup();
-    document.getElementById('memBackLabel').innerText = t.back_lang || 'Назад';
-    document.getElementById('memTitle').innerText = t.mode_memory_label || 'Фокуси пам’яті';
-    document.getElementById('memSubtitle').innerText = group
-        ? (t.mem_subtitle || '')
-        : (t.mem_pick_age || '');
-    document.getElementById('memGroupLabel').innerText = t.mem_group_label || '';
-
-    const chips = MEMORY_GROUPS.map(g =>
-        '<button class="mem-chip' + (g === group ? ' active' : '') + '" onclick="pickMemoryGroup(\'' + g + '\')">' + g + '</button>'
-    ).join('');
-    document.getElementById('memGroupChips').innerHTML = chips;
-
-    renderMemoryDue();
-    renderMemoryExercises(group);
-
-    // Свідомо БЕЗ відсотків і без порівняння з нормою (Правило №4 агента).
-    // Показуємо лише скільки разів формула спрацювала — заохочення, не оцінка.
-    const st = getMemoryStats();
-    document.getElementById('memFoot').innerText =
-        st.worked > 0 ? (t.mem_worked_count || '').replace('{n}', st.worked) : '';
-}
-
-function pickMemoryGroup(g) {
-    setMemoryGroup(g);
-    renderMemoryScreen();
-}
-
-function renderMemoryExercises(group) {
-    const t = translations[currentLang] || translations.en;
-    const wrap = document.getElementById('memExerciseList');
-    if (!group) { wrap.innerHTML = ''; return; }
-    const full = getActiveIntentions().length >= MEMORY_MAX_INTENTIONS;
-    // Перший реліз — одна вправа. Розмітка навмисно узагальнена, щоб наступні
-    // (ланцюжок-історія, палац пам'яті) додавались рядком, а не переписуванням.
-    wrap.innerHTML =
-        '<button class="mem-ex-card' + (full ? ' disabled' : '') + '" ' + (full ? 'disabled' : '') + ' onclick="startIntentExercise()">' +
-          '<div class="mem-ex-icon">🔗</div>' +
-          '<div class="mem-ex-body">' +
-            '<div class="mem-ex-title">' + escHtml(t.mem_ex_intent_title || '') + '</div>' +
-            '<div class="mem-ex-desc">' + escHtml(full ? (t.mem_ex_intent_full || '') : (t.mem_ex_intent_desc || '')) + '</div>' +
-          '</div>' +
-        '</button>';
-}
-
-function renderMemoryDue() {
-    const t = translations[currentLang] || translations.en;
-    const wrap = document.getElementById('memDueWrap');
-    const due = getIntentionsDueCheck();
-    if (!due.length) { wrap.style.display = 'none'; wrap.innerHTML = ''; return; }
-    wrap.style.display = 'block';
-    wrap.innerHTML = due.map(i =>
-        '<div class="mem-due-card">' +
-          '<div class="mem-due-q">' + escHtml(t.mem_due_q || '') + '</div>' +
-          '<div class="mem-due-phrase">' + escHtml(memIntentPhrase(i.trigger, i.text)) + '</div>' +
-          '<div class="mem-due-actions">' +
-            '<button class="btn-small" onclick="answerIntent(\'' + i.id + '\',\'yes\')">' + escHtml(t.mem_due_yes || '') + '</button>' +
-            '<button class="btn-small" onclick="answerIntent(\'' + i.id + '\',\'no\')">' + escHtml(t.mem_due_no || '') + '</button>' +
-            '<button class="btn-ghost" onclick="answerIntent(\'' + i.id + '\',\'pending\')">' + escHtml(t.mem_due_pending || '') + '</button>' +
-          '</div>' +
-        '</div>').join('');
-}
-
-function answerIntent(id, result) {
-    const t = translations[currentLang] || translations.en;
-    checkIntention(id, result);
-    if (result === 'yes') showMotivToast(t.mem_toast_yes || '');
-    // 🔴 Тон на "Ні" — без докору: проблема в тригері, не в людині. Одноразового
-    // формулювання доказово мало, тому пропонуємо переформулювати, а не картаємо.
-    if (result === 'no') showMotivToast(t.mem_toast_no || '');
-    renderMemoryScreen();
-}
-
-function memIntentPhrase(trigger, text) {
-    const t = translations[currentLang] || translations.en;
-    const trg = MEM_KID_TRIGGERS.indexOf(trigger) !== -1 ? (t[trigger] || trigger) : trigger;
-    return (t.mem_formula || 'IF {trigger}, THEN {action}')
-        .replace('{trigger}', trg).replace('{action}', text);
-}
-
-// ---- Вправа "Якщо-то": 3 кроки на одному екрані ----
-
-function startIntentExercise() {
-    memIntentDraft = { text: '', trigger: '', step: 1 };
-    showScreen('memoryIntentScreen');
-    renderIntentStep();
-}
-
-function renderIntentStep() {
-    const t = translations[currentLang] || translations.en;
-    const group = getMemoryGroup();
-    const kidMode = (group === '5-7' || group === '8-9');
-    document.getElementById('memIntentBackLabel').innerText = t.back_lang || 'Назад';
-    const body = document.getElementById('memIntentBody');
-    const stepLbl = (n) => escHtml((t.mem_step || 'Крок {n} з 3').replace('{n}', n));
-
-    if (memIntentDraft.step === 1) {
-        body.innerHTML =
-            '<p class="mem-step-num">' + stepLbl(1) + '</p>' +
-            '<p class="mem-step-q">' + escHtml(t.mem_q_action || '') + '</p>' +
-            '<p class="mem-step-hint">' + escHtml(t.mem_hint_action || '') + '</p>' +
-            '<input id="memIntentText" class="mem-input" maxlength="60" placeholder="' + escHtml(t.mem_ph_action || '') + '" />' +
-            '<button class="btn-start-main" onclick="intentNext()">' + escHtml(t.mem_next || '') + '</button>';
-        const inp = document.getElementById('memIntentText');
-        inp.value = memIntentDraft.text;
-        inp.focus();
-        return;
-    }
-
-    if (memIntentDraft.step === 2) {
-        // 5-9 — тільки готові фізичні тригери. 10+ — свій, бо вже здатні самі
-        // оцінити, що вони точно помітять.
-        const opts = kidMode
-            ? MEM_KID_TRIGGERS.map(k =>
-                '<button class="mem-trg-btn' + (memIntentDraft.trigger === k ? ' active' : '') + '" onclick="pickTrigger(\'' + k + '\')">' + escHtml(t[k] || k) + '</button>').join('')
-            : '<input id="memIntentTrigger" class="mem-input" maxlength="60" placeholder="' + escHtml(t.mem_ph_trigger || '') + '" />';
-        body.innerHTML =
-            '<p class="mem-step-num">' + stepLbl(2) + '</p>' +
-            '<p class="mem-step-q">' + escHtml(t.mem_q_trigger || '') + '</p>' +
-            '<p class="mem-step-hint">' + escHtml(kidMode ? (t.mem_hint_trigger_kid || '') : (t.mem_hint_trigger || '')) + '</p>' +
-            '<div class="mem-trg-list">' + opts + '</div>' +
-            '<button class="btn-start-main" onclick="intentNext()">' + escHtml(t.mem_next || '') + '</button>';
-        const ti = document.getElementById('memIntentTrigger');
-        if (ti) { ti.value = memIntentDraft.trigger; ti.focus(); }
-        return;
-    }
-
-    // Крок 3 — проговорити повну фразу. Це і Є саме кодування наміру, а не
-    // підсумковий екран: тому фраза велика й окремо, а не дрібним рядком.
-    body.innerHTML =
-        '<p class="mem-step-num">' + stepLbl(3) + '</p>' +
-        '<p class="mem-step-q">' + escHtml(t.mem_q_say || '') + '</p>' +
-        '<div class="mem-formula">' + escHtml(memIntentPhrase(memIntentDraft.trigger, memIntentDraft.text)) + '</div>' +
-        '<p class="mem-step-hint">' + escHtml(t.mem_hint_say || '') + '</p>' +
-        '<button class="btn-start-main" onclick="saveIntent()">' + escHtml(t.mem_save || '') + '</button>';
-}
-
-function pickTrigger(k) {
-    memIntentDraft.trigger = k;
-    renderIntentStep();
-}
-
-function intentNext() {
-    const t = translations[currentLang] || translations.en;
-    if (memIntentDraft.step === 1) {
-        const v = (document.getElementById('memIntentText').value || '').trim();
-        if (!v) { showMotivToast(t.mem_need_action || ''); return; }
-        memIntentDraft.text = v;
-        memIntentDraft.step = 2;
-        renderIntentStep();
-        return;
-    }
-    if (memIntentDraft.step === 2) {
-        const ti = document.getElementById('memIntentTrigger');
-        if (ti) memIntentDraft.trigger = (ti.value || '').trim();
-        if (!memIntentDraft.trigger) { showMotivToast(t.mem_need_trigger || ''); return; }
-        memIntentDraft.step = 3;
-        renderIntentStep();
-    }
-}
-
-function saveIntent() {
-    const t = translations[currentLang] || translations.en;
-    if (!addIntention(memIntentDraft.text, memIntentDraft.trigger)) {
-        showMotivToast(t.mem_limit || '');
-        return;
-    }
-    showMotivToast(t.mem_saved || '');
-    openMemoryScreen();
-}
-
-
-// ---- Журнал намірів (FB-52): "Спрацювало" і "В роботі" для режиму пам'яті ----
-
-let memLogView = 'worked';
-
-function openMemoryLog(view) {
-    memLogView = view;
-    showScreen('memoryLogScreen');
-    setBottomNav('memory', view === 'worked' ? 'library' : 'progress');
-    updateThemeToggleFab();
-    updateProfileNavAvatar();
-    renderMemoryLog();
-}
-
-function renderMemoryLog() {
-    const t = translations[currentLang] || translations.en;
-    const all = loadMemoryState().intentions;
-    const worked = memLogView === 'worked';
-    const items = worked
-        ? all.filter(i => i.result === 'yes')
-        : all.filter(i => !i.checkedAt);
-
-    document.getElementById('memLogBackLabel').innerText = t.back_lang || 'Назад';
-    document.getElementById('memLogTitle').innerText =
-        worked ? (t.mem_log_worked_title || '') : (t.mem_log_active_title || '');
-    document.getElementById('memLogSubtitle').innerText =
-        worked ? (t.mem_log_worked_sub || '') : (t.mem_log_active_sub || '');
-
-    const wrap = document.getElementById('memLogList');
-    if (!items.length) {
-        wrap.innerHTML = '<p class="mem-log-empty">' +
-            escHtml(worked ? (t.mem_log_empty_worked || '') : (t.mem_log_empty_active || '')) + '</p>';
-        return;
-    }
-    wrap.innerHTML = items.map(function (i) {
-        return '<div class="mem-log-item">' +
-            '<div class="mem-log-phrase">' + escHtml(memIntentPhrase(i.trigger, i.text)) + '</div>' +
-            (worked ? '' :
-              '<button class="btn-ghost mem-log-del" onclick="dropIntention(\'' + i.id + '\')">' +
-              escHtml(t.mem_log_drop || '') + '</button>') +
-        '</div>';
-    }).join('');
-}
-
-function dropIntention(id) {
-    deleteIntention(id);
-    renderMemoryLog();
-}

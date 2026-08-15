@@ -1,4 +1,4 @@
-const CACHE = 'memori-v75';
+const CACHE = 'memori-v77';
 const CORE = [
   './index.html',
   './state.js',
@@ -6,6 +6,7 @@ const CORE = [
   './learning.js',
   './words.js',
   './app.js',
+  './memory.js',
   './style.css',
   './icon.svg',
   './apple-touch-icon.png',
