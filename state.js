@@ -738,3 +738,142 @@ function escHtml(str) {
     return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+
+
+// ===== [S3] Фокуси пам'яті — стан режиму (MT-02, 2026-08-15) =====
+// Третій режим застосунку: не вивчення матеріалу, а тренування самої пам'яті.
+// Доказова база й межі — _manager/MEMORY-TRAINING-RESEARCH.md, правила —
+// AGENTS/memory-trainer/README.md. Перша вправа — "Якщо-то" (implementation
+// intentions), єдина, що прямо тренує проспективну пам'ять (>60% реальних
+// побутових забувань — це забуті наміри, а не забуті факти).
+
+const MEMORY_KEY = 'memori_memory';
+
+// Вікові межі НЕ круглі числа, а два задокументовані пороги розвитку:
+//   8 років — до нього utilization deficiency: дитина виконує техніку правильно,
+//             а результат ще не росте → прогрес рахуємо за виконанням, не за
+//             результатом пригадування (інакше бал покаже провал, якого немає)
+//  10 років — раніше палац пам'яті не працює (потрібна абстрактна просторова
+//             структура), тому 10-12 — окрема група
+// Старших дорослих окремою групою свідомо НЕ виділяємо: доказово їм потрібна та
+// сама мнемотехніка, а кнопка "60+" читається як образа (див. план, розділ 3).
+const MEMORY_GROUPS = ['5-7', '8-9', '10-12', '13-17', '18+'];
+
+// Скільки намірів тримаємо активними одночасно. Ліміт свідомий: ми тренуємо
+// формулу "якщо-то", а не ведемо список справ. Без ліміту режим перетвориться
+// на таск-менеджер (див. "Що НЕ робимо" у специфікації MT-02).
+const MEMORY_MAX_INTENTIONS = 3;
+
+function loadMemoryState() {
+    try {
+        const s = JSON.parse(localStorage.getItem(MEMORY_KEY));
+        if (!s || typeof s !== 'object') return { group: null, intentions: [] };
+        return { group: s.group || null, intentions: Array.isArray(s.intentions) ? s.intentions : [] };
+    } catch { return { group: null, intentions: [] }; }
+}
+
+function saveMemoryState(s) {
+    try { localStorage.setItem(MEMORY_KEY, JSON.stringify(s)); } catch {}
+}
+
+// Вік → група. Нижче 5 віддаємо наймолодшу групу, а не null: якщо батько вказав
+// 4 роки, краще показати найпростіші вправи, ніж порожній режим.
+function memoryGroupForAge(age) {
+    if (age === null || age === undefined || isNaN(age)) return null;
+    if (age <= 7) return '5-7';
+    if (age <= 9) return '8-9';
+    if (age <= 12) return '10-12';
+    if (age <= 17) return '13-17';
+    return '18+';
+}
+
+// Група береться в такому порядку: явний вибір користувача → автоматично з дати
+// народження в профілі → null (тоді режим спитає один раз при вході).
+// Явний вибір зберігається ОКРЕМО від profile.birthdate, бо це налаштування
+// режиму, а не факт про людину: батько налаштовує дитині, доросла людина може
+// свідомо обрати простіший рівень.
+function getMemoryGroup() {
+    const s = loadMemoryState();
+    if (s.group && MEMORY_GROUPS.includes(s.group)) return s.group;
+    try {
+        const profile = JSON.parse(localStorage.getItem(PROFILE_KEY)) || {};
+        return memoryGroupForAge(calcAge(profile.birthdate));
+    } catch { return null; }
+}
+
+function setMemoryGroup(group) {
+    if (!MEMORY_GROUPS.includes(group)) return;
+    const s = loadMemoryState();
+    s.group = group;
+    saveMemoryState(s);
+}
+
+// 🔴 Правило віку: до 8 років прогрес рахується за ВИКОНАННЯМ техніки, а не за
+// результатом пригадування. Ця функція — єдине джерело правди для всіх вправ,
+// щоб правило не довелось дублювати (і забути) у кожній новій вправі.
+function memoryScoreByExecution(group) {
+    return (group || getMemoryGroup()) === '5-7';
+}
+
+function getActiveIntentions() {
+    return loadMemoryState().intentions.filter(i => !i.checkedAt);
+}
+
+function addIntention(text, trigger) {
+    text = (text || '').trim();
+    trigger = (trigger || '').trim();
+    if (!text || !trigger) return null;
+    const s = loadMemoryState();
+    if (s.intentions.filter(i => !i.checkedAt).length >= MEMORY_MAX_INTENTIONS) return null;
+    const item = { id: 'int_' + Date.now(), text, trigger, createdAt: Date.now(), checkedAt: null, result: null };
+    s.intentions.push(item);
+    saveMemoryState(s);
+    return item;
+}
+
+// result: 'yes' | 'no' | 'pending' — "ще не було тригера" НЕ закриває намір,
+// бо тригер справді міг не настати, і це не провал користувача.
+function checkIntention(id, result) {
+    const s = loadMemoryState();
+    const item = s.intentions.find(i => i.id === id);
+    if (!item) return null;
+    if (result === 'pending') { item.remindedAt = Date.now(); saveMemoryState(s); return item; }
+    item.checkedAt = Date.now();
+    item.result = result;
+    saveMemoryState(s);
+    return item;
+}
+
+function deleteIntention(id) {
+    const s = loadMemoryState();
+    s.intentions = s.intentions.filter(i => i.id !== id);
+    saveMemoryState(s);
+}
+
+// Наміри, які час перевірити: створені щонайменше MEMORY_CHECK_HOUR годині тому
+// цього дня, або взагалі вчора й раніше. Застосунок без бекенду не має реального
+// планувальника — перевірка показується, коли користувач сам відкриває режим
+// (той самий підхід, що й checkPendingReminder вище).
+const MEMORY_CHECK_HOUR = 20;
+
+function getIntentionsDueCheck() {
+    const now = new Date();
+    return getActiveIntentions().filter(i => {
+        const created = new Date(i.createdAt);
+        const sameDay = created.toDateString() === now.toDateString();
+        if (!sameDay) return true;                     // створено раніше, ніж сьогодні
+        return now.getHours() >= MEMORY_CHECK_HOUR;    // сьогодні — тільки ввечері
+    });
+}
+
+// Статистика для екрана режиму. Свідомо БЕЗ відсотків і без порівняння з нормою
+// (Правило №4 агента: не діагностуємо). Показуємо лише скільки разів формула
+// спрацювала — це заохочення, а не оцінка.
+function getMemoryStats() {
+    const all = loadMemoryState().intentions;
+    return {
+        total: all.length,
+        worked: all.filter(i => i.result === 'yes').length,
+        active: all.filter(i => !i.checkedAt).length
+    };
+}
