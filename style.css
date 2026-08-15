@@ -3829,3 +3829,18 @@ body[data-theme="dark"] .support-fab-badge { border-color: #1f2937; }
   text-align: center;
 }
 .mem-foot { font-size: 0.82rem; color: #888; text-align: center; margin-top: 18px; }
+
+/* Журнал намірів — режим пам'яті (FB-52) */
+.mem-log-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+}
+.mem-log-phrase { flex: 1; min-width: 0; font-size: 0.9rem; line-height: 1.5; color: var(--text); }
+.mem-log-del { flex-shrink: 0; }
+.mem-log-empty { font-size: 0.9rem; color: #888; text-align: center; padding: 28px 12px; line-height: 1.6; }

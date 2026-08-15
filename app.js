@@ -214,6 +214,15 @@ const translations = {
         mode_words_label: 'Слова та Фрази', mode_words_desc: 'Нова лексика, переклади, словник',
         // MT-02 (2026-08-15) — режим "Фокуси пам'яті"
         mode_memory_label: 'Фокуси пам\'яті',
+        mem_nav_worked: 'Спрацювало',
+        mem_nav_active: 'В роботі',
+        mem_log_worked_title: 'Спрацювало',
+        mem_log_active_title: 'В роботі',
+        mem_log_worked_sub: 'Випадки, коли формула справді нагадала про себе',
+        mem_log_active_sub: 'Наміри, які ще чекають свого тригера',
+        mem_log_empty_worked: 'Поки порожньо. Перший запис з\'явиться, щойно щось спрацює 🌱',
+        mem_log_empty_active: 'Зараз жодного наміру в роботі — можна створити новий',
+        mem_log_drop: 'Прибрати',
         mode_memory_desc: 'Техніки, якими користуються чемпіони з пам\'яті',
         mem_subtitle: 'Тут тренуємо саму пам\'ять — не текст і не слова',
         mem_pick_age: 'Оберіть вік — у різному віці працюють різні прийоми',
@@ -449,6 +458,15 @@ const translations = {
         mode_words_label: 'Words & Phrases', mode_words_desc: 'New vocabulary, translations, flashcards',
         // MT-02 (2026-08-15) — режим "Фокуси пам'яті"
         mode_memory_label: 'Memory Tricks',
+        mem_nav_worked: 'Worked',
+        mem_nav_active: 'In progress',
+        mem_log_worked_title: 'Worked',
+        mem_log_active_title: 'In progress',
+        mem_log_worked_sub: 'The times the formula actually did remind you',
+        mem_log_active_sub: 'Intentions still waiting for their trigger',
+        mem_log_empty_worked: 'Empty for now. The first entry appears as soon as something works 🌱',
+        mem_log_empty_active: 'Nothing in progress right now — you can add one',
+        mem_log_drop: 'Remove',
         mode_memory_desc: 'The techniques memory champions actually use',
         mem_subtitle: 'Here we train memory itself — not a text, not words',
         mem_pick_age: 'Pick an age — different techniques work at different ages',
@@ -684,6 +702,15 @@ const translations = {
         mode_words_label: 'Słowa i Frazy', mode_words_desc: 'Nowe słownictwo, tłumaczenia, fiszki',
         // MT-02 (2026-08-15) — режим "Фокуси пам'яті"
         mode_memory_label: 'Sztuczki pamięci',
+        mem_nav_worked: 'Zadziałało',
+        mem_nav_active: 'W trakcie',
+        mem_log_worked_title: 'Zadziałało',
+        mem_log_active_title: 'W trakcie',
+        mem_log_worked_sub: 'Sytuacje, w których formuła naprawdę przypomniała',
+        mem_log_active_sub: 'Zamiary, które czekają na swój sygnał',
+        mem_log_empty_worked: 'Na razie pusto. Pierwszy wpis pojawi się, gdy coś zadziała 🌱',
+        mem_log_empty_active: 'Nic w trakcie — możesz dodać nowy',
+        mem_log_drop: 'Usuń',
         mode_memory_desc: 'Techniki, których naprawdę używają mistrzowie pamięci',
         mem_subtitle: 'Tutaj trenujemy samą pamięć — nie tekst i nie słowa',
         mem_pick_age: 'Wybierz wiek — w różnym wieku działają różne techniki',
@@ -919,6 +946,15 @@ const translations = {
         mode_words_label: 'Wörter & Phrasen', mode_words_desc: 'Neues Vokabular, Übersetzungen, Karteikarten',
         // MT-02 (2026-08-15) — режим "Фокуси пам'яті"
         mode_memory_label: 'Gedächtnistricks',
+        mem_nav_worked: 'Geklappt',
+        mem_nav_active: 'Laufend',
+        mem_log_worked_title: 'Geklappt',
+        mem_log_active_title: 'Laufend',
+        mem_log_worked_sub: 'Die Male, bei denen die Formel wirklich erinnert hat',
+        mem_log_active_sub: 'Vorhaben, die noch auf ihren Auslöser warten',
+        mem_log_empty_worked: 'Noch leer. Der erste Eintrag kommt, sobald etwas klappt 🌱',
+        mem_log_empty_active: 'Gerade läuft nichts — du kannst eins anlegen',
+        mem_log_drop: 'Entfernen',
         mode_memory_desc: 'Die Techniken, die Gedächtnismeister wirklich nutzen',
         mem_subtitle: 'Hier trainieren wir das Gedächtnis selbst — keinen Text, keine Wörter',
         mem_pick_age: 'Wähle ein Alter — in jedem Alter wirken andere Techniken',
@@ -1154,6 +1190,15 @@ const translations = {
         mode_words_label: 'Mots & Phrases', mode_words_desc: 'Nouveau vocabulaire, traductions, fiches',
         // MT-02 (2026-08-15) — режим "Фокуси пам'яті"
         mode_memory_label: 'Tours de mémoire',
+        mem_nav_worked: 'A marché',
+        mem_nav_active: 'En cours',
+        mem_log_worked_title: 'A marché',
+        mem_log_active_title: 'En cours',
+        mem_log_worked_sub: 'Les fois où la formule t\'a vraiment rappelé',
+        mem_log_active_sub: 'Les intentions qui attendent encore leur déclencheur',
+        mem_log_empty_worked: 'Vide pour l\'instant. La première entrée arrive dès que ça marche 🌱',
+        mem_log_empty_active: 'Rien en cours — tu peux en ajouter une',
+        mem_log_drop: 'Retirer',
         mode_memory_desc: 'Les techniques qu’utilisent vraiment les champions de mémoire',
         mem_subtitle: 'Ici on entraîne la mémoire elle-même — ni texte, ni mots',
         mem_pick_age: 'Choisis un âge — les techniques efficaces changent avec l’âge',
@@ -1389,6 +1434,15 @@ const translations = {
         mode_words_label: 'Palabras y Frases', mode_words_desc: 'Nuevo vocabulario, traducciones, tarjetas',
         // MT-02 (2026-08-15) — режим "Фокуси пам'яті"
         mode_memory_label: 'Trucos de memoria',
+        mem_nav_worked: 'Funcionó',
+        mem_nav_active: 'En curso',
+        mem_log_worked_title: 'Funcionó',
+        mem_log_active_title: 'En curso',
+        mem_log_worked_sub: 'Las veces que la fórmula sí te lo recordó',
+        mem_log_active_sub: 'Intenciones que aún esperan su señal',
+        mem_log_empty_worked: 'Vacío por ahora. La primera entrada aparece en cuanto algo funcione 🌱',
+        mem_log_empty_active: 'Nada en curso — puedes añadir una',
+        mem_log_drop: 'Quitar',
         mode_memory_desc: 'Las técnicas que de verdad usan los campeones de memoria',
         mem_subtitle: 'Aquí entrenamos la memoria en sí — ni texto, ni palabras',
         mem_pick_age: 'Elige una edad — a cada edad le funcionan técnicas distintas',
@@ -1511,7 +1565,7 @@ function showMotivToast(msg) {
 
 // ----- [app: SCREEN MANAGER]  (was app.js lines 1922-2045) -----
 // ===== SCREEN MANAGER =====
-const SCREENS = ['langScreen','modeScreen','memoryScreen','memoryIntentScreen','inputScreen','setupScreen','learningScreen','restScreen','sessionPauseScreen','finalScreen','profileScreen','wordProfileScreen','progressScreen','wordSelectScreen','profileIdentityScreen','wordLangScreen','wordInputScreen','wordVerifyScreen','wordTopicScreen','wordTrainingScreen','wordResultsScreen'];
+const SCREENS = ['langScreen','modeScreen','memoryScreen','memoryIntentScreen','memoryLogScreen','inputScreen','setupScreen','learningScreen','restScreen','sessionPauseScreen','finalScreen','profileScreen','wordProfileScreen','progressScreen','wordSelectScreen','profileIdentityScreen','wordLangScreen','wordInputScreen','wordVerifyScreen','wordTopicScreen','wordTrainingScreen','wordResultsScreen'];
 // modeScreen/wordLangScreen/wordTopicScreen додано сюди 2026-08-05 (Playful Premium composition
 // pass) — раніше короткий контент цих 3 екранів просто прилипав до верху картки, лишаючи ~50%
 // картки порожньою внизу. FLEX_SCREENS вже мав готовий механізм (display:flex + min-height +
@@ -1523,7 +1577,7 @@ const FLEX_SCREENS = ['sessionPauseScreen','finalScreen','wordResultsScreen','mo
 // бібліотеки/прогресу/профілю (2026-08-07: розділені на 3 окремі екрани, див. коментар
 // над #bottomNav в index.html і D-009 addendum у DECISIONS.md).
 // НЕ показується під час активного навчання/тренування (один екран — одна дія, README UX Designer).
-const BOTTOM_NAV_SCREENS = ['inputScreen','memoryScreen','profileScreen','wordLangScreen','wordProfileScreen','progressScreen','profileIdentityScreen'];
+const BOTTOM_NAV_SCREENS = ['inputScreen','memoryScreen','memoryLogScreen','profileScreen','wordLangScreen','wordProfileScreen','progressScreen','profileIdentityScreen'];
 let currentScreenId = null; // для контексту у зверненнях підтримки — на якому екрані була проблема
 
 function showScreen(id) {
@@ -1598,8 +1652,10 @@ function renderBottomNav() {
     const progLbl = document.getElementById('navProgressLbl');
     const profLbl = document.getElementById('navProfileLbl');
     if (learnLbl) learnLbl.innerText = t.nav_learn || 'Навчання';
-    if (libLbl) libLbl.innerText = t.nav_library || 'Бібліотека';
-    if (progLbl) progLbl.innerText = t.nav_progress || 'Прогрес';
+    // У режимі пам'яті "бібліотека" і "прогрес" означають інше, ніж у текстах:
+    // тут немає вивченого матеріалу, є наміри — ті, що спрацювали, і ті, що в роботі.
+    if (libLbl) libLbl.innerText = (navContext === 'memory' ? (t.mem_nav_worked || 'Спрацювало') : (t.nav_library || 'Бібліотека'));
+    if (progLbl) progLbl.innerText = (navContext === 'memory' ? (t.mem_nav_active || 'В роботі') : (t.nav_progress || 'Прогрес'));
     if (profLbl) profLbl.innerText = t.nav_profile || 'Профіль';
     document.querySelectorAll('.bottom-nav-item').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.nav === navActiveTab);
@@ -1611,6 +1667,13 @@ function renderBottomNav() {
 // (тепер без hero), showProgressScreen = нове, memori_stats, openProfileIdentity = нове,
 // лише особисте — hero переїхав туди). Див. коментар над #bottomNav в index.html.
 function bottomNavGo(tab) {
+    if (navContext === 'memory') {
+        if (tab === 'learn') openMemoryScreen();
+        else if (tab === 'library') openMemoryLog('worked');
+        else if (tab === 'progress') openMemoryLog('active');
+        else openProfileIdentity(openMemoryScreen);
+        return;
+    }
     if (navContext === 'words') {
         if (tab === 'learn') showWordLangScreen();
         else if (tab === 'library') openWordProfile(showWordLangScreen, 'progress');
@@ -3018,4 +3081,53 @@ function saveIntent() {
     }
     showMotivToast(t.mem_saved || '');
     openMemoryScreen();
+}
+
+
+// ---- Журнал намірів (FB-52): "Спрацювало" і "В роботі" для режиму пам'яті ----
+
+let memLogView = 'worked';
+
+function openMemoryLog(view) {
+    memLogView = view;
+    showScreen('memoryLogScreen');
+    setBottomNav('memory', view === 'worked' ? 'library' : 'progress');
+    updateThemeToggleFab();
+    updateProfileNavAvatar();
+    renderMemoryLog();
+}
+
+function renderMemoryLog() {
+    const t = translations[currentLang] || translations.en;
+    const all = loadMemoryState().intentions;
+    const worked = memLogView === 'worked';
+    const items = worked
+        ? all.filter(i => i.result === 'yes')
+        : all.filter(i => !i.checkedAt);
+
+    document.getElementById('memLogBackLabel').innerText = t.back_lang || 'Назад';
+    document.getElementById('memLogTitle').innerText =
+        worked ? (t.mem_log_worked_title || '') : (t.mem_log_active_title || '');
+    document.getElementById('memLogSubtitle').innerText =
+        worked ? (t.mem_log_worked_sub || '') : (t.mem_log_active_sub || '');
+
+    const wrap = document.getElementById('memLogList');
+    if (!items.length) {
+        wrap.innerHTML = '<p class="mem-log-empty">' +
+            escHtml(worked ? (t.mem_log_empty_worked || '') : (t.mem_log_empty_active || '')) + '</p>';
+        return;
+    }
+    wrap.innerHTML = items.map(function (i) {
+        return '<div class="mem-log-item">' +
+            '<div class="mem-log-phrase">' + escHtml(memIntentPhrase(i.trigger, i.text)) + '</div>' +
+            (worked ? '' :
+              '<button class="btn-ghost mem-log-del" onclick="dropIntention(\'' + i.id + '\')">' +
+              escHtml(t.mem_log_drop || '') + '</button>') +
+        '</div>';
+    }).join('');
+}
+
+function dropIntention(id) {
+    deleteIntention(id);
+    renderMemoryLog();
 }
