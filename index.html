@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=103" />
+    <link rel="stylesheet" href="style.css?v=104" />
   </head>
   <body>
     <div class="container">
@@ -94,8 +94,63 @@
                 </div>
                 <svg class="mode-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
               </button>
+              <!-- MT-02 (2026-08-15): третій режим. Перші два вчать МАТЕРІАЛ,
+                   цей тренує саму ЗДІБНІСТЬ — різницю треба показати прямо на
+                   картці, інакше читається як ще один спосіб вчити слова. -->
+              <button class="mode-card" onclick="selectMode('memory')">
+                <div class="mode-card-icon mode-card-icon-memory">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2"/><path d="M12 19v2"/><path d="M5 12H3"/><path d="M21 12h-2"/><path d="m6.3 6.3-1.4-1.4"/><path d="m19.1 19.1-1.4-1.4"/><path d="m17.7 6.3 1.4-1.4"/><path d="m4.9 19.1 1.4-1.4"/><circle cx="12" cy="12" r="4"/></svg>
+                </div>
+                <div class="mode-card-body">
+                  <div class="mode-card-label" id="modeMemoryLabel">Фокуси пам'яті</div>
+                  <div class="mode-card-desc" id="modeMemoryDesc">Техніки, якими користуються чемпіони з пам'яті</div>
+                </div>
+                <svg class="mode-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
             </div>
           </div>
+        </div>
+
+        <!-- Memory Screen — хаб режиму "Фокуси пам'яті" (MT-02) -->
+        <div id="memoryScreen" style="display:none;">
+          <div class="input-topbar">
+            <button onclick="showModeScreen()" class="btn-back">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <span id="memBackLabel">Назад</span>
+            </button>
+          </div>
+          <div class="logo-block">
+            <img class="logo-svg logo-light" src="icon-192.png?v=2" width="28" height="28" alt="Everlea" />
+            <img class="logo-svg logo-dark" src="icon-192-dark.png?v=2" width="28" height="28" alt="Everlea" />
+            <h1 class="logo-text" style="font-size:1.6rem;" id="memTitle">Фокуси пам'яті</h1>
+          </div>
+          <p class="role-subtitle" id="memSubtitle"></p>
+
+          <!-- Вибір вікової групи: авто з дати народження, але завжди змінюваний
+               вручну — батько налаштовує дитині, доросла людина може обрати простіше -->
+          <div class="mem-group-row">
+            <span class="mem-group-label" id="memGroupLabel">Вправи для віку</span>
+            <div class="mem-group-chips" id="memGroupChips"></div>
+          </div>
+
+          <!-- Наміри, які час перевірити (створені вчора або сьогодні після 20:00) -->
+          <div id="memDueWrap" style="display:none;"></div>
+
+          <!-- Список вправ, доступних цій віковій групі -->
+          <div id="memExerciseList"></div>
+
+          <p class="mem-foot" id="memFoot"></p>
+        </div>
+
+        <!-- Memory Intent Screen — вправа "Якщо-то" (MT-02 / E-04) -->
+        <div id="memoryIntentScreen" style="display:none;">
+          <div class="input-topbar">
+            <button onclick="openMemoryScreen()" class="btn-back">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <span id="memIntentBackLabel">Назад</span>
+            </button>
+          </div>
+          <div id="memIntentBody"></div>
         </div>
 
         <!-- Input Screen -->
@@ -802,11 +857,11 @@
     </div>
 
 
-    <script src="state.js?v=15"></script>
+    <script src="state.js?v=16"></script>
     <script src="audio.js?v=2"></script>
     <script src="learning.js?v=14"></script>
     <script src="words.js?v=27"></script>
-    <script src="app.js?v=115"></script>
+    <script src="app.js?v=117"></script>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});

@@ -3691,3 +3691,141 @@ body[data-theme="dark"] .support-fab-badge { border-color: #1f2937; }
   from { opacity: 0; transform: translateY(8px) scale(0.9); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
+
+
+/* ===== Фокуси пам'яті — режим MT-02 (2026-08-15) ===== */
+/* Третя плитка на екрані режимів. Бурштиновий градієнт — щоб режим читався як
+   третя окрема річ, а не варіант зеленого "Тексту" чи індигових "Слів".
+   Як і в -text/-words, dark-специфічних кольорів навмисно немає: градієнт
+   з кольоровою тінню самодостатній в обох темах. */
+.mode-card-icon-memory {
+  background: linear-gradient(135deg, #f0b04a, #c2751a);
+  box-shadow: 0 10px 20px -6px rgba(194,117,26,0.5);
+}
+
+/* Вибір вікової групи */
+.mem-group-row { margin: 4px 0 18px; }
+.mem-group-label {
+  display: block;
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 8px;
+}
+.mem-group-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.mem-chip {
+  padding: 7px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.15s ease;
+}
+.mem-chip.active {
+  opacity: 1;
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+.mem-chip:hover { opacity: 0.9; }
+
+/* Картка вправи */
+.mem-ex-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-width: 0;
+  padding: 16px;
+  margin-bottom: 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  background: var(--card-bg, #fff);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.mem-ex-card:hover:not(.disabled) { border-color: var(--primary); transform: translateY(-1px); }
+.mem-ex-card.disabled { opacity: 0.55; cursor: default; }
+.mem-ex-icon { font-size: 1.6rem; flex-shrink: 0; }
+/* min-width:0 обов'язковий — без нього довгий опис розпирає flex-рядок за межі
+   картки на вузьких телефонах (той самий баг, що вже ловили у FB-42). */
+.mem-ex-body { min-width: 0; flex: 1; }
+.mem-ex-title { font-weight: 700; font-size: 1rem; color: var(--text); }
+.mem-ex-desc { font-size: 0.82rem; color: #888; margin-top: 3px; }
+
+/* Картка перевірки наміру */
+.mem-due-card {
+  padding: 16px;
+  margin-bottom: 12px;
+  border: 1.5px solid var(--primary);
+  border-radius: 16px;
+  background: var(--primary-soft);
+}
+.mem-due-q { font-weight: 700; font-size: 0.95rem; color: var(--text); }
+.mem-due-phrase {
+  font-size: 0.9rem;
+  color: var(--text);
+  opacity: 0.85;
+  margin: 8px 0 12px;
+  line-height: 1.5;
+}
+.mem-due-actions { display: flex; flex-wrap: wrap; gap: 8px; min-width: 0; }
+
+/* Кроки вправи */
+.mem-step-num {
+  font-size: 0.75rem;
+  color: var(--primary);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.mem-step-q { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.mem-step-hint { font-size: 0.85rem; color: #888; margin-bottom: 18px; line-height: 1.5; }
+.mem-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--text);
+  background: transparent;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 18px;
+}
+.mem-input:focus { outline: none; border-color: var(--primary); }
+.mem-trg-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+.mem-trg-btn {
+  padding: 13px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--text);
+  font-size: 0.95rem;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.mem-trg-btn.active { border-color: var(--primary); background: var(--primary-soft); color: var(--primary); font-weight: 600; }
+
+/* Крок 3: сама фраза — це і є прийом, тому вона велика й окрема,
+   а не дрібний підсумковий рядок. */
+.mem-formula {
+  padding: 22px 18px;
+  margin-bottom: 16px;
+  border-radius: 16px;
+  background: var(--primary-soft);
+  border: 1.5px dashed var(--primary);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.6;
+  color: var(--text);
+  text-align: center;
+}
+.mem-foot { font-size: 0.82rem; color: #888; text-align: center; margin-top: 18px; }

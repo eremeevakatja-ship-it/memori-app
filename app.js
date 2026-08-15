@@ -212,6 +212,44 @@ const translations = {
         mode_title: 'Що хочемо вчити?',
         mode_text_label: 'Текст', mode_text_desc: 'Вірш, монолог, виступ, презентація',
         mode_words_label: 'Слова та Фрази', mode_words_desc: 'Нова лексика, переклади, словник',
+        // MT-02 (2026-08-15) — режим "Фокуси пам'яті"
+        mode_memory_label: 'Фокуси пам\'яті',
+        mode_memory_desc: 'Техніки, якими користуються чемпіони з пам\'яті',
+        mem_subtitle: 'Тут тренуємо саму пам\'ять — не текст і не слова',
+        mem_pick_age: 'Оберіть вік — у різному віці працюють різні прийоми',
+        mem_group_label: 'Вправи для віку',
+        mem_ex_intent_title: 'Якщо-то',
+        mem_ex_intent_desc: 'Прийом проти «збирався і забув»',
+        mem_ex_intent_full: 'Зараз тренуємо три наміри — більше не варто. Перевір їх, і зможеш додати новий',
+        mem_worked_count: 'Спрацювало разів: {n} 🌿',
+        mem_step: 'Крок {n} з 3',
+        mem_q_action: 'Що ти збираєшся зробити?',
+        mem_hint_action: 'Щось одне й конкретне — те, що легко забувається',
+        mem_ph_action: 'передзвонити мамі',
+        mem_q_trigger: 'Коли саме ти про це згадаєш?',
+        mem_hint_trigger: 'Має бути щось, що ти точно помітиш — подія, а не «пізніше»',
+        mem_hint_trigger_kid: 'Обери те, що ти сьогодні точно зробиш',
+        mem_ph_trigger: 'коли поставлю чайник',
+        mem_q_say: 'Скажи це вголос — один раз, повністю',
+        mem_hint_say: 'Саме проговорювання і є прийом. Мозок ловить зв\'язок «побачив — зробив»',
+        mem_formula: 'ЯКЩО {trigger}, ТО {action}',
+        mem_next: 'Далі',
+        mem_save: 'Готово',
+        mem_saved: 'Записали 🌿',
+        mem_need_action: 'Напиши, що збираєшся зробити',
+        mem_need_trigger: 'Обери, коли саме',
+        mem_limit: 'Три наміри — уже достатньо. Перевір їх спочатку',
+        mem_due_q: 'Спрацювало?',
+        mem_due_yes: 'Так',
+        mem_due_no: 'Ні',
+        mem_due_pending: 'Ще не було',
+        mem_toast_yes: 'Спрацювало 🌿 Прийом працює',
+        mem_toast_no: 'Буває. Спробуй той самий намір, але з помітнішим тригером',
+        trg_pencil: 'відкрию пенал',
+        trg_dinner: 'сяду вечеряти',
+        trg_shoes: 'взую кросівки',
+        trg_teeth: 'почищу зуби',
+        trg_bag: 'візьму рюкзак',
         nav_learn: 'Навчання', nav_library: 'Бібліотека', nav_progress: 'Прогрес', nav_profile: 'Профіль',
         mode_subtitle: 'Оберіть напрямок — можна змінити будь-коли',
         wl_subtitle: 'Мова, яку вивчаєте, і рідна — для перекладу та вимови',
@@ -409,6 +447,44 @@ const translations = {
         mode_title: 'What do you want to learn?',
         mode_text_label: 'Text', mode_text_desc: 'Poem, speech, article, presentation',
         mode_words_label: 'Words & Phrases', mode_words_desc: 'New vocabulary, translations, flashcards',
+        // MT-02 (2026-08-15) — режим "Фокуси пам'яті"
+        mode_memory_label: 'Memory Tricks',
+        mode_memory_desc: 'The techniques memory champions actually use',
+        mem_subtitle: 'Here we train memory itself — not a text, not words',
+        mem_pick_age: 'Pick an age — different techniques work at different ages',
+        mem_group_label: 'Exercises for age',
+        mem_ex_intent_title: 'If-Then',
+        mem_ex_intent_desc: 'The trick against “I meant to, and forgot”',
+        mem_ex_intent_full: 'Three intentions is enough for now. Check them and you can add another',
+        mem_worked_count: 'Times it worked: {n} 🌿',
+        mem_step: 'Step {n} of 3',
+        mem_q_action: 'What are you planning to do?',
+        mem_hint_action: 'One concrete thing — something easy to forget',
+        mem_ph_action: 'call mum back',
+        mem_q_trigger: 'When exactly will you remember it?',
+        mem_hint_trigger: 'Something you will definitely notice — an event, not “later”',
+        mem_hint_trigger_kid: 'Pick something you will definitely do today',
+        mem_ph_trigger: 'when I put the kettle on',
+        mem_q_say: 'Say it out loud — once, in full',
+        mem_hint_say: 'Saying it IS the technique. Your brain catches the “see it — do it” link',
+        mem_formula: 'IF {trigger}, THEN {action}',
+        mem_next: 'Next',
+        mem_save: 'Done',
+        mem_saved: 'Saved 🌿',
+        mem_need_action: 'Write what you are planning to do',
+        mem_need_trigger: 'Choose when exactly',
+        mem_limit: 'Three intentions is plenty. Check those first',
+        mem_due_q: 'Did it work?',
+        mem_due_yes: 'Yes',
+        mem_due_no: 'No',
+        mem_due_pending: 'Not yet',
+        mem_toast_yes: 'It worked 🌿 The technique is doing its job',
+        mem_toast_no: 'Happens. Try the same intention with a more noticeable trigger',
+        trg_pencil: 'I open my pencil case',
+        trg_dinner: 'I sit down for dinner',
+        trg_shoes: 'I put my trainers on',
+        trg_teeth: 'I brush my teeth',
+        trg_bag: 'I pick up my backpack',
         nav_learn: 'Learn', nav_library: 'Library', nav_progress: 'Progress', nav_profile: 'Profile',
         mode_subtitle: 'Pick a direction — you can switch anytime',
         wl_subtitle: 'The language you\'re learning, plus your own — for translation and pronunciation',
@@ -606,6 +682,44 @@ const translations = {
         mode_title: 'Czego chcesz się uczyć?',
         mode_text_label: 'Tekst', mode_text_desc: 'Wiersz, przemowa, artykuł, prezentacja',
         mode_words_label: 'Słowa i Frazy', mode_words_desc: 'Nowe słownictwo, tłumaczenia, fiszki',
+        // MT-02 (2026-08-15) — режим "Фокуси пам'яті"
+        mode_memory_label: 'Sztuczki pamięci',
+        mode_memory_desc: 'Techniki, których naprawdę używają mistrzowie pamięci',
+        mem_subtitle: 'Tutaj trenujemy samą pamięć — nie tekst i nie słowa',
+        mem_pick_age: 'Wybierz wiek — w różnym wieku działają różne techniki',
+        mem_group_label: 'Ćwiczenia dla wieku',
+        mem_ex_intent_title: 'Jeśli-to',
+        mem_ex_intent_desc: 'Technika przeciw „chciałem i zapomniałem”',
+        mem_ex_intent_full: 'Trzy zamiary na razie wystarczą. Sprawdź je, a dodasz kolejny',
+        mem_worked_count: 'Zadziałało razy: {n} 🌿',
+        mem_step: 'Krok {n} z 3',
+        mem_q_action: 'Co zamierzasz zrobić?',
+        mem_hint_action: 'Jedna konkretna rzecz — taka, którą łatwo zapomnieć',
+        mem_ph_action: 'oddzwonić do mamy',
+        mem_q_trigger: 'Kiedy dokładnie sobie o tym przypomnisz?',
+        mem_hint_trigger: 'Coś, co na pewno zauważysz — zdarzenie, nie „później”',
+        mem_hint_trigger_kid: 'Wybierz coś, co dziś na pewno zrobisz',
+        mem_ph_trigger: 'gdy nastawię czajnik',
+        mem_q_say: 'Powiedz to na głos — raz, w całości',
+        mem_hint_say: 'Wypowiedzenie TO jest technika. Mózg łapie związek „widzę — robię”',
+        mem_formula: 'JEŚLI {trigger}, TO {action}',
+        mem_next: 'Dalej',
+        mem_save: 'Gotowe',
+        mem_saved: 'Zapisane 🌿',
+        mem_need_action: 'Napisz, co zamierzasz zrobić',
+        mem_need_trigger: 'Wybierz, kiedy dokładnie',
+        mem_limit: 'Trzy zamiary w zupełności wystarczą. Najpierw sprawdź te',
+        mem_due_q: 'Zadziałało?',
+        mem_due_yes: 'Tak',
+        mem_due_no: 'Nie',
+        mem_due_pending: 'Jeszcze nie',
+        mem_toast_yes: 'Zadziałało 🌿 Technika działa',
+        mem_toast_no: 'Bywa. Spróbuj tego samego z bardziej wyrazistym sygnałem',
+        trg_pencil: 'otworzę piórnik',
+        trg_dinner: 'usiądę do kolacji',
+        trg_shoes: 'założę buty',
+        trg_teeth: 'umyję zęby',
+        trg_bag: 'wezmę plecak',
         nav_learn: 'Nauka', nav_library: 'Biblioteka', nav_progress: 'Postęp', nav_profile: 'Profil',
         mode_subtitle: 'Wybierz kierunek — możesz zmienić w każdej chwili',
         wl_subtitle: 'Język, którego się uczysz, i twój ojczysty — do tłumaczeń i wymowy',
@@ -803,6 +917,44 @@ const translations = {
         mode_title: 'Was möchtest du lernen?',
         mode_text_label: 'Text', mode_text_desc: 'Gedicht, Rede, Artikel, Präsentation',
         mode_words_label: 'Wörter & Phrasen', mode_words_desc: 'Neues Vokabular, Übersetzungen, Karteikarten',
+        // MT-02 (2026-08-15) — режим "Фокуси пам'яті"
+        mode_memory_label: 'Gedächtnistricks',
+        mode_memory_desc: 'Die Techniken, die Gedächtnismeister wirklich nutzen',
+        mem_subtitle: 'Hier trainieren wir das Gedächtnis selbst — keinen Text, keine Wörter',
+        mem_pick_age: 'Wähle ein Alter — in jedem Alter wirken andere Techniken',
+        mem_group_label: 'Übungen für Alter',
+        mem_ex_intent_title: 'Wenn-Dann',
+        mem_ex_intent_desc: 'Der Trick gegen „ich wollte und hab’s vergessen“',
+        mem_ex_intent_full: 'Drei Vorhaben reichen erst mal. Prüfe sie, dann geht ein neues',
+        mem_worked_count: 'So oft hat es geklappt: {n} 🌿',
+        mem_step: 'Schritt {n} von 3',
+        mem_q_action: 'Was hast du vor?',
+        mem_hint_action: 'Eine konkrete Sache — etwas, das man leicht vergisst',
+        mem_ph_action: 'Mama zurückrufen',
+        mem_q_trigger: 'Wann genau fällt es dir wieder ein?',
+        mem_hint_trigger: 'Etwas, das du sicher bemerkst — ein Ereignis, kein „später“',
+        mem_hint_trigger_kid: 'Wähle etwas, das du heute sicher machst',
+        mem_ph_trigger: 'wenn ich Wasser aufsetze',
+        mem_q_say: 'Sag es laut — einmal, vollständig',
+        mem_hint_say: 'Das Aussprechen IST die Technik. Das Gehirn merkt sich „sehen — tun“',
+        mem_formula: 'WENN {trigger}, DANN {action}',
+        mem_next: 'Weiter',
+        mem_save: 'Fertig',
+        mem_saved: 'Gespeichert 🌿',
+        mem_need_action: 'Schreib, was du vorhast',
+        mem_need_trigger: 'Wähle, wann genau',
+        mem_limit: 'Drei Vorhaben sind genug. Prüfe die erst',
+        mem_due_q: 'Hat es geklappt?',
+        mem_due_yes: 'Ja',
+        mem_due_no: 'Nein',
+        mem_due_pending: 'Noch nicht',
+        mem_toast_yes: 'Hat geklappt 🌿 Die Technik wirkt',
+        mem_toast_no: 'Kommt vor. Versuch es mit einem auffälligeren Auslöser',
+        trg_pencil: 'ich mein Mäppchen öffne',
+        trg_dinner: 'ich mich zum Abendessen setze',
+        trg_shoes: 'ich meine Schuhe anziehe',
+        trg_teeth: 'ich Zähne putze',
+        trg_bag: 'ich meinen Rucksack nehme',
         nav_learn: 'Lernen', nav_library: 'Bibliothek', nav_progress: 'Fortschritt', nav_profile: 'Profil',
         mode_subtitle: 'Wähle eine Richtung — du kannst jederzeit wechseln',
         wl_subtitle: 'Die Sprache, die du lernst, und deine Muttersprache — für Übersetzung und Aussprache',
@@ -1000,6 +1152,44 @@ const translations = {
         mode_title: 'Que voulez-vous apprendre ?',
         mode_text_label: 'Texte', mode_text_desc: 'Poème, discours, article, présentation',
         mode_words_label: 'Mots & Phrases', mode_words_desc: 'Nouveau vocabulaire, traductions, fiches',
+        // MT-02 (2026-08-15) — режим "Фокуси пам'яті"
+        mode_memory_label: 'Tours de mémoire',
+        mode_memory_desc: 'Les techniques qu’utilisent vraiment les champions de mémoire',
+        mem_subtitle: 'Ici on entraîne la mémoire elle-même — ni texte, ni mots',
+        mem_pick_age: 'Choisis un âge — les techniques efficaces changent avec l’âge',
+        mem_group_label: 'Exercices pour l’âge',
+        mem_ex_intent_title: 'Si-Alors',
+        mem_ex_intent_desc: 'La technique contre « je voulais, et j’ai oublié »',
+        mem_ex_intent_full: 'Trois intentions suffisent pour l’instant. Vérifie-les et tu pourras en ajouter',
+        mem_worked_count: 'Ça a marché : {n} fois 🌿',
+        mem_step: 'Étape {n} sur 3',
+        mem_q_action: 'Qu’est-ce que tu comptes faire ?',
+        mem_hint_action: 'Une chose concrète — de celles qu’on oublie facilement',
+        mem_ph_action: 'rappeler maman',
+        mem_q_trigger: 'Quand exactement vas-tu y repenser ?',
+        mem_hint_trigger: 'Quelque chose que tu remarqueras sûrement — un événement, pas « plus tard »',
+        mem_hint_trigger_kid: 'Choisis quelque chose que tu feras sûrement aujourd’hui',
+        mem_ph_trigger: 'quand je mets la bouilloire',
+        mem_q_say: 'Dis-le à voix haute — une fois, en entier',
+        mem_hint_say: 'Le dire, C’EST la technique. Le cerveau retient le lien « je vois — je fais »',
+        mem_formula: 'SI {trigger}, ALORS {action}',
+        mem_next: 'Suivant',
+        mem_save: 'Terminé',
+        mem_saved: 'Enregistré 🌿',
+        mem_need_action: 'Écris ce que tu comptes faire',
+        mem_need_trigger: 'Choisis quand exactement',
+        mem_limit: 'Trois intentions, c’est bien assez. Vérifie-les d’abord',
+        mem_due_q: 'Ça a marché ?',
+        mem_due_yes: 'Oui',
+        mem_due_no: 'Non',
+        mem_due_pending: 'Pas encore',
+        mem_toast_yes: 'Ça a marché 🌿 La technique fonctionne',
+        mem_toast_no: 'Ça arrive. Reprends la même intention avec un déclencheur plus visible',
+        trg_pencil: 'j’ouvre ma trousse',
+        trg_dinner: 'je m’assois pour dîner',
+        trg_shoes: 'je mets mes baskets',
+        trg_teeth: 'je me brosse les dents',
+        trg_bag: 'je prends mon sac',
         nav_learn: 'Apprendre', nav_library: 'Bibliothèque', nav_progress: 'Progrès', nav_profile: 'Profil',
         mode_subtitle: 'Choisissez une direction — vous pouvez changer à tout moment',
         wl_subtitle: 'La langue que vous apprenez, et votre langue maternelle — pour la traduction et la prononciation',
@@ -1197,6 +1387,44 @@ const translations = {
         mode_title: '¿Qué quieres aprender?',
         mode_text_label: 'Texto', mode_text_desc: 'Poema, discurso, artículo, presentación',
         mode_words_label: 'Palabras y Frases', mode_words_desc: 'Nuevo vocabulario, traducciones, tarjetas',
+        // MT-02 (2026-08-15) — режим "Фокуси пам'яті"
+        mode_memory_label: 'Trucos de memoria',
+        mode_memory_desc: 'Las técnicas que de verdad usan los campeones de memoria',
+        mem_subtitle: 'Aquí entrenamos la memoria en sí — ni texto, ni palabras',
+        mem_pick_age: 'Elige una edad — a cada edad le funcionan técnicas distintas',
+        mem_group_label: 'Ejercicios para la edad',
+        mem_ex_intent_title: 'Si-Entonces',
+        mem_ex_intent_desc: 'La técnica contra «iba a hacerlo y se me olvidó»',
+        mem_ex_intent_full: 'Con tres intenciones basta por ahora. Revísalas y podrás añadir otra',
+        mem_worked_count: 'Veces que funcionó: {n} 🌿',
+        mem_step: 'Paso {n} de 3',
+        mem_q_action: '¿Qué vas a hacer?',
+        mem_hint_action: 'Una cosa concreta — de las que se olvidan fácilmente',
+        mem_ph_action: 'llamar a mamá',
+        mem_q_trigger: '¿Cuándo exactamente vas a acordarte?',
+        mem_hint_trigger: 'Algo que seguro vas a notar — un suceso, no «luego»',
+        mem_hint_trigger_kid: 'Elige algo que hoy vas a hacer seguro',
+        mem_ph_trigger: 'cuando ponga el hervidor',
+        mem_q_say: 'Dílo en voz alta — una vez, entero',
+        mem_hint_say: 'Decirlo ES la técnica. El cerebro capta el vínculo «veo — hago»',
+        mem_formula: 'SI {trigger}, ENTONCES {action}',
+        mem_next: 'Siguiente',
+        mem_save: 'Listo',
+        mem_saved: 'Guardado 🌿',
+        mem_need_action: 'Escribe qué vas a hacer',
+        mem_need_trigger: 'Elige cuándo exactamente',
+        mem_limit: 'Tres intenciones son suficientes. Revísalas primero',
+        mem_due_q: '¿Funcionó?',
+        mem_due_yes: 'Sí',
+        mem_due_no: 'No',
+        mem_due_pending: 'Todavía no',
+        mem_toast_yes: 'Funcionó 🌿 La técnica hace su trabajo',
+        mem_toast_no: 'Pasa. Prueba la misma intención con una señal más visible',
+        trg_pencil: 'abra el estuche',
+        trg_dinner: 'me siente a cenar',
+        trg_shoes: 'me ponga las zapatillas',
+        trg_teeth: 'me lave los dientes',
+        trg_bag: 'coja la mochila',
         nav_learn: 'Aprender', nav_library: 'Biblioteca', nav_progress: 'Progreso', nav_profile: 'Perfil',
         mode_subtitle: 'Elige una dirección — puedes cambiar en cualquier momento',
         wl_subtitle: 'El idioma que aprendes, y tu idioma natal — para traducción y pronunciación',
@@ -1283,7 +1511,7 @@ function showMotivToast(msg) {
 
 // ----- [app: SCREEN MANAGER]  (was app.js lines 1922-2045) -----
 // ===== SCREEN MANAGER =====
-const SCREENS = ['langScreen','modeScreen','inputScreen','setupScreen','learningScreen','restScreen','sessionPauseScreen','finalScreen','profileScreen','wordProfileScreen','progressScreen','wordSelectScreen','profileIdentityScreen','wordLangScreen','wordInputScreen','wordVerifyScreen','wordTopicScreen','wordTrainingScreen','wordResultsScreen'];
+const SCREENS = ['langScreen','modeScreen','memoryScreen','memoryIntentScreen','inputScreen','setupScreen','learningScreen','restScreen','sessionPauseScreen','finalScreen','profileScreen','wordProfileScreen','progressScreen','wordSelectScreen','profileIdentityScreen','wordLangScreen','wordInputScreen','wordVerifyScreen','wordTopicScreen','wordTrainingScreen','wordResultsScreen'];
 // modeScreen/wordLangScreen/wordTopicScreen додано сюди 2026-08-05 (Playful Premium composition
 // pass) — раніше короткий контент цих 3 екранів просто прилипав до верху картки, лишаючи ~50%
 // картки порожньою внизу. FLEX_SCREENS вже мав готовий механізм (display:flex + min-height +
@@ -1295,7 +1523,7 @@ const FLEX_SCREENS = ['sessionPauseScreen','finalScreen','wordResultsScreen','mo
 // бібліотеки/прогресу/профілю (2026-08-07: розділені на 3 окремі екрани, див. коментар
 // над #bottomNav в index.html і D-009 addendum у DECISIONS.md).
 // НЕ показується під час активного навчання/тренування (один екран — одна дія, README UX Designer).
-const BOTTOM_NAV_SCREENS = ['inputScreen','profileScreen','wordLangScreen','wordProfileScreen','progressScreen','profileIdentityScreen'];
+const BOTTOM_NAV_SCREENS = ['inputScreen','memoryScreen','profileScreen','wordLangScreen','wordProfileScreen','progressScreen','profileIdentityScreen'];
 let currentScreenId = null; // для контексту у зверненнях підтримки — на якому екрані була проблема
 
 function showScreen(id) {
@@ -1415,6 +1643,10 @@ function showModeScreen() {
     document.getElementById('modeTextDesc').innerText = t.mode_text_desc || 'Вірш, монолог, виступ, презентація';
     document.getElementById('modeWordsLabel').innerText = t.mode_words_label || 'Слова та Фрази';
     document.getElementById('modeWordsDesc').innerText = t.mode_words_desc || 'Нова лексика, переклади, словник';
+    const memLbl = document.getElementById('modeMemoryLabel');
+    const memDsc = document.getElementById('modeMemoryDesc');
+    if (memLbl) memLbl.innerText = t.mode_memory_label || "Фокуси пам'яті";
+    if (memDsc) memDsc.innerText = t.mode_memory_desc || "Техніки, якими користуються чемпіони з пам'яті";
     const modeSubEl = document.getElementById('modeSubtitleEl');
     if (modeSubEl) modeSubEl.innerText = t.mode_subtitle || '';
     updateThemeToggleFab();
@@ -1423,6 +1655,8 @@ function showModeScreen() {
 function selectMode(mode) {
     if (mode === 'text') {
         showInputScreen();
+    } else if (mode === 'memory') {
+        openMemoryScreen();
     } else {
         showWordLangScreen();
     }
@@ -2589,3 +2823,199 @@ function checkAppBootResume() {
 checkAppBootResume();
 checkInactivityPopup();
 
+
+
+// ===== [A3] Фокуси пам'яті — екрани режиму (MT-02, 2026-08-15) =====
+// Третій режим: тренуємо саму пам'ять, а не матеріал. Стан — state.js [S3].
+// Правила, реалізовані тут, які НЕ можна тихо прибрати при рефакторингу:
+//   • 5-7 років — прогрес за виконанням техніки, без балів (utilization deficiency)
+//   • тригер "якщо-то" для 5-9 — тільки з готового списку фізичних подій
+//   • максимум 3 активні наміри: ми тренуємо формулу, а не ведемо список справ
+// Джерела — _manager/MEMORY-TRAINING-RESEARCH.md, правила — AGENTS/memory-trainer/
+
+// Готові фізичні тригери для 5-9. Саме фізичні, бо дитині потрібна помітна подія,
+// а не контекст ("коли будеш у школі" не спрацює, "коли відкриєш пенал" спрацює).
+const MEM_KID_TRIGGERS = ['trg_pencil', 'trg_dinner', 'trg_shoes', 'trg_teeth', 'trg_bag'];
+
+let memIntentDraft = { text: '', trigger: '', step: 1 };
+
+function openMemoryScreen() {
+    showScreen('memoryScreen');
+    setBottomNav('memory', 'learn');
+    updateThemeToggleFab();
+    updateProfileNavAvatar();
+    renderMemoryScreen();
+}
+
+function renderMemoryScreen() {
+    const t = translations[currentLang] || translations.en;
+    const group = getMemoryGroup();
+    document.getElementById('memBackLabel').innerText = t.back_lang || 'Назад';
+    document.getElementById('memTitle').innerText = t.mode_memory_label || 'Фокуси пам’яті';
+    document.getElementById('memSubtitle').innerText = group
+        ? (t.mem_subtitle || '')
+        : (t.mem_pick_age || '');
+    document.getElementById('memGroupLabel').innerText = t.mem_group_label || '';
+
+    const chips = MEMORY_GROUPS.map(g =>
+        '<button class="mem-chip' + (g === group ? ' active' : '') + '" onclick="pickMemoryGroup(\'' + g + '\')">' + g + '</button>'
+    ).join('');
+    document.getElementById('memGroupChips').innerHTML = chips;
+
+    renderMemoryDue();
+    renderMemoryExercises(group);
+
+    // Свідомо БЕЗ відсотків і без порівняння з нормою (Правило №4 агента).
+    // Показуємо лише скільки разів формула спрацювала — заохочення, не оцінка.
+    const st = getMemoryStats();
+    document.getElementById('memFoot').innerText =
+        st.worked > 0 ? (t.mem_worked_count || '').replace('{n}', st.worked) : '';
+}
+
+function pickMemoryGroup(g) {
+    setMemoryGroup(g);
+    renderMemoryScreen();
+}
+
+function renderMemoryExercises(group) {
+    const t = translations[currentLang] || translations.en;
+    const wrap = document.getElementById('memExerciseList');
+    if (!group) { wrap.innerHTML = ''; return; }
+    const full = getActiveIntentions().length >= MEMORY_MAX_INTENTIONS;
+    // Перший реліз — одна вправа. Розмітка навмисно узагальнена, щоб наступні
+    // (ланцюжок-історія, палац пам'яті) додавались рядком, а не переписуванням.
+    wrap.innerHTML =
+        '<button class="mem-ex-card' + (full ? ' disabled' : '') + '" ' + (full ? 'disabled' : '') + ' onclick="startIntentExercise()">' +
+          '<div class="mem-ex-icon">🔗</div>' +
+          '<div class="mem-ex-body">' +
+            '<div class="mem-ex-title">' + escHtml(t.mem_ex_intent_title || '') + '</div>' +
+            '<div class="mem-ex-desc">' + escHtml(full ? (t.mem_ex_intent_full || '') : (t.mem_ex_intent_desc || '')) + '</div>' +
+          '</div>' +
+        '</button>';
+}
+
+function renderMemoryDue() {
+    const t = translations[currentLang] || translations.en;
+    const wrap = document.getElementById('memDueWrap');
+    const due = getIntentionsDueCheck();
+    if (!due.length) { wrap.style.display = 'none'; wrap.innerHTML = ''; return; }
+    wrap.style.display = 'block';
+    wrap.innerHTML = due.map(i =>
+        '<div class="mem-due-card">' +
+          '<div class="mem-due-q">' + escHtml(t.mem_due_q || '') + '</div>' +
+          '<div class="mem-due-phrase">' + escHtml(memIntentPhrase(i.trigger, i.text)) + '</div>' +
+          '<div class="mem-due-actions">' +
+            '<button class="btn-small" onclick="answerIntent(\'' + i.id + '\',\'yes\')">' + escHtml(t.mem_due_yes || '') + '</button>' +
+            '<button class="btn-small" onclick="answerIntent(\'' + i.id + '\',\'no\')">' + escHtml(t.mem_due_no || '') + '</button>' +
+            '<button class="btn-ghost" onclick="answerIntent(\'' + i.id + '\',\'pending\')">' + escHtml(t.mem_due_pending || '') + '</button>' +
+          '</div>' +
+        '</div>').join('');
+}
+
+function answerIntent(id, result) {
+    const t = translations[currentLang] || translations.en;
+    checkIntention(id, result);
+    if (result === 'yes') showMotivToast(t.mem_toast_yes || '');
+    // 🔴 Тон на "Ні" — без докору: проблема в тригері, не в людині. Одноразового
+    // формулювання доказово мало, тому пропонуємо переформулювати, а не картаємо.
+    if (result === 'no') showMotivToast(t.mem_toast_no || '');
+    renderMemoryScreen();
+}
+
+function memIntentPhrase(trigger, text) {
+    const t = translations[currentLang] || translations.en;
+    const trg = MEM_KID_TRIGGERS.indexOf(trigger) !== -1 ? (t[trigger] || trigger) : trigger;
+    return (t.mem_formula || 'IF {trigger}, THEN {action}')
+        .replace('{trigger}', trg).replace('{action}', text);
+}
+
+// ---- Вправа "Якщо-то": 3 кроки на одному екрані ----
+
+function startIntentExercise() {
+    memIntentDraft = { text: '', trigger: '', step: 1 };
+    showScreen('memoryIntentScreen');
+    renderIntentStep();
+}
+
+function renderIntentStep() {
+    const t = translations[currentLang] || translations.en;
+    const group = getMemoryGroup();
+    const kidMode = (group === '5-7' || group === '8-9');
+    document.getElementById('memIntentBackLabel').innerText = t.back_lang || 'Назад';
+    const body = document.getElementById('memIntentBody');
+    const stepLbl = (n) => escHtml((t.mem_step || 'Крок {n} з 3').replace('{n}', n));
+
+    if (memIntentDraft.step === 1) {
+        body.innerHTML =
+            '<p class="mem-step-num">' + stepLbl(1) + '</p>' +
+            '<p class="mem-step-q">' + escHtml(t.mem_q_action || '') + '</p>' +
+            '<p class="mem-step-hint">' + escHtml(t.mem_hint_action || '') + '</p>' +
+            '<input id="memIntentText" class="mem-input" maxlength="60" placeholder="' + escHtml(t.mem_ph_action || '') + '" />' +
+            '<button class="btn-start-main" onclick="intentNext()">' + escHtml(t.mem_next || '') + '</button>';
+        const inp = document.getElementById('memIntentText');
+        inp.value = memIntentDraft.text;
+        inp.focus();
+        return;
+    }
+
+    if (memIntentDraft.step === 2) {
+        // 5-9 — тільки готові фізичні тригери. 10+ — свій, бо вже здатні самі
+        // оцінити, що вони точно помітять.
+        const opts = kidMode
+            ? MEM_KID_TRIGGERS.map(k =>
+                '<button class="mem-trg-btn' + (memIntentDraft.trigger === k ? ' active' : '') + '" onclick="pickTrigger(\'' + k + '\')">' + escHtml(t[k] || k) + '</button>').join('')
+            : '<input id="memIntentTrigger" class="mem-input" maxlength="60" placeholder="' + escHtml(t.mem_ph_trigger || '') + '" />';
+        body.innerHTML =
+            '<p class="mem-step-num">' + stepLbl(2) + '</p>' +
+            '<p class="mem-step-q">' + escHtml(t.mem_q_trigger || '') + '</p>' +
+            '<p class="mem-step-hint">' + escHtml(kidMode ? (t.mem_hint_trigger_kid || '') : (t.mem_hint_trigger || '')) + '</p>' +
+            '<div class="mem-trg-list">' + opts + '</div>' +
+            '<button class="btn-start-main" onclick="intentNext()">' + escHtml(t.mem_next || '') + '</button>';
+        const ti = document.getElementById('memIntentTrigger');
+        if (ti) { ti.value = memIntentDraft.trigger; ti.focus(); }
+        return;
+    }
+
+    // Крок 3 — проговорити повну фразу. Це і Є саме кодування наміру, а не
+    // підсумковий екран: тому фраза велика й окремо, а не дрібним рядком.
+    body.innerHTML =
+        '<p class="mem-step-num">' + stepLbl(3) + '</p>' +
+        '<p class="mem-step-q">' + escHtml(t.mem_q_say || '') + '</p>' +
+        '<div class="mem-formula">' + escHtml(memIntentPhrase(memIntentDraft.trigger, memIntentDraft.text)) + '</div>' +
+        '<p class="mem-step-hint">' + escHtml(t.mem_hint_say || '') + '</p>' +
+        '<button class="btn-start-main" onclick="saveIntent()">' + escHtml(t.mem_save || '') + '</button>';
+}
+
+function pickTrigger(k) {
+    memIntentDraft.trigger = k;
+    renderIntentStep();
+}
+
+function intentNext() {
+    const t = translations[currentLang] || translations.en;
+    if (memIntentDraft.step === 1) {
+        const v = (document.getElementById('memIntentText').value || '').trim();
+        if (!v) { showMotivToast(t.mem_need_action || ''); return; }
+        memIntentDraft.text = v;
+        memIntentDraft.step = 2;
+        renderIntentStep();
+        return;
+    }
+    if (memIntentDraft.step === 2) {
+        const ti = document.getElementById('memIntentTrigger');
+        if (ti) memIntentDraft.trigger = (ti.value || '').trim();
+        if (!memIntentDraft.trigger) { showMotivToast(t.mem_need_trigger || ''); return; }
+        memIntentDraft.step = 3;
+        renderIntentStep();
+    }
+}
+
+function saveIntent() {
+    const t = translations[currentLang] || translations.en;
+    if (!addIntention(memIntentDraft.text, memIntentDraft.trigger)) {
+        showMotivToast(t.mem_limit || '');
+        return;
+    }
+    showMotivToast(t.mem_saved || '');
+    openMemoryScreen();
+}
