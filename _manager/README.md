@@ -19,6 +19,7 @@
 | Product Manager | `AGENTS/product-manager/` | Нова фіча → уточнення вимог, User Story |
 | UX Designer | `AGENTS/ux-designer/` | Фіча потребує нових екранів або flow |
 | Methodologist | `AGENTS/methodologist/` | Зміна алгоритму навчання, нові режими |
+| Memory Trainer | `AGENTS/memory-trainer/` | Вправи на тренування пам'яті як здібності (не вивчення матеріалу); будь-яка заява продукту про «тренує пам'ять» |
 | Frontend Dev | `AGENTS/frontend-dev/` | Реалізація в коді |
 | QA Tester | `AGENTS/qa-tester/` | Перевірка після кожної реалізованої фічі |
 | Backend Dev | `AGENTS/backend-dev/` | Тільки з Фази 4+ |
@@ -31,7 +32,8 @@
 Користувач → Керівник
   → PM Agent (User Story + AC)
   → [UX Agent] (якщо новий UI)
-  → [Methodologist] (якщо зміна алгоритму)
+  → [Methodologist] (якщо зміна алгоритму навчання матеріалу)
+  → [Memory Trainer] (якщо фіча = вправа на пам'ять або заява «тренує пам'ять»)
   → Frontend Dev (реалізація)
   → QA Tester (тестування)
   → Керівник → Користувач (звіт)
@@ -62,6 +64,7 @@ User Story: [якщо є від PM]
 
 | Файл | Призначення |
 |------|-------------|
+| `_manager/MEMORY-TRAINING-RESEARCH.md` | Доказова база тренування пам'яті + каталог вправ E-01…E-10 + що можна/не можна обіцяти |
 | `_manager/STATUS.md` | Поточний стан |
 | `_manager/BACKLOG.md` | Всі фічі за пріоритетом |
 | `_manager/ROADMAP.md` | Версії і терміни |

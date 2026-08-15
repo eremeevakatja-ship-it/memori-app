@@ -52,6 +52,10 @@ body {
   margin-bottom: 24px;
 }
 .logo-svg { display: block; flex-shrink: 0; }
+/* Лого має 2 варіанти: зелений під світлу тему, індиго під темну (--primary #818cf8) */
+.logo-dark { display: none; }
+body[data-theme="dark"] .logo-light { display: none; }
+body[data-theme="dark"] .logo-dark { display: block; }
 .logo-text {
   font-size: 1.8rem;
   font-weight: 800;
