@@ -1,4 +1,4 @@
-const CACHE = 'memori-v77';
+const CACHE = 'memori-v78';
 const CORE = [
   './index.html',
   './state.js',
@@ -8,13 +8,12 @@ const CORE = [
   './app.js',
   './memory.js',
   './style.css',
-  './icon.svg',
-  './apple-touch-icon.png',
-  './icon-192.png',
-  './icon-192-dark.png',
-  './icon-512.png',
-  './icon-192-maskable.png',
-  './icon-512-maskable.png',
+  './apple-touch-icon.png?v=3',
+  './icon-192.png?v=3',
+  './icon-192-dark.png?v=3',
+  './icon-512.png?v=3',
+  './icon-192-maskable.png?v=3',
+  './icon-512-maskable.png?v=3',
   './icon-badge.png',
   './manifest.json'
 ];
