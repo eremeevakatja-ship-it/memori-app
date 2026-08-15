@@ -1,4 +1,4 @@
-# Methodologist Agent — Memori App
+# Methodologist Agent — Everlea
 
 ## Роль
 

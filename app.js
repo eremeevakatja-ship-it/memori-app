@@ -1976,7 +1976,7 @@ function generateShareCard(blockCount, timeStr, textSnippet, lang) {
     ctx.fillStyle = 'rgba(255,255,255,0.45)';
     ctx.font = '600 22px "Segoe UI", Arial, sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText('Memori', 48, 66);
+    ctx.fillText('Everlea', 48, 66);
 
     // Big block count (center)
     ctx.fillStyle = '#ffffff';
@@ -2026,7 +2026,7 @@ async function shareResult() {
         const shareText = `${blockCount} ${t.finish_blocks}`;
         if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
             try {
-                await navigator.share({ files: [file], title: 'Memori', text: shareText });
+                await navigator.share({ files: [file], title: 'Everlea', text: shareText });
                 return;
             } catch (e) {
                 if (e.name === 'AbortError') return; // user cancelled — don't fallback

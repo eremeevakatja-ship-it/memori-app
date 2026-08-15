@@ -1,7 +1,7 @@
 {
-  "name": "Memori",
-  "short_name": "Memori",
-  "description": "Запам'ятовуй тексти без стресу",
+  "name": "Everlea",
+  "short_name": "Everlea",
+  "description": "Пам'ять, яка не скидає листя",
   "start_url": "./index.html",
   "display": "standalone",
   "orientation": "portrait",

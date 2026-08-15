@@ -1,4 +1,4 @@
-# QA Tester Agent — Memori App
+# QA Tester Agent — Everlea
 
 ## Роль
 

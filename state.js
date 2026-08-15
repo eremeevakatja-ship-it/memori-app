@@ -661,9 +661,9 @@ async function checkPendingReminder() {
         // (непрозорий квадрат-лист icon-192.png) не має прозорого фону, тому Android
         // не може витягнути форму і показує пустий блок. icon-badge.png — окремий
         // моноколірний (білий силует листка на прозорому фоні) файл спеціально під це.
-        reg.showNotification('Memori 🌿', { body, icon: './icon-192.png', badge: './icon-badge.png' });
+        reg.showNotification('Everlea 🌿', { body, icon: './icon-192.png', badge: './icon-badge.png' });
     } catch {
-        try { new Notification('Memori 🌿', { body, icon: './icon-192.png' }); } catch {}
+        try { new Notification('Everlea 🌿', { body, icon: './icon-192.png' }); } catch {}
     }
 }
 

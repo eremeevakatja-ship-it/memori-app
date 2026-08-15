@@ -1,4 +1,4 @@
-# Memory Trainer Agent — Memori App
+# Memory Trainer Agent — Everlea
 
 ## Роль
 

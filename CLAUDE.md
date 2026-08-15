@@ -1,4 +1,4 @@
-# CLAUDE.md — Memori App
+# CLAUDE.md — Everlea
 
 > Читається автоматично на початку кожної сесії Claude Code в цій папці.
 
@@ -11,11 +11,12 @@
 
 ## Ключове про проєкт
 
+- Назва застосунку — **Everlea** (2026-08-15, перейменовано з Memori: та назва вже зайнята двома застосунками в тій самій ніші). Ключі localStorage лишились `memori_*` і кеш SW `memori-vN` — свідомо, їх перейменування стерло б прогрес усіх, хто вже поставив застосунок
 - Клієнтський PWA-додаток (vanilla JS), без бекенду, без бази даних, до сьогодні
 - Прогрес користувача — тільки в його localStorage, не централізовано
 - **Тон усього user-facing тексту** (тости, заголовки, підказки, помилки) — креативний, теплий, мотивуючий, без негативу, але БЕЗ перебору/надмірної солодкості (аудиторія різна, не лише діти) — див. D-010 у DECISIONS.md
-- GitHub: https://github.com/eremeevakatja-ship-it/memori-app (публічний, GitHub Pages)
-- Публічне посилання для тестувальників: https://eremeevakatja-ship-it.github.io/memori-app/
+- GitHub: https://github.com/eremeevakatja-ship-it/everlea (публічний, GitHub Pages)
+- Публічне посилання для тестувальників: https://eremeevakatja-ship-it.github.io/everlea/
 - Локальний перегляд: `python -m http.server 8765` у цій папці
 
 ## Публікація змін на GitHub

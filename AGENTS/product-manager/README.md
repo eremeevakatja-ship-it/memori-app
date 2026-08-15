@@ -1,4 +1,4 @@
-# Product Manager Agent — Memori App
+# Product Manager Agent — Everlea
 
 ## Роль
 

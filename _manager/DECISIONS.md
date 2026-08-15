@@ -1,4 +1,4 @@
-# DECISIONS — Memori App
+# DECISIONS — Everlea
 
 > Архітектурні рішення та їх обґрунтування.
 

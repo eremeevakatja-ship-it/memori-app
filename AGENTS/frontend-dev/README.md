@@ -1,4 +1,4 @@
-# Frontend Developer Agent — Memori App
+# Frontend Developer Agent — Everlea
 
 ## Роль
 

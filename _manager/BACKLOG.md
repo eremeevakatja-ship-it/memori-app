@@ -1,4 +1,4 @@
-# BACKLOG — Memori App
+# BACKLOG — Everlea
 
 > Повний список фіч за пріоритетом. Статуси: 📋 Backlog | 🔄 In Progress | ✅ Done | ❌ Cancelled
 

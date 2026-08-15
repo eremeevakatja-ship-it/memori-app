@@ -1,4 +1,4 @@
-# UX Designer Agent — Memori App
+# UX Designer Agent — Everlea
 
 ## Роль
 
