@@ -23,6 +23,29 @@ const MEM_WORDS = {
   es: ['cuchara','elefante','paraguas','ladrillo','melón','escalera','vela','guitarra','almohada','cocodrilo','hervidor','patines','lámpara','zanahoria','sombrero','bicicleta','espejo','piano','maleta','hacha','pelota','reloj','bota','oso']
 };
 
+// Приклади зв'язки для кнопки "Не придумав(ла)? Приклад" — коли дитина не
+// може вигадати взаємодію сама. Шаблон, не готова відповідь для конкретної
+// пари: пар (24 слова × 24 слова) забагато, щоб авторити кожну вручну.
+// uk/pl — обидва слова навмисно лишаються в називному відмінку (єднальна
+// конструкція "A і B ...", а не "A робить щось із B"): MEM_WORDS зберігає
+// іменники лише в називному, а відмінювання під довільну пару слів код
+// відтворити не може — дієслово з керуванням дало б граматично зламаний
+// приклад ("перетворюється на парасолька" замість "на парасольку").
+const MEM_IMAGERY_TEMPLATES = {
+  uk: ['{a} і {b} раптом ожили та потоваришували', '{a} і {b} злилися в одну істоту', '{a} і {b} закружляли одне навколо одного', '{a} і {b} помінялися місцями', '{a} і {b} перетворились одне на одного'],
+  en: ['{a} rides on {b}', '{a} hides under {b}', '{a} carries {b} on its head', '{a} hugs {b}', '{a} turns into {b}'],
+  pl: ['{a} i {b} nagle ożyły i się zaprzyjaźniły', '{a} i {b} zlały się w jedno', '{a} i {b} zaczęły tańczyć wokół siebie', '{a} i {b} zamieniły się miejscami', '{a} i {b} zamieniły się w siebie nawzajem'],
+  de: ['{a} und {b} werden plötzlich lebendig und Freunde', '{a} und {b} verschmelzen zu einem Wesen', '{a} und {b} tanzen umeinander', '{a} und {b} tauschen die Plätze', '{a} und {b} verwandeln sich ineinander'],
+  fr: ['{a} chevauche {b}', '{a} se cache sous {b}', '{a} porte {b} sur la tête', '{a} serre {b} dans ses bras', '{a} se transforme en {b}'],
+  es: ['{a} monta en {b}', '{a} se esconde bajo {b}', '{a} lleva {b} en la cabeza', '{a} abraza a {b}', '{a} se convierte en {b}']
+};
+
+function imageryHelpText(a, b) {
+  const pool = MEM_IMAGERY_TEMPLATES[currentLang] || MEM_IMAGERY_TEMPLATES.en;
+  const tpl = pool[Math.floor(Math.random() * pool.length)];
+  return tpl.replace('{a}', a).replace('{b}', b);
+}
+
 function memWords(n) {
   const pool = (MEM_WORDS[currentLang] || MEM_WORDS.en).slice();
   for (let i = pool.length - 1; i > 0; i--) {
@@ -377,17 +400,18 @@ function finishChain() {
 // Ядро для наймолодших. 🔴 Прогрес ТІЛЬКИ за виконанням — жодних балів,
 // серій і відсотків: до 8 років результат ще не росте, і цифра збрехала б.
 
-let memImagery = { pairs: [], idx: 0, mode: 'imagery', rehearsal: [], step: 0 };
+let memImagery = { pairs: [], idx: 0, mode: 'imagery', rehearsal: [], step: 0, help: null };
+let memImageryRecall = { idx: 0, correct: 0 };
 
 function startImageryExercise() {
     // Дві техніки чергуються між заходами: обидві доказово тренувались на 5-9
     const useRehearsal = getMemoryExercise('imagery').done % 2 === 1;
     if (useRehearsal) {
-        memImagery = { mode: 'rehearsal', rehearsal: memWords(5), step: 0, pairs: [], idx: 0 };
+        memImagery = { mode: 'rehearsal', rehearsal: memWords(5), step: 0, pairs: [], idx: 0, help: null };
         renderRehearsalStep();
     } else {
         const w = memWords(6);
-        memImagery = { mode: 'imagery', pairs: [[w[0],w[1]],[w[2],w[3]],[w[4],w[5]]], idx: 0, rehearsal: [], step: 0 };
+        memImagery = { mode: 'imagery', pairs: [[w[0],w[1]],[w[2],w[3]],[w[4],w[5]]], idx: 0, rehearsal: [], step: 0, help: null };
         renderImageryStep();
     }
 }
@@ -403,15 +427,62 @@ function renderImageryStep() {
             '<span class="mem-chain-word">' + escHtml(p[1]) + '</span></div>' +
         '<p class="mem-step-q">' + escHtml(t.mem_imagery_q || '') + '</p>' +
         '<p class="mem-step-hint">' + escHtml(t.mem_imagery_hint || '') + '</p>' +
+        (memImagery.help ? '<p class="mem-step-hint mem-imagery-example">💡 ' + escHtml(memImagery.help) + '</p>' : '') +
+        (memImagery.help ? '' : '<button class="btn-ghost" onclick="imageryShowHelp()">' + escHtml(t.mem_imagery_help_btn || '') + '</button>') +
         '<button class="btn-start-main" onclick="imageryNext()">' + escHtml(t.mem_imagery_done || '') + '</button>'
     );
 }
 
+// Дитина не може вигадати зв'язку сама — показуємо один готовий приклад для
+// САМЕ цієї пари (не загальну підказку, вона вже видна на кожному кроці).
+function imageryShowHelp() {
+    const p = memImagery.pairs[memImagery.idx];
+    memImagery.help = imageryHelpText(p[0], p[1]);
+    renderImageryStep();
+}
+
 function imageryNext() {
-    const t = translations[currentLang] || translations.en;
+    memImagery.help = null;
     if (memImagery.idx + 1 < memImagery.pairs.length) { memImagery.idx++; renderImageryStep(); return; }
-    bumpMemoryExercise('imagery');
-    showMotivToast(t.mem_done_toast || '');
+    memImageryRecall = { idx: 0, correct: 0 };
+    renderImageryRecallStep();
+}
+
+// Продовження, без якого вправа нічого не тренує: показуємо одне слово з
+// пари, просимо згадати друге. Дистрактори — інші слова з набору й пулу.
+function renderImageryRecallStep() {
+    const t = translations[currentLang] || translations.en;
+    const pair = memImagery.pairs[memImageryRecall.idx];
+    const cue = pair[0], answer = pair[1];
+    const otherAnswers = memImagery.pairs.filter((_, i) => i !== memImageryRecall.idx).map(p => p[1]);
+    const used = memImagery.pairs.reduce((acc, p) => acc.concat(p), []);
+    const pool = (MEM_WORDS[currentLang] || MEM_WORDS.en).filter(w => used.indexOf(w) === -1);
+    const distract = otherAnswers.concat(pool).slice(0, 2);
+    const opts = [answer].concat(distract).sort(() => Math.random() - 0.5);
+    memExScreen(
+        '<p class="mem-step-num">' + escHtml((t.mem_chain_counter || '{n}/{total}')
+            .replace('{n}', memImageryRecall.idx + 1).replace('{total}', memImagery.pairs.length)) + '</p>' +
+        '<div class="mem-chain-word">' + escHtml(cue) + '</div>' +
+        '<p class="mem-step-q">' + escHtml(t.mem_imagery_recall_q || '') + '</p>' +
+        '<div class="mem-wordgrid">' + opts.map(w =>
+            '<button class="mem-word mem-word-btn" data-w="' + escHtml(w) + '" onclick="pickImageryRecall(this)">' + escHtml(w) + '</button>').join('') + '</div>'
+    );
+}
+
+function pickImageryRecall(btn) {
+    const pair = memImagery.pairs[memImageryRecall.idx];
+    if (btn.dataset.w === pair[1]) memImageryRecall.correct++;
+    memImageryRecall.idx++;
+    if (memImageryRecall.idx < memImagery.pairs.length) { renderImageryRecallStep(); return; }
+    finishImageryRecall();
+}
+
+function finishImageryRecall() {
+    const t = translations[currentLang] || translations.en;
+    bumpMemoryExercise('imagery', memImageryRecall.correct, memImagery.pairs.length);
+    showMotivToast(memoryScoreByExecution()
+        ? (t.mem_done_toast || '')
+        : (t.mem_recall_result || '').replace('{n}', memImageryRecall.correct).replace('{total}', memImagery.pairs.length));
     openMemoryScreen();
 }
 
@@ -424,15 +495,36 @@ function renderRehearsalStep() {
         '<p class="mem-step-q">' + escHtml(t.mem_rehearsal_q || '') + '</p>' +
         '<div class="mem-wordgrid">' + upTo.map(w => '<span class="mem-word">' + escHtml(w) + '</span>').join('') + '</div>' +
         '<p class="mem-step-hint">' + escHtml(t.mem_rehearsal_hint || '') + '</p>' +
-        '<button class="btn-start-main" onclick="rehearsalNext()">' + escHtml(t.mem_imagery_done || '') + '</button>'
+        '<button class="btn-start-main" onclick="rehearsalNext()">' + escHtml(t.mem_rehearsal_done || '') + '</button>'
     );
 }
 
 function rehearsalNext() {
-    const t = translations[currentLang] || translations.en;
     if (memImagery.step + 1 < memImagery.rehearsal.length) { memImagery.step++; renderRehearsalStep(); return; }
-    bumpMemoryExercise('imagery');
-    showMotivToast(t.mem_done_toast || '');
+    renderRehearsalCheck();
+}
+
+// Продовження: слова ховаються, і дитина (чи хтось поруч) підтверджує, чи
+// вийшло сказати всі без підказки — самозвіт, бо в 5-9 набирати текст важко,
+// а мовний ввід тут недоступний.
+function renderRehearsalCheck() {
+    const t = translations[currentLang] || translations.en;
+    memExScreen(
+        '<p class="mem-step-q">' + escHtml((t.mem_rehearsal_check_q || '').replace('{n}', memImagery.rehearsal.length)) + '</p>' +
+        '<p class="mem-step-hint">' + escHtml(t.mem_rehearsal_check_hint || '') + '</p>' +
+        '<div class="mem-due-actions">' +
+          '<button class="btn-small" onclick="finishRehearsal(true)">' + escHtml(t.mem_due_yes || '') + '</button>' +
+          '<button class="btn-small" onclick="finishRehearsal(false)">' + escHtml(t.mem_due_no || '') + '</button>' +
+        '</div>'
+    );
+}
+
+function finishRehearsal(ok) {
+    const t = translations[currentLang] || translations.en;
+    bumpMemoryExercise('imagery', ok ? memImagery.rehearsal.length : 0, memImagery.rehearsal.length);
+    showMotivToast(memoryScoreByExecution()
+        ? (t.mem_done_toast || '')
+        : (ok ? (t.mem_toast_yes || '') : (t.mem_toast_no || '')));
     openMemoryScreen();
 }
 
